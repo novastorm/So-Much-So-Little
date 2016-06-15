@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3E09777F1D11FC9200A7F2C4 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E09777E1D11FC9200A7F2C4 /* CoreDataStack.swift */; };
+		3E0977811D12015800A7F2C4 /* Utilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0977801D12015800A7F2C4 /* Utilities.swift */; };
+		3E0977831D12064100A7F2C4 /* GCDUtilities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0977821D12064100A7F2C4 /* GCDUtilities.swift */; };
 		3EE7411A1D1090DC00064BF6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EE741191D1090DC00064BF6 /* AppDelegate.swift */; };
 		3EE7411C1D1090DC00064BF6 /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EE7411B1D1090DC00064BF6 /* TodayViewController.swift */; };
 		3EE7411F1D1090DC00064BF6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3EE7411D1D1090DC00064BF6 /* Main.storyboard */; };
@@ -35,6 +38,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3E09777E1D11FC9200A7F2C4 /* CoreDataStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
+		3E0977801D12015800A7F2C4 /* Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
+		3E0977821D12064100A7F2C4 /* GCDUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GCDUtilities.swift; sourceTree = "<group>"; };
 		3EE741161D1090DC00064BF6 /* So Much So Little.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "So Much So Little.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3EE741191D1090DC00064BF6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3EE7411B1D1090DC00064BF6 /* TodayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
@@ -97,6 +103,14 @@
 			name = Views;
 			sourceTree = "<group>";
 		};
+		3E09777D1D11FC8200A7F2C4 /* Core Data */ = {
+			isa = PBXGroup;
+			children = (
+				3E09777E1D11FC9200A7F2C4 /* CoreDataStack.swift */,
+			);
+			name = "Core Data";
+			sourceTree = "<group>";
+		};
 		3EE7410D1D1090DC00064BF6 = {
 			isa = PBXGroup;
 			children = (
@@ -120,6 +134,7 @@
 		3EE741181D1090DC00064BF6 /* So Much So Little */ = {
 			isa = PBXGroup;
 			children = (
+				3E09777D1D11FC8200A7F2C4 /* Core Data */,
 				3E09777C1D11E15C00A7F2C4 /* Views */,
 				3E09777B1D11E15400A7F2C4 /* Models */,
 				3E09777A1D11E14E00A7F2C4 /* Clients */,
@@ -130,6 +145,8 @@
 				3EE741251D1090DC00064BF6 /* LaunchScreen.storyboard */,
 				3EE741281D1090DC00064BF6 /* Info.plist */,
 				3EE741201D1090DC00064BF6 /* So_Much_So_Little.xcdatamodeld */,
+				3E0977801D12015800A7F2C4 /* Utilities.swift */,
+				3E0977821D12064100A7F2C4 /* GCDUtilities.swift */,
 			);
 			path = "So Much So Little";
 			sourceTree = "<group>";
@@ -284,8 +301,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				3EE7411C1D1090DC00064BF6 /* TodayViewController.swift in Sources */,
+				3E0977831D12064100A7F2C4 /* GCDUtilities.swift in Sources */,
 				3EE7411A1D1090DC00064BF6 /* AppDelegate.swift in Sources */,
 				3EE741221D1090DC00064BF6 /* So_Much_So_Little.xcdatamodeld in Sources */,
+				3E0977811D12015800A7F2C4 /* Utilities.swift in Sources */,
+				3E09777F1D11FC9200A7F2C4 /* CoreDataStack.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
