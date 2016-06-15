@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		3EE7411A1D1090DC00064BF6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EE741191D1090DC00064BF6 /* AppDelegate.swift */; };
-		3EE7411C1D1090DC00064BF6 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EE7411B1D1090DC00064BF6 /* ViewController.swift */; };
+		3EE7411C1D1090DC00064BF6 /* TodayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EE7411B1D1090DC00064BF6 /* TodayViewController.swift */; };
 		3EE7411F1D1090DC00064BF6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3EE7411D1D1090DC00064BF6 /* Main.storyboard */; };
 		3EE741221D1090DC00064BF6 /* So_Much_So_Little.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3EE741201D1090DC00064BF6 /* So_Much_So_Little.xcdatamodeld */; };
 		3EE741241D1090DC00064BF6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3EE741231D1090DC00064BF6 /* Assets.xcassets */; };
@@ -37,7 +37,7 @@
 /* Begin PBXFileReference section */
 		3EE741161D1090DC00064BF6 /* So Much So Little.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "So Much So Little.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3EE741191D1090DC00064BF6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		3EE7411B1D1090DC00064BF6 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		3EE7411B1D1090DC00064BF6 /* TodayViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayViewController.swift; sourceTree = "<group>"; };
 		3EE7411E1D1090DC00064BF6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		3EE741211D1090DC00064BF6 /* So_Much_So_Little.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = So_Much_So_Little.xcdatamodel; sourceTree = "<group>"; };
 		3EE741231D1090DC00064BF6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -76,6 +76,27 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3E09777A1D11E14E00A7F2C4 /* Clients */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Clients;
+			sourceTree = "<group>";
+		};
+		3E09777B1D11E15400A7F2C4 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		3E09777C1D11E15C00A7F2C4 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
 		3EE7410D1D1090DC00064BF6 = {
 			isa = PBXGroup;
 			children = (
@@ -99,8 +120,11 @@
 		3EE741181D1090DC00064BF6 /* So Much So Little */ = {
 			isa = PBXGroup;
 			children = (
+				3E09777C1D11E15C00A7F2C4 /* Views */,
+				3E09777B1D11E15400A7F2C4 /* Models */,
+				3E09777A1D11E14E00A7F2C4 /* Clients */,
 				3EE741191D1090DC00064BF6 /* AppDelegate.swift */,
-				3EE7411B1D1090DC00064BF6 /* ViewController.swift */,
+				3EE7411B1D1090DC00064BF6 /* TodayViewController.swift */,
 				3EE7411D1D1090DC00064BF6 /* Main.storyboard */,
 				3EE741231D1090DC00064BF6 /* Assets.xcassets */,
 				3EE741251D1090DC00064BF6 /* LaunchScreen.storyboard */,
@@ -259,7 +283,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3EE7411C1D1090DC00064BF6 /* ViewController.swift in Sources */,
+				3EE7411C1D1090DC00064BF6 /* TodayViewController.swift in Sources */,
 				3EE7411A1D1090DC00064BF6 /* AppDelegate.swift in Sources */,
 				3EE741221D1090DC00064BF6 /* So_Much_So_Little.xcdatamodeld in Sources */,
 			);
@@ -409,6 +433,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.4mfd.So-Much-So-Little";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -420,6 +445,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.4mfd.So-Much-So-Little";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
@@ -488,6 +514,7 @@
 				3EE741431D1090DC00064BF6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		3EE741441D1090DC00064BF6 /* Build configuration list for PBXNativeTarget "So Much So LittleTests" */ = {
 			isa = XCConfigurationList;
@@ -496,6 +523,7 @@
 				3EE741461D1090DC00064BF6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		3EE741471D1090DC00064BF6 /* Build configuration list for PBXNativeTarget "So Much So LittleUITests" */ = {
 			isa = XCConfigurationList;
@@ -504,6 +532,7 @@
 				3EE741491D1090DC00064BF6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 

@@ -1,5 +1,5 @@
 //
-//  ViewController.swift
+//  TodayViewController.swift
 //  So Much So Little
 //
 //  Created by Adland Lee on 6/14/16.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ViewController: UIViewController {
+class TodayViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
