@@ -14,7 +14,7 @@ class TodayTableViewCell: UITableViewCell {
     @IBOutlet weak var taskLabel: UILabel!
 }
 
-class TodayViewController: UITableViewController {
+class TodayTableViewController: UITableViewController {
 
 //    @IBOutlet weak var tableView: UITableView!
     
@@ -26,6 +26,8 @@ class TodayViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        navigationItem.hidesBackButton = true
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
@@ -43,7 +45,7 @@ class TodayViewController: UITableViewController {
 
 // MARK: - Table View Data Source
 
-extension TodayViewController {
+extension TodayTableViewController {
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return activities.count
     }
@@ -70,13 +72,9 @@ extension TodayViewController {
 
 // MARK: - Table View Delegate
 
-extension TodayViewController {
+extension TodayTableViewController {
     override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
         return true
-    }
-    
-    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
-        performSegueWithIdentifier("ShowActivityDetail", sender: self)
     }
     
     override func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {

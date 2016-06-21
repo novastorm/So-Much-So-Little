@@ -13,17 +13,21 @@ class Activity: NSManagedObject {
     
     struct Keys {
         static let Task = "task"
-        static let Project = "project"
+        static let TaskInfo = "task_info"
         static let Complete = "complete"
+        static let Reference = "reference"
         static let EstimatedTimeboxes = "estimated_timeboxes"
-        static let ActualTimeboxes = "actual_timeboxes"
         static let DeferredTo = "deferred_to"
-        static let DeferredToResponseDue = "deferred_to_response_due"
+        static let DeferredToResponseDue = "deferred_to_response_due_date"
         static let ScheduledStart = "scheduled_start"
-        static let ScheduledAdjourn = "scheduled_adjourn"
-        static let Role = "role"
+        static let ScheduledEnd = "scheduled_end"
         static let DueDate = "due_date"
-        static let InterruptionCount = "interruptions_count"
+        static let Interruptions = "interruptions"
+
+        static let Milestone = "milestone"
+        static let Timeboxes = "timeboxes"
+        static let ProjectTags = "project_tags"
+        static let Roles = "roles"
     }
     
     static let mockActivityList: [[String:AnyObject]] = [
