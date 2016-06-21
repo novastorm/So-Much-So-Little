@@ -14,9 +14,9 @@ class TodayTableViewCell: UITableViewCell {
     @IBOutlet weak var taskLabel: UILabel!
 }
 
-class TodayViewController: UIViewController {
+class TodayViewController: UITableViewController {
 
-    @IBOutlet weak var tableView: UITableView!
+//    @IBOutlet weak var tableView: UITableView!
     
     var activities:[[String:AnyObject]] {
         return Activity.mockActivityList
@@ -27,17 +27,28 @@ class TodayViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
     }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "ShowActivityDetail" {
+            guard let indexPath = tableView.indexPathForSelectedRow else {
+                return
+            }
+            let destinationVC = segue.destinationViewController as! ActivityDetailViewController
+            
+            destinationVC.activity = activities[indexPath.row]
+        }
+    }
 }
 
 
 // MARK: - Table View Data Source
 
-extension TodayViewController: UITableViewDataSource {
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+extension TodayViewController {
+    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return activities.count
     }
     
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         let identifier = "TodayCell"
         let cell = tableView.dequeueReusableCellWithIdentifier(identifier) as! TodayTableViewCell
         
@@ -59,12 +70,16 @@ extension TodayViewController: UITableViewDataSource {
 
 // MARK: - Table View Delegate
 
-extension TodayViewController: UITableViewDelegate {
-    func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+extension TodayViewController {
+    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
         return true
     }
     
-    func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
+    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        performSegueWithIdentifier("ShowActivityDetail", sender: self)
+    }
+    
+    override func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
         let unlist = UITableViewRowAction(style: .Normal, title: "Unlist") { (action, todayIndexPath) in
             print("\(todayIndexPath.row): Unlist tapped")
         }
