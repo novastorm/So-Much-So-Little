@@ -17,7 +17,6 @@ extension Activity {
     @NSManaged var task: String?
     @NSManaged var complete: NSNumber?
     @NSManaged var estimated_timeboxes: NSNumber?
-    @NSManaged var actual_timeboxes: NSNumber?
     @NSManaged var deferred_to: String?
     @NSManaged var deferred_to_response_due_date: NSDate?
     @NSManaged var scheduled_start: NSDate?

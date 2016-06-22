@@ -10,8 +10,7 @@ import UIKit
 
 class ActivityDetailViewController: UIViewController {
     
-//    var activity: Activity?
-    var activity: [String: AnyObject]?
+    var activity: Activity?
     
     
     @IBOutlet weak var taskTextField: UITextField!
@@ -22,10 +21,10 @@ class ActivityDetailViewController: UIViewController {
             return
         }
         
-        taskTextField.text = activity[Activity.Keys.Task] as? String
+        taskTextField.text = activity.task
         
-        let actualTimeboxes = activity[Activity.Keys.ActualTimeboxes] as? Int ?? 0
-        let estimatedTimeboxes = activity[Activity.Keys.EstimatedTimeboxes] as? Int ?? 0
+        let actualTimeboxes = activity.actual_timeboxes!
+        let estimatedTimeboxes = activity.estimated_timeboxes!
         timeboxesTextField.text = "\(actualTimeboxes)/\(estimatedTimeboxes)"
 
     }

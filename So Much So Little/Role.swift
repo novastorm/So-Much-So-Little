@@ -12,6 +12,10 @@ import CoreData
 
 class Role: NSManagedObject {
 
-// Insert code here to add functionality to your managed object subclass
-
+    struct Keys {
+        static let Label = "label"
+        
+        static let Activities = "activities"
+        static let Projects = "projects"
+    }
 }

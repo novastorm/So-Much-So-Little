@@ -25,9 +25,18 @@ class Activity: NSManagedObject {
         static let Interruptions = "interruptions"
 
         static let Milestone = "milestone"
+        
         static let Timeboxes = "timeboxes"
         static let ProjectTags = "project_tags"
         static let Roles = "roles"
+    }
+    
+    convenience init(task: String, context: NSManagedObjectContext) {
+        let entity = NSEntityDescription.entityForName("Activity", inManagedObjectContext: context)!
+        
+        self.init(entity: entity, insertIntoManagedObjectContext: context)
+        
+        self.task = task
     }
     
     static let mockActivityList: [[String:AnyObject]] = [
@@ -41,7 +50,27 @@ class Activity: NSManagedObject {
         ],
         [
             Keys.Task: "Activity Charlie",
-            Keys.EstimatedTimeboxes: 2
         ]
     ]
+    
+    class func getActivityList() -> [Activity] {
+        var activities = [Activity]()
+        let context = CoreDataStackManager.sharedInstance.mainContext
+        
+        for record in mockActivityList {
+            let activity = Activity(task: (record[Keys.Task] as! String), context: context)
+            
+            if (record.indexForKey(Keys.EstimatedTimeboxes) != nil) {
+                activity.estimated_timeboxes = record[Keys.EstimatedTimeboxes] as? Int
+            }
+            
+            activities.append(activity)
+        }
+        
+        return activities
+    }
+    
+    var actual_timeboxes: Int? {
+        return timeboxes?.count ?? 0
+    }
 }

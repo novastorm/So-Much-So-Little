@@ -12,6 +12,11 @@ import CoreData
 
 class Milestone: NSManagedObject {
 
-// Insert code here to add functionality to your managed object subclass
-
+    struct Keys {
+        static let Label = "label"
+        
+        static let Project = "project"
+        
+        static let Activities = "activities"
+    }
 }

@@ -73,7 +73,7 @@ struct CoreDataStack {
             return nil
         }
         
-        self.dbURL = docUrl.URLByAppendingPathComponent("model.sqlite")
+        self.dbURL = docUrl.URLByAppendingPathComponent(modelName + ".sqlite")
         
         do{
             try addStoreTo(coordinator: coordinator,
@@ -99,6 +99,35 @@ struct CoreDataStack {
     }
 }
 
+// MARK: - Temporary Context {
+extension CoreDataStack {
+    
+    func getTemporaryContext(named name: String) -> NSManagedObjectContext {
+        let parentContext = self.mainContext
+        
+        let tempContext = NSManagedObjectContext(concurrencyType: .PrivateQueueConcurrencyType)
+        tempContext.name = name
+        tempContext.parentContext = parentContext
+        
+        return tempContext
+    }
+    
+    // must call within context
+    func saveTempContext(context: NSManagedObjectContext) {
+        guard context.hasChanges else {
+            return
+        }
+        
+        do {
+            try context.save()
+        }
+        catch {
+            fatalError("Error while saving temporary context \(error)")
+        }
+        
+        self.saveMainContext()
+    }
+}
 
 // MARK:  - Removing data
 extension CoreDataStack  {
@@ -152,35 +181,23 @@ extension CoreDataStack {
     
     func performBackgroundImportingBatchOperation(batch: BatchTask) {
         
-        // Create temp coordinator
-        let tmpCoord = NSPersistentStoreCoordinator(managedObjectModel: self.model)
-        
-        
-        do{
-            try addStoreTo(coordinator: tmpCoord, storeType: NSSQLiteStoreType, configuration: nil, storeURL: dbURL, options: nil)
-        }catch{
-            fatalError("Error adding a SQLite Store: \(error)")
-        }
-        
         // Create temp context
-        let moc = NSManagedObjectContext(concurrencyType: .PrivateQueueConcurrencyType)
-        moc.name = "Importer"
-        moc.persistentStoreCoordinator = tmpCoord
+        let importingContext = getTemporaryContext(named: "Importing")
         
         // Run the batch task, save the contents of the moc & notify
-        moc.performBlock(){
-            batch(workerContext: moc)
+        importingContext.performBlock(){
+            batch(workerContext: importingContext)
             
             do {
-                try moc.save()
+                try importingContext.save()
             }catch{
-                fatalError("Error saving importer moc: \(moc)")
+                fatalError("Error saving importer moc: \(importingContext)")
             }
             
-            let nc = NSNotificationCenter.defaultCenter()
-            let n = NSNotification(name: CoreDataStackNotifications.ImportingTaskDidFinish.rawValue,
+            let notificationCenter = NSNotificationCenter.defaultCenter()
+            let notification = NSNotification(name: CoreDataStackNotifications.ImportingTaskDidFinish.rawValue,
                 object: nil)
-            nc.postNotification(n)
+            notificationCenter.postNotification(notification)
         }
     }
 }
@@ -188,22 +205,6 @@ extension CoreDataStack {
 
 // MARK:  - Save
 extension CoreDataStack {
-    
-    // must call within context
-    func saveTempContext(context: NSManagedObjectContext) {
-        guard context.hasChanges else {
-            return
-        }
-        
-        do {
-            try context.save()
-        }
-        catch {
-            fatalError("Error while saving temporary context \(error)")
-        }
-        
-        self.saveMainContext()
-    }
     
     func saveMainContext() {
         // We call this synchronously, but it's a very fast

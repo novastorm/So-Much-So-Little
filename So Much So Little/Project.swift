@@ -20,5 +20,5 @@ class Project: NSManagedObject {
         static let Activities = "activities"
         static let Milestones = "milestones"
         static let Subprojects = "subprojects"
-}
+    }
 }

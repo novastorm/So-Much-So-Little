@@ -18,8 +18,8 @@ class TodayTableViewController: UITableViewController {
 
 //    @IBOutlet weak var tableView: UITableView!
     
-    var activities:[[String:AnyObject]] {
-        return Activity.mockActivityList
+    var activities: [Activity] {
+        return Activity.getActivityList()
     }
     
     // MARK: - View Lifecycle
@@ -61,10 +61,10 @@ extension TodayTableViewController {
     
     func configureTodayCell(cell: TodayTableViewCell, atIndexPath indexPath: NSIndexPath) {
         let activity = activities[indexPath.row]
-        let actualTimeboxes = activity[Activity.Keys.ActualTimeboxes] as? Int ?? 0
-        let estimatedTimeboxes = activity[Activity.Keys.EstimatedTimeboxes] as? Int ?? 0
+        let actualTimeboxes = activity.actual_timeboxes!
+        let estimatedTimeboxes = activity.estimated_timeboxes!
         
-        cell.taskLabel.text = activity[Activity.Keys.Task] as? String
+        cell.taskLabel.text = activity.task
         cell.timeBoxTallyLabel.text = "\(actualTimeboxes)/\(estimatedTimeboxes)"
     }
 }
