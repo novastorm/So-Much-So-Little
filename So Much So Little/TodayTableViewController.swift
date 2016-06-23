@@ -6,6 +6,7 @@
 //  Copyright © 2016 Adland Lee. All rights reserved.
 //
 
+import CoreData
 import UIKit
 
 class TodayTableViewCell: UITableViewCell {
@@ -15,11 +16,26 @@ class TodayTableViewCell: UITableViewCell {
 }
 
 class TodayTableViewController: UITableViewController {
-
-//    @IBOutlet weak var tableView: UITableView!
     
-    var activities: [Activity] {
-        return Activity.getActivityList()
+    var insertedIndexPaths: [NSIndexPath]!
+    var deletedIndexPaths: [NSIndexPath]!
+    var updatedIndexPaths: [NSIndexPath]!
+    
+    var sharedContext: NSManagedObjectContext {
+        return CoreDataStackManager.sharedInstance.mainContext
+    }
+    
+    lazy var fetchedResultsController: NSFetchedResultsController = {
+        let fetchRequest = Activity.fetchRequest
+        fetchRequest.sortDescriptors = []
+        
+        let fetchedResultsController =  NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.sharedContext, sectionNameKeyPath: nil, cacheName: nil)
+        
+        return fetchedResultsController
+    }()
+    
+    func saveContext() {
+        CoreDataStackManager.sharedInstance.saveMainContext()
     }
     
     // MARK: - View Lifecycle
@@ -28,7 +44,16 @@ class TodayTableViewController: UITableViewController {
         super.viewDidLoad()
         
         navigationItem.hidesBackButton = true
+        
+        fetchedResultsController.delegate = self
+
+        try! fetchedResultsController.performFetch()
+
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(saveContext), name: CoreDataStackNotifications.ImportingTaskDidFinish.rawValue, object: nil)
     }
+    
+    
+    // MARK: - Segue
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "ShowActivityDetail" {
@@ -37,7 +62,7 @@ class TodayTableViewController: UITableViewController {
             }
             let destinationVC = segue.destinationViewController as! ActivityDetailViewController
             
-            destinationVC.activity = activities[indexPath.row]
+            destinationVC.activity = fetchedResultsController.objectAtIndexPath(indexPath) as? Activity
         }
     }
 }
@@ -47,7 +72,8 @@ class TodayTableViewController: UITableViewController {
 
 extension TodayTableViewController {
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return activities.count
+        let sectionInfo =  fetchedResultsController.sections![section]
+        return sectionInfo.numberOfObjects
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
@@ -60,13 +86,21 @@ extension TodayTableViewController {
     }
     
     func configureTodayCell(cell: TodayTableViewCell, atIndexPath indexPath: NSIndexPath) {
-        let activity = activities[indexPath.row]
+        let activity = fetchedResultsController.objectAtIndexPath(indexPath) as! Activity
         let actualTimeboxes = activity.actual_timeboxes!
         let estimatedTimeboxes = activity.estimated_timeboxes!
         
         cell.taskLabel.text = activity.task
         cell.timeBoxTallyLabel.text = "\(actualTimeboxes)/\(estimatedTimeboxes)"
     }
+    
+    override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+        return true
+    }
+    
+//    override func tableView(tableView: UITableView, moveRowAtIndexPath sourceIndexPath: NSIndexPath, toIndexPath destinationIndexPath: NSIndexPath) {
+//        let stringToMove = self.reordering
+//    }
 }
 
 
@@ -87,5 +121,42 @@ extension TodayTableViewController {
         }
         
         return [unlist, complete]
+    }
+}
+
+
+// MARK: - Fetched Results Controller Delegate
+
+extension TodayTableViewController: NSFetchedResultsControllerDelegate {
+    
+    func controllerWillChangeContent(controller: NSFetchedResultsController) {
+
+        tableView.beginUpdates()
+    }
+    
+    func controller(controller: NSFetchedResultsController, didChangeObject anObject: AnyObject, atIndexPath indexPath: NSIndexPath?, forChangeType type: NSFetchedResultsChangeType, newIndexPath: NSIndexPath?) {
+        
+        switch type {
+        case .Insert:
+            insertedIndexPaths.append(newIndexPath!)
+        case .Delete:
+            deletedIndexPaths.append(indexPath!)
+        case .Update:
+            updatedIndexPaths.append(indexPath!)
+        case .Move:
+            deletedIndexPaths.append(indexPath!)
+            insertedIndexPaths.append(newIndexPath!)
+//        default:
+//            break
+        }
+    }
+    
+    func controllerDidChangeContent(controller: NSFetchedResultsController) {
+
+        tableView.insertRowsAtIndexPaths(insertedIndexPaths, withRowAnimation: .Fade)
+        tableView.deleteRowsAtIndexPaths(deletedIndexPaths, withRowAnimation: .Fade)
+        tableView.reloadRowsAtIndexPaths(updatedIndexPaths, withRowAnimation: .Automatic)
+        
+        tableView.endUpdates()
     }
 }

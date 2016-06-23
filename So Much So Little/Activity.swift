@@ -39,6 +39,10 @@ class Activity: NSManagedObject {
         self.task = task
     }
     
+    static var fetchRequest: NSFetchRequest {
+        return NSFetchRequest(entityName: "Activity")
+    }
+    
     static let mockActivityList: [[String:AnyObject]] = [
         [
             Keys.Task: "Activity Alpha",
@@ -53,8 +57,7 @@ class Activity: NSManagedObject {
         ]
     ]
     
-    class func getActivityList() -> [Activity] {
-        var activities = [Activity]()
+    static func populateActivityList() {
         let context = CoreDataStackManager.sharedInstance.mainContext
         
         for record in mockActivityList {
@@ -63,11 +66,9 @@ class Activity: NSManagedObject {
             if (record.indexForKey(Keys.EstimatedTimeboxes) != nil) {
                 activity.estimated_timeboxes = record[Keys.EstimatedTimeboxes] as? Int
             }
-            
-            activities.append(activity)
         }
         
-        return activities
+        CoreDataStackManager.sharedInstance.saveMainContext()
     }
     
     var actual_timeboxes: Int? {
