@@ -95,7 +95,6 @@ class TodayTableViewController: UITableViewController {
                 animations: {
                     center.y = location.y
                     self.snapshot.center = center
-//                    self.snapshot.transform = CGAffineTransformMakeScale(1.05, 1.05)
                     self.snapshot.alpha = 0.75
                     
                     cell.alpha = 0.0
@@ -127,7 +126,6 @@ class TodayTableViewController: UITableViewController {
                 0.25,
                 animations: { 
                     self.snapshot.center = cell.center
-//                    self.snapshot.transform = CGAffineTransformIdentity
                     self.snapshot.alpha = 0.0
                     
                     cell.alpha = 1.0
@@ -189,23 +187,6 @@ extension TodayTableViewController {
         cell.taskLabel.text = activity.task
         cell.timeBoxTallyLabel.text = "\(actualTimeboxes)/\(estimatedTimeboxes)"
     }
-    
-//    override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-//        return true
-//    }
-//    
-//    override func tableView(tableView: UITableView, moveRowAtIndexPath sourceIndexPath: NSIndexPath, toIndexPath destinationIndexPath: NSIndexPath) {
-//        var activityList = fetchedResultsController.fetchedObjects as! [Activity]
-//        let selection = fetchedResultsController.objectAtIndexPath(sourceIndexPath) as! Activity
-//        
-//        activityList.removeAtIndex(sourceIndexPath.row)
-//        activityList.insert(selection, atIndex: destinationIndexPath.row)
-//        
-//        for (i, record) in activityList.enumerate() {
-//            record.display_order = i
-//        }
-//        saveContext()
-//    }
 }
 
 
@@ -252,12 +233,8 @@ extension TodayTableViewController: NSFetchedResultsControllerDelegate {
             deletedIndexPaths.append(indexPath!)
         case .Update:
             updatedIndexPaths.append(indexPath!)
-        case .Move:
-//            deletedIndexPaths.append(indexPath!)
-//            insertedIndexPaths.append(newIndexPath!)
+        default:
             break
-//        default:
-//            break
         }
     }
     
