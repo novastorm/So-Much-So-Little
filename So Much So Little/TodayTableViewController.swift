@@ -21,13 +21,17 @@ class TodayTableViewController: UITableViewController {
     var deletedIndexPaths: [NSIndexPath]!
     var updatedIndexPaths: [NSIndexPath]!
     
+    var snapshot: UIView!
+    var activityList: [Activity]!
+    var moveSourceIndexPath: NSIndexPath!
+    
     var sharedContext: NSManagedObjectContext {
         return CoreDataStackManager.sharedInstance.mainContext
     }
     
     lazy var fetchedResultsController: NSFetchedResultsController = {
         let fetchRequest = Activity.fetchRequest
-        fetchRequest.sortDescriptors = []
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "display_order", ascending: true)]
         
         let fetchedResultsController =  NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.sharedContext, sectionNameKeyPath: nil, cacheName: nil)
         
@@ -50,6 +54,98 @@ class TodayTableViewController: UITableViewController {
         try! fetchedResultsController.performFetch()
 
         NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(saveContext), name: CoreDataStackNotifications.ImportingTaskDidFinish.rawValue, object: nil)
+        
+        let longPress = UILongPressGestureRecognizer(target: self, action: #selector(longPressGestureRecognized(_:)))
+        
+        tableView.addGestureRecognizer(longPress)
+    }
+    
+    
+    // MARK: - Actions
+    
+    @IBAction func longPressGestureRecognized(sender: AnyObject) {
+        
+        // retrieve longPress details and target indexPath
+        let longPress = sender as! UILongPressGestureRecognizer
+        let state = longPress.state
+        
+        let location = longPress.locationInView(tableView)
+        let indexPath = tableView.indexPathForRowAtPoint(location)
+        
+        // generate snapshot of target row
+        
+        switch state {
+        case .Began:
+            if indexPath == nil { break }
+            
+            activityList = fetchedResultsController.fetchedObjects as! [Activity]
+            moveSourceIndexPath = indexPath
+            
+            let cell = tableView.cellForRowAtIndexPath(moveSourceIndexPath)!
+            
+            snapshot = customSnapshotFromView(cell)
+            
+            var center = cell.center
+            snapshot.center = center
+            snapshot.alpha = 0.0
+            tableView.addSubview(snapshot)
+            
+            UIView.animateWithDuration(
+                0.25,
+                animations: {
+                    center.y = location.y
+                    self.snapshot.center = center
+//                    self.snapshot.transform = CGAffineTransformMakeScale(1.05, 1.05)
+                    self.snapshot.alpha = 0.75
+                    
+                    cell.alpha = 0.0
+                },
+                completion: { (finished) in
+                    cell.hidden = true
+                }
+            )
+        case .Changed:
+            var center = snapshot.center
+            center.y = location.y
+            snapshot.center = center
+            
+            guard let indexPath = indexPath where indexPath != moveSourceIndexPath else { break }
+            
+            tableView.moveRowAtIndexPath(moveSourceIndexPath, toIndexPath: indexPath)
+            
+            let src = moveSourceIndexPath.row
+            let dst = indexPath.row
+            (activityList[dst], activityList[src]) = (activityList[src], activityList[dst])
+
+            moveSourceIndexPath = indexPath
+        default:
+            let cell = tableView.cellForRowAtIndexPath(moveSourceIndexPath)!
+            cell.hidden = false
+            cell.alpha = 0.0
+            
+            UIView.animateWithDuration(
+                0.25,
+                animations: { 
+                    self.snapshot.center = cell.center
+//                    self.snapshot.transform = CGAffineTransformIdentity
+                    self.snapshot.alpha = 0.0
+                    
+                    cell.alpha = 1.0
+                }, completion: { (finished) in
+                    self.moveSourceIndexPath = nil
+                    self.snapshot.removeFromSuperview()
+                    self.snapshot = nil
+            })
+            
+            
+            for (i, record) in activityList.enumerate() {
+                if record.display_order != i {
+                    record.display_order = i
+                }
+            }
+
+            saveContext()
+        }
     }
     
     
@@ -94,12 +190,21 @@ extension TodayTableViewController {
         cell.timeBoxTallyLabel.text = "\(actualTimeboxes)/\(estimatedTimeboxes)"
     }
     
-    override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
-        return true
-    }
-    
+//    override func tableView(tableView: UITableView, canMoveRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+//        return true
+//    }
+//    
 //    override func tableView(tableView: UITableView, moveRowAtIndexPath sourceIndexPath: NSIndexPath, toIndexPath destinationIndexPath: NSIndexPath) {
-//        let stringToMove = self.reordering
+//        var activityList = fetchedResultsController.fetchedObjects as! [Activity]
+//        let selection = fetchedResultsController.objectAtIndexPath(sourceIndexPath) as! Activity
+//        
+//        activityList.removeAtIndex(sourceIndexPath.row)
+//        activityList.insert(selection, atIndex: destinationIndexPath.row)
+//        
+//        for (i, record) in activityList.enumerate() {
+//            record.display_order = i
+//        }
+//        saveContext()
 //    }
 }
 
@@ -131,6 +236,10 @@ extension TodayTableViewController: NSFetchedResultsControllerDelegate {
     
     func controllerWillChangeContent(controller: NSFetchedResultsController) {
 
+        insertedIndexPaths = [NSIndexPath]()
+        deletedIndexPaths = [NSIndexPath]()
+        updatedIndexPaths = [NSIndexPath]()
+        
         tableView.beginUpdates()
     }
     
@@ -144,8 +253,9 @@ extension TodayTableViewController: NSFetchedResultsControllerDelegate {
         case .Update:
             updatedIndexPaths.append(indexPath!)
         case .Move:
-            deletedIndexPaths.append(indexPath!)
-            insertedIndexPaths.append(newIndexPath!)
+//            deletedIndexPaths.append(indexPath!)
+//            insertedIndexPaths.append(newIndexPath!)
+            break
 //        default:
 //            break
         }
@@ -158,5 +268,27 @@ extension TodayTableViewController: NSFetchedResultsControllerDelegate {
         tableView.reloadRowsAtIndexPaths(updatedIndexPaths, withRowAnimation: .Automatic)
         
         tableView.endUpdates()
+    }
+}
+
+
+// MARK: - Helpers
+
+extension TodayTableViewController {
+    func customSnapshotFromView(inputView: UIView) -> UIView {
+        UIGraphicsBeginImageContextWithOptions(inputView.bounds.size, false, 0)
+        inputView.layer.renderInContext(UIGraphicsGetCurrentContext()!)
+        
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        let snapshot = UIImageView(image: image)
+        snapshot.layer.masksToBounds = false
+        snapshot.layer.cornerRadius = 0.0
+        snapshot.layer.shadowOffset = CGSizeMake(-5.0, 0.0)
+        snapshot.layer.shadowRadius = 5.0
+        snapshot.layer.shadowOpacity = 0.4
+        
+        return snapshot
     }
 }
