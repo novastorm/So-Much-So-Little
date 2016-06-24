@@ -181,10 +181,12 @@ extension TodayTableViewController {
     
     func configureTodayCell(cell: TodayTableViewCell, atIndexPath indexPath: NSIndexPath) {
         let activity = fetchedResultsController.objectAtIndexPath(indexPath) as! Activity
+        let displayOrder = activity.display_order!
+        let task = activity.task!
         let actualTimeboxes = activity.actual_timeboxes!
         let estimatedTimeboxes = activity.estimated_timeboxes!
         
-        cell.taskLabel.text = activity.task
+        cell.taskLabel.text = "\(displayOrder): \(task)"
         cell.timeBoxTallyLabel.text = "\(actualTimeboxes)/\(estimatedTimeboxes)"
     }
 }
@@ -233,8 +235,9 @@ extension TodayTableViewController: NSFetchedResultsControllerDelegate {
             deletedIndexPaths.append(indexPath!)
         case .Update:
             updatedIndexPaths.append(indexPath!)
-        default:
-            break
+        case .Move:
+            updatedIndexPaths.append(indexPath!)
+            updatedIndexPaths.append(newIndexPath!)
         }
     }
     
