@@ -4,7 +4,7 @@
         <attribute name="complete" attributeType="Boolean" defaultValueString="NO" indexed="YES" syncable="YES"/>
         <attribute name="deferred_to" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="deferred_to_response_due_date" optional="YES" attributeType="Date" syncable="YES"/>
-        <attribute name="display_order" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="display_order" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <attribute name="due_date" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="estimated_timeboxes" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
         <attribute name="interruptions" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
@@ -13,6 +13,8 @@
         <attribute name="scheduled_start" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="task" attributeType="String" indexed="YES" syncable="YES"/>
         <attribute name="task_info" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="today" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="today_display_order" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
         <relationship name="milestone" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Milestone" inverseName="activities" inverseEntity="Milestone" syncable="YES"/>
         <relationship name="projects" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Project" inverseName="activities" inverseEntity="Project" syncable="YES"/>
         <relationship name="roles" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Role" inverseName="activities" inverseEntity="Role" syncable="YES"/>
@@ -45,7 +47,7 @@
         <relationship name="activity" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Activity" inverseName="timeboxes" inverseEntity="Activity" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Activity" positionX="-63" positionY="-18" width="128" height="285"/>
+        <element name="Activity" positionX="-63" positionY="-18" width="128" height="315"/>
         <element name="Milestone" positionX="-27" positionY="117" width="128" height="90"/>
         <element name="Project" positionX="-54" positionY="-9" width="128" height="180"/>
         <element name="Role" positionX="-36" positionY="72" width="128" height="90"/>

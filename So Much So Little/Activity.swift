@@ -12,23 +12,43 @@ import Foundation
 class Activity: NSManagedObject {
     
     struct Keys {
-        static let Task = "task"
-        static let TaskInfo = "task_info"
         static let Complete = "complete"
-        static let Reference = "reference"
-        static let EstimatedTimeboxes = "estimated_timeboxes"
         static let DeferredTo = "deferred_to"
         static let DeferredToResponseDue = "deferred_to_response_due_date"
+        static let DisplayOrder = "display_order"
+        static let DueDate = "due_date"
+        static let EstimatedTimeboxes = "estimated_timeboxes"
+        static let Interruptions = "interruptions"
+        static let Reference = "reference"
         static let ScheduledStart = "scheduled_start"
         static let ScheduledEnd = "scheduled_end"
-        static let DueDate = "due_date"
-        static let Interruptions = "interruptions"
+        static let Task = "task"
+        static let TaskInfo = "task_info"
+        static let TodayDisplayOrder = "today_display_order"
+        static let Today = "today"
 
         static let Milestone = "milestone"
         
         static let Timeboxes = "timeboxes"
         static let ProjectTags = "project_tags"
         static let Roles = "roles"
+    }
+    
+    struct Type {
+        typealias Complete = Bool
+        typealias DeferredTo = String
+        typealias DeferredToResponseDue = NSDate
+        typealias DisplayOrder = NSNumber
+        typealias DueDate = NSData
+        typealias EstimatedTimeboxes = NSNumber
+        typealias Interruptions = Int16
+        typealias Reference = NSNumber
+        typealias ScheduledEnd = NSDate
+        typealias ScheduledStart = NSDate
+        typealias Task = String
+        typealias TaskInfo = String
+        typealias Today = NSNumber
+        typealias TodayDisplayOrder = Int64
     }
     
     convenience init(task: String, context: NSManagedObjectContext) {
@@ -46,14 +66,17 @@ class Activity: NSManagedObject {
     static let mockActivityList: [[String:AnyObject]] = [
         [
             Keys.Task: "Activity Alpha",
-            Keys.EstimatedTimeboxes: 4
+            Keys.EstimatedTimeboxes: 4,
+            Keys.Today: NSNumber(bool: true)
         ],
         [
             Keys.Task: "Activity Bravo",
-            Keys.EstimatedTimeboxes: 2
+            Keys.EstimatedTimeboxes: 2,
+            Keys.Today: NSNumber(bool: true)
         ],
         [
             Keys.Task: "Activity Charlie",
+            Keys.Today: NSNumber(bool: true)
         ]
     ]
     
@@ -61,12 +84,17 @@ class Activity: NSManagedObject {
         let context = CoreDataStackManager.mainContext
         
         for (i, record) in mockActivityList.enumerate() {
-            let activity = Activity(task: (record[Keys.Task] as! String), context: context)
-            activity.display_order = i
+            let activity = Activity(task: (record[Keys.Task] as! Type.Task), context: context)
             
             if (record.indexForKey(Keys.EstimatedTimeboxes) != nil) {
-                activity.estimated_timeboxes = record[Keys.EstimatedTimeboxes] as? Int
+                activity.estimated_timeboxes = record[Keys.EstimatedTimeboxes] as? Type.EstimatedTimeboxes
             }
+            
+            if (record.indexForKey(Keys.Today) != nil) {
+                activity.today = record[Keys.Today] as? Type.Today
+                activity.today_display_order = i
+            }
+            
         }
         
         CoreDataStackManager.saveMainContext()

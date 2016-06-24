@@ -31,7 +31,8 @@ class TodayTableViewController: UITableViewController {
     
     lazy var fetchedResultsController: NSFetchedResultsController = {
         let fetchRequest = Activity.fetchRequest
-        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "display_order", ascending: true)]
+        fetchRequest.predicate = NSPredicate(format: "today = %@", NSNumber(bool: true))
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "today_display_order", ascending: true)]
         
         let fetchedResultsController =  NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.sharedContext, sectionNameKeyPath: nil, cacheName: nil)
         
@@ -137,8 +138,8 @@ class TodayTableViewController: UITableViewController {
             
             
             for (i, record) in activityList.enumerate() {
-                if record.display_order != i {
-                    record.display_order = i
+                if record.today_display_order != i {
+                    record.today_display_order = i
                 }
             }
 
@@ -181,12 +182,12 @@ extension TodayTableViewController {
     
     func configureTodayCell(cell: TodayTableViewCell, atIndexPath indexPath: NSIndexPath) {
         let activity = fetchedResultsController.objectAtIndexPath(indexPath) as! Activity
-        let displayOrder = activity.display_order!
+        let todayDisplayOrder = activity.today_display_order!
         let task = activity.task!
         let actualTimeboxes = activity.actual_timeboxes!
         let estimatedTimeboxes = activity.estimated_timeboxes!
         
-        cell.taskLabel.text = "\(displayOrder): \(task)"
+        cell.taskLabel.text = "\(todayDisplayOrder): \(task)"
         cell.timeBoxTallyLabel.text = "\(actualTimeboxes)/\(estimatedTimeboxes)"
     }
 }
