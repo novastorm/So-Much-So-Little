@@ -12,8 +12,8 @@ import Foundation
 class Activity: NSManagedObject {
     
     struct Keys {
-        static let Complete = "complete"
-        static let CompleteDate = "complete_date"
+        static let Completed = "completed"
+        static let CompletedDate = "completed_date"
         static let DeferredTo = "deferred_to"
         static let DeferredToResponseDue = "deferred_to_response_due_date"
         static let DisplayOrder = "display_order"
@@ -36,8 +36,8 @@ class Activity: NSManagedObject {
     }
     
     struct Type {
-        typealias Complete = NSNumber
-        typealias CompleteDate = NSDate
+        typealias Completed = NSNumber
+        typealias CompletedDate = NSDate
         typealias DeferredTo = String
         typealias DeferredToResponseDue = NSDate
         typealias DisplayOrder = NSNumber
@@ -75,14 +75,14 @@ class Activity: NSManagedObject {
             Keys.Task: "Activity Bravo",
             Keys.EstimatedTimeboxes: 2,
             Keys.Today: NSNumber(bool: true),
-            Keys.Complete: NSNumber(bool: true)
+            Keys.Completed: NSNumber(bool: true)
         ],
         [
             Keys.Task: "Activity Charlie"
         ],
         [
             Keys.Task: "Activity Delta",
-            Keys.Complete: NSNumber(bool: true)
+            Keys.Completed: NSNumber(bool: true)
         ],
         [
             Keys.Task: "Activity Echo",
@@ -94,23 +94,29 @@ class Activity: NSManagedObject {
     static func populateActivityList() {
         let context = CoreDataStackManager.mainContext
         
-        for (i, record) in mockActivityList.enumerate() {
+        var displayOrder = 0
+        var todayDisplayOrder = 0
+        
+        for record in mockActivityList {
             let activity = Activity(task: (record[Keys.Task] as! Type.Task), context: context)
             
             if (record.indexForKey(Keys.EstimatedTimeboxes) != nil) {
                 activity.estimated_timeboxes = record[Keys.EstimatedTimeboxes] as? Type.EstimatedTimeboxes
             }
             
+            if (record.indexForKey(Keys.Completed) != nil) {
+                activity.completed = record[Keys.Completed] as? Type.Completed
+                continue
+            }
+                
             if (record.indexForKey(Keys.Today) != nil) {
                 activity.today = record[Keys.Today] as? Type.Today
-                activity.today_display_order = i
+                activity.today_display_order = todayDisplayOrder
+                todayDisplayOrder += 1
             }
             
-            if (record.indexForKey(Keys.Complete) != nil) {
-                activity.complete = record[Keys.Complete] as? Type.Complete
-            }
-
-            activity.display_order = i
+            activity.display_order = displayOrder
+            displayOrder += 1
         }
         
         CoreDataStackManager.saveMainContext()

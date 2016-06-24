@@ -16,7 +16,7 @@ extension Project {
 
     @NSManaged var label: String?
     @NSManaged var info: String?
-    @NSManaged var complete: NSNumber?
+    @NSManaged var completed: NSNumber?
     @NSManaged var due_date: NSDate?
     @NSManaged var activities: NSSet?
     @NSManaged var milestones: NSSet?

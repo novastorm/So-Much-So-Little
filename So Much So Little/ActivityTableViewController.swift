@@ -24,7 +24,7 @@ class ActivityTableViewController: UITableViewController {
     
     lazy var fetchedResultsController: NSFetchedResultsController = {
         let fetchRequest = Activity.fetchRequest
-        fetchRequest.predicate = NSPredicate(format: "complete == NO")
+        fetchRequest.predicate = NSPredicate(format: "completed == NO")
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: Activity.Keys.DisplayOrder, ascending: true)]
 
         let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.sharedContext, sectionNameKeyPath: nil, cacheName: nil)
@@ -198,7 +198,9 @@ extension ActivityTableViewController {
     
     override func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
         let activity = fetchedResultsController.objectAtIndexPath(indexPath) as! Activity
+        
         var todayOption: UITableViewRowAction!
+        var completedOption: UITableViewRowAction!
         
         if activity.today as! Bool {
             todayOption = UITableViewRowAction(style: .Normal, title: "Postpone") { (action, activityIndexPath) in
@@ -211,11 +213,18 @@ extension ActivityTableViewController {
             }
         }
         
-        let completeOption = UITableViewRowAction(style: .Normal, title: "Complete") { (action, completeIndexPath) in
-            print("\(completeIndexPath.row): Complete tapped")
+        if activity.completed as! Bool {
+            completedOption = UITableViewRowAction(style: .Normal, title: "Reactivate") { (action, completedIndexPath) in
+                print("\(completedIndexPath.row): Reactivate tapped")
+            }
+        }
+        else {
+            completedOption = UITableViewRowAction(style: .Normal, title: "Complete") { (action, completedIndexPath) in
+                print("\(completedIndexPath.row): Complete tapped")
+            }
         }
         
-        return [todayOption, completeOption]
+        return [todayOption, completedOption]
     }
 }
 

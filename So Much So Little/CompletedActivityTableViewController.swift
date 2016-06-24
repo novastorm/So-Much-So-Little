@@ -23,8 +23,8 @@ class CompletedActivityTableViewController: UITableViewController {
     
     lazy var fetchedResultsController: NSFetchedResultsController = {
         let fetchRequest = Activity.fetchRequest
-        fetchRequest.predicate = NSPredicate(format: "complete == YES")
-        fetchRequest.sortDescriptors = [NSSortDescriptor(key: Activity.Keys.CompleteDate, ascending: true)]
+        fetchRequest.predicate = NSPredicate(format: "completed == YES")
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: Activity.Keys.CompletedDate, ascending: true)]
         
         let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.sharedContext, sectionNameKeyPath: nil, cacheName: nil)
         
@@ -90,12 +90,11 @@ extension CompletedActivityTableViewController {
     
     func configureActivityCell(cell: UITableViewCell, atIndexPath indexPath: NSIndexPath) {
         let activity = fetchedResultsController.objectAtIndexPath(indexPath) as! Activity
-        let displayOrder = activity.display_order!
         let task = activity.task!
         let actualTimeboxes = activity.actual_timeboxes!
         let estimatedTimeboxes = activity.estimated_timeboxes!
         
-        cell.textLabel!.text = "\(displayOrder): \(task)"
+        cell.textLabel!.text = "\(task)"
         cell.detailTextLabel!.text = "\(actualTimeboxes)/\(estimatedTimeboxes)"
     }
 }
@@ -110,7 +109,9 @@ extension CompletedActivityTableViewController {
     
     override func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
         let activity = fetchedResultsController.objectAtIndexPath(indexPath) as! Activity
+        
         var todayOption: UITableViewRowAction!
+        var completedOption: UITableViewRowAction!
         
         if activity.today as! Bool {
             todayOption = UITableViewRowAction(style: .Normal, title: "Postpone") { (action, activityIndexPath) in
@@ -123,11 +124,18 @@ extension CompletedActivityTableViewController {
             }
         }
         
-        let completeOption = UITableViewRowAction(style: .Normal, title: "Complete") { (action, completeIndexPath) in
-            print("\(completeIndexPath.row): Complete tapped")
+        if activity.completed as! Bool {
+            completedOption = UITableViewRowAction(style: .Normal, title: "Reactivate") { (action, completedIndexPath) in
+                print("\(completedIndexPath.row): Reactivate tapped")
+            }
+        }
+        else {
+            completedOption = UITableViewRowAction(style: .Normal, title: "Complete") { (action, completedIndexPath) in
+                print("\(completedIndexPath.row): Complete tapped")
+            }
         }
         
-        return [todayOption, completeOption]
+        return [todayOption, completedOption]
     }
 }
 

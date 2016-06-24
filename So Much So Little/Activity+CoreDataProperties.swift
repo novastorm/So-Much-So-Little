@@ -14,7 +14,7 @@ import CoreData
 
 extension Activity {
 
-    @NSManaged var complete: NSNumber?
+    @NSManaged var completed: NSNumber?
     @NSManaged var deferred_to: String?
     @NSManaged var deferred_to_response_due_date: NSDate?
     @NSManaged var display_order: NSNumber?
@@ -28,7 +28,7 @@ extension Activity {
     @NSManaged var task_info: String?
     @NSManaged var today: NSNumber?
     @NSManaged var today_display_order: NSNumber?
-    @NSManaged var complete_date: NSDate?
+    @NSManaged var completed_date: NSDate?
     @NSManaged var milestone: Milestone?
     @NSManaged var projects: NSSet?
     @NSManaged var roles: NSSet?

@@ -31,7 +31,7 @@ class TodayTableViewController: UITableViewController {
     
     lazy var fetchedResultsController: NSFetchedResultsController = {
         let fetchRequest = Activity.fetchRequest
-        fetchRequest.predicate = NSPredicate(format: "(today == YES) AND (complete == NO)")
+        fetchRequest.predicate = NSPredicate(format: "(today == YES) AND (completed != YES)")
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: Activity.Keys.TodayDisplayOrder, ascending: true)]
         
         let fetchedResultsController =  NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.sharedContext, sectionNameKeyPath: nil, cacheName: nil)
@@ -199,15 +199,34 @@ extension TodayTableViewController {
     }
     
     override func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
-        let unlist = UITableViewRowAction(style: .Normal, title: "Unlist") { (action, todayIndexPath) in
-            print("\(todayIndexPath.row): Unlist tapped")
+        let activity = fetchedResultsController.objectAtIndexPath(indexPath) as! Activity
+        
+        var todayOption: UITableViewRowAction!
+        var completedOption: UITableViewRowAction!
+        
+        if activity.today as! Bool {
+            todayOption = UITableViewRowAction(style: .Normal, title: "Postpone") { (action, activityIndexPath) in
+                print("\(activityIndexPath.row): Postpone tapped")
+            }
+        }
+        else {
+            todayOption = UITableViewRowAction(style: .Normal, title: "Today") { (action, activityIndexPath) in
+                print("\(activityIndexPath.row): Today tapped")
+            }
         }
         
-        let complete = UITableViewRowAction(style: .Normal, title: "Complete") { (action, completeIndexPath) in
-            print("\(completeIndexPath.row): Complete tapped")
+        if activity.completed as! Bool {
+            completedOption = UITableViewRowAction(style: .Normal, title: "Reactivate") { (action, completedIndexPath) in
+                print("\(completedIndexPath.row): Reactivate tapped")
+            }
+        }
+        else {
+            completedOption = UITableViewRowAction(style: .Normal, title: "Complete") { (action, completedIndexPath) in
+                print("\(completedIndexPath.row): Complete tapped")
+            }
         }
         
-        return [unlist, complete]
+        return [todayOption, completedOption]
     }
 }
 

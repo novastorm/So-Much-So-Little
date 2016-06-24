@@ -14,7 +14,7 @@ class Project: NSManagedObject {
     struct Keys {
         static let Label = "label"
         static let Info = "info"
-        static let Complete = "complete"
+        static let Completed = "completed"
         static let DueDate = "due_date"
 
         static let Activities = "activities"
