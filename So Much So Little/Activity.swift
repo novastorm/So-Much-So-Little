@@ -58,17 +58,18 @@ class Activity: NSManagedObject {
     ]
     
     static func populateActivityList() {
-        let context = CoreDataStackManager.sharedInstance.mainContext
+        let context = CoreDataStackManager.mainContext
         
-        for record in mockActivityList {
+        for (i, record) in mockActivityList.enumerate() {
             let activity = Activity(task: (record[Keys.Task] as! String), context: context)
+            activity.display_order = i
             
             if (record.indexForKey(Keys.EstimatedTimeboxes) != nil) {
                 activity.estimated_timeboxes = record[Keys.EstimatedTimeboxes] as? Int
             }
         }
         
-        CoreDataStackManager.sharedInstance.saveMainContext()
+        CoreDataStackManager.saveMainContext()
     }
     
     var actual_timeboxes: Int? {

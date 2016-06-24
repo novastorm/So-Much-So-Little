@@ -17,6 +17,14 @@ class CoreDataStackManager {
     private init() {}
     
     static var mainContext: NSManagedObjectContext {
-        return CoreDataStackManager.sharedInstance.mainContext
+        return self.sharedInstance.mainContext
+    }
+    
+    static func saveMainContext() {
+        self.sharedInstance.saveMainContext()
+    }
+    
+    static func autoSave(delayInSeconds: Int) {
+        self.sharedInstance.autoSave(delayInSeconds)
     }
 }

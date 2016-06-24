@@ -39,7 +39,7 @@ class TodayTableViewController: UITableViewController {
     }()
     
     func saveContext() {
-        CoreDataStackManager.sharedInstance.saveMainContext()
+        CoreDataStackManager.saveMainContext()
     }
     
     // MARK: - View Lifecycle
@@ -233,11 +233,11 @@ extension TodayTableViewController: NSFetchedResultsControllerDelegate {
             insertedIndexPaths.append(newIndexPath!)
         case .Delete:
             deletedIndexPaths.append(indexPath!)
+        case .Move:
+            updatedIndexPaths.append(newIndexPath!)
+            updatedIndexPaths.append(indexPath!)
         case .Update:
             updatedIndexPaths.append(indexPath!)
-        case .Move:
-            updatedIndexPaths.append(indexPath!)
-            updatedIndexPaths.append(newIndexPath!)
         }
     }
     
