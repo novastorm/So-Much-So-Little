@@ -26,7 +26,7 @@ class TodayTableViewController: UITableViewController {
     var moveSourceIndexPath: NSIndexPath!
     
     var sharedContext: NSManagedObjectContext {
-        return CoreDataStackManager.sharedInstance.mainContext
+        return CoreDataStackManager.mainContext
     }
     
     lazy var fetchedResultsController: NSFetchedResultsController = {

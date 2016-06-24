@@ -15,4 +15,8 @@ class CoreDataStackManager {
     
     static let sharedInstance = CoreDataStack(modelName: modelName)!
     private init() {}
+    
+    static var mainContext: NSManagedObjectContext {
+        return CoreDataStackManager.sharedInstance.mainContext
+    }
 }
