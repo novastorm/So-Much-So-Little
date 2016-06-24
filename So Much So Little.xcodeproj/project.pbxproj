@@ -13,7 +13,7 @@
 		3E0977851D13216000A7F2C4 /* Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0977841D13216000A7F2C4 /* Activity.swift */; };
 		3E09778C1D18B28100A7F2C4 /* ActivityDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E09778B1D18B28100A7F2C4 /* ActivityDetailViewController.swift */; };
 		3E09778E1D18CD7400A7F2C4 /* CalendarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E09778D1D18CD7400A7F2C4 /* CalendarViewController.swift */; };
-		3E0977901D18CDD300A7F2C4 /* CompletedTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E09778F1D18CDD300A7F2C4 /* CompletedTableViewController.swift */; };
+		3E0977901D18CDD300A7F2C4 /* CompletedActivityTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E09778F1D18CDD300A7F2C4 /* CompletedActivityTableViewController.swift */; };
 		3E0977921D18CE3A00A7F2C4 /* SettingsTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0977911D18CE3A00A7F2C4 /* SettingsTableViewController.swift */; };
 		3E0977941D18CEA000A7F2C4 /* ActivityTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0977931D18CEA000A7F2C4 /* ActivityTableViewController.swift */; };
 		3E0977961D18CEE200A7F2C4 /* ProjectTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0977951D18CEE200A7F2C4 /* ProjectTableViewController.swift */; };
@@ -61,7 +61,7 @@
 		3E0977841D13216000A7F2C4 /* Activity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Activity.swift; sourceTree = "<group>"; };
 		3E09778B1D18B28100A7F2C4 /* ActivityDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityDetailViewController.swift; sourceTree = "<group>"; };
 		3E09778D1D18CD7400A7F2C4 /* CalendarViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CalendarViewController.swift; sourceTree = "<group>"; };
-		3E09778F1D18CDD300A7F2C4 /* CompletedTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompletedTableViewController.swift; sourceTree = "<group>"; };
+		3E09778F1D18CDD300A7F2C4 /* CompletedActivityTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CompletedActivityTableViewController.swift; sourceTree = "<group>"; };
 		3E0977911D18CE3A00A7F2C4 /* SettingsTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SettingsTableViewController.swift; sourceTree = "<group>"; };
 		3E0977931D18CEA000A7F2C4 /* ActivityTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityTableViewController.swift; sourceTree = "<group>"; };
 		3E0977951D18CEE200A7F2C4 /* ProjectTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectTableViewController.swift; sourceTree = "<group>"; };
@@ -189,7 +189,7 @@
 				3E0977931D18CEA000A7F2C4 /* ActivityTableViewController.swift */,
 				3E09778D1D18CD7400A7F2C4 /* CalendarViewController.swift */,
 				3E0977951D18CEE200A7F2C4 /* ProjectTableViewController.swift */,
-				3E09778F1D18CDD300A7F2C4 /* CompletedTableViewController.swift */,
+				3E09778F1D18CDD300A7F2C4 /* CompletedActivityTableViewController.swift */,
 				3E0977911D18CE3A00A7F2C4 /* SettingsTableViewController.swift */,
 				3EE7411B1D1090DC00064BF6 /* TodayTableViewController.swift */,
 				3EE741231D1090DC00064BF6 /* Assets.xcassets */,
@@ -371,7 +371,7 @@
 				3E0977941D18CEA000A7F2C4 /* ActivityTableViewController.swift in Sources */,
 				3E0977811D12015800A7F2C4 /* Utilities.swift in Sources */,
 				3E0977A71D18FA7B00A7F2C4 /* Timebox.swift in Sources */,
-				3E0977901D18CDD300A7F2C4 /* CompletedTableViewController.swift in Sources */,
+				3E0977901D18CDD300A7F2C4 /* CompletedActivityTableViewController.swift in Sources */,
 				3E09777F1D11FC9200A7F2C4 /* CoreDataStack.swift in Sources */,
 				3E0977A51D18FA7B00A7F2C4 /* Activity+CoreDataProperties.swift in Sources */,
 			);

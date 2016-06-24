@@ -1,5 +1,5 @@
 //
-//  CompletedTableViewController.swift
+//  CompletedActivityTableViewController.swift
 //  So Much So Little
 //
 //  Created by Adland Lee on 6/20/16.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class CompletedTableViewController: UITableViewController {
+class CompletedActivityTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -335,10 +335,10 @@
             </objects>
             <point key="canvasLocation" x="126" y="4126"/>
         </scene>
-        <!--Completed List-->
+        <!--Completed Activity List-->
         <scene sceneID="A3L-Ns-Rmu">
             <objects>
-                <tableViewController title="Completed List" id="G0c-co-57l" customClass="CompletedTableViewController" customModule="So_Much_So_Little" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController title="Completed Activity List" id="G0c-co-57l" customClass="CompletedActivityTableViewController" customModule="So_Much_So_Little" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="0Ig-u9-EED">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -404,10 +404,10 @@
             </objects>
             <point key="canvasLocation" x="910" y="3340"/>
         </scene>
-        <!--Complete Nav-->
+        <!--Complete Activity Nav-->
         <scene sceneID="hf2-Pp-F95">
             <objects>
-                <navigationController title="Complete Nav" automaticallyAdjustsScrollViewInsets="NO" id="V6V-sY-Bxh" sceneMemberID="viewController">
+                <navigationController title="Complete Activity Nav" automaticallyAdjustsScrollViewInsets="NO" id="V6V-sY-Bxh" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Completed" id="ows-Uw-PWO"/>
                     <toolbarItems/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Lcj-TY-Qop">
