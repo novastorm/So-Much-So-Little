@@ -22,6 +22,10 @@ class ActivityTableViewController: UITableViewController {
         return CoreDataStackManager.mainContext
     }
     
+    func saveSharedContext() {
+        CoreDataStackManager.saveMainContext()
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         

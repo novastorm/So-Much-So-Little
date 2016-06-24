@@ -38,7 +38,7 @@ class TodayTableViewController: UITableViewController {
         return fetchedResultsController
     }()
     
-    func saveContext() {
+    func saveSharedContext() {
         CoreDataStackManager.saveMainContext()
     }
     
@@ -53,7 +53,7 @@ class TodayTableViewController: UITableViewController {
 
         try! fetchedResultsController.performFetch()
 
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(saveContext), name: CoreDataStackNotifications.ImportingTaskDidFinish.rawValue, object: nil)
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(saveSharedContext), name: CoreDataStackNotifications.ImportingTaskDidFinish.rawValue, object: nil)
         
         let longPress = UILongPressGestureRecognizer(target: self, action: #selector(longPressGestureRecognized(_:)))
         
@@ -142,7 +142,7 @@ class TodayTableViewController: UITableViewController {
                 }
             }
 
-            saveContext()
+            saveSharedContext()
         }
     }
     
