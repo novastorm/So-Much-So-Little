@@ -23,7 +23,7 @@ class TodayTableViewController: UITableViewController {
     
     var snapshot: UIView!
     var activityList: [Activity]!
-    var moveSourceIndexPath: NSIndexPath!
+    var moveIndexPathSource: NSIndexPath!
     
     var sharedContext: NSManagedObjectContext {
         return CoreDataStackManager.mainContext
@@ -31,7 +31,7 @@ class TodayTableViewController: UITableViewController {
     
     lazy var fetchedResultsController: NSFetchedResultsController = {
         let fetchRequest = Activity.fetchRequest
-        fetchRequest.predicate = NSPredicate(format: "today = %@", NSNumber(bool: true))
+        fetchRequest.predicate = NSPredicate(format: "(today == YES) AND (complete == NO)")
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "today_display_order", ascending: true)]
         
         let fetchedResultsController =  NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.sharedContext, sectionNameKeyPath: nil, cacheName: nil)
@@ -53,8 +53,6 @@ class TodayTableViewController: UITableViewController {
         fetchedResultsController.delegate = self
 
         try! fetchedResultsController.performFetch()
-
-        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(saveSharedContext), name: CoreDataStackNotifications.ImportingTaskDidFinish.rawValue, object: nil)
         
         let longPress = UILongPressGestureRecognizer(target: self, action: #selector(longPressGestureRecognized(_:)))
         
@@ -80,9 +78,9 @@ class TodayTableViewController: UITableViewController {
             if indexPath == nil { break }
             
             activityList = fetchedResultsController.fetchedObjects as! [Activity]
-            moveSourceIndexPath = indexPath
+            moveIndexPathSource = indexPath
             
-            let cell = tableView.cellForRowAtIndexPath(moveSourceIndexPath)!
+            let cell = tableView.cellForRowAtIndexPath(moveIndexPathSource)!
             
             snapshot = customSnapshotFromView(cell)
             
@@ -109,17 +107,17 @@ class TodayTableViewController: UITableViewController {
             center.y = location.y
             snapshot.center = center
             
-            guard let indexPath = indexPath where indexPath != moveSourceIndexPath else { break }
+            guard let indexPath = indexPath where indexPath != moveIndexPathSource else { break }
             
-            tableView.moveRowAtIndexPath(moveSourceIndexPath, toIndexPath: indexPath)
+            tableView.moveRowAtIndexPath(moveIndexPathSource, toIndexPath: indexPath)
             
-            let src = moveSourceIndexPath.row
+            let src = moveIndexPathSource.row
             let dst = indexPath.row
             (activityList[dst], activityList[src]) = (activityList[src], activityList[dst])
 
-            moveSourceIndexPath = indexPath
+            moveIndexPathSource = indexPath
         default:
-            let cell = tableView.cellForRowAtIndexPath(moveSourceIndexPath)!
+            let cell = tableView.cellForRowAtIndexPath(moveIndexPathSource)!
             cell.hidden = false
             cell.alpha = 0.0
             
@@ -131,7 +129,7 @@ class TodayTableViewController: UITableViewController {
                     
                     cell.alpha = 1.0
                 }, completion: { (finished) in
-                    self.moveSourceIndexPath = nil
+                    self.moveIndexPathSource = nil
                     self.snapshot.removeFromSuperview()
                     self.snapshot = nil
             })
@@ -151,7 +149,7 @@ class TodayTableViewController: UITableViewController {
     // MARK: - Segue
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "ShowActivityDetail" {
+        if segue.identifier == "ShowTodayActivityDetail" {
             guard let indexPath = tableView.indexPathForSelectedRow else {
                 return
             }

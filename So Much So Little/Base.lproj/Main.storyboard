@@ -49,7 +49,7 @@
                                 <connections>
                                     <outlet property="taskLabel" destination="IKh-ht-vD8" id="6fg-B5-bhN"/>
                                     <outlet property="timeBoxTallyLabel" destination="S2d-7V-lHp" id="DVx-S3-S39"/>
-                                    <segue destination="029-GX-oH7" kind="show" identifier="ShowActivityDetail" id="UwW-HC-zeT"/>
+                                    <segue destination="029-GX-oH7" kind="show" identifier="ShowTodayActivityDetail" id="UwW-HC-zeT"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -172,15 +172,31 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="ActivityCell" id="urU-7y-JZy">
+                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" accessoryType="disclosureIndicator" indentationWidth="10" reuseIdentifier="ActivityCell" textLabel="ueb-jv-fC9" detailTextLabel="8c8-Hb-t2J" style="IBUITableViewCellStyleSubtitle" id="urU-7y-JZy">
                                 <rect key="frame" x="0.0" y="92" width="600" height="44"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="urU-7y-JZy" id="JdN-MU-MLB">
-                                    <rect key="frame" x="0.0" y="0.0" width="600" height="43.5"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="567" height="43.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ueb-jv-fC9">
+                                            <rect key="frame" x="15" y="6" width="31.5" height="19.5"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                        <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Subtitle" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="8c8-Hb-t2J">
+                                            <rect key="frame" x="15" y="25.5" width="40.5" height="13.5"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <fontDescription key="fontDescription" type="system" pointSize="11"/>
+                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                            <nil key="highlightedColor"/>
+                                        </label>
+                                    </subviews>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <segue destination="029-GX-oH7" kind="show" action="showDetailViewController:sender:" id="A0u-qm-1Sh"/>
+                                    <segue destination="029-GX-oH7" kind="show" identifier="ShowActivityDetail" id="A0u-qm-1Sh"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -229,6 +245,7 @@
                             <constraint firstItem="UgL-eI-Xjc" firstAttribute="top" secondItem="GfE-yy-vwM" secondAttribute="bottom" constant="8" id="ocQ-wd-A8c"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="pEv-2R-d8W"/>
                     <connections>
                         <outlet property="taskTextField" destination="UgL-eI-Xjc" id="EMv-Q1-bX2"/>
                         <outlet property="timeboxesTextField" destination="xeI-QR-PeQ" id="z8d-3f-Dkr"/>
@@ -408,6 +425,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="UwW-HC-zeT"/>
+        <segue reference="A0u-qm-1Sh"/>
     </inferredMetricsTieBreakers>
 </document>

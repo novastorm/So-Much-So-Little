@@ -16,7 +16,7 @@ enum CoreDataStackNotifications : String{
     case ImportingTaskDidFinish = "ImportingTaskDidFinish"
 }
 // MARK:  - Main
-struct CoreDataStack {
+class CoreDataStack {
     
     // MARK:  - Properties
     private let model : NSManagedObjectModel
@@ -85,6 +85,8 @@ struct CoreDataStack {
         }catch{
             print("unable to add store at \(dbURL)")
         }
+        
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: #selector(saveMainContext), name: CoreDataStackNotifications.ImportingTaskDidFinish.rawValue, object: nil)
     }
     
     // MARK:  - Utils
@@ -206,7 +208,7 @@ extension CoreDataStack {
 // MARK:  - Save
 extension CoreDataStack {
     
-    func saveMainContext() {
+    @objc func saveMainContext() {
         // We call this synchronously, but it's a very fast
         // operation (it doesn't hit the disk). We need to know
         // when it ends so we can call the next save (on the persisting

@@ -35,7 +35,7 @@ class Activity: NSManagedObject {
     }
     
     struct Type {
-        typealias Complete = Bool
+        typealias Complete = NSNumber
         typealias DeferredTo = String
         typealias DeferredToResponseDue = NSDate
         typealias DisplayOrder = NSNumber
@@ -72,10 +72,19 @@ class Activity: NSManagedObject {
         [
             Keys.Task: "Activity Bravo",
             Keys.EstimatedTimeboxes: 2,
-            Keys.Today: NSNumber(bool: true)
+            Keys.Today: NSNumber(bool: true),
+            Keys.Complete: NSNumber(bool: true)
         ],
         [
-            Keys.Task: "Activity Charlie",
+            Keys.Task: "Activity Charlie"
+        ],
+        [
+            Keys.Task: "Activity Delta",
+            Keys.Complete: NSNumber(bool: true)
+        ],
+        [
+            Keys.Task: "Activity Echo",
+            Keys.EstimatedTimeboxes: 4,
             Keys.Today: NSNumber(bool: true)
         ]
     ]
@@ -95,6 +104,11 @@ class Activity: NSManagedObject {
                 activity.today_display_order = i
             }
             
+            if (record.indexForKey(Keys.Complete) != nil) {
+                activity.complete = record[Keys.Complete] as? Type.Complete
+            }
+
+            activity.display_order = i
         }
         
         CoreDataStackManager.saveMainContext()
