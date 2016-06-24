@@ -32,7 +32,7 @@ class TodayTableViewController: UITableViewController {
     lazy var fetchedResultsController: NSFetchedResultsController = {
         let fetchRequest = Activity.fetchRequest
         fetchRequest.predicate = NSPredicate(format: "(today == YES) AND (complete == NO)")
-        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "today_display_order", ascending: true)]
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: Activity.Keys.TodayDisplayOrder, ascending: true)]
         
         let fetchedResultsController =  NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.sharedContext, sectionNameKeyPath: nil, cacheName: nil)
         

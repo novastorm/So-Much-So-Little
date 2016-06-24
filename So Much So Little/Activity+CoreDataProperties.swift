@@ -2,7 +2,7 @@
 //  Activity+CoreDataProperties.swift
 //  So Much So Little
 //
-//  Created by Adland Lee on 6/23/16.
+//  Created by Adland Lee on 6/24/16.
 //  Copyright © 2016 Adland Lee. All rights reserved.
 //
 //  Choose "Create NSManagedObject Subclass…" from the Core Data editor menu
@@ -26,8 +26,9 @@ extension Activity {
     @NSManaged var scheduled_start: NSDate?
     @NSManaged var task: String?
     @NSManaged var task_info: String?
-    @NSManaged var today_display_order: NSNumber?
     @NSManaged var today: NSNumber?
+    @NSManaged var today_display_order: NSNumber?
+    @NSManaged var complete_date: NSDate?
     @NSManaged var milestone: Milestone?
     @NSManaged var projects: NSSet?
     @NSManaged var roles: NSSet?

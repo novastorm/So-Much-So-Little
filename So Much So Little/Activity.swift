@@ -13,6 +13,7 @@ class Activity: NSManagedObject {
     
     struct Keys {
         static let Complete = "complete"
+        static let CompleteDate = "complete_date"
         static let DeferredTo = "deferred_to"
         static let DeferredToResponseDue = "deferred_to_response_due_date"
         static let DisplayOrder = "display_order"
@@ -36,6 +37,7 @@ class Activity: NSManagedObject {
     
     struct Type {
         typealias Complete = NSNumber
+        typealias CompleteDate = NSDate
         typealias DeferredTo = String
         typealias DeferredToResponseDue = NSDate
         typealias DisplayOrder = NSNumber

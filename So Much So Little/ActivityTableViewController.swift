@@ -25,7 +25,7 @@ class ActivityTableViewController: UITableViewController {
     lazy var fetchedResultsController: NSFetchedResultsController = {
         let fetchRequest = Activity.fetchRequest
         fetchRequest.predicate = NSPredicate(format: "complete == NO")
-        fetchRequest.sortDescriptors = [NSSortDescriptor(key: "display_order", ascending: true)]
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: Activity.Keys.DisplayOrder, ascending: true)]
 
         let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.sharedContext, sectionNameKeyPath: nil, cacheName: nil)
         
