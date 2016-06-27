@@ -223,26 +223,35 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Task" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="UgL-eI-Xjc">
-                                <rect key="frame" x="20" y="72" width="560" height="30"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Timeboxes" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xeI-QR-PeQ">
-                                <rect key="frame" x="20" y="110" width="560" height="30"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                            </textField>
+                            <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Qx3-8Y-ZZx">
+                                <rect key="frame" x="20" y="72" width="560" height="126"/>
+                                <subviews>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Task" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="UgL-eI-Xjc">
+                                        <rect key="frame" x="0.0" y="0.0" width="560" height="30"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Timeboxes" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="xeI-QR-PeQ">
+                                        <rect key="frame" x="0.0" y="38" width="560" height="30"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits"/>
+                                    </textField>
+                                    <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zhJ-CD-ba0" customClass="TimeboxControl" customModule="So_Much_So_Little" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="76" width="560" height="50"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                    </view>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="zhJ-CD-ba0" firstAttribute="leading" secondItem="Qx3-8Y-ZZx" secondAttribute="leading" id="1Tp-Ax-pN5"/>
+                                    <constraint firstAttribute="trailing" secondItem="zhJ-CD-ba0" secondAttribute="trailing" id="vxm-in-vwc"/>
+                                </constraints>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="UgL-eI-Xjc" firstAttribute="leading" secondItem="egP-Bc-BrK" secondAttribute="leadingMargin" id="1Yv-Ns-6O5"/>
-                            <constraint firstItem="xeI-QR-PeQ" firstAttribute="leading" secondItem="egP-Bc-BrK" secondAttribute="leadingMargin" id="4gi-zK-nY4"/>
-                            <constraint firstItem="xeI-QR-PeQ" firstAttribute="top" secondItem="UgL-eI-Xjc" secondAttribute="bottom" constant="8" id="HI9-Gf-zJN"/>
-                            <constraint firstItem="xeI-QR-PeQ" firstAttribute="centerX" secondItem="egP-Bc-BrK" secondAttribute="centerX" id="I14-6b-lus"/>
-                            <constraint firstItem="xeI-QR-PeQ" firstAttribute="trailing" secondItem="egP-Bc-BrK" secondAttribute="trailingMargin" id="QBU-jS-9Sq"/>
-                            <constraint firstItem="UgL-eI-Xjc" firstAttribute="trailing" secondItem="egP-Bc-BrK" secondAttribute="trailingMargin" id="ivy-6J-hJI"/>
-                            <constraint firstItem="UgL-eI-Xjc" firstAttribute="top" secondItem="GfE-yy-vwM" secondAttribute="bottom" constant="8" id="ocQ-wd-A8c"/>
+                            <constraint firstItem="Qx3-8Y-ZZx" firstAttribute="top" secondItem="GfE-yy-vwM" secondAttribute="bottom" constant="8" id="BsR-Lk-1zb"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="Qx3-8Y-ZZx" secondAttribute="trailing" id="aBP-Be-m7S"/>
+                            <constraint firstItem="Qx3-8Y-ZZx" firstAttribute="leading" secondItem="egP-Bc-BrK" secondAttribute="leadingMargin" id="ozy-Z7-ZHE"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="pEv-2R-d8W"/>
@@ -368,7 +377,7 @@
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <segue destination="029-GX-oH7" kind="show" identifier="ShowCompletedActivityDetail" id="Ms9-6L-3NV"/>
+                                    <segue destination="029-GX-oH7" kind="show" identifier="ShowCompletedActivity" id="Ms9-6L-3NV"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -423,6 +432,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="Ms9-6L-3NV"/>
+        <segue reference="UwW-HC-zeT"/>
     </inferredMetricsTieBreakers>
 </document>
