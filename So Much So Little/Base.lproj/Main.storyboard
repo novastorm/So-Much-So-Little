@@ -223,8 +223,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Qx3-8Y-ZZx">
-                                <rect key="frame" x="20" y="72" width="560" height="126"/>
+                            <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" axis="vertical" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Qx3-8Y-ZZx">
+                                <rect key="frame" x="20" y="72" width="560" height="120"/>
                                 <subviews>
                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Task" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="UgL-eI-Xjc">
                                         <rect key="frame" x="0.0" y="0.0" width="560" height="30"/>
@@ -236,13 +236,17 @@
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
-                                    <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zhJ-CD-ba0" customClass="TimeboxControl" customModule="So_Much_So_Little" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="76" width="560" height="50"/>
+                                    <view contentMode="top" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zhJ-CD-ba0" customClass="TimeboxControl" customModule="So_Much_So_Little" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="76" width="560" height="44"/>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="44" id="SYz-zQ-HIr"/>
+                                        </constraints>
                                     </view>
                                 </subviews>
                                 <constraints>
                                     <constraint firstItem="zhJ-CD-ba0" firstAttribute="leading" secondItem="Qx3-8Y-ZZx" secondAttribute="leading" id="1Tp-Ax-pN5"/>
+                                    <constraint firstItem="zhJ-CD-ba0" firstAttribute="width" secondItem="Qx3-8Y-ZZx" secondAttribute="width" id="VBJ-DF-qM5"/>
                                     <constraint firstAttribute="trailing" secondItem="zhJ-CD-ba0" secondAttribute="trailing" id="vxm-in-vwc"/>
                                 </constraints>
                             </stackView>
@@ -257,6 +261,7 @@
                     <navigationItem key="navigationItem" id="pEv-2R-d8W"/>
                     <connections>
                         <outlet property="taskTextField" destination="UgL-eI-Xjc" id="EMv-Q1-bX2"/>
+                        <outlet property="timeboxControl" destination="zhJ-CD-ba0" id="kk5-y3-AAX"/>
                         <outlet property="timeboxesTextField" destination="xeI-QR-PeQ" id="z8d-3f-Dkr"/>
                     </connections>
                 </viewController>
@@ -313,6 +318,33 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1qk-vv-kRm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2478" y="4126"/>
+        </scene>
+        <!--View Controller-->
+        <scene sceneID="alj-cZ-YwY">
+            <objects>
+                <viewController id="0wA-kF-Dvy" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="yKz-9k-lpr"/>
+                        <viewControllerLayoutGuide type="bottom" id="7Cu-Qa-s2Y"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="ndM-9J-9qu">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="2Kd-nR-ybf">
+                                <rect key="frame" x="0.0" y="556" width="600" height="44"/>
+                                <items>
+                                    <barButtonItem title="Item" id="eRo-UJ-6NH"/>
+                                    <barButtonItem title="Item" id="uXT-rr-urm"/>
+                                </items>
+                            </toolbar>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="6fQ-uk-0nj" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3050" y="3448"/>
         </scene>
         <!--Settings-->
         <scene sceneID="qRm-jd-aqq">
@@ -377,7 +409,7 @@
                                     </subviews>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <segue destination="029-GX-oH7" kind="show" identifier="ShowCompletedActivity" id="Ms9-6L-3NV"/>
+                                    <segue destination="029-GX-oH7" kind="show" identifier="ShowCompletedActivityDetail" id="Ms9-6L-3NV"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -432,6 +464,6 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="UwW-HC-zeT"/>
+        <segue reference="Ms9-6L-3NV"/>
     </inferredMetricsTieBreakers>
 </document>
