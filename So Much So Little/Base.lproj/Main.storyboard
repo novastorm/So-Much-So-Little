@@ -240,32 +240,32 @@
                                     </button>
                                 </subviews>
                             </stackView>
-                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" preservesSuperviewLayoutMargins="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dvO-9r-Qqi">
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dvO-9r-Qqi">
                                 <rect key="frame" x="0.0" y="72" width="414" height="733"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="n67-2m-cLa" userLabel="Content View">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="733"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="n67-2m-cLa" userLabel="Content View">
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="825.5"/>
                                         <subviews>
-                                            <stackView opaque="NO" contentMode="top" ambiguous="YES" misplaced="YES" axis="vertical" distribution="equalSpacing" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="2EF-jN-gzF">
+                                            <stackView opaque="NO" contentMode="top" misplaced="YES" axis="vertical" distribution="equalSpacing" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="2EF-jN-gzF">
                                                 <rect key="frame" x="0.0" y="0.0" width="414" height="696"/>
                                                 <subviews>
-                                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Activity Task Label" borderStyle="roundedRect" placeholder="Task" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="7zz-7o-pN0">
-                                                        <rect key="frame" x="0.0" y="0.0" width="414" height="30"/>
+                                                    <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Activity Task Label" borderStyle="roundedRect" placeholder="Task" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="7zz-7o-pN0">
+                                                        <rect key="frame" x="8" y="0.0" width="398" height="30"/>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                         <textInputTraits key="textInputTraits"/>
                                                     </textField>
-                                                    <view contentMode="top" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4bZ-4P-lEs" customClass="TimeboxControl" customModule="So_Much_So_Little" customModuleProvider="target">
+                                                    <view contentMode="top" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4bZ-4P-lEs" customClass="TimeboxControl" customModule="So_Much_So_Little" customModuleProvider="target">
                                                         <rect key="frame" x="8" y="38" width="398" height="50"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     </view>
-                                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" scrollEnabled="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="tHu-4a-zC1">
+                                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" scrollEnabled="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="tHu-4a-zC1">
                                                         <rect key="frame" x="2" y="96" width="411" height="167"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                     </textView>
-                                                    <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NQT-XJ-neH">
+                                                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="NQT-XJ-neH" userLabel="Relationship Fields View">
                                                         <rect key="frame" x="0.0" y="271" width="414" height="96"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Project" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qou-Ca-0yA">
@@ -303,29 +303,32 @@
                                                             </label>
                                                         </subviews>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="96" id="3Gk-X0-IMk"/>
+                                                        </constraints>
                                                     </view>
-                                                    <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="DEc-1w-4H6" userLabel="Activity Type View">
-                                                        <rect key="frame" x="49" y="375" width="316" height="30"/>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" distribution="fillProportionally" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="DEc-1w-4H6" userLabel="Activity Type View">
+                                                        <rect key="frame" x="8" y="375" width="398" height="30"/>
                                                         <subviews>
-                                                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kFG-QS-72h">
-                                                                <rect key="frame" x="0.0" y="0.0" width="73" height="30"/>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kFG-QS-72h">
+                                                                <rect key="frame" x="0.0" y="0.0" width="100" height="30"/>
                                                                 <state key="normal" title="Reference"/>
                                                             </button>
-                                                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6PC-Qt-OSw">
-                                                                <rect key="frame" x="81" y="0.0" width="73" height="30"/>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6PC-Qt-OSw">
+                                                                <rect key="frame" x="108" y="0.0" width="104" height="30"/>
                                                                 <state key="normal" title="Scheduled"/>
                                                             </button>
-                                                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7f3-Ia-OUJ">
-                                                                <rect key="frame" x="162" y="0.0" width="73" height="30"/>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7f3-Ia-OUJ">
+                                                                <rect key="frame" x="220" y="0.0" width="74" height="30"/>
                                                                 <state key="normal" title="Flexible"/>
                                                             </button>
-                                                            <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hxm-Tx-kyI">
-                                                                <rect key="frame" x="243" y="0.0" width="73" height="30"/>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hxm-Tx-kyI">
+                                                                <rect key="frame" x="301" y="0.0" width="97" height="30"/>
                                                                 <state key="normal" title="Deferred"/>
                                                             </button>
                                                         </subviews>
                                                     </stackView>
-                                                    <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="23q-o6-zyU" userLabel="Scheduled Fields View">
+                                                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="23q-o6-zyU" userLabel="Scheduled Fields View">
                                                         <rect key="frame" x="0.0" y="413" width="414" height="96"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="End" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="J5p-xW-pT8">
@@ -363,8 +366,11 @@
                                                             </label>
                                                         </subviews>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="96" id="Ab3-nC-WX7"/>
+                                                        </constraints>
                                                     </view>
-                                                    <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WvU-KH-2h6" userLabel="Flexbile Fields View">
+                                                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WvU-KH-2h6" userLabel="Flexbile Fields View">
                                                         <rect key="frame" x="0.0" y="517" width="414" height="50"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Due Date" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YO8-Yb-8Eq" userLabel="Completion Date">
@@ -381,8 +387,11 @@
                                                             </label>
                                                         </subviews>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="50" id="SV0-lF-jPA"/>
+                                                        </constraints>
                                                     </view>
-                                                    <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dB4-8h-jYC" userLabel="Deferred Fields View">
+                                                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dB4-8h-jYC" userLabel="Deferred Fields View">
                                                         <rect key="frame" x="0.0" y="575" width="414" height="63"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Deferred To" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xsy-yH-XEH">
@@ -409,8 +418,11 @@
                                                             </textField>
                                                         </subviews>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="63" id="POn-NU-Qdz"/>
+                                                        </constraints>
                                                     </view>
-                                                    <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CJL-hc-LFA" userLabel="Completion Fields View">
+                                                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CJL-hc-LFA" userLabel="Completion Fields View">
                                                         <rect key="frame" x="0.0" y="646" width="414" height="50"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Completion Date" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qqj-WP-iOu" userLabel="Completion Date">
@@ -427,17 +439,31 @@
                                                             </label>
                                                         </subviews>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="50" id="F6r-C3-Z73"/>
+                                                        </constraints>
                                                     </view>
                                                 </subviews>
                                                 <constraints>
-                                                    <constraint firstItem="7zz-7o-pN0" firstAttribute="width" secondItem="2EF-jN-gzF" secondAttribute="width" id="9Cg-FC-zc1"/>
-                                                    <constraint firstItem="4bZ-4P-lEs" firstAttribute="width" secondItem="2EF-jN-gzF" secondAttribute="width" constant="-16" id="eYm-kt-ldb"/>
+                                                    <constraint firstItem="DEc-1w-4H6" firstAttribute="leading" secondItem="2EF-jN-gzF" secondAttribute="leading" constant="8" id="BLv-D7-nHb"/>
+                                                    <constraint firstAttribute="trailing" secondItem="DEc-1w-4H6" secondAttribute="trailing" constant="8" id="E3P-Av-Arm"/>
+                                                    <constraint firstItem="dB4-8h-jYC" firstAttribute="width" secondItem="2EF-jN-gzF" secondAttribute="width" id="EgD-QV-UGX"/>
+                                                    <constraint firstItem="7zz-7o-pN0" firstAttribute="leading" secondItem="2EF-jN-gzF" secondAttribute="leading" constant="8" id="KyT-hB-oiN"/>
+                                                    <constraint firstItem="4bZ-4P-lEs" firstAttribute="leading" secondItem="2EF-jN-gzF" secondAttribute="leading" constant="8" id="Pjt-S2-Mp2"/>
+                                                    <constraint firstItem="7zz-7o-pN0" firstAttribute="trailing" secondItem="2EF-jN-gzF" secondAttribute="trailing" constant="-8" id="Ucg-54-s2V"/>
+                                                    <constraint firstItem="4bZ-4P-lEs" firstAttribute="trailing" secondItem="2EF-jN-gzF" secondAttribute="trailing" constant="-8" id="dPc-mb-dc8"/>
+                                                    <constraint firstItem="23q-o6-zyU" firstAttribute="width" secondItem="2EF-jN-gzF" secondAttribute="width" id="ftL-aM-bbT"/>
+                                                    <constraint firstItem="NQT-XJ-neH" firstAttribute="width" secondItem="2EF-jN-gzF" secondAttribute="width" id="nW8-n5-nJQ"/>
+                                                    <constraint firstItem="WvU-KH-2h6" firstAttribute="width" secondItem="2EF-jN-gzF" secondAttribute="width" id="tRw-up-oEC"/>
+                                                    <constraint firstItem="CJL-hc-LFA" firstAttribute="width" secondItem="2EF-jN-gzF" secondAttribute="width" id="xnv-BZ-AAi"/>
                                                 </constraints>
                                             </stackView>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
+                                            <constraint firstAttribute="bottom" secondItem="2EF-jN-gzF" secondAttribute="bottom" id="2RP-HI-Rzf"/>
                                             <constraint firstItem="2EF-jN-gzF" firstAttribute="leading" secondItem="n67-2m-cLa" secondAttribute="leading" id="N1C-ae-Flq"/>
+                                            <constraint firstItem="2EF-jN-gzF" firstAttribute="top" secondItem="n67-2m-cLa" secondAttribute="top" id="Oxc-Rc-1gq"/>
                                             <constraint firstItem="2EF-jN-gzF" firstAttribute="trailing" secondItem="n67-2m-cLa" secondAttribute="trailing" id="yMx-D3-WRj"/>
                                         </constraints>
                                     </view>
