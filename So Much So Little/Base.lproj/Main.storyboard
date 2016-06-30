@@ -257,16 +257,10 @@
                                                     <view contentMode="top" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4bZ-4P-lEs" customClass="TimeboxControl" customModule="So_Much_So_Little" customModuleProvider="target">
                                                         <rect key="frame" x="8" y="38" width="398" height="50"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="height" constant="50" placeholder="YES" id="1Uy-cE-OWt"/>
-                                                        </constraints>
                                                     </view>
-                                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" scrollEnabled="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="tHu-4a-zC1">
-                                                        <rect key="frame" x="0.0" y="96" width="414" height="167"/>
+                                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" scrollEnabled="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="tHu-4a-zC1">
+                                                        <rect key="frame" x="2" y="96" width="411" height="167"/>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="height" constant="167" placeholder="YES" id="oRW-IM-brK"/>
-                                                        </constraints>
                                                         <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -309,27 +303,24 @@
                                                             </label>
                                                         </subviews>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="height" constant="96" id="HDN-pV-sbW"/>
-                                                        </constraints>
                                                     </view>
-                                                    <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="DEc-1w-4H6" userLabel="Activity Type View">
-                                                        <rect key="frame" x="0.0" y="375" width="414" height="30"/>
+                                                    <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="DEc-1w-4H6" userLabel="Activity Type View">
+                                                        <rect key="frame" x="49" y="375" width="316" height="30"/>
                                                         <subviews>
                                                             <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kFG-QS-72h">
-                                                                <rect key="frame" x="0.0" y="0.0" width="98" height="30"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="73" height="30"/>
                                                                 <state key="normal" title="Reference"/>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6PC-Qt-OSw">
-                                                                <rect key="frame" x="106" y="0.0" width="98" height="30"/>
+                                                                <rect key="frame" x="81" y="0.0" width="73" height="30"/>
                                                                 <state key="normal" title="Scheduled"/>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7f3-Ia-OUJ">
-                                                                <rect key="frame" x="211" y="0.0" width="98" height="30"/>
+                                                                <rect key="frame" x="162" y="0.0" width="73" height="30"/>
                                                                 <state key="normal" title="Flexible"/>
                                                             </button>
                                                             <button opaque="NO" contentMode="scaleToFill" ambiguous="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hxm-Tx-kyI">
-                                                                <rect key="frame" x="317" y="0.0" width="98" height="30"/>
+                                                                <rect key="frame" x="243" y="0.0" width="73" height="30"/>
                                                                 <state key="normal" title="Deferred"/>
                                                             </button>
                                                         </subviews>
@@ -372,9 +363,6 @@
                                                             </label>
                                                         </subviews>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="height" constant="96" id="RPi-ew-b38"/>
-                                                        </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WvU-KH-2h6" userLabel="Flexbile Fields View">
                                                         <rect key="frame" x="0.0" y="517" width="414" height="50"/>
@@ -393,9 +381,6 @@
                                                             </label>
                                                         </subviews>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="height" constant="50" id="4tm-oy-tlH"/>
-                                                        </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dB4-8h-jYC" userLabel="Deferred Fields View">
                                                         <rect key="frame" x="0.0" y="575" width="414" height="63"/>
@@ -424,11 +409,8 @@
                                                             </textField>
                                                         </subviews>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="height" constant="63" id="k3g-ai-B32"/>
-                                                        </constraints>
                                                     </view>
-                                                    <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CJL-hc-LFA" userLabel="Completion Fields View">
+                                                    <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CJL-hc-LFA" userLabel="Completion Fields View">
                                                         <rect key="frame" x="0.0" y="646" width="414" height="50"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Completion Date" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qqj-WP-iOu" userLabel="Completion Date">
@@ -445,22 +427,11 @@
                                                             </label>
                                                         </subviews>
                                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="height" constant="50" id="TJT-eH-gUC"/>
-                                                        </constraints>
                                                     </view>
                                                 </subviews>
                                                 <constraints>
-                                                    <constraint firstItem="CJL-hc-LFA" firstAttribute="leading" secondItem="2EF-jN-gzF" secondAttribute="leading" id="6am-mR-wWD"/>
-                                                    <constraint firstItem="tHu-4a-zC1" firstAttribute="trailing" secondItem="2EF-jN-gzF" secondAttribute="trailing" id="77J-Lt-xNP"/>
-                                                    <constraint firstItem="DEc-1w-4H6" firstAttribute="trailing" secondItem="2EF-jN-gzF" secondAttribute="trailing" id="EFD-O6-NMq"/>
-                                                    <constraint firstItem="7zz-7o-pN0" firstAttribute="trailing" secondItem="2EF-jN-gzF" secondAttribute="trailing" id="OLs-R1-ZZU"/>
-                                                    <constraint firstItem="CJL-hc-LFA" firstAttribute="trailing" secondItem="2EF-jN-gzF" secondAttribute="trailing" id="Yud-fK-n9r"/>
-                                                    <constraint firstItem="4bZ-4P-lEs" firstAttribute="trailing" secondItem="2EF-jN-gzF" secondAttribute="trailing" constant="8" id="ZXI-T9-78O"/>
-                                                    <constraint firstItem="tHu-4a-zC1" firstAttribute="leading" secondItem="2EF-jN-gzF" secondAttribute="leading" id="h51-ga-gTW"/>
-                                                    <constraint firstItem="DEc-1w-4H6" firstAttribute="leading" secondItem="2EF-jN-gzF" secondAttribute="leading" id="p8u-AL-JII"/>
-                                                    <constraint firstItem="7zz-7o-pN0" firstAttribute="leading" secondItem="2EF-jN-gzF" secondAttribute="leading" id="rgC-qU-hmd"/>
-                                                    <constraint firstItem="4bZ-4P-lEs" firstAttribute="leading" secondItem="2EF-jN-gzF" secondAttribute="leading" constant="8" id="vXy-3d-QPR"/>
+                                                    <constraint firstItem="7zz-7o-pN0" firstAttribute="width" secondItem="2EF-jN-gzF" secondAttribute="width" id="9Cg-FC-zc1"/>
+                                                    <constraint firstItem="4bZ-4P-lEs" firstAttribute="width" secondItem="2EF-jN-gzF" secondAttribute="width" constant="-16" id="eYm-kt-ldb"/>
                                                 </constraints>
                                             </stackView>
                                         </subviews>
@@ -494,6 +465,10 @@
                     <navigationItem key="navigationItem" id="pEv-2R-d8W"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="414" height="900"/>
+                    <connections>
+                        <outlet property="taskTextField" destination="7zz-7o-pN0" id="gie-xr-eqV"/>
+                        <outlet property="timeboxControl" destination="4bZ-4P-lEs" id="ys5-Fs-Hio"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2JI-aS-2rb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
