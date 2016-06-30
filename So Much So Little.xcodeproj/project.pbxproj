@@ -27,8 +27,6 @@
 		3E0977A71D18FA7B00A7F2C4 /* Timebox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E09779F1D18FA7B00A7F2C4 /* Timebox.swift */; };
 		3E0977A81D18FA7B00A7F2C4 /* Project+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0977A01D18FA7B00A7F2C4 /* Project+CoreDataProperties.swift */; };
 		3E0977AA1D1A3D1A00A7F2C4 /* CoreDataStackManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0977A91D1A3D1A00A7F2C4 /* CoreDataStackManager.swift */; };
-		3E619CDC1D2590E500106DA5 /* ActivityDetailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E619CDB1D2590E500106DA5 /* ActivityDetailView.xib */; };
-		3E619CDE1D25AB5100106DA5 /* ActivityDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E619CDD1D25AB5100106DA5 /* ActivityDetailView.swift */; };
 		3E7D99C31D21C1BD008FA84B /* TimeboxControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7D99C21D21C1BD008FA84B /* TimeboxControl.swift */; };
 		3EE7411A1D1090DC00064BF6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EE741191D1090DC00064BF6 /* AppDelegate.swift */; };
 		3EE7411C1D1090DC00064BF6 /* TodayTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EE7411B1D1090DC00064BF6 /* TodayTableViewController.swift */; };
@@ -78,8 +76,6 @@
 		3E09779F1D18FA7B00A7F2C4 /* Timebox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Timebox.swift; sourceTree = "<group>"; };
 		3E0977A01D18FA7B00A7F2C4 /* Project+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Project+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		3E0977A91D1A3D1A00A7F2C4 /* CoreDataStackManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStackManager.swift; sourceTree = "<group>"; };
-		3E619CDB1D2590E500106DA5 /* ActivityDetailView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ActivityDetailView.xib; sourceTree = "<group>"; };
-		3E619CDD1D25AB5100106DA5 /* ActivityDetailView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityDetailView.swift; sourceTree = "<group>"; };
 		3E7D99C21D21C1BD008FA84B /* TimeboxControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeboxControl.swift; sourceTree = "<group>"; };
 		3E7D99C41D21DE70008FA84B /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		3EE741161D1090DC00064BF6 /* So Much So Little.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "So Much So Little.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -150,8 +146,6 @@
 		3E09777C1D11E15C00A7F2C4 /* Views */ = {
 			isa = PBXGroup;
 			children = (
-				3E619CDB1D2590E500106DA5 /* ActivityDetailView.xib */,
-				3E619CDD1D25AB5100106DA5 /* ActivityDetailView.swift */,
 				3E7D99C21D21C1BD008FA84B /* TimeboxControl.swift */,
 			);
 			name = Views;
@@ -337,7 +331,6 @@
 			files = (
 				3EE741271D1090DC00064BF6 /* LaunchScreen.storyboard in Resources */,
 				3EE741241D1090DC00064BF6 /* Assets.xcassets in Resources */,
-				3E619CDC1D2590E500106DA5 /* ActivityDetailView.xib in Resources */,
 				3EE7411F1D1090DC00064BF6 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -363,7 +356,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3E619CDE1D25AB5100106DA5 /* ActivityDetailView.swift in Sources */,
 				3E7D99C31D21C1BD008FA84B /* TimeboxControl.swift in Sources */,
 				3E0977A41D18FA7B00A7F2C4 /* Milestone.swift in Sources */,
 				3EE7411C1D1090DC00064BF6 /* TodayTableViewController.swift in Sources */,
