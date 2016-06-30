@@ -54,15 +54,21 @@ class Activity: NSManagedObject {
     }
     
     convenience init(task: String, context: NSManagedObjectContext) {
-        let entity = NSEntityDescription.entityForName("Activity", inManagedObjectContext: context)!
+//        let className =  self.dynamicType.description().componentsSeparatedByString(".")[1]
+        let className = self.dynamicType.className
+        let entity = NSEntityDescription.entityForName(className, inManagedObjectContext: context)!
         
         self.init(entity: entity, insertIntoManagedObjectContext: context)
         
         self.task = task
     }
     
+//    static var className: String {
+//        return description().componentsSeparatedByString(".")[1]
+//    }
+    
     static var fetchRequest: NSFetchRequest {
-        return NSFetchRequest(entityName: "Activity")
+        return NSFetchRequest(entityName: className)
     }
     
     static let mockActivityList: [[String:AnyObject]] = [

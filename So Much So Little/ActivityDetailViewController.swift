@@ -14,21 +14,19 @@ class ActivityDetailViewController: UIViewController {
     
     
     @IBOutlet weak var taskTextField: UITextField!
-    @IBOutlet weak var timeboxesTextField: UITextField!
     @IBOutlet weak var timeboxControl: TimeboxControl!
     
     override func viewDidLoad() {
+        super.viewDidLoad()
 
         if let activity = activity {
             taskTextField.text = activity.task
             
             let actualTimeboxes = activity.actual_timeboxes!
             let estimatedTimeboxes = activity.estimated_timeboxes!
-            timeboxesTextField.text = "\(actualTimeboxes)/\(estimatedTimeboxes)"
             
             timeboxControl.pendingTimeboxes = estimatedTimeboxes as Int
+            timeboxControl.completedTimeboxes = actualTimeboxes as Int
         }
     }
-    
-    
 }

@@ -27,22 +27,21 @@ class TimeboxControl: UIView {
         }
     }
     
+    static let defaultTimeboxImage = UIImage(named: "Timebox")
+    static let pendingTimeboxImage = UIImage(named: "Clock")
+    static let completedTimeboxImage = UIImage(named: "FilledBox")
 
     // MARK: - Initialization
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         
-        let defaultTimeboxImage = UIImage(named: "Timebox")
-        let pendingTimeboxImage = UIImage(named: "Clock")
-        let completedTimeboxImage = UIImage(named: "FilledBox")
-        
         for _ in 0 ..< timeboxCount {
             let button = UIButton()
             
-            button.setImage(defaultTimeboxImage, forState: .Normal)
-            button.setImage(pendingTimeboxImage, forState: .Selected)
-            button.setImage(completedTimeboxImage, forState: .Application)
+            button.setImage(self.dynamicType.defaultTimeboxImage, forState: .Normal)
+            button.setImage(self.dynamicType.pendingTimeboxImage, forState: .Selected)
+            button.setImage(self.dynamicType.pendingTimeboxImage, forState: [.Selected, .Highlighted])
             
             button.adjustsImageWhenHighlighted = false
             
@@ -55,6 +54,7 @@ class TimeboxControl: UIView {
     }
     
     override func layoutSubviews() {
+        
         let spacingTotal = timeboxSpacing * (timeboxCount - 1)
         let buttonSize = (Int(frame.size.width) - spacingTotal) / (timeboxCount)
         var buttonFrame = CGRect(x: 0, y: 0, width: buttonSize, height: buttonSize)
@@ -88,6 +88,12 @@ class TimeboxControl: UIView {
     func updateButtonSelectionStates() {
         for (index, button) in timeboxButtons.enumerate() {
             button.selected = index < pendingTimeboxes
+            let completed = (index < completedTimeboxes)
+            if completed {
+                button.setImage(self.dynamicType.completedTimeboxImage, forState: .Selected)
+                button.selected = completed
+                
+            }
         }
     }
 }
