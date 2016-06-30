@@ -56,7 +56,7 @@ class TimeboxControl: UIView {
     override func layoutSubviews() {
         
         let spacingTotal = timeboxSpacing * (timeboxCount - 1)
-        let buttonSize = (Int(frame.size.width) - spacingTotal) / (timeboxCount)
+        let buttonSize = (Int(frame.size.width) - 16 - spacingTotal) / (timeboxCount)
         var buttonFrame = CGRect(x: 0, y: 0, width: buttonSize, height: buttonSize)
         
         for (index, button) in timeboxButtons.enumerate() {
@@ -70,7 +70,7 @@ class TimeboxControl: UIView {
     override func intrinsicContentSize() -> CGSize {
         let spacingTotal = timeboxSpacing * (timeboxCount - 1)
         
-        let buttonSize = (Int(frame.size.width) - spacingTotal) / (timeboxCount)
+        let buttonSize = (Int(frame.size.width) - 16 - spacingTotal) / (timeboxCount)
         let width = (buttonSize * timeboxCount) + spacingTotal
         
         return CGSize(width: width, height: buttonSize)

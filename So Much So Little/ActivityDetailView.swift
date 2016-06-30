@@ -37,4 +37,29 @@ class ActivityDetailView: UIView {
     
     @IBOutlet weak var completionFieldsView: UIView!
     @IBOutlet weak var completionDateTextField: UILabel!
+    
+//    var view: UIView!
+    
+    func setupView() {
+        let view = loadView()
+        view.frame = bounds
+        view.autoresizingMask = [.FlexibleWidth, .FlexibleHeight]
+        addSubview(view)
+    }
+    
+    func loadView() -> UIView {
+        let bundle = NSBundle(forClass: self.dynamicType)
+        let nib = UINib(nibName: self.dynamicType.className, bundle: bundle)
+        return nib.instantiateWithOwner(self, options: nil).first as! UIView
+    }
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        setupView()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        setupView()
+    }
 }
