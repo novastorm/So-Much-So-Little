@@ -15,6 +15,7 @@
         <attribute name="task_info" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="today" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <attribute name="today_display_order" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="typeValue" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <relationship name="milestone" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Milestone" inverseName="activities" inverseEntity="Milestone" syncable="YES"/>
         <relationship name="project" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Project" inverseName="activities" inverseEntity="Project" syncable="YES"/>
         <relationship name="roles" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Role" inverseName="activities" inverseEntity="Role" syncable="YES"/>
@@ -49,7 +50,7 @@
         <relationship name="activity" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Activity" inverseName="timeboxes" inverseEntity="Activity" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Activity" positionX="-63" positionY="-18" width="128" height="315"/>
+        <element name="Activity" positionX="-63" positionY="-18" width="128" height="330"/>
         <element name="Milestone" positionX="-27" positionY="117" width="128" height="90"/>
         <element name="Project" positionX="-54" positionY="-9" width="128" height="180"/>
         <element name="Role" positionX="-36" positionY="72" width="128" height="90"/>

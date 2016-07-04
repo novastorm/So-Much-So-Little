@@ -9,6 +9,13 @@
 import CoreData
 import Foundation
 
+enum ActivityType: Int {
+    case Deferred
+    case Flexible
+    case Reference
+    case Scheduled
+}
+
 class Activity: NSManagedObject {
     
     struct Keys {
@@ -51,6 +58,15 @@ class Activity: NSManagedObject {
         typealias TaskInfo = String
         typealias Today = NSNumber
         typealias TodayDisplayOrder = Int64
+    }
+    
+    var type: ActivityType {
+        get {
+            return ActivityType(rawValue: typeValue as! Int)!
+        }
+        set  {
+            typeValue = newValue.rawValue
+        }
     }
     
     convenience init(task: String, context: NSManagedObjectContext) {

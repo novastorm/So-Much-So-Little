@@ -28,6 +28,8 @@ extension Activity {
     @NSManaged var task_info: String?
     @NSManaged var today: NSNumber?
     @NSManaged var today_display_order: NSNumber?
+    @NSManaged var typeValue: NSNumber?
+
     @NSManaged var milestone: Milestone?
     @NSManaged var project: Project?
     @NSManaged var roles: NSSet?
