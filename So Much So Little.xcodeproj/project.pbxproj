@@ -38,7 +38,7 @@
 		3EE741221D1090DC00064BF6 /* So_Much_So_Little.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3EE741201D1090DC00064BF6 /* So_Much_So_Little.xcdatamodeld */; };
 		3EE741241D1090DC00064BF6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3EE741231D1090DC00064BF6 /* Assets.xcassets */; };
 		3EE741271D1090DC00064BF6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3EE741251D1090DC00064BF6 /* LaunchScreen.storyboard */; };
-		3EE741321D1090DC00064BF6 /* So_Much_So_LittleDataProviderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EE741311D1090DC00064BF6 /* So_Much_So_LittleDataProviderTests.swift */; };
+		3EE741321D1090DC00064BF6 /* So_Much_So_LittleActivityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EE741311D1090DC00064BF6 /* So_Much_So_LittleActivityTests.swift */; };
 		3EE7413D1D1090DC00064BF6 /* So_Much_So_LittleUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EE7413C1D1090DC00064BF6 /* So_Much_So_LittleUITests.swift */; };
 /* End PBXBuildFile section */
 
@@ -97,7 +97,7 @@
 		3EE741261D1090DC00064BF6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3EE741281D1090DC00064BF6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3EE7412D1D1090DC00064BF6 /* So Much So LittleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "So Much So LittleTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		3EE741311D1090DC00064BF6 /* So_Much_So_LittleDataProviderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = So_Much_So_LittleDataProviderTests.swift; sourceTree = "<group>"; };
+		3EE741311D1090DC00064BF6 /* So_Much_So_LittleActivityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = So_Much_So_LittleActivityTests.swift; sourceTree = "<group>"; };
 		3EE741331D1090DC00064BF6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3EE741381D1090DC00064BF6 /* So Much So LittleUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "So Much So LittleUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3EE7413C1D1090DC00064BF6 /* So_Much_So_LittleUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = So_Much_So_LittleUITests.swift; sourceTree = "<group>"; };
@@ -243,7 +243,7 @@
 		3EE741301D1090DC00064BF6 /* So Much So LittleTests */ = {
 			isa = PBXGroup;
 			children = (
-				3EE741311D1090DC00064BF6 /* So_Much_So_LittleDataProviderTests.swift */,
+				3EE741311D1090DC00064BF6 /* So_Much_So_LittleActivityTests.swift */,
 				3EE741331D1090DC00064BF6 /* Info.plist */,
 			);
 			path = "So Much So LittleTests";
@@ -441,7 +441,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3EE741321D1090DC00064BF6 /* So_Much_So_LittleDataProviderTests.swift in Sources */,
+				3EE741321D1090DC00064BF6 /* So_Much_So_LittleActivityTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -638,6 +638,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.4mfd.So-Much-So-LittleUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				TEST_TARGET_NAME = "So Much So Little";
 			};
 			name = Debug;
@@ -649,6 +650,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.4mfd.So-Much-So-LittleUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				TEST_TARGET_NAME = "So Much So Little";
 			};
 			name = Release;
