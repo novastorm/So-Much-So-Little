@@ -57,7 +57,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if !NSUserDefaults.standardUserDefaults().boolForKey(UserDefaultKeys.HasLaunchedBefore) {
             NSUserDefaults.standardUserDefaults().setBool(true, forKey: UserDefaultKeys.HasLaunchedBefore)
             
-            Activity.populateActivityList()
+//            Activity.populateActivityList()
         }
     }
 }

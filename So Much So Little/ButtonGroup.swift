@@ -17,12 +17,12 @@ class ButtonGroup: NSObject {
     
     var unSelectable: Bool
     
-    let selectedBackgroundColor: UIColor
-    let selectedTitleColor: UIColor
+    let selectedBackgroundColor: UIColor?
+    let selectedTitleColor: UIColor?
     
     var selectedButton: UIButton?
     
-    init(buttons: [UIButton], backgroundColor: UIColor, titleColor: UIColor, unSelectable: Bool = false) {
+    init(buttons: [UIButton], backgroundColor: UIColor?, titleColor: UIColor?, unSelectable: Bool = false) {
         
         selectedBackgroundColor = backgroundColor
         selectedTitleColor = titleColor
@@ -36,6 +36,10 @@ class ButtonGroup: NSObject {
 
         for button in buttons {
             button.addTarget(self, action: #selector(ButtonGroup.didTouchUpInside(_:)), forControlEvents: .TouchUpInside)
+        }
+        
+        if unSelectable {
+            didTouchUpInside(buttons[0])
         }
     }
     

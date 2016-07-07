@@ -34,8 +34,14 @@ class ActivityDetailViewController: UIViewController {
     @IBOutlet weak var deferredFieldsView: UIView!
     @IBOutlet weak var completionFieldsView: UIView!
     
+    var buttonGroup: ButtonGroup!
+    var viewGroup: ViewGroup!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        buttonGroup = ButtonGroup(buttons: [flexibleButton, referenceButton, scheduledButton, deferredButton], backgroundColor: flexibleButton.titleColorForState(.Normal), titleColor: UIColor.whiteColor() , unSelectable: true)
+        viewGroup = ViewGroup(views: [deferredFieldsView, flexibleFieldsView, scheduledFieldsView])
 
         if let activity = activity {
             taskTextField.text = activity.task
@@ -45,35 +51,40 @@ class ActivityDetailViewController: UIViewController {
             
             timeboxControl.pendingTimeboxes = estimatedTimeboxes as Int
             timeboxControl.completedTimeboxes = actualTimeboxes as Int
+            
+            switch activity.type {
+            case .Deferred:
+                buttonGroup.didTouchUpInside(deferredButton)
+            case .Reference:
+                buttonGroup.didTouchUpInside(referenceButton)
+            case .Scheduled:
+                buttonGroup.didTouchUpInside(scheduledButton)
+            default:
+                buttonGroup.didTouchUpInside(flexibleButton)
+            }
         }
         
     }
     
     // MARK: - actions
     
-    private func updateActivityType(type: ActivityType = .Flexible) {
-        for (activityType, button) in activityTypeButtonList {
-            let state = type == activityType
-            let view = activityTypeViewList[activityType]
-            
-            button.highlighted = state
-            view?.hidden = !state
-        }
+    @IBAction func showReferenceView(sender: UIButton) {
+        buttonGroup.didTouchUpInside(sender)
+        viewGroup.setView(nil)
     }
     
-    @IBAction func showReferenceView(sender: AnyObject) {
-        updateActivityType(.Reference)
+    @IBAction func showScheduledView(sender: UIButton) {
+        buttonGroup.didTouchUpInside(sender)
+        viewGroup.setView(scheduledFieldsView)
     }
     
-    @IBAction func showScheduledView(sender: AnyObject) {
-        updateActivityType(.Scheduled)
-    }
-    
-    @IBAction func showFlexibleView(sender: AnyObject) {
-        updateActivityType(.Flexible)
+    @IBAction func showFlexibleView(sender: UIButton) {
+        buttonGroup.didTouchUpInside(sender)
+        viewGroup.setView(flexibleFieldsView)
     }
 
-    @IBAction func showDeferredView(sender: AnyObject) {
-        updateActivityType(.Deferred)
+    @IBAction func showDeferredView(sender: UIButton) {
+        buttonGroup.didTouchUpInside(sender)
+        viewGroup.setView(deferredFieldsView)
     }
 }

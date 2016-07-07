@@ -7,9 +7,10 @@
 //
 
 import XCTest
+@testable import So_Much_So_Little
 
 class So_Much_So_LittleUITests: XCTestCase {
-        
+
     override func setUp() {
         super.setUp()
         
@@ -32,5 +33,6 @@ class So_Much_So_LittleUITests: XCTestCase {
         // Use recording to get started writing UI tests.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
     }
+    
     
 }
