@@ -79,18 +79,31 @@ class So_Much_So_LittleActivityTests: XCTestCase {
         XCTAssertNil(fetchedActivity.milestone, "Default Activity milestone should be nil")
         XCTAssertNil(fetchedActivity.project, "Default Activity project should be nil")
         XCTAssertEqual(fetchedActivity.roles, [], "Default Activity roles should be []")
+        XCTAssertNil(fetchedActivity.scheduled_start, "Default Activity scheduled_start should be nil")
+        XCTAssertNil(fetchedActivity.scheduled_end, "Default Activity scheduled_end should be nil")
+        XCTAssertEqual(fetchedActivity.task, task, "Default Activity task should be \"\(task)\"")
+        XCTAssertNil(fetchedActivity.task_info, "Default Activity task_info should be nil")
+        XCTAssertEqual(fetchedActivity.timeboxes, [], "Default Activity timeboxes should be []")
+        XCTAssertEqual(fetchedActivity.today, 0, "Default Activity today should be 0")
+        XCTAssertEqual(fetchedActivity.today_display_order, 0, "Default Activity today_display_order should be 0")
+        XCTAssertEqual(fetchedActivity.typeValue, 0, "Default Activity typeValue should be 0")
     }
     
     func testStoreActivity() {
         let activityData = mockActivityList["alpha"] as! [String:AnyObject]
         let task = activityData[Activity.Keys.Task] as! String
+        let estimated_timeboxes = activityData[Activity.Keys.EstimatedTimeboxes] as? Activity.EstimatedTimeboxesType
+        
         let activity = Activity(task: task, context: managedObjectContext)
-        activity.estimated_timeboxes = activityData[Activity.Keys.EstimatedTimeboxes] as? Activity.EstimatedTimeboxesType
+        activity.estimated_timeboxes = estimated_timeboxes
         
         let fetchRequest = Activity.fetchRequest
         let fetchedResultsController = getFetchedResultsController(fetchRequest)
         
         let fetchedActivity = fetchedResultsController.objectAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! Activity
         
+        XCTAssertEqual(fetchedActivity.estimated_timeboxes, estimated_timeboxes, "Default Activity estimated_timeboxes should be \(estimated_timeboxes)")
+        XCTAssertEqual(fetchedActivity.task, task, "Default Activity task should be \"\(task)\"")
+
     }
 }
