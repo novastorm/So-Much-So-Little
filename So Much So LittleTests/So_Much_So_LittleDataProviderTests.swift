@@ -17,15 +17,13 @@ class So_Much_So_LittleDataProviderTests: XCTestCase {
     var managedObjectModel: NSManagedObjectModel!
     var persistentStore: NSPersistentStore!
     
-//    lazy var fetchedResultsController: NSFetchedResultsController = {
-//        let fetchRequest = Activity.fetchRequest
-//        fetchRequest.predicate = NSPredicate(format: "(completed != YES) AND (typeValue != \(ActivityType.Reference.rawValue))")
-//        fetchRequest.sortDescriptors = [NSSortDescriptor(key: Activity.Keys.DisplayOrder, ascending: true)]
-//        
-//        let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.managedObjectContext, sectionNameKeyPath: nil, cacheName: nil)
-//        
-//        return fetchedResultsController
-//    }()
+    func getFetchedResultsController(fetchRequest: NSFetchRequest) -> NSFetchedResultsController {
+        let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.managedObjectContext, sectionNameKeyPath: nil, cacheName: nil)
+        
+        try! fetchedResultsController.performFetch()
+
+        return fetchedResultsController
+    }
     
     override func setUp() {
         super.setUp()
@@ -36,8 +34,6 @@ class So_Much_So_LittleDataProviderTests: XCTestCase {
         
         managedObjectContext = NSManagedObjectContext(concurrencyType: .MainQueueConcurrencyType)
         managedObjectContext.persistentStoreCoordinator = storeCoordinator
-        
-//        try! fetchedResultsController.performFetch()
     }
     
     override func tearDown() {
@@ -57,9 +53,7 @@ class So_Much_So_LittleDataProviderTests: XCTestCase {
 
         let fetchRequest = Activity.fetchRequest
 
-        let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.managedObjectContext, sectionNameKeyPath: nil, cacheName: nil)
-        
-        try! fetchedResultsController.performFetch()
+        let fetchedResultsController = getFetchedResultsController(fetchRequest)
         
         let sections = fetchedResultsController.sections
 
@@ -72,9 +66,7 @@ class So_Much_So_LittleDataProviderTests: XCTestCase {
         
         let fetchRequest = Activity.fetchRequest
 
-        let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.managedObjectContext, sectionNameKeyPath: nil, cacheName: nil)
-        
-        try! fetchedResultsController.performFetch()
+        let fetchedResultsController = getFetchedResultsController(fetchRequest)
 
         XCTAssertEqual(fetchedResultsController.fetchedObjects?.count, 1)
     }
