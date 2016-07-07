@@ -33,15 +33,16 @@ class Activity: NSManagedObject {
         static let TaskInfo = "task_info"
         static let TodayDisplayOrder = "today_display_order"
         static let Today = "today"
+        static let TypeValue = "typeValue"
 
         static let Milestone = "milestone"
         
-        static let Timeboxes = "timeboxes"
         static let ProjectTags = "project_tags"
         static let Roles = "roles"
+        static let Timeboxes = "timeboxes"
     }
     
-    typealias CompletedType = Bool
+    typealias CompletedType = NSNumber
     typealias CompletedDateType = NSDate
     typealias DeferredToType = String
     typealias DeferredToResponseDueType = NSDate
@@ -53,24 +54,30 @@ class Activity: NSManagedObject {
     typealias ScheduledStartType = NSDate
     typealias TaskType = String
     typealias TaskInfoType = String
-    typealias TodayType = Bool
+    typealias TodayType = NSNumber
     typealias TodayDisplayOrderType = Int64
+    typealias TypeType = NSNumber
+    
+    typealias MilestoneType = Milestone
+    typealias ProjectType = Project
+    typealias RolesType = Set<Role>
+    typealias TimeBoxesType = Set<Timebox>
 
-    var completed: Bool {
+    var isCompleted: Bool {
         get {
-            return Bool(completedValue!)
+            return completed!.boolValue
         }
         set {
-            completedValue = NSNumber(bool: newValue)
+            completed = NSNumber(bool: newValue)
         }
     }
     
-    var today: Bool {
+    var isToday: Bool {
         get {
-            return Bool(todayValue!)
+            return today!.boolValue
         }
         set {
-            completedValue = NSNumber(bool: newValue)
+            today = NSNumber(bool: newValue)
         }
     }
     
@@ -92,6 +99,7 @@ class Activity: NSManagedObject {
         self.task = task
         self.type = .Flexible
         self.completed = false
+        self.isCompleted = false
     }
     
     static var fetchRequest: NSFetchRequest {

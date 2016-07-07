@@ -113,7 +113,7 @@ extension CompletedActivityTableViewController {
         var todayOption: UITableViewRowAction!
         var completedOption: UITableViewRowAction!
         
-        if activity.today {
+        if activity.isToday {
             todayOption = UITableViewRowAction(style: .Normal, title: "Postpone") { (action, activityIndexPath) in
                 print("\(activityIndexPath.row): Postpone tapped")
             }
@@ -124,7 +124,7 @@ extension CompletedActivityTableViewController {
             }
         }
         
-        if activity.completed {
+        if activity.isCompleted {
             completedOption = UITableViewRowAction(style: .Normal, title: "Reactivate") { (action, completedIndexPath) in
                 print("\(completedIndexPath.row): Reactivate tapped")
             }
