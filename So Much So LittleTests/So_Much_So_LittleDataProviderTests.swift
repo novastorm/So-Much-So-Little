@@ -25,6 +25,14 @@ class So_Much_So_LittleDataProviderTests: XCTestCase {
         return fetchedResultsController
     }
     
+    let mockActivityList = [
+        "alpha": [
+            Activity.Keys.Task: "Activity Alpha",
+            Activity.Keys.EstimatedTimeboxes: 4,
+            Activity.Keys.TaskInfo: "Alpha task info",
+        ]
+    ]
+    
     override func setUp() {
         super.setUp()
         
@@ -69,5 +77,10 @@ class So_Much_So_LittleDataProviderTests: XCTestCase {
         let fetchedResultsController = getFetchedResultsController(fetchRequest)
 
         XCTAssertEqual(fetchedResultsController.fetchedObjects?.count, 1)
+    }
+    
+    func testStoreActivity() {
+        let activity = Activity(task: "Activity Alpha", context: managedObjectContext)
+        activity.estimated_timeboxes = 4
     }
 }

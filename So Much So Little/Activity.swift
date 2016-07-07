@@ -27,7 +27,6 @@ class Activity: NSManagedObject {
         static let DueDate = "due_date"
         static let EstimatedTimeboxes = "estimated_timeboxes"
         static let Interruptions = "interruptions"
-        static let Reference = "reference"
         static let ScheduledStart = "scheduled_start"
         static let ScheduledEnd = "scheduled_end"
         static let Task = "task"
@@ -42,7 +41,7 @@ class Activity: NSManagedObject {
         static let Roles = "roles"
     }
     
-    typealias CompletedType = NSNumber
+    typealias CompletedType = Bool
     typealias CompletedDateType = NSDate
     typealias DeferredToType = String
     typealias DeferredToResponseDueType = NSDate
@@ -50,14 +49,31 @@ class Activity: NSManagedObject {
     typealias DueDateType = NSData
     typealias EstimatedTimeboxesType = NSNumber
     typealias InterruptionsType = Int16
-    typealias ReferenceType = NSNumber
     typealias ScheduledEndType = NSDate
     typealias ScheduledStartType = NSDate
     typealias TaskType = String
     typealias TaskInfoType = String
-    typealias TodayType = NSNumber
+    typealias TodayType = Bool
     typealias TodayDisplayOrderType = Int64
 
+    var completed: Bool {
+        get {
+            return Bool(completedValue!)
+        }
+        set {
+            completedValue = NSNumber(bool: newValue)
+        }
+    }
+    
+    var today: Bool {
+        get {
+            return Bool(todayValue!)
+        }
+        set {
+            completedValue = NSNumber(bool: newValue)
+        }
+    }
+    
     var type: ActivityType {
         get {
             return ActivityType(rawValue: typeValue as! Int)!
@@ -74,6 +90,8 @@ class Activity: NSManagedObject {
         self.init(entity: entity, insertIntoManagedObjectContext: context)
         
         self.task = task
+        self.type = .Flexible
+        self.completed = false
     }
     
     static var fetchRequest: NSFetchRequest {
