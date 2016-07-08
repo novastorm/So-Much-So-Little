@@ -30,6 +30,24 @@ class So_Much_So_LittleActivityTests: XCTestCase {
             Activity.Keys.Task: "Activity Alpha",
             Activity.Keys.EstimatedTimeboxes: 4,
             Activity.Keys.TaskInfo: "Alpha task info",
+        ],
+        "bravo": [
+            Activity.Keys.Task: "Activity Bravo",
+            Activity.Keys.EstimatedTimeboxes: 2,
+            Activity.Keys.Today: NSNumber(bool: true),
+            Activity.Keys.Completed: NSNumber(bool: true)
+        ],
+        "charlie": [
+            Activity.Keys.Task: "Activity Charlie",
+        ],
+        "delta": [
+            Activity.Keys.Task: "Activity Delta",
+            Activity.Keys.Completed: NSNumber(bool: true)
+        ],
+        "echo": [
+            Activity.Keys.Task: "Activity Echo",
+            Activity.Keys.EstimatedTimeboxes: 4,
+            Activity.Keys.Today: NSNumber(bool: true),
         ]
     ]
     
@@ -55,9 +73,14 @@ class So_Much_So_LittleActivityTests: XCTestCase {
         XCTAssertNotNil(persistentStore, "No persistent store")
     }
     
+    func testBadActivityData() {
+        let badActivity = Activity(withTaskNamed: "", context: managedObjectContext)
+        
+    }
+    
     func testOneActivity() {
         let task = "test activity"
-        _ = Activity(task: task, context: managedObjectContext)
+        let activity = Activity(withTaskNamed: task, context: managedObjectContext)
         try! managedObjectContext.save()
         
         let fetchRequest = Activity.fetchRequest
@@ -69,7 +92,7 @@ class So_Much_So_LittleActivityTests: XCTestCase {
 
         let fetchedActivity = fetchedResultsController.objectAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! Activity
 
-        XCTAssertEqual(fetchedActivity.completed, 0, "Default Activity completed should be 0")
+        XCTAssertEqual(fetchedActivity.completed, false, "Default Activity completed should be false")
         XCTAssertNil(fetchedActivity.completed_date, "Default Activity completed_data should be nil")
         XCTAssertNil(fetchedActivity.deferred_to, "Default Activity deferred_to should be nil")
         XCTAssertNil(fetchedActivity.deferred_to_response_due_date, "Default Activity deferred_to_response_due_date should be nil")
@@ -84,9 +107,15 @@ class So_Much_So_LittleActivityTests: XCTestCase {
         XCTAssertEqual(fetchedActivity.task, task, "Default Activity task should be \"\(task)\"")
         XCTAssertNil(fetchedActivity.task_info, "Default Activity task_info should be nil")
         XCTAssertEqual(fetchedActivity.timeboxes, [], "Default Activity timeboxes should be []")
-        XCTAssertEqual(fetchedActivity.today, 0, "Default Activity today should be 0")
+        XCTAssertEqual(fetchedActivity.today, false, "Default Activity today should be false")
         XCTAssertEqual(fetchedActivity.today_display_order, 0, "Default Activity today_display_order should be 0")
         XCTAssertEqual(fetchedActivity.typeValue, 0, "Default Activity typeValue should be 0")
+        
+        XCTAssertEqual(fetchedActivity.type, ActivityType.Flexible, "Default Activity type should be .Flexible")
+        XCTAssertEqual(fetchedActivity.actual_timeboxes, 0, "Default Activity actual_timeboxes should be 0")
+        
+        
+        XCTAssertEqual(fetchedActivity, activity)
     }
     
     func testStoreActivity() {
@@ -94,16 +123,33 @@ class So_Much_So_LittleActivityTests: XCTestCase {
         let task = activityData[Activity.Keys.Task] as! String
         let estimated_timeboxes = activityData[Activity.Keys.EstimatedTimeboxes] as? Activity.EstimatedTimeboxesType
         
-        let activity = Activity(task: task, context: managedObjectContext)
-        activity.estimated_timeboxes = estimated_timeboxes
+//        let activity = Activity(withTaskNamed: task, context: managedObjectContext)
+//        activity.estimated_timeboxes = estimated_timeboxes
+        let activity = Activity(data: activityData, context: managedObjectContext)
+
+        try! managedObjectContext.save()
         
         let fetchRequest = Activity.fetchRequest
         let fetchedResultsController = getFetchedResultsController(fetchRequest)
         
         let fetchedActivity = fetchedResultsController.objectAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! Activity
         
-        XCTAssertEqual(fetchedActivity.estimated_timeboxes, estimated_timeboxes, "Default Activity estimated_timeboxes should be \(estimated_timeboxes)")
-        XCTAssertEqual(fetchedActivity.task, task, "Default Activity task should be \"\(task)\"")
+        XCTAssertEqual(fetchedActivity, activity)
 
+        XCTAssertEqual(activity.estimated_timeboxes, estimated_timeboxes, "Activity estimated_timeboxes should be \(estimated_timeboxes)")
+        XCTAssertEqual(activity.task, task, "Activity task should be \"\(task)\"")
+        
+        activity.completed = true
+        XCTAssertTrue(activity.completed, "Activity completed should be true")
+        
+        activity.today = true
+        XCTAssertTrue(activity.today, "Activity today should be true")
+        
+        activity.type = .Reference
+        XCTAssertEqual(activity.type, ActivityType.Reference, "Activity type should be .Reference")
+    }
+    
+    func testDestroyActivity() {
+        let alphaData = mockActivityList["alpha"] as! [String:AnyObject]
     }
 }

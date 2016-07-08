@@ -14,23 +14,23 @@ import CoreData
 
 extension Activity {
 
-    @NSManaged var completed: NSNumber?
+    @NSManaged var completed: Bool
     @NSManaged var completed_date: NSDate?
     @NSManaged var deferred_to: String?
     @NSManaged var deferred_to_response_due_date: NSDate?
-    @NSManaged var display_order: NSNumber?
+    @NSManaged var display_order: Int
     @NSManaged var due_date: NSDate?
-    @NSManaged var estimated_timeboxes: NSNumber?
+    @NSManaged var estimated_timeboxes: Int
     @NSManaged var scheduled_end: NSDate?
     @NSManaged var scheduled_start: NSDate?
     @NSManaged var task: String?
     @NSManaged var task_info: String?
-    @NSManaged var today: NSNumber?
-    @NSManaged var today_display_order: NSNumber?
+    @NSManaged var today: Bool
+    @NSManaged var today_display_order: Int
     @NSManaged var typeValue: NSNumber?
     @NSManaged var milestone: Milestone?
     @NSManaged var project: Project?
-    @NSManaged var roles: NSSet?
-    @NSManaged var timeboxes: NSSet?
+    @NSManaged var roles: Set<Role>!
+    @NSManaged var timeboxes: [Timebox]!
 
 }

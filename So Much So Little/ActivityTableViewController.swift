@@ -178,10 +178,10 @@ extension ActivityTableViewController {
     
     func configureActivityCell(cell: UITableViewCell, atIndexPath indexPath: NSIndexPath) {
         let activity = fetchedResultsController.objectAtIndexPath(indexPath) as! Activity
-        let displayOrder = activity.display_order!
+        let displayOrder = activity.display_order
         let task = activity.task!
-        let actualTimeboxes = activity.actual_timeboxes!
-        let estimatedTimeboxes = activity.estimated_timeboxes!
+        let actualTimeboxes = activity.actual_timeboxes
+        let estimatedTimeboxes = activity.estimated_timeboxes
         
         cell.textLabel!.text = "\(displayOrder): \(task)"
         cell.detailTextLabel!.text = "\(actualTimeboxes)/\(estimatedTimeboxes)"
@@ -202,7 +202,7 @@ extension ActivityTableViewController {
         var todayOption: UITableViewRowAction!
         var completedOption: UITableViewRowAction!
         
-        if activity.isToday {
+        if activity.today {
             todayOption = UITableViewRowAction(style: .Normal, title: "Postpone") { (action, activityIndexPath) in
                 print("\(activityIndexPath.row): Postpone tapped")
             }
@@ -213,7 +213,7 @@ extension ActivityTableViewController {
             }
         }
         
-        if activity.isCompleted {
+        if activity.completed {
             completedOption = UITableViewRowAction(style: .Normal, title: "Reactivate") { (action, completedIndexPath) in
                 print("\(completedIndexPath.row): Reactivate tapped")
             }

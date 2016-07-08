@@ -26,13 +26,13 @@ class Activity: NSManagedObject {
         static let DisplayOrder = "display_order"
         static let DueDate = "due_date"
         static let EstimatedTimeboxes = "estimated_timeboxes"
-        static let Interruptions = "interruptions"
         static let ScheduledStart = "scheduled_start"
         static let ScheduledEnd = "scheduled_end"
         static let Task = "task"
         static let TaskInfo = "task_info"
         static let TodayDisplayOrder = "today_display_order"
         static let Today = "today"
+        static let Type = "type"
         static let TypeValue = "typeValue"
 
         static let Milestone = "milestone"
@@ -42,64 +42,90 @@ class Activity: NSManagedObject {
         static let Timeboxes = "timeboxes"
     }
     
-    typealias CompletedType = NSNumber
+    typealias CompletedType = Bool
     typealias CompletedDateType = NSDate
     typealias DeferredToType = String
     typealias DeferredToResponseDueType = NSDate
-    typealias DisplayOrderType = NSNumber
-    typealias DueDateType = NSData
-    typealias EstimatedTimeboxesType = NSNumber
-    typealias InterruptionsType = Int16
+    typealias DisplayOrderType = Int
+    typealias DueDateType = NSDate
+    typealias EstimatedTimeboxesType = Int
     typealias ScheduledEndType = NSDate
     typealias ScheduledStartType = NSDate
     typealias TaskType = String
     typealias TaskInfoType = String
-    typealias TodayType = NSNumber
-    typealias TodayDisplayOrderType = Int64
-    typealias TypeType = NSNumber
+    typealias TodayType = Bool
+    typealias TodayDisplayOrderType = Int
+    typealias TypeValueType = NSNumber
+//    typealias TypeType = ActivityType
     
     typealias MilestoneType = Milestone
     typealias ProjectType = Project
     typealias RolesType = Set<Role>
     typealias TimeBoxesType = Set<Timebox>
 
-    var isCompleted: Bool {
-        get {
-            return completed!.boolValue
-        }
-        set {
-            completed = NSNumber(bool: newValue)
-        }
-    }
-    
-    var isToday: Bool {
-        get {
-            return today!.boolValue
-        }
-        set {
-            today = NSNumber(bool: newValue)
-        }
-    }
+//    var isCompleted: Bool {
+//        get {
+////            return completed!.boolValue
+//            return completed
+//        }
+//        set {
+////            completed = NSNumber(bool: newValue)
+//            completed = newValue
+//        }
+//    }
+//    
+//    var isToday: Bool {
+//        get {
+//            return today!.boolValue
+//        }
+//        set {
+//            today = NSNumber(bool: newValue)
+//        }
+//    }
     
     var type: ActivityType {
         get {
             return ActivityType(rawValue: typeValue as! Int)!
         }
-        set  {
+        set {
             typeValue = newValue.rawValue
         }
     }
     
-    convenience init(task: String, context: NSManagedObjectContext) {
+    convenience init(withTaskNamed task: String = "", context: NSManagedObjectContext) {
         let className = self.dynamicType.className
         let entity = NSEntityDescription.entityForName(className, inManagedObjectContext: context)!
         
         self.init(entity: entity, insertIntoManagedObjectContext: context)
+
+        var task = task
+        if task.isEmpty {
+            task = "New Activity"
+        }
         
         self.task = task
-        self.type = .Flexible
-        self.completed = false
-        self.isCompleted = false
+        type = .Flexible
+//        completed = false
+//        isCompleted = false
+    }
+    
+    convenience init(data: [String:AnyObject], context: NSManagedObjectContext) {
+        let task = data[Keys.Task] as! TaskType
+        self.init(withTaskNamed: task, context: context)
+        
+        completed = data[Keys.Completed] as? CompletedType ?? false
+        completed_date = data[Keys.CompletedDate] as? CompletedDateType
+        deferred_to = data[Keys.DeferredTo] as? DeferredToType
+        deferred_to_response_due_date = data[Keys.DeferredToResponseDue] as? DeferredToResponseDueType
+        display_order = data[Keys.DisplayOrder] as? DisplayOrderType ?? 0
+        due_date = data[Keys.DueDate] as? DueDateType
+        estimated_timeboxes = data[Keys.EstimatedTimeboxes] as? EstimatedTimeboxesType ?? 0
+        scheduled_end = data[Keys.ScheduledEnd] as? ScheduledEndType
+        scheduled_start = data[Keys.ScheduledStart] as? ScheduledStartType
+        task_info = data[Keys.TaskInfo] as? TaskInfoType
+        today = data[Keys.Today] as? TodayType ?? false
+        today_display_order = data[Keys.TodayDisplayOrder] as? TodayDisplayOrderType ?? 0
+        typeValue = data[Keys.TypeValue] as? TypeValueType ?? ActivityType.Flexible.rawValue
     }
     
     static var fetchRequest: NSFetchRequest {
@@ -109,64 +135,7 @@ class Activity: NSManagedObject {
         return fetchRequest
     }
     
-//    static let mockActivityList: [[String:AnyObject]] = [
-//        [
-//            Keys.Task: "Activity Alpha",
-//            Keys.EstimatedTimeboxes: 4,
-//            Keys.Today: NSNumber(bool: true)
-//        ],
-//        [
-//            Keys.Task: "Activity Bravo",
-//            Keys.EstimatedTimeboxes: 2,
-//            Keys.Today: NSNumber(bool: true),
-//            Keys.Completed: NSNumber(bool: true)
-//        ],
-//        [
-//            Keys.Task: "Activity Charlie"
-//        ],
-//        [
-//            Keys.Task: "Activity Delta",
-//            Keys.Completed: NSNumber(bool: true)
-//        ],
-//        [
-//            Keys.Task: "Activity Echo",
-//            Keys.EstimatedTimeboxes: 4,
-//            Keys.Today: NSNumber(bool: true)
-//        ]
-//    ]
-    
-//    static func populateActivityList() {
-//        let context = CoreDataStackManager.mainContext
-//        
-//        var displayOrder = 0
-//        var todayDisplayOrder = 0
-//        
-//        for record in mockActivityList {
-//            let activity = Activity(task: (record[Keys.Task] as! Type.Task), context: context)
-//            
-//            if (record.indexForKey(Keys.EstimatedTimeboxes) != nil) {
-//                activity.estimated_timeboxes = record[Keys.EstimatedTimeboxes] as? Type.EstimatedTimeboxes
-//            }
-//            
-//            if (record.indexForKey(Keys.Completed) != nil) {
-//                activity.completed = record[Keys.Completed] as? Type.Completed
-//                continue
-//            }
-//                
-//            if (record.indexForKey(Keys.Today) != nil) {
-//                activity.today = record[Keys.Today] as? Type.Today
-//                activity.today_display_order = todayDisplayOrder
-//                todayDisplayOrder += 1
-//            }
-//            
-//            activity.display_order = displayOrder
-//            displayOrder += 1
-//        }
-//        
-//        CoreDataStackManager.saveMainContext()
-//    }
-    
-    var actual_timeboxes: Int? {
-        return timeboxes?.count ?? 0
+    var actual_timeboxes: Int {
+        return timeboxes.count
     }
 }

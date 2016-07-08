@@ -46,8 +46,8 @@ class ActivityDetailViewController: UIViewController {
         if let activity = activity {
             taskTextField.text = activity.task
             
-            let actualTimeboxes = activity.actual_timeboxes!
-            let estimatedTimeboxes = activity.estimated_timeboxes!
+            let actualTimeboxes = activity.actual_timeboxes
+            let estimatedTimeboxes = activity.estimated_timeboxes
             
             timeboxControl.pendingTimeboxes = estimatedTimeboxes as Int
             timeboxControl.completedTimeboxes = actualTimeboxes as Int
