@@ -75,14 +75,10 @@ class CoreDataStack {
         
         self.dbURL = docUrl.URLByAppendingPathComponent(modelName + ".sqlite")
         
-        do{
-            try addStoreTo(coordinator: coordinator,
-                           storeType: NSSQLiteStoreType,
-                           configuration: nil,
-                           storeURL: dbURL,
-                           options: nil)
-            
-        }catch{
+        do {
+            try addStoreTo()
+        }
+        catch {
             print("unable to add store at \(dbURL)")
         }
         
@@ -90,14 +86,8 @@ class CoreDataStack {
     }
     
     // MARK:  - Utils
-    func addStoreTo(coordinator coord : NSPersistentStoreCoordinator,
-                                storeType: String,
-                                configuration: String?,
-                                storeURL: NSURL,
-                                options : [NSObject : AnyObject]?) throws{
-        
-        try coord.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: dbURL, options: nil)
-        
+    func addStoreTo() throws {
+        try coordinator.addPersistentStoreWithType(NSSQLiteStoreType, configuration: nil, URL: dbURL, options: nil)
     }
 }
 
@@ -139,7 +129,7 @@ extension CoreDataStack  {
         // just leave empty tables.
         try coordinator.destroyPersistentStoreAtURL(dbURL, withType:NSSQLiteStoreType , options: nil)
         
-        try addStoreTo(coordinator: self.coordinator, storeType: NSSQLiteStoreType, configuration: nil, storeURL: dbURL, options: nil)
+        try addStoreTo()
     }
 }
 
@@ -153,9 +143,10 @@ extension CoreDataStack{
             
             // Save it to the parent context, so normal saving
             // can work
-            do{
+            do {
                 try self.backgroundContext.save()
-            }catch{
+            }
+            catch {
                 fatalError("Error while saving backgroundContext: \(error)")
             }
         }
@@ -168,9 +159,10 @@ extension CoreDataStack{
             
             // Save it to the parent context, so normal saving
             // can work
-            do{
+            do {
                 try self.backgroundContext.save()
-            }catch{
+            }
+            catch {
                 fatalError("Error while saving backgroundContext: \(error)")
             }
         }
@@ -192,7 +184,8 @@ extension CoreDataStack {
             
             do {
                 try importingContext.save()
-            }catch{
+            }
+            catch {
                 fatalError("Error saving importer moc: \(importingContext)")
             }
             
@@ -219,9 +212,10 @@ extension CoreDataStack {
                 return
             }
             
-            do{
+            do {
                 try self.mainContext.save()
-            }catch{
+            }
+            catch {
                 fatalError("Error while saving main context: \(error)")
             }
             
@@ -232,9 +226,10 @@ extension CoreDataStack {
     
     func savePersistingContext() {
         persistingContext.performBlock {
-            do{
+            do {
                 try self.persistingContext.save()
-            }catch{
+            }
+            catch {
                 fatalError("Error while saving persisting context: \(error)")
             }
         }

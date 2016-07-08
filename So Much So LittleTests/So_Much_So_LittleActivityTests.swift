@@ -25,7 +25,7 @@ class So_Much_So_LittleActivityTests: XCTestCase {
         return fetchedResultsController
     }
     
-    let mockActivityList: [String:AnyObject] = [
+    let mockActivityList: [String:[String:AnyObject]] = [
         "alpha": [
             Activity.Keys.Task: "Activity Alpha",
             Activity.Keys.EstimatedTimeboxes: 4,
@@ -56,7 +56,13 @@ class So_Much_So_LittleActivityTests: XCTestCase {
         
         managedObjectModel = NSManagedObjectModel.mergedModelFromBundles(nil)
         storeCoordinator = NSPersistentStoreCoordinator(managedObjectModel: managedObjectModel)
-        persistentStore = try? storeCoordinator.addPersistentStoreWithType(NSInMemoryStoreType, configuration: nil, URL: nil, options: nil)
+        do {
+            persistentStore = try storeCoordinator.addPersistentStoreWithType(NSInMemoryStoreType, configuration: nil, URL: nil, options: nil)
+        }
+        catch {
+            print(error)
+            abort()
+        }
         
         managedObjectContext = NSManagedObjectContext(concurrencyType: .MainQueueConcurrencyType)
         managedObjectContext.persistentStoreCoordinator = storeCoordinator
@@ -69,13 +75,12 @@ class So_Much_So_LittleActivityTests: XCTestCase {
         super.tearDown()
     }
     
-    func testThatStoreIsSetup() {
-        XCTAssertNotNil(persistentStore, "No persistent store")
-    }
-    
-    func testBadActivityData() {
-        let badActivity = Activity(withTaskNamed: "", context: managedObjectContext)
+    func testIncompleteActivityData() {
+        let defaultActivity = Activity(context: managedObjectContext)
+        XCTAssertEqual(defaultActivity.task, Activity.defaultTask)
         
+        let blankActivity = Activity(withTaskNamed: "", context: managedObjectContext)
+        XCTAssertEqual(blankActivity.task, Activity.defaultTask)
     }
     
     func testOneActivity() {
@@ -114,30 +119,26 @@ class So_Much_So_LittleActivityTests: XCTestCase {
         XCTAssertEqual(fetchedActivity.type, ActivityType.Flexible, "Default Activity type should be .Flexible")
         XCTAssertEqual(fetchedActivity.actual_timeboxes, 0, "Default Activity actual_timeboxes should be 0")
         
-        
         XCTAssertEqual(fetchedActivity, activity)
     }
     
     func testStoreActivity() {
-        let activityData = mockActivityList["alpha"] as! [String:AnyObject]
-        let task = activityData[Activity.Keys.Task] as! String
-        let estimated_timeboxes = activityData[Activity.Keys.EstimatedTimeboxes] as? Activity.EstimatedTimeboxesType
-        
-//        let activity = Activity(withTaskNamed: task, context: managedObjectContext)
-//        activity.estimated_timeboxes = estimated_timeboxes
+        let activityData = mockActivityList["alpha"]!
         let activity = Activity(data: activityData, context: managedObjectContext)
-
         try! managedObjectContext.save()
-        
+    
         let fetchRequest = Activity.fetchRequest
         let fetchedResultsController = getFetchedResultsController(fetchRequest)
-        
         let fetchedActivity = fetchedResultsController.objectAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! Activity
         
         XCTAssertEqual(fetchedActivity, activity)
 
-        XCTAssertEqual(activity.estimated_timeboxes, estimated_timeboxes, "Activity estimated_timeboxes should be \(estimated_timeboxes)")
+        
+        let task = activityData[Activity.Keys.Task] as! String
         XCTAssertEqual(activity.task, task, "Activity task should be \"\(task)\"")
+
+        let estimated_timeboxes = activityData[Activity.Keys.EstimatedTimeboxes] as? Activity.EstimatedTimeboxesType
+        XCTAssertEqual(activity.estimated_timeboxes, estimated_timeboxes, "Activity estimated_timeboxes should be \(estimated_timeboxes)")
         
         activity.completed = true
         XCTAssertTrue(activity.completed, "Activity completed should be true")
@@ -150,6 +151,6 @@ class So_Much_So_LittleActivityTests: XCTestCase {
     }
     
     func testDestroyActivity() {
-        let alphaData = mockActivityList["alpha"] as! [String:AnyObject]
+        let alphaData = mockActivityList["alpha"]
     }
 }

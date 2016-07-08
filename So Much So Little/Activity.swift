@@ -61,6 +61,8 @@ class Activity: NSManagedObject {
     typealias ProjectType = Project
     typealias RolesType = Set<Role>
     typealias TimeBoxesType = Set<Timebox>
+    
+    static let defaultTask = "New Activity"
 
     var type: ActivityType {
         get {
@@ -79,7 +81,7 @@ class Activity: NSManagedObject {
 
         var task = task
         if task.isEmpty {
-            task = "New Activity"
+            task = self.dynamicType.defaultTask
         }
         
         self.task = task
