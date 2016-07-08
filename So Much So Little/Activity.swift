@@ -56,33 +56,12 @@ class Activity: NSManagedObject {
     typealias TodayType = Bool
     typealias TodayDisplayOrderType = Int
     typealias TypeValueType = NSNumber
-//    typealias TypeType = ActivityType
     
     typealias MilestoneType = Milestone
     typealias ProjectType = Project
     typealias RolesType = Set<Role>
     typealias TimeBoxesType = Set<Timebox>
 
-//    var isCompleted: Bool {
-//        get {
-////            return completed!.boolValue
-//            return completed
-//        }
-//        set {
-////            completed = NSNumber(bool: newValue)
-//            completed = newValue
-//        }
-//    }
-//    
-//    var isToday: Bool {
-//        get {
-//            return today!.boolValue
-//        }
-//        set {
-//            today = NSNumber(bool: newValue)
-//        }
-//    }
-    
     var type: ActivityType {
         get {
             return ActivityType(rawValue: typeValue as! Int)!
@@ -105,8 +84,6 @@ class Activity: NSManagedObject {
         
         self.task = task
         type = .Flexible
-//        completed = false
-//        isCompleted = false
     }
     
     convenience init(data: [String:AnyObject], context: NSManagedObjectContext) {

@@ -18,15 +18,15 @@ extension Activity {
     @NSManaged var completed_date: NSDate?
     @NSManaged var deferred_to: String?
     @NSManaged var deferred_to_response_due_date: NSDate?
-    @NSManaged var display_order: Int
+    @NSManaged var display_order: NSNumber
     @NSManaged var due_date: NSDate?
-    @NSManaged var estimated_timeboxes: Int
+    @NSManaged var estimated_timeboxes: NSNumber
     @NSManaged var scheduled_end: NSDate?
     @NSManaged var scheduled_start: NSDate?
     @NSManaged var task: String?
     @NSManaged var task_info: String?
     @NSManaged var today: Bool
-    @NSManaged var today_display_order: Int
+    @NSManaged var today_display_order: NSNumber
     @NSManaged var typeValue: NSNumber?
     @NSManaged var milestone: Milestone?
     @NSManaged var project: Project?
