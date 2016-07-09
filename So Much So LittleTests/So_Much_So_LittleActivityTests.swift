@@ -218,11 +218,52 @@ class So_Much_So_LittleActivityTests: XCTestCase {
         let echoData = mockActivityList["echo"]!
         let echo = Activity(data: echoData, context: managedObjectContext)
         
+        // test activity list
+        
         let activityListFetchRequest = Activity.fetchRequest
         activityListFetchRequest.predicate = NSPredicate(format: "(completed != YES) AND (typeValue != \(ActivityType.Reference.rawValue))")
         activityListFetchRequest.sortDescriptors = [NSSortDescriptor(key: Activity.Keys.DisplayOrder, ascending: true)]
 
-        let activityList = getFetchedResultsController(activityListFetchRequest)
-        try! activityList.performFetch()
+        let fetchedResultsController = getFetchedResultsController(activityListFetchRequest)
+        try! fetchedResultsController.performFetch()
+        
+        let activityList = fetchedResultsController.fetchedObjects as! [Activity]
+        XCTAssertTrue(activityList.contains(alpha))
+        XCTAssertFalse(activityList.contains(bravo))
+        XCTAssertTrue(activityList.contains(charlie))
+        XCTAssertFalse(activityList.contains(delta))
+        XCTAssertTrue(activityList.contains(echo))
+        
+        // test today's activity list
+        
+        let todayListFetchRequest = Activity.fetchRequest
+        todayListFetchRequest.predicate = NSPredicate(format: "(today == YES) AND (completed != YES) AND (typeValue != \(ActivityType.Reference.rawValue))")
+        todayListFetchRequest.sortDescriptors = [NSSortDescriptor(key: Activity.Keys.TodayDisplayOrder, ascending: true)]
+        
+        let todayFetchedResultsController = getFetchedResultsController(todayListFetchRequest)
+        try! todayFetchedResultsController.performFetch()
+        
+        let todayList = todayFetchedResultsController.fetchedObjects as! [Activity]
+        XCTAssertFalse(todayList.contains(alpha))
+        XCTAssertFalse(todayList.contains(bravo))
+        XCTAssertFalse(todayList.contains(charlie))
+        XCTAssertFalse(todayList.contains(delta))
+        XCTAssertTrue(todayList.contains(echo))
+        
+        // test completed activity list
+        
+        let completedListFetchRequest = Activity.fetchRequest
+        completedListFetchRequest.predicate = NSPredicate(format: "(completed == YES) AND (typeValue != \(ActivityType.Reference.rawValue))")
+        completedListFetchRequest.sortDescriptors = [NSSortDescriptor(key: Activity.Keys.CompletedDate, ascending: true)]
+        
+        let completedFetchedResultsController = getFetchedResultsController(completedListFetchRequest)
+        try! completedFetchedResultsController.performFetch()
+        
+        let completedList = completedFetchedResultsController.fetchedObjects as! [Activity]
+        XCTAssertFalse(completedList.contains(alpha))
+        XCTAssertTrue(completedList.contains(bravo))
+        XCTAssertFalse(completedList.contains(charlie))
+        XCTAssertTrue(completedList.contains(delta))
+        XCTAssertFalse(completedList.contains(echo))
     }
 }
