@@ -122,35 +122,87 @@ class So_Much_So_LittleActivityTests: XCTestCase {
         XCTAssertEqual(fetchedActivity, activity)
     }
     
-    func testStoreActivity() {
-        let activityData = mockActivityList["alpha"]!
-        let activity = Activity(data: activityData, context: managedObjectContext)
-        try! managedObjectContext.save()
-    
+    func testManageActivity() {
+        
         let fetchRequest = Activity.fetchRequest
         let fetchedResultsController = getFetchedResultsController(fetchRequest)
-        let fetchedActivity = fetchedResultsController.objectAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! Activity
-        
-        XCTAssertEqual(fetchedActivity, activity)
+        var fetchedActivityList: [Activity] {
+            return fetchedResultsController.fetchedObjects as! [Activity]
+        }
 
-        
-        let task = activityData[Activity.Keys.Task] as! String
-        XCTAssertEqual(activity.task, task, "Activity task should be \"\(task)\"")
-
-        let estimated_timeboxes = activityData[Activity.Keys.EstimatedTimeboxes] as? Activity.EstimatedTimeboxesType
-        XCTAssertEqual(activity.estimated_timeboxes, estimated_timeboxes, "Activity estimated_timeboxes should be \(estimated_timeboxes)")
-        
-        activity.completed = true
-        XCTAssertTrue(activity.completed, "Activity completed should be true")
-        
-        activity.today = true
-        XCTAssertTrue(activity.today, "Activity today should be true")
-        
-        activity.type = .Reference
-        XCTAssertEqual(activity.type, ActivityType.Reference, "Activity type should be .Reference")
-    }
+        // create an activity
+        let alphaData = mockActivityList["alpha"]!
+        let alpha = Activity(data: alphaData, context: managedObjectContext)
+        XCTAssertTrue(alpha.objectID.temporaryID, "Activity should have a temporaryID")
+        try! managedObjectContext.save()
+        XCTAssertFalse(alpha.objectID.temporaryID, "Activity should not have a temporaryID")
     
-    func testDestroyActivity() {
-        let alphaData = mockActivityList["alpha"]
+        try! fetchedResultsController.performFetch()
+        let fetchedActivity = fetchedActivityList[0]
+        
+        // confirm only one activity
+        XCTAssertEqual(fetchedActivityList.count, 1)
+        
+        // confirm activity is in the results
+        XCTAssertTrue(fetchedActivityList.contains(alpha))
+        
+        // compare activity details
+        XCTAssertEqual(fetchedActivity, alpha)
+        
+        let task = alphaData[Activity.Keys.Task] as! String
+        XCTAssertEqual(alpha.task, task, "Activity task should be \"\(task)\"")
+
+        let estimated_timeboxes = alphaData[Activity.Keys.EstimatedTimeboxes] as? Activity.EstimatedTimeboxesType
+        XCTAssertEqual(alpha.estimated_timeboxes, estimated_timeboxes, "Activity estimated_timeboxes should be \(estimated_timeboxes)")
+        
+        // update acitivity details
+        alpha.completed = true
+        XCTAssertTrue(alpha.completed, "Activity completed should be true")
+        
+        alpha.today = true
+        XCTAssertTrue(alpha.today, "Activity today should be true")
+        
+        alpha.type = .Reference
+        XCTAssertEqual(alpha.type, ActivityType.Reference, "Activity type should be .Reference")
+        
+        
+        // create another activity
+        let bravoData = mockActivityList["bravo"]!
+        let bravo = Activity(data: bravoData, context: managedObjectContext)
+        try! managedObjectContext.save()
+        
+        try! fetchedResultsController.performFetch()
+
+        XCTAssertEqual(fetchedActivityList.count, 2)
+        
+        XCTAssertTrue(fetchedActivityList.contains(alpha))
+        XCTAssertTrue(fetchedActivityList.contains(bravo))
+
+        let charlieData = mockActivityList["charlie"]!
+        let charlie = Activity(data: charlieData, context: managedObjectContext)
+
+        XCTAssertTrue(charlie.objectID.temporaryID, "Activity Charlie should have temporary ID")
+        try! fetchedResultsController.performFetch()
+        XCTAssertTrue(charlie.objectID.temporaryID, "Activity Charlie should have temporary ID")
+        
+        XCTAssertTrue(fetchedActivityList.contains(alpha))
+        XCTAssertTrue(fetchedActivityList.contains(bravo))
+        XCTAssertTrue(fetchedActivityList.contains(charlie))
+
+        XCTAssertFalse(bravo.deleted, "Activity bravo should not be in a deleted state")
+        managedObjectContext.deleteObject(bravo)
+
+        try! fetchedResultsController.performFetch()
+
+        XCTAssertTrue(fetchedActivityList.contains(alpha))
+        XCTAssertFalse(fetchedActivityList.contains(bravo))
+        XCTAssertTrue(fetchedActivityList.contains(charlie))
+
+        XCTAssertTrue(bravo.deleted, "Activity bravo should be in a deleted state")
+        try! fetchedResultsController.performFetch()
+        
+        XCTAssertTrue(fetchedActivityList.contains(alpha))
+        XCTAssertFalse(fetchedActivityList.contains(bravo))
+        XCTAssertTrue(fetchedActivityList.contains(charlie))
     }
 }
