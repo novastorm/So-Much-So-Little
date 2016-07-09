@@ -19,8 +19,6 @@ class So_Much_So_LittleActivityTests: XCTestCase {
     
     func getFetchedResultsController(fetchRequest: NSFetchRequest) -> NSFetchedResultsController {
         let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.managedObjectContext, sectionNameKeyPath: nil, cacheName: nil)
-        
-        try! fetchedResultsController.performFetch()
 
         return fetchedResultsController
     }
@@ -91,6 +89,8 @@ class So_Much_So_LittleActivityTests: XCTestCase {
         let fetchRequest = Activity.fetchRequest
 
         let fetchedResultsController = getFetchedResultsController(fetchRequest)
+        
+        try! fetchedResultsController.performFetch()
 
         XCTAssertEqual(fetchedResultsController.sections?.count, 1)
         XCTAssertEqual(fetchedResultsController.fetchedObjects?.count, 1)
@@ -204,5 +204,25 @@ class So_Much_So_LittleActivityTests: XCTestCase {
         XCTAssertTrue(fetchedActivityList.contains(alpha))
         XCTAssertFalse(fetchedActivityList.contains(bravo))
         XCTAssertTrue(fetchedActivityList.contains(charlie))
+    }
+    
+    func testActivityLists() {
+        let alphaData = mockActivityList["alpha"]!
+        let alpha = Activity(data: alphaData, context: managedObjectContext)
+        let bravoData = mockActivityList["bravo"]!
+        let bravo = Activity(data: bravoData, context: managedObjectContext)
+        let charlieData = mockActivityList["charlie"]!
+        let charlie = Activity(data: charlieData, context: managedObjectContext)
+        let deltaData = mockActivityList["delta"]!
+        let delta = Activity(data: deltaData, context: managedObjectContext)
+        let echoData = mockActivityList["echo"]!
+        let echo = Activity(data: echoData, context: managedObjectContext)
+        
+        let activityListFetchRequest = Activity.fetchRequest
+        activityListFetchRequest.predicate = NSPredicate(format: "(completed != YES) AND (typeValue != \(ActivityType.Reference.rawValue))")
+        activityListFetchRequest.sortDescriptors = [NSSortDescriptor(key: Activity.Keys.DisplayOrder, ascending: true)]
+
+        let activityList = getFetchedResultsController(activityListFetchRequest)
+        try! activityList.performFetch()
     }
 }
