@@ -245,11 +245,11 @@
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dvO-9r-Qqi">
                                 <rect key="frame" x="0.0" y="72" width="414" height="733"/>
                                 <subviews>
-                                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="n67-2m-cLa" userLabel="Content View">
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="n67-2m-cLa" userLabel="Content View">
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="829.5"/>
                                         <subviews>
                                             <stackView opaque="NO" contentMode="top" misplaced="YES" axis="vertical" distribution="equalSpacing" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="2EF-jN-gzF">
-                                                <rect key="frame" x="0.0" y="0.0" width="414" height="467"/>
+                                                <rect key="frame" x="0.0" y="0.0" width="414" height="700"/>
                                                 <subviews>
                                                     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Activity Task Label" borderStyle="roundedRect" placeholder="Task" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="7zz-7o-pN0">
                                                         <rect key="frame" x="8" y="0.0" width="398" height="30"/>
@@ -341,8 +341,8 @@
                                                             </button>
                                                         </subviews>
                                                     </stackView>
-                                                    <view hidden="YES" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="23q-o6-zyU" userLabel="Scheduled Fields View">
-                                                        <rect key="frame" x="0.0" y="409" width="414" height="0.0"/>
+                                                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="23q-o6-zyU" userLabel="Scheduled Fields View">
+                                                        <rect key="frame" x="0.0" y="413" width="414" height="96"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Start" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C2P-jp-JDe">
                                                                 <rect key="frame" x="8" y="4" width="38" height="21"/>
@@ -384,7 +384,7 @@
                                                         </constraints>
                                                     </view>
                                                     <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WvU-KH-2h6" userLabel="Flexbile Fields View">
-                                                        <rect key="frame" x="0.0" y="413" width="414" height="54"/>
+                                                        <rect key="frame" x="0.0" y="517" width="414" height="54"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Due Date" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="YO8-Yb-8Eq">
                                                                 <rect key="frame" x="8" y="0.0" width="398" height="21"/>
@@ -409,8 +409,8 @@
                                                             <constraint firstItem="nH0-wQ-uMQ" firstAttribute="top" secondItem="YO8-Yb-8Eq" secondAttribute="bottom" constant="4" id="op5-PI-RMP"/>
                                                         </constraints>
                                                     </view>
-                                                    <view hidden="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dB4-8h-jYC" userLabel="Deferred Fields View">
-                                                        <rect key="frame" x="0.0" y="471" width="414" height="0.0"/>
+                                                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dB4-8h-jYC" userLabel="Deferred Fields View">
+                                                        <rect key="frame" x="0.0" y="579" width="414" height="63"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Deferred To" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xsy-yH-XEH">
                                                                 <rect key="frame" x="8" y="4" width="91" height="21"/>
@@ -440,8 +440,8 @@
                                                             <constraint firstAttribute="height" constant="63" placeholder="YES" id="POn-NU-Qdz"/>
                                                         </constraints>
                                                     </view>
-                                                    <view hidden="YES" contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CJL-hc-LFA" userLabel="Completion Fields View">
-                                                        <rect key="frame" x="0.0" y="471" width="414" height="0.0"/>
+                                                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CJL-hc-LFA" userLabel="Completion Fields View">
+                                                        <rect key="frame" x="0.0" y="650" width="414" height="50"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Completion Date" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Qqj-WP-iOu" userLabel="Completion Date">
                                                                 <rect key="frame" x="8" y="0.0" width="398" height="21"/>
