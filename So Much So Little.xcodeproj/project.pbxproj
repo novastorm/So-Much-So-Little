@@ -27,10 +27,14 @@
 		3E0977A71D18FA7B00A7F2C4 /* Timebox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E09779F1D18FA7B00A7F2C4 /* Timebox.swift */; };
 		3E0977A81D18FA7B00A7F2C4 /* Project+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0977A01D18FA7B00A7F2C4 /* Project+CoreDataProperties.swift */; };
 		3E0977AA1D1A3D1A00A7F2C4 /* CoreDataStackManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0977A91D1A3D1A00A7F2C4 /* CoreDataStackManager.swift */; };
+		3E7AB57F1D31839B002F6C2D /* ActivityDetailFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7AB57E1D31839B002F6C2D /* ActivityDetailFormViewController.swift */; };
+		3E7AB5831D318A45002F6C2D /* Eureka.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3ED6DF591D2B03070064E440 /* Eureka.framework */; };
+		3E7AB5841D318A45002F6C2D /* Eureka.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3ED6DF591D2B03070064E440 /* Eureka.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		3E7AB5881D333343002F6C2D /* TimeboxControlRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7AB5871D333343002F6C2D /* TimeboxControlRow.swift */; };
+		3E7AB58C1D333B25002F6C2D /* TimeboxControlCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E7AB58B1D333B25002F6C2D /* TimeboxControlCell.xib */; };
 		3E7D99C31D21C1BD008FA84B /* TimeboxControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7D99C21D21C1BD008FA84B /* TimeboxControl.swift */; };
 		3ED6DF521D2731F10064E440 /* DateTextFieldDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED6DF511D2731F10064E440 /* DateTextFieldDelegate.swift */; };
 		3ED6DF541D2AEF350064E440 /* ButtonGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED6DF531D2AEF350064E440 /* ButtonGroup.swift */; };
-		3ED6DF5A1D2B03070064E440 /* Eureka.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3ED6DF591D2B03070064E440 /* Eureka.framework */; };
 		3ED6DF601D2B0D050064E440 /* ViewGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED6DF5F1D2B0D050064E440 /* ViewGroup.swift */; };
 		3EE7411A1D1090DC00064BF6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EE741191D1090DC00064BF6 /* AppDelegate.swift */; };
 		3EE7411C1D1090DC00064BF6 /* TodayTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EE7411B1D1090DC00064BF6 /* TodayTableViewController.swift */; };
@@ -59,6 +63,20 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		3E7AB5851D318A45002F6C2D /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				3E7AB5841D318A45002F6C2D /* Eureka.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		3E09777E1D11FC9200A7F2C4 /* CoreDataStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		3E0977801D12015800A7F2C4 /* Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
@@ -80,6 +98,9 @@
 		3E09779F1D18FA7B00A7F2C4 /* Timebox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Timebox.swift; sourceTree = "<group>"; };
 		3E0977A01D18FA7B00A7F2C4 /* Project+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Project+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		3E0977A91D1A3D1A00A7F2C4 /* CoreDataStackManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStackManager.swift; sourceTree = "<group>"; };
+		3E7AB57E1D31839B002F6C2D /* ActivityDetailFormViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityDetailFormViewController.swift; sourceTree = "<group>"; };
+		3E7AB5871D333343002F6C2D /* TimeboxControlRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeboxControlRow.swift; sourceTree = "<group>"; };
+		3E7AB58B1D333B25002F6C2D /* TimeboxControlCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TimeboxControlCell.xib; sourceTree = "<group>"; };
 		3E7D99C21D21C1BD008FA84B /* TimeboxControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeboxControl.swift; sourceTree = "<group>"; };
 		3E7D99C41D21DE70008FA84B /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		3ED6DF511D2731F10064E440 /* DateTextFieldDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateTextFieldDelegate.swift; sourceTree = "<group>"; };
@@ -109,7 +130,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3ED6DF5A1D2B03070064E440 /* Eureka.framework in Frameworks */,
+				3E7AB5831D318A45002F6C2D /* Eureka.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -160,6 +181,8 @@
 				3ED6DF531D2AEF350064E440 /* ButtonGroup.swift */,
 				3ED6DF5F1D2B0D050064E440 /* ViewGroup.swift */,
 				3E7D99C21D21C1BD008FA84B /* TimeboxControl.swift */,
+				3E7AB58B1D333B25002F6C2D /* TimeboxControlCell.xib */,
+				3E7AB5871D333343002F6C2D /* TimeboxControlRow.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -223,6 +246,7 @@
 				3EE741191D1090DC00064BF6 /* AppDelegate.swift */,
 				3EE7411D1D1090DC00064BF6 /* Main.storyboard */,
 				3E09778B1D18B28100A7F2C4 /* ActivityDetailViewController.swift */,
+				3E7AB57E1D31839B002F6C2D /* ActivityDetailFormViewController.swift */,
 				3E0977931D18CEA000A7F2C4 /* ActivityTableViewController.swift */,
 				3E09778D1D18CD7400A7F2C4 /* CalendarViewController.swift */,
 				3E0977951D18CEE200A7F2C4 /* ProjectTableViewController.swift */,
@@ -269,6 +293,7 @@
 				3EE741131D1090DC00064BF6 /* Frameworks */,
 				3EE741141D1090DC00064BF6 /* Resources */,
 				3ED6DF5D1D2B03850064E440 /* ShellScript */,
+				3E7AB5851D318A45002F6C2D /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -363,6 +388,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3E7AB58C1D333B25002F6C2D /* TimeboxControlCell.xib in Resources */,
 				3EE741271D1090DC00064BF6 /* LaunchScreen.storyboard in Resources */,
 				3EE741241D1090DC00064BF6 /* Assets.xcassets in Resources */,
 				3EE7411F1D1090DC00064BF6 /* Main.storyboard in Resources */,
@@ -415,6 +441,7 @@
 				3E0977831D12064100A7F2C4 /* GCDUtilities.swift in Sources */,
 				3E0977921D18CE3A00A7F2C4 /* SettingsTableViewController.swift in Sources */,
 				3E0977A61D18FA7B00A7F2C4 /* Timebox+CoreDataProperties.swift in Sources */,
+				3E7AB57F1D31839B002F6C2D /* ActivityDetailFormViewController.swift in Sources */,
 				3E0977851D13216000A7F2C4 /* Activity.swift in Sources */,
 				3E0977AA1D1A3D1A00A7F2C4 /* CoreDataStackManager.swift in Sources */,
 				3EE7411A1D1090DC00064BF6 /* AppDelegate.swift in Sources */,
@@ -424,6 +451,7 @@
 				3E0977A21D18FA7B00A7F2C4 /* Role.swift in Sources */,
 				3E09778C1D18B28100A7F2C4 /* ActivityDetailViewController.swift in Sources */,
 				3E0977961D18CEE200A7F2C4 /* ProjectTableViewController.swift in Sources */,
+				3E7AB5881D333343002F6C2D /* TimeboxControlRow.swift in Sources */,
 				3EE741221D1090DC00064BF6 /* So_Much_So_Little.xcdatamodeld in Sources */,
 				3E0977A31D18FA7B00A7F2C4 /* Milestone+CoreDataProperties.swift in Sources */,
 				3E09778E1D18CD7400A7F2C4 /* CalendarViewController.swift in Sources */,
