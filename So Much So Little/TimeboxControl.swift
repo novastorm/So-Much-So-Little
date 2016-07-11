@@ -18,7 +18,7 @@ class TimeboxControl: UIView {
     let timeboxCount = 7
     
     var timeboxButtons = [UIButton]()
-    var pendingTimeboxes = 0 {
+    dynamic var pendingTimeboxes = 0 {
         didSet {
             setNeedsLayout()
         }

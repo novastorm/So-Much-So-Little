@@ -14,6 +14,8 @@ class ActivityDetailFormViewController: FormViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        form.inlineRowHideOptions = InlineRowHideOptions.AnotherInlineRowIsShown.union(.FirstResponderChanges)
+        
         form
             +++ Section()
                 <<< TextRow("Task").cellSetup { (cell, row) in
@@ -45,13 +47,13 @@ class ActivityDetailFormViewController: FormViewController {
             
                     // Schedule Section Fields
             
-                    <<< DateTimeRow("ScheduledStart") { (cell) in
+                    <<< DateTimeInlineRow("ScheduledStart") { (cell) in
                         cell.hidden = "$Type != 'Scheduled'"
                         cell.title = "Start"
                         cell.value = NSDate()
                     }
         
-                    <<< DateTimeRow("ScheduledEnd") { (cell) in
+                    <<< DateTimeInlineRow("ScheduledEnd") { (cell) in
                         cell.hidden = "$Type != 'Scheduled'"
                         cell.title = "End"
                         cell.value = NSDate()
@@ -65,7 +67,7 @@ class ActivityDetailFormViewController: FormViewController {
             
                     // Flexible Section Fields
             
-                    <<< DateRow("DueDate") { (cell) in
+                    <<< DateInlineRow("DueDate") { (cell) in
                         cell.title = "Due Date"
                         cell.hidden = "$Type != 'Flexible'"
                     }
@@ -77,7 +79,7 @@ class ActivityDetailFormViewController: FormViewController {
                         cell.title = "Deferred To:"
                         cell.hidden = "$Type != 'Deferred'"
                     }
-                    <<< DateRow("DeferredToResponseDueDate") { (cell) in
+                    <<< DateInlineRow("DeferredToResponseDueDate") { (cell) in
                         cell.title = "Due"
                         cell.hidden = "$Type != 'Deferred'"
                     }

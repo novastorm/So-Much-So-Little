@@ -17,11 +17,16 @@ public class TimeboxControlCell: Cell<Int>, CellType {
         print ("\(self.dynamicType.className) setup")
         
         super.setup()
+        timeboxControl.addObserver(self, forKeyPath: "pendingTimeboxes", options: .New, context: nil)
     }
     
     public override func update() {
         print ("\(self.dynamicType.className) update")
         super.update()
+    }
+    
+    public override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
+        print("timeboxControl.pendingTimeboxes changed: \(timeboxControl.pendingTimeboxes)")
     }
 }
 
