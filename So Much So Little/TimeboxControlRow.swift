@@ -10,14 +10,23 @@ import Eureka
 import Foundation
 import UIKit
 
+private var TimeboxControlCellContext = 0
+
 public class TimeboxControlCell: Cell<Int>, CellType {
+    
+//    let PendingTimeboxesKeyPath = "pendingTimeboxes"
+    
     @IBOutlet weak var timeboxControl: TimeboxControl!
     
     public override func setup() {
         print ("\(self.dynamicType.className) setup")
         
         super.setup()
-        timeboxControl.addObserver(self, forKeyPath: "pendingTimeboxes", options: .New, context: nil)
+        #if swift(>=3.0)
+        timeboxControl.addObserver(self, forKeyPath: #keyPath(TimeboxControl.pendingTimeboxes), options: .New, context: &TimeboxControlCellContext)
+        #elseif swift(>=2.2)
+        timeboxControl.addObserver(self, forKeyPath: "pendingTimeboxes", options: .New, context: &TimeboxControlCellContext)
+        #endif
     }
     
     public override func update() {
@@ -26,7 +35,23 @@ public class TimeboxControlCell: Cell<Int>, CellType {
     }
     
     public override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
-        print("timeboxControl.pendingTimeboxes changed: \(timeboxControl.pendingTimeboxes)")
+        #if swift(>=3.0)
+        if keyPath == #keyPath(TimeboxControl.pendingTimeboxes) {
+            print("timeboxControl.pendingTimeboxes changed: \(timeboxControl.pendingTimeboxes)")
+            }
+        #elseif swift(>=2.2)
+        if keyPath == "pendingTimeboxes" {
+            print("timeboxControl.pendingTimeboxes changed: \(timeboxControl.pendingTimeboxes)")
+            }
+        #endif
+    }
+    
+    deinit {
+        #if swift(>=3.0)
+        timeboxControl.removeObserver(timeboxControl, forKeyPath: #keyPath(TimeboxControl.pendingTimeboxes), context: &TimeboxControlCellContext)
+        #elseif swift(>=2.2)
+        timeboxControl.removeObserver(timeboxControl, forKeyPath: "pendingTimeboxes", context: &TimeboxControlCellContext)
+        #endif
     }
 }
 
