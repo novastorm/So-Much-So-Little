@@ -22,7 +22,7 @@ class ActivityDetailFormViewController: FormViewController {
                     cell.textField.placeholder = Activity.defaultTask
                 }
         
-                <<< TimeboxControlRow()
+                <<< TimeboxControlRow("Timeboxes")
         
                 <<< TextAreaRow("TaskInfo") { (cell) in
                     cell.placeholder = "Description"
@@ -91,5 +91,11 @@ class ActivityDetailFormViewController: FormViewController {
                     }
                         <<< TextRow("Completed Date")
                         <<< DateRow("CompletedDate")
+    }
+    
+    @IBAction func saveActivity () {
+        let timeboxControlRow = form.rowByTag("Timeboxes") as! TimeboxControlRow
+        let pendingTimeboxes = timeboxControlRow.value
+        print("pendingTimeboxes: \(pendingTimeboxes)")
     }
 }

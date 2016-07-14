@@ -44,13 +44,14 @@ public class TimeboxControlCell: Cell<Int>, CellType {
             print("timeboxControl.pendingTimeboxes changed: \(timeboxControl.pendingTimeboxes)")
             }
         #endif
+        row.value = timeboxControl.pendingTimeboxes
     }
     
     deinit {
         #if swift(>=3.0)
-        timeboxControl.removeObserver(timeboxControl, forKeyPath: #keyPath(TimeboxControl.pendingTimeboxes), context: &TimeboxControlCellContext)
+        timeboxControl.removeObserver(self, forKeyPath: #keyPath(TimeboxControl.pendingTimeboxes), context: &TimeboxControlCellContext)
         #elseif swift(>=2.2)
-        timeboxControl.removeObserver(timeboxControl, forKeyPath: "pendingTimeboxes", context: &TimeboxControlCellContext)
+        timeboxControl.removeObserver(self, forKeyPath: "pendingTimeboxes", context: &TimeboxControlCellContext)
         #endif
     }
 }
