@@ -49,7 +49,7 @@ class ActivityDetailViewController: UIViewController {
             let actualTimeboxes = activity.actual_timeboxes
             let estimatedTimeboxes = activity.estimated_timeboxes
             
-            timeboxControl.pendingTimeboxes = estimatedTimeboxes as Int
+            timeboxControl.estimatedTimeboxes = estimatedTimeboxes as Int
             timeboxControl.completedTimeboxes = actualTimeboxes as Int
             
             switch activity.type {

@@ -11,6 +11,10 @@ import UIKit
 
 class ActivityDetailFormViewController: FormViewController {
     
+    // MARK: - Properties
+    
+    var activity: Activity?
+    
     enum FormInput: String {
         case Task, Timeboxes, TaskInfo, Project, Milestone, Role, ActivityType, ScheduledStart,
         ScheduledEnd, Attendees, DueDate, DeferredTo, DeferredToResponseDueDate,
@@ -19,7 +23,10 @@ class ActivityDetailFormViewController: FormViewController {
     
     var timeboxControlRow: TimeboxControlRow!
     
+    @IBOutlet weak var saveButton: UIBarButtonItem!
     @IBOutlet weak var myTableView: UITableView!
+    
+    // MARK: - View Life Cycle
     
     override func viewDidLoad() {
 
@@ -28,6 +35,9 @@ class ActivityDetailFormViewController: FormViewController {
         super.viewDidLoad()
         
         form.inlineRowHideOptions = InlineRowHideOptions.AnotherInlineRowIsShown.union(.FirstResponderChanges)
+        
+        
+        // MARK: Eureka! Form Setup
         
         form
             +++ Section()
@@ -61,19 +71,19 @@ class ActivityDetailFormViewController: FormViewController {
                     // Schedule Section Fields
             
                     <<< DateTimeInlineRow(FormInput.ScheduledStart.rawValue) { (cell) in
-                        cell.hidden = Condition.Predicate(NSPredicate(format: String(format: "$%@ = '%@'", FormInput.ActivityType.rawValue, "Scheduled")))
+                        cell.hidden = Condition.Predicate(NSPredicate(format: String(format: "$%@ != '%@'", FormInput.ActivityType.rawValue, "Scheduled")))
                         cell.title = "Start"
                         cell.value = NSDate()
                     }
         
                     <<< DateTimeInlineRow(FormInput.ScheduledEnd.rawValue) { (cell) in
-                        cell.hidden = Condition.Predicate(NSPredicate(format: String(format: "$%@ = '%@'", FormInput.ActivityType.rawValue, "Scheduled")))
+                        cell.hidden = Condition.Predicate(NSPredicate(format: String(format: "$%@ != '%@'", FormInput.ActivityType.rawValue, "Scheduled")))
                         cell.title = "End"
                         cell.value = NSDate()
                     }
         
                     <<< LabelRow(FormInput.Attendees.rawValue) { (cell) in
-                        cell.hidden = Condition.Predicate(NSPredicate(format: String(format: "$%@ = '%@'", FormInput.ActivityType.rawValue, "Scheduled")))
+                        cell.hidden = Condition.Predicate(NSPredicate(format: String(format: "$%@ != '%@'", FormInput.ActivityType.rawValue, "Scheduled")))
                         cell.title = "Attendees"
                     }
 
@@ -81,7 +91,7 @@ class ActivityDetailFormViewController: FormViewController {
                     // Flexible Section Fields
             
                     <<< DateInlineRow(FormInput.DueDate.rawValue) { (cell) in
-                        cell.hidden = Condition.Predicate(NSPredicate(format: String(format: "$%@ = '%@'", FormInput.ActivityType.rawValue, "Flexible")))
+                        cell.hidden = Condition.Predicate(NSPredicate(format: String(format: "$%@ != '%@'", FormInput.ActivityType.rawValue, "Flexible")))
                         cell.title = "Due Date"
                     }
             
@@ -89,12 +99,12 @@ class ActivityDetailFormViewController: FormViewController {
                     // Deferred Section Fields
             
                     <<< TextRow(FormInput.DeferredTo.rawValue) { (cell) in
-                        cell.hidden = Condition.Predicate(NSPredicate(format: String(format: "$%@ = '%@'", FormInput.ActivityType.rawValue, "Deferred")))
+                        cell.hidden = Condition.Predicate(NSPredicate(format: String(format: "$%@ != '%@'", FormInput.ActivityType.rawValue, "Deferred")))
                         cell.title = "Deferred To:"
                     }
             
                     <<< DateInlineRow(FormInput.DeferredToResponseDueDate.rawValue) { (cell) in
-                        cell.hidden = Condition.Predicate(NSPredicate(format: String(format: "$%@ = '%@'", FormInput.ActivityType.rawValue, "Deferred")))
+                        cell.hidden = Condition.Predicate(NSPredicate(format: String(format: "$%@ != '%@'", FormInput.ActivityType.rawValue, "Deferred")))
                         cell.title = "Due"
                     }
 
@@ -107,8 +117,35 @@ class ActivityDetailFormViewController: FormViewController {
                         <<< DateRow("CompletedDate")
     }
     
-    @IBAction func saveActivity () {
-//        let timeboxControlRow = form.rowByTag("Timeboxes") as! TimeboxControlRow
+    
+    // MARK: - Actions
+    
+    @IBAction func save(sender: AnyObject) {
+        print("save")
+    }
+    
+    @IBAction func addToActivitiesToday () {
+        print("Add to activities today")
+        // check for activity changes
+        // mark activity for today
+    }
+    
+    @IBAction func startActivity () {
+        print("start activity")
+        // add to activities today
+        // start activity
+    }
+    
+    
+    // MARK: - Utilities
+    
+    func saveActivity(askForConfirmation confirm: Bool = false) {
+        
+        // if activity exists
+        // if confirm and data modified
+        // ask for confirmation
+        
+        //        let timeboxControlRow = form.rowByTag("Timeboxes") as! TimeboxControlRow
         let formValues = form.values()
         let task = formValues[FormInput.Task.rawValue]
         let pendingTimeboxes = formValues[FormInput.Timeboxes.rawValue]
@@ -124,8 +161,10 @@ class ActivityDetailFormViewController: FormViewController {
         let deferredTo = formValues[FormInput.DeferredTo.rawValue]
         let deferredToResponseDueDate = formValues[FormInput.DeferredToResponseDueDate.rawValue]
         let completed = formValues[FormInput.Completed.rawValue]
-
-
+        
+        
         print("pendingTimeboxes: \(pendingTimeboxes)")
+        print(formValues)
     }
+    
 }

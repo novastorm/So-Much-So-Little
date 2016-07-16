@@ -18,7 +18,7 @@ class TimeboxControl: UIView {
     let timeboxCount = 7
     
     var timeboxButtons = [UIButton]()
-    dynamic var pendingTimeboxes = 0 {
+    dynamic var estimatedTimeboxes = 0 {
         didSet {
             setNeedsLayout()
         }
@@ -30,7 +30,7 @@ class TimeboxControl: UIView {
     }
     
     static let defaultTimeboxImage = UIImage(named: "Timebox")
-    static let pendingTimeboxImage = UIImage(named: "Clock")
+    static let estimatedTimeboxImage = UIImage(named: "Clock")
     static let completedTimeboxImage = UIImage(named: "FilledBox")
 
     // MARK: - Initialization
@@ -42,8 +42,8 @@ class TimeboxControl: UIView {
             let button = UIButton()
             
             button.setImage(self.dynamicType.defaultTimeboxImage, forState: .Normal)
-            button.setImage(self.dynamicType.pendingTimeboxImage, forState: .Selected)
-            button.setImage(self.dynamicType.pendingTimeboxImage, forState: [.Selected, .Highlighted])
+            button.setImage(self.dynamicType.estimatedTimeboxImage, forState: .Selected)
+            button.setImage(self.dynamicType.estimatedTimeboxImage, forState: [.Selected, .Highlighted])
             
             button.adjustsImageWhenHighlighted = false
             
@@ -57,10 +57,10 @@ class TimeboxControl: UIView {
     
     override func layoutSubviews() {
         
-//        let spacingTotal = timeboxSpacing * (timeboxCount - 1)
-//        let pendingButtonSize = (Int(frame.size.width) - spacingTotal) / (timeboxCount)
-//        let buttonSize = min(pendingButtonSize, maxButtonSize)
-        let buttonSize = maxButtonSize
+        let spacingTotal = timeboxSpacing * (timeboxCount - 1)
+        let pendingButtonSize = (Int(frame.size.width) - spacingTotal) / (timeboxCount)
+        let buttonSize = min(pendingButtonSize, maxButtonSize)
+//        let buttonSize = maxButtonSize
         var buttonFrame = CGRect(x: 0, y: 0, width: buttonSize, height: buttonSize)
         
         for (index, button) in timeboxButtons.enumerate() {
@@ -75,7 +75,9 @@ class TimeboxControl: UIView {
         let spacingTotal = timeboxSpacing * (timeboxCount - 1)
         
 //        let buttonSize = (Int(frame.size.width) - spacingTotal) / (timeboxCount)
-        let buttonSize = maxButtonSize
+        let pendingButtonSize = (Int(frame.size.width) - spacingTotal) / (timeboxCount)
+        let buttonSize = min(pendingButtonSize, maxButtonSize)
+//        let buttonSize = maxButtonSize
         let width = (buttonSize * timeboxCount) + spacingTotal
         
         return CGSize(width: width, height: buttonSize)
@@ -85,14 +87,14 @@ class TimeboxControl: UIView {
     // MARK: Button Action
     
     func timeboxButtonTapped(button: UIButton) {
-        pendingTimeboxes = timeboxButtons.indexOf(button)! + 1
+        estimatedTimeboxes = timeboxButtons.indexOf(button)! + 1
         
         updateButtonSelectionStates()
     }
     
     func updateButtonSelectionStates() {
         for (index, button) in timeboxButtons.enumerate() {
-            button.selected = index < pendingTimeboxes
+            button.selected = index < estimatedTimeboxes
             let completed = (index < completedTimeboxes)
             if completed {
                 button.setImage(self.dynamicType.completedTimeboxImage, forState: .Selected)

@@ -220,7 +220,7 @@
         <!--Activity Detail Form View Controller-->
         <scene sceneID="dZO-Xu-3N7">
             <objects>
-                <viewController id="029-GX-oH7" customClass="ActivityDetailFormViewController" customModule="So_Much_So_Little" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController automaticallyAdjustsScrollViewInsets="NO" id="029-GX-oH7" customClass="ActivityDetailFormViewController" customModule="So_Much_So_Little" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="GfE-yy-vwM"/>
                         <viewControllerLayoutGuide type="bottom" id="SKc-MO-xFy"/>
@@ -228,15 +228,53 @@
                     <view key="view" contentMode="scaleToFill" id="egP-Bc-BrK">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="1Pa-Im-d9I">
+                                <rect key="frame" x="20" y="521" width="560" height="30"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lwK-4t-8zr">
+                                        <rect key="frame" x="0.0" y="0.0" width="276" height="30"/>
+                                        <state key="normal" title="Today"/>
+                                        <connections>
+                                            <action selector="addToActivitiesToday" destination="029-GX-oH7" eventType="touchUpInside" id="5sq-VD-5Gm"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FJz-5S-xaM">
+                                        <rect key="frame" x="284" y="0.0" width="276" height="30"/>
+                                        <state key="normal" title="Start"/>
+                                        <connections>
+                                            <action selector="startActivity" destination="029-GX-oH7" eventType="touchUpInside" id="GWf-eD-YOY"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="bTi-aF-Gzd">
+                                <rect key="frame" x="0.0" y="64" width="600" height="457"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </tableView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="bTi-aF-Gzd" firstAttribute="top" secondItem="GfE-yy-vwM" secondAttribute="bottom" id="55j-EE-tNo"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="1Pa-Im-d9I" secondAttribute="trailing" id="5cO-km-qbz"/>
+                            <constraint firstItem="1Pa-Im-d9I" firstAttribute="top" secondItem="bTi-aF-Gzd" secondAttribute="bottom" id="BbL-vy-aIo"/>
+                            <constraint firstItem="bTi-aF-Gzd" firstAttribute="leading" secondItem="egP-Bc-BrK" secondAttribute="leading" id="NVv-BX-yIH"/>
+                            <constraint firstAttribute="trailing" secondItem="bTi-aF-Gzd" secondAttribute="trailing" id="YIu-gn-WzG"/>
+                            <constraint firstItem="1Pa-Im-d9I" firstAttribute="leading" secondItem="egP-Bc-BrK" secondAttribute="leadingMargin" id="vnX-0m-yBp"/>
+                            <constraint firstItem="SKc-MO-xFy" firstAttribute="top" secondItem="1Pa-Im-d9I" secondAttribute="bottom" id="xmD-TQ-Hdl"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="pEv-2R-d8W">
                         <barButtonItem key="rightBarButtonItem" systemItem="save" id="eZ8-2p-dHX">
                             <connections>
-                                <action selector="saveActivity" destination="029-GX-oH7" id="1PH-HL-d8a"/>
+                                <action selector="save:" destination="029-GX-oH7" id="JtJ-3S-tym"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="myTableView" destination="bTi-aF-Gzd" id="7S5-sp-Gi2"/>
+                        <outlet property="saveButton" destination="eZ8-2p-dHX" id="02g-TC-gHq"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2JI-aS-2rb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

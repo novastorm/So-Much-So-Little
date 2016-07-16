@@ -14,7 +14,7 @@ private var TimeboxControlCellContext = 0
 
 public class TimeboxControlCell: Cell<Int>, CellType {
     
-//    let PendingTimeboxesKeyPath = "pendingTimeboxes"
+//    let estimatedTimeboxesKeyPath = "estimatedTimeboxes"
     
     @IBOutlet weak var timeboxControl: TimeboxControl!
     
@@ -23,10 +23,11 @@ public class TimeboxControlCell: Cell<Int>, CellType {
         
         super.setup()
         #if swift(>=3.0)
-        timeboxControl.addObserver(self, forKeyPath: #keyPath(TimeboxControl.pendingTimeboxes), options: .New, context: &TimeboxControlCellContext)
+        timeboxControl.addObserver(self, forKeyPath: #keyPath(TimeboxControl.estimatedTimeboxes), options: .New, context: &TimeboxControlCellContext)
         #elseif swift(>=2.2)
-        timeboxControl.addObserver(self, forKeyPath: "pendingTimeboxes", options: .New, context: &TimeboxControlCellContext)
+        timeboxControl.addObserver(self, forKeyPath: "estimatedTimeboxes", options: .New, context: &TimeboxControlCellContext)
         #endif
+        row.value = 0
     }
     
     public override func update() {
@@ -36,22 +37,22 @@ public class TimeboxControlCell: Cell<Int>, CellType {
     
     public override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
         #if swift(>=3.0)
-        if keyPath == #keyPath(TimeboxControl.pendingTimeboxes) {
-            print("timeboxControl.pendingTimeboxes changed: \(timeboxControl.pendingTimeboxes)")
+        if keyPath == #keyPath(TimeboxControl.estimatedTimeboxes) {
+            print("timeboxControl.estimatedTimeboxes changed: \(timeboxControl.estimatedTimeboxes)")
             }
         #elseif swift(>=2.2)
-        if keyPath == "pendingTimeboxes" {
-            print("timeboxControl.pendingTimeboxes changed: \(timeboxControl.pendingTimeboxes)")
+        if keyPath == "estimatedTimeboxes" {
+            print("timeboxControl.estimatedTimeboxes changed: \(timeboxControl.estimatedTimeboxes)")
             }
         #endif
-        row.value = timeboxControl.pendingTimeboxes
+        row.value = timeboxControl.estimatedTimeboxes
     }
     
     deinit {
         #if swift(>=3.0)
-        timeboxControl.removeObserver(self, forKeyPath: #keyPath(TimeboxControl.pendingTimeboxes), context: &TimeboxControlCellContext)
+        timeboxControl.removeObserver(self, forKeyPath: #keyPath(TimeboxControl.estimatedTimeboxes), context: &TimeboxControlCellContext)
         #elseif swift(>=2.2)
-        timeboxControl.removeObserver(self, forKeyPath: "pendingTimeboxes", context: &TimeboxControlCellContext)
+        timeboxControl.removeObserver(self, forKeyPath: "estimatedTimeboxes", context: &TimeboxControlCellContext)
         #endif
     }
 }
