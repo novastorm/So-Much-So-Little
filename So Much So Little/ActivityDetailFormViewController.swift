@@ -6,6 +6,7 @@
 //  Copyright © 2016 Adland Lee. All rights reserved.
 //
 
+import CoreData
 import Eureka
 import UIKit
 
@@ -16,13 +17,19 @@ class ActivityDetailFormViewController: FormViewController {
     var activity: Activity?
     
     enum FormInput: String {
-        case Task, Timeboxes, TaskInfo, Project, Milestone, Role, ActivityType, ScheduledStart,
+        case Task, EstimatedTimeboxes, TaskInfo, Project, Milestone, Role, ActivityType, ScheduledStart,
         ScheduledEnd, Attendees, DueDate, DeferredTo, DeferredToResponseDueDate,
         Completed
     }
     
     var timeboxControlRow: TimeboxControlRow!
     
+    // MARK: - Core Data convenience methods
+    
+    var sharedMainContext: NSManagedObjectContext {
+        return CoreDataStackManager.sharedInstance.mainContext
+    }
+
     @IBOutlet weak var saveButton: UIBarButtonItem!
     @IBOutlet weak var myTableView: UITableView!
     
@@ -45,7 +52,7 @@ class ActivityDetailFormViewController: FormViewController {
                     cell.textField.placeholder = Activity.defaultTask
                 }
         
-                <<< TimeboxControlRow(FormInput.Timeboxes.rawValue)
+                <<< TimeboxControlRow(FormInput.EstimatedTimeboxes.rawValue)
         
                 <<< TextAreaRow(FormInput.TaskInfo.rawValue) { (cell) in
                     cell.placeholder = "Description"
@@ -122,6 +129,7 @@ class ActivityDetailFormViewController: FormViewController {
     
     @IBAction func save(sender: AnyObject) {
         print("save")
+        saveActivity()
     }
     
     @IBAction func addToActivitiesToday () {
@@ -147,8 +155,10 @@ class ActivityDetailFormViewController: FormViewController {
         
         //        let timeboxControlRow = form.rowByTag("Timeboxes") as! TimeboxControlRow
         let formValues = form.values()
+        print(formValues)
+        
         let task = formValues[FormInput.Task.rawValue]
-        let pendingTimeboxes = formValues[FormInput.Timeboxes.rawValue]
+        let estimatedTimeboxes = formValues[FormInput.EstimatedTimeboxes.rawValue]
         let taskinfo = formValues[FormInput.TaskInfo.rawValue]
         let project = formValues[FormInput.Project.rawValue]
         let milestone = formValues[FormInput.Milestone.rawValue]
@@ -163,8 +173,16 @@ class ActivityDetailFormViewController: FormViewController {
         let completed = formValues[FormInput.Completed.rawValue]
         
         
-        print("pendingTimeboxes: \(pendingTimeboxes)")
-        print(formValues)
+        print("estimatedTimeboxes: \(estimatedTimeboxes)")
+        
+        let data: [String: Any?] = [
+            Activity.Keys.Task: task,
+            Activity.Keys.EstimatedTimeboxes: estimatedTimeboxes
+        ]
+        
+        let activity = Activity(data: data, context: sharedMainContext)
+    
+        print(activity)
     }
     
 }

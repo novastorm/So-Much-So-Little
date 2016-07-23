@@ -19,10 +19,11 @@ enum ActivityType: Int {
 class Activity: NSManagedObject {
     
     struct Keys {
+        static let Attendees = "attendees"
         static let Completed = "completed"
         static let CompletedDate = "completed_date"
         static let DeferredTo = "deferred_to"
-        static let DeferredToResponseDue = "deferred_to_response_due_date"
+        static let DeferredToResponseDueDate = "deferred_to_response_due_date"
         static let DisplayOrder = "display_order"
         static let DueDate = "due_date"
         static let EstimatedTimeboxes = "estimated_timeboxes"
@@ -37,15 +38,16 @@ class Activity: NSManagedObject {
 
         static let Milestone = "milestone"
         
-        static let ProjectTags = "project_tags"
+        static let Project = "project"
         static let Roles = "roles"
         static let Timeboxes = "timeboxes"
     }
     
+    typealias Attendees = Set<String>
     typealias CompletedType = Bool
     typealias CompletedDateType = NSDate
     typealias DeferredToType = String
-    typealias DeferredToResponseDueType = NSDate
+    typealias DeferredToResponseDueDateType = NSDate
     typealias DisplayOrderType = Int
     typealias DueDateType = NSDate
     typealias EstimatedTimeboxesType = Int
@@ -88,14 +90,14 @@ class Activity: NSManagedObject {
         type = .Flexible
     }
     
-    convenience init(data: [String:AnyObject], context: NSManagedObjectContext) {
-        let task = data[Keys.Task] as! TaskType
+    convenience init(data: [String: Any?], context: NSManagedObjectContext) {
+        let task = (data[Keys.Task] as? TaskType) ?? ""
         self.init(withTaskNamed: task, context: context)
         
         completed = data[Keys.Completed] as? CompletedType ?? false
         completed_date = data[Keys.CompletedDate] as? CompletedDateType
         deferred_to = data[Keys.DeferredTo] as? DeferredToType
-        deferred_to_response_due_date = data[Keys.DeferredToResponseDue] as? DeferredToResponseDueType
+        deferred_to_response_due_date = data[Keys.DeferredToResponseDueDate] as? DeferredToResponseDueDateType
         display_order = data[Keys.DisplayOrder] as? DisplayOrderType ?? 0
         due_date = data[Keys.DueDate] as? DueDateType
         estimated_timeboxes = data[Keys.EstimatedTimeboxes] as? EstimatedTimeboxesType ?? 0
