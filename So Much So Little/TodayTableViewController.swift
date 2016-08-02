@@ -181,7 +181,7 @@ extension TodayTableViewController {
     func configureTodayCell(cell: TodayTableViewCell, atIndexPath indexPath: NSIndexPath) {
         let activity = fetchedResultsController.objectAtIndexPath(indexPath) as! Activity
         let todayDisplayOrder = activity.today_display_order
-        let task = activity.task!
+        let task = activity.task
         let actualTimeboxes = activity.actual_timeboxes
         let estimatedTimeboxes = activity.estimated_timeboxes
         

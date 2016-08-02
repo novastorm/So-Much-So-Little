@@ -74,8 +74,9 @@ class Activity: NSManagedObject {
             typeValue = newValue.rawValue
         }
     }
-    
-    convenience init(withTaskNamed task: String = "", context: NSManagedObjectContext) {
+
+    convenience init(withTask task: String = "", context: NSManagedObjectContext) {
+        
         let className = self.dynamicType.className
         let entity = NSEntityDescription.entityForName(className, inManagedObjectContext: context)!
         
@@ -90,25 +91,6 @@ class Activity: NSManagedObject {
         type = .Flexible
     }
     
-    convenience init(data: [String: Any?], context: NSManagedObjectContext) {
-        let task = (data[Keys.Task] as? TaskType) ?? ""
-        self.init(withTaskNamed: task, context: context)
-        
-        completed = data[Keys.Completed] as? CompletedType ?? false
-        completed_date = data[Keys.CompletedDate] as? CompletedDateType
-        deferred_to = data[Keys.DeferredTo] as? DeferredToType
-        deferred_to_response_due_date = data[Keys.DeferredToResponseDueDate] as? DeferredToResponseDueDateType
-        display_order = data[Keys.DisplayOrder] as? DisplayOrderType ?? 0
-        due_date = data[Keys.DueDate] as? DueDateType
-        estimated_timeboxes = data[Keys.EstimatedTimeboxes] as? EstimatedTimeboxesType ?? 0
-        scheduled_end = data[Keys.ScheduledEnd] as? ScheduledEndType
-        scheduled_start = data[Keys.ScheduledStart] as? ScheduledStartType
-        task_info = data[Keys.TaskInfo] as? TaskInfoType
-        today = data[Keys.Today] as? TodayType ?? false
-        today_display_order = data[Keys.TodayDisplayOrder] as? TodayDisplayOrderType ?? 0
-        typeValue = data[Keys.TypeValue] as? TypeValueType ?? ActivityType.Flexible.rawValue
-    }
-    
     static var fetchRequest: NSFetchRequest {
         let fetchRequest = NSFetchRequest(entityName: className)
         fetchRequest.sortDescriptors = []
@@ -117,6 +99,6 @@ class Activity: NSManagedObject {
     }
     
     var actual_timeboxes: Int {
-        return timeboxes.count
+        return timeboxes?.count ?? 0
     }
 }

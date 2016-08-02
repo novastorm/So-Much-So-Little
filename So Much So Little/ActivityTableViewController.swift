@@ -179,7 +179,7 @@ extension ActivityTableViewController {
     func configureActivityCell(cell: UITableViewCell, atIndexPath indexPath: NSIndexPath) {
         let activity = fetchedResultsController.objectAtIndexPath(indexPath) as! Activity
         let displayOrder = activity.display_order
-        let task = activity.task!
+        let task = activity.task
         let actualTimeboxes = activity.actual_timeboxes
         let estimatedTimeboxes = activity.estimated_timeboxes
         

@@ -23,14 +23,16 @@ extension Activity {
     @NSManaged var estimated_timeboxes: NSNumber
     @NSManaged var scheduled_end: NSDate?
     @NSManaged var scheduled_start: NSDate?
-    @NSManaged var task: String?
+    @NSManaged var task: String
     @NSManaged var task_info: String?
     @NSManaged var today: Bool
-    @NSManaged var today_display_order: NSNumber
+    @NSManaged var today_display_order: NSNumber?
     @NSManaged var typeValue: NSNumber?
+    
+    @NSManaged var attendees: [Person]?
     @NSManaged var milestone: Milestone?
     @NSManaged var project: Project?
-    @NSManaged var roles: Set<Role>!
-    @NSManaged var timeboxes: [Timebox]!
+    @NSManaged var roles: Set<Role>?
+    @NSManaged var timeboxes: [Timebox]?
 
 }
