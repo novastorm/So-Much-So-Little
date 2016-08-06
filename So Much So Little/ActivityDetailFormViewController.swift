@@ -14,7 +14,7 @@ class ActivityDetailFormViewController: FormViewController {
     
     // MARK: - Properties
     
-    var activity: Activity?
+    var activity: Activity!
     
     enum FormInput: String {
         case
@@ -50,6 +50,8 @@ class ActivityDetailFormViewController: FormViewController {
         return CoreDataStackManager.sharedInstance.mainContext
     }
     
+    var temporaryContext: NSManagedObjectContext!
+    
     @IBOutlet weak var saveButton: UIBarButtonItem!
     @IBOutlet weak var myTableView: UITableView!
     
@@ -61,6 +63,17 @@ class ActivityDetailFormViewController: FormViewController {
 
         super.viewDidLoad()
         
+        temporaryContext = CoreDataStackManager.getTemporaryContext(withName: "TempActivity")
+        temporaryContext.performBlockAndWait({
+            if self.activity == nil {
+                self.activity = Activity(inContext: self.temporaryContext)
+                self.activity = Activity(inContext: self.temporaryContext)
+            }
+
+            self.activity = self.temporaryContext?.objectWithID(self.activity.objectID) as! Activity
+        })
+        
+        
         // MARK: Eureka! Form Setup
 
         form.inlineRowHideOptions = InlineRowHideOptions.AnotherInlineRowIsShown.union(.FirstResponderChanges)
@@ -69,14 +82,18 @@ class ActivityDetailFormViewController: FormViewController {
             +++ Section()
                 <<< TextRow(FormInput.Task.rawValue) { (row) in
                     
-                    row.value = self.activity?.task ?? Activity.defaultTask
+                    temporaryContext.performBlockAndWait({ 
+                        row.value = self.activity?.task ?? Activity.defaultTask
+                    })
                     row.placeholder = Activity.defaultTask
                 }
         
                 <<< TimeboxControlRow(FormInput.EstimatedTimeboxes.rawValue)
         
                 <<< TextAreaRow(FormInput.TaskInfo.rawValue) { (row) in
-                    row.value = self.activity?.task_info
+                    temporaryContext.performBlockAndWait({
+                        row.value = self.activity?.task_info
+                    })
                     row.placeholder = "Description"
                 }
         
@@ -202,11 +219,6 @@ class ActivityDetailFormViewController: FormViewController {
 //        let timeboxes
         
         
-        if activity == nil {
-            activity = Activity(inContext: sharedMainContext)
-        }
-        
-
         activity!.task = formValues[FormInput.Task.rawValue] as! Activity.TaskType
         activity!.task_info = formValues[FormInput.TaskInfo.rawValue] as? Activity.TaskInfoType
 //        activity.completed = completed
