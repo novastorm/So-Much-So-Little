@@ -57,6 +57,10 @@ class ActivityTableViewController: UITableViewController {
         tableView.addGestureRecognizer(longPress)
     }
     
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+    }
+    
     
     // MARK: - Actions
     
@@ -151,7 +155,7 @@ class ActivityTableViewController: UITableViewController {
             guard let indexPath = tableView.indexPathForSelectedRow else {
                 return
             }
-            let destinationVC = segue.destinationViewController as! ActivityDetailViewController
+            let destinationVC = segue.destinationViewController as! ActivityDetailFormViewController
             
             destinationVC.activity = fetchedResultsController.objectAtIndexPath(indexPath) as? Activity
         }

@@ -27,4 +27,12 @@ class CoreDataStackManager {
     static func autoSave(delayInSeconds: Int) {
         CoreDataStackManager.sharedInstance.autoSave(delayInSeconds)
     }
+    
+    static func getTemporaryContext(withName name: String = "Temporary") -> NSManagedObjectContext {
+        return CoreDataStackManager.sharedInstance.getTemporaryContext(withName: name)
+    }
+    
+    static func saveTemporaryContext(context: NSManagedObjectContext) {
+        CoreDataStackManager.sharedInstance.saveTempContext(context)
+    }
 }

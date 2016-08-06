@@ -63,7 +63,7 @@ class CompletedActivityTableViewController: UITableViewController {
             guard let indexPath = tableView.indexPathForSelectedRow else {
                 return
             }
-            let destinationVC = segue.destinationViewController as! ActivityDetailViewController
+            let destinationVC = segue.destinationViewController as! ActivityDetailFormViewController
             
             destinationVC.activity = fetchedResultsController.objectAtIndexPath(indexPath) as? Activity
         }

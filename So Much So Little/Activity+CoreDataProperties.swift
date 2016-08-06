@@ -29,10 +29,10 @@ extension Activity {
     @NSManaged var today_display_order: NSNumber?
     @NSManaged var typeValue: NSNumber?
     
-    @NSManaged var attendees: [Person]?
+    @NSManaged var attendees: Set<Person>?
     @NSManaged var milestone: Milestone?
     @NSManaged var project: Project?
     @NSManaged var roles: Set<Role>?
-    @NSManaged var timeboxes: [Timebox]?
+    @NSManaged var timeboxes: Set<Timebox>?
 
 }

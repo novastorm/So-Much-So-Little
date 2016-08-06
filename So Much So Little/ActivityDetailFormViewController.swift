@@ -14,7 +14,7 @@ class ActivityDetailFormViewController: FormViewController {
     
     // MARK: - Properties
     
-    var activity: Activity!
+    var activity: Activity?
     
     enum FormInput: String {
         case
@@ -49,7 +49,7 @@ class ActivityDetailFormViewController: FormViewController {
     var sharedMainContext: NSManagedObjectContext {
         return CoreDataStackManager.sharedInstance.mainContext
     }
-
+    
     @IBOutlet weak var saveButton: UIBarButtonItem!
     @IBOutlet weak var myTableView: UITableView!
     
@@ -61,40 +61,35 @@ class ActivityDetailFormViewController: FormViewController {
 
         super.viewDidLoad()
         
-        if activity == nil {
-            print("Create new activity")
-            let entity = NSEntityDescription.entityForName(Activity.className, inManagedObjectContext: sharedMainContext)!
-            
-            activity = Activity(entity: entity, insertIntoManagedObjectContext: nil)
-        }
-        
-        form.inlineRowHideOptions = InlineRowHideOptions.AnotherInlineRowIsShown.union(.FirstResponderChanges)
-        
-        
         // MARK: Eureka! Form Setup
+
+        form.inlineRowHideOptions = InlineRowHideOptions.AnotherInlineRowIsShown.union(.FirstResponderChanges)
         
         form
             +++ Section()
-                <<< TextRow(FormInput.Task.rawValue).cellSetup { (cell, row) in
-                    cell.textField.placeholder = Activity.defaultTask
+                <<< TextRow(FormInput.Task.rawValue) { (row) in
+                    
+                    row.value = self.activity?.task ?? Activity.defaultTask
+                    row.placeholder = Activity.defaultTask
                 }
         
                 <<< TimeboxControlRow(FormInput.EstimatedTimeboxes.rawValue)
         
-                <<< TextAreaRow(FormInput.TaskInfo.rawValue) { (cell) in
-                    cell.placeholder = "Description"
+                <<< TextAreaRow(FormInput.TaskInfo.rawValue) { (row) in
+                    row.value = self.activity?.task_info
+                    row.placeholder = "Description"
                 }
         
-                <<< TextRow(FormInput.Project.rawValue){ (cell) in
-                    cell.title = "Project"
+                <<< TextRow(FormInput.Project.rawValue){ (row) in
+                    row.title = "Project"
                 }
             
-                <<< TextRow(FormInput.Milestone.rawValue) { (cell) in
-                    cell.title = "Milestone"
+                <<< TextRow(FormInput.Milestone.rawValue) { (row) in
+                    row.title = "Milestone"
                 }
                 
-                <<< TextRow(FormInput.Role.rawValue) { (cell) in
-                    cell.title = "Role"
+                <<< TextRow(FormInput.Role.rawValue) { (row) in
+                    row.title = "Role"
                 }
         
                 <<< SegmentedRow<String>(FormInput.TypeValue.rawValue) { (type) in
@@ -104,42 +99,42 @@ class ActivityDetailFormViewController: FormViewController {
             
                     // Schedule Section Fields
             
-                    <<< DateTimeInlineRow(FormInput.ScheduledStart.rawValue) { (cell) in
-                        cell.hidden = Condition.Predicate(NSPredicate(format: String(format: "$%@ != '%@'", FormInput.TypeValue.rawValue, "Scheduled")))
-                        cell.title = "Start"
-                        cell.value = NSDate()
+                    <<< DateTimeInlineRow(FormInput.ScheduledStart.rawValue) { (row) in
+                        row.hidden = Condition.Predicate(NSPredicate(format: String(format: "$%@ != '%@'", FormInput.TypeValue.rawValue, "Scheduled")))
+                        row.title = "Start"
+                        row.value = NSDate()
                     }
         
-                    <<< DateTimeInlineRow(FormInput.ScheduledEnd.rawValue) { (cell) in
-                        cell.hidden = Condition.Predicate(NSPredicate(format: String(format: "$%@ != '%@'", FormInput.TypeValue.rawValue, "Scheduled")))
-                        cell.title = "End"
-                        cell.value = NSDate()
+                    <<< DateTimeInlineRow(FormInput.ScheduledEnd.rawValue) { (row) in
+                        row.hidden = Condition.Predicate(NSPredicate(format: String(format: "$%@ != '%@'", FormInput.TypeValue.rawValue, "Scheduled")))
+                        row.title = "End"
+                        row.value = NSDate()
                     }
         
-                    <<< LabelRow(FormInput.Attendees.rawValue) { (cell) in
-                        cell.hidden = Condition.Predicate(NSPredicate(format: String(format: "$%@ != '%@'", FormInput.TypeValue.rawValue, "Scheduled")))
-                        cell.title = "Attendees"
+                    <<< LabelRow(FormInput.Attendees.rawValue) { (row) in
+                        row.hidden = Condition.Predicate(NSPredicate(format: String(format: "$%@ != '%@'", FormInput.TypeValue.rawValue, "Scheduled")))
+                        row.title = "Attendees"
                     }
 
             
                     // Flexible Section Fields
             
-                    <<< DateInlineRow(FormInput.DueDate.rawValue) { (cell) in
-                        cell.hidden = Condition.Predicate(NSPredicate(format: String(format: "$%@ != '%@'", FormInput.TypeValue.rawValue, "Flexible")))
-                        cell.title = "Due Date"
+                    <<< DateInlineRow(FormInput.DueDate.rawValue) { (row) in
+                        row.hidden = Condition.Predicate(NSPredicate(format: String(format: "$%@ != '%@'", FormInput.TypeValue.rawValue, "Flexible")))
+                        row.title = "Due Date"
                     }
             
             
                     // Deferred Section Fields
             
-                    <<< TextRow(FormInput.DeferredTo.rawValue) { (cell) in
-                        cell.hidden = Condition.Predicate(NSPredicate(format: String(format: "$%@ != '%@'", FormInput.TypeValue.rawValue, "Deferred")))
-                        cell.title = "Deferred To:"
+                    <<< TextRow(FormInput.DeferredTo.rawValue) { (row) in
+                        row.hidden = Condition.Predicate(NSPredicate(format: String(format: "$%@ != '%@'", FormInput.TypeValue.rawValue, "Deferred")))
+                        row.title = "Deferred To:"
                     }
             
-                    <<< DateInlineRow(FormInput.DeferredToResponseDueDate.rawValue) { (cell) in
-                        cell.hidden = Condition.Predicate(NSPredicate(format: String(format: "$%@ != '%@'", FormInput.TypeValue.rawValue, "Deferred")))
-                        cell.title = "Due"
+                    <<< DateInlineRow(FormInput.DeferredToResponseDueDate.rawValue) { (row) in
+                        row.hidden = Condition.Predicate(NSPredicate(format: String(format: "$%@ != '%@'", FormInput.TypeValue.rawValue, "Deferred")))
+                        row.title = "Due"
                     }
 
 
@@ -179,9 +174,6 @@ class ActivityDetailFormViewController: FormViewController {
         // if activity exists
         // if confirm and data modified
         // ask for confirmation
-        if activity.managedObjectContext == nil {
-            sharedMainContext.insertObject(activity)
-        }
         
         //        let timeboxControlRow = form.rowByTag("Timeboxes") as! TimeboxControlRow
         let formValues = form.values()
@@ -196,7 +188,7 @@ class ActivityDetailFormViewController: FormViewController {
         let estimatedTimeboxes = formValues[FormInput.EstimatedTimeboxes.rawValue]
         let scheduledEnd = formValues[FormInput.ScheduledEnd.rawValue]
         let scheduledStart = formValues[FormInput.ScheduledStart.rawValue]
-        let task = formValues[FormInput.Task.rawValue] as? Activity.TaskType ?? Activity.defaultTask
+//        let task = formValues[FormInput.Task.rawValue] as? Activity.TaskType ?? Activity.defaultTask
         let taskInfo = formValues[FormInput.TaskInfo.rawValue]
         let today = formValues[FormInput.Today.rawValue]
 //        let todayDisplayOrder
@@ -209,13 +201,20 @@ class ActivityDetailFormViewController: FormViewController {
         let role = formValues[FormInput.Role.rawValue]
 //        let timeboxes
         
-        print("estimatedTimeboxes: \(estimatedTimeboxes)")
         
-        activity.task = task
-    
-        print(activity)
+        if activity == nil {
+            activity = Activity(inContext: sharedMainContext)
+        }
+        
+
+        activity!.task = formValues[FormInput.Task.rawValue] as! Activity.TaskType
+        activity!.task_info = formValues[FormInput.TaskInfo.rawValue] as? Activity.TaskInfoType
+//        activity.completed = completed
+//        activity.completed_date = completedDate
+        
+        print(activity!.managedObjectContext)
+        print(activity!)
         
         CoreDataStackManager.saveMainContext()
-    }
-    
+    }    
 }

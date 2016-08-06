@@ -94,12 +94,10 @@ class CoreDataStack {
 // MARK: - Temporary Context {
 extension CoreDataStack {
     
-    func getTemporaryContext(named name: String) -> NSManagedObjectContext {
-        let parentContext = self.mainContext
-        
+    func getTemporaryContext(withName name: String) -> NSManagedObjectContext {
         let tempContext = NSManagedObjectContext(concurrencyType: .PrivateQueueConcurrencyType)
         tempContext.name = name
-        tempContext.parentContext = parentContext
+        tempContext.parentContext = mainContext
         
         return tempContext
     }
@@ -118,6 +116,13 @@ extension CoreDataStack {
         }
         
         self.saveMainContext()
+    }
+    
+    func getScratchContext(withName name: String) -> NSManagedObjectContext {
+        let scratchContext =  NSManagedObjectContext(concurrencyType: .MainQueueConcurrencyType)
+        scratchContext.name = name
+        scratchContext.persistentStoreCoordinator = coordinator
+        return scratchContext
     }
 }
 
@@ -176,7 +181,7 @@ extension CoreDataStack {
     func performBackgroundImportingBatchOperation(batch: BatchTask) {
         
         // Create temp context
-        let importingContext = getTemporaryContext(named: "Importing")
+        let importingContext = getTemporaryContext(withName: "Importing")
         
         // Run the batch task, save the contents of the moc & notify
         importingContext.performBlock(){

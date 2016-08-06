@@ -75,12 +75,11 @@ class Activity: NSManagedObject {
         }
     }
 
-    convenience init(withTask task: String = "", context: NSManagedObjectContext) {
-        
+    convenience init(withTask task: String = "", inContext context: NSManagedObjectContext, temporarily temporary: Bool = false) {
         let className = self.dynamicType.className
         let entity = NSEntityDescription.entityForName(className, inManagedObjectContext: context)!
         
-        self.init(entity: entity, insertIntoManagedObjectContext: context)
+        self.init(entity: entity, insertIntoManagedObjectContext: !temporary ? context: nil)
 
         var task = task
         if task.isEmpty {
@@ -89,6 +88,10 @@ class Activity: NSManagedObject {
         
         self.task = task
         type = .Flexible
+    }
+    
+    func addToContext(context: NSManagedObjectContext) {
+        context.insertObject(self)
     }
     
     static var fetchRequest: NSFetchRequest {
