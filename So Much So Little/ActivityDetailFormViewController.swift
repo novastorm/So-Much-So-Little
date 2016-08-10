@@ -235,42 +235,16 @@ class ActivityDetailFormViewController: FormViewController {
     @IBAction func startActivity () {
         print("start activity")
         // add to activities today
+        // save activity
         // start activity
     }
     
     
     // MARK: - Utilities
     
-    func saveActivity(askForConfirmation confirm: Bool = false) {
+    func saveActivity() {
         
-        // if activity exists
-        // if confirm and data modified
-        // ask for confirmation
-        
-        //        let timeboxControlRow = form.rowByTag("Timeboxes") as! TimeboxControlRow
         let formValues = form.values()
-        print(formValues)
-        
-//        let completed = formValues[FormInput.Completed.rawValue]
-//        let completedDate = formValues[FormInput.CompletedDate.rawValue]
-//        let deferredTo = formValues[FormInput.DeferredTo.rawValue]
-//        let deferredToResponseDueDate = formValues[FormInput.DeferredToResponseDueDate.rawValue]
-//        let displayOrder
-//        let dueDate = formValues[FormInput.DueDate.rawValue]
-//        let estimatedTimeboxes = formValues[FormInput.EstimatedTimeboxes.rawValue]
-//        let scheduledEnd = formValues[FormInput.ScheduledEnd.rawValue]
-//        let scheduledStart = formValues[FormInput.ScheduledStart.rawValue]
-//        let task = formValues[FormInput.Task.rawValue] as? Activity.TaskType ?? Activity.defaultTask
-//        let taskInfo = formValues[FormInput.TaskInfo.rawValue]
-//        let today = formValues[FormInput.Today.rawValue]
-//        let todayDisplayOrder
-//        let typeValue = formValues[FormInput.TypeValue.rawValue]
-        
-
-//        let attendees = formValues[FormInput.Attendees.rawValue]
-//        let milestone = formValues[FormInput.Milestone.rawValue]
-//        let project = formValues[FormInput.Project.rawValue]
-//        let role = formValues[FormInput.Role.rawValue]
         
         temporaryContext.performBlock { 
             self.activity.completed = formValues[FormInput.Completed.rawValue] as? Activity.CompletedType ?? false
@@ -287,13 +261,17 @@ class ActivityDetailFormViewController: FormViewController {
             
             self.activity.type = ActivityType.fromString(formValues[FormInput.TypeValue.rawValue] as! String)!
             
-            print(self.activity.managedObjectContext)
             if self.temporaryContext.hasChanges {
-                print(self.activity)
                 try! self.temporaryContext.save()
             }
         }
         
         CoreDataStackManager.saveMainContext()
-    }    
+    }
+    
+    func flagForToday(flag: Bool = true) {
+        self.temporaryContext.performBlockAndWait { 
+            self.activity.today = flag
+        }
+    }
 }
