@@ -263,10 +263,10 @@ class ActivityDetailFormViewController: FormViewController {
             
             if self.temporaryContext.hasChanges {
                 try! self.temporaryContext.save()
+                CoreDataStackManager.saveMainContext()
             }
         }
         
-        CoreDataStackManager.saveMainContext()
     }
     
     func flagForToday(flag: Bool = true) {
