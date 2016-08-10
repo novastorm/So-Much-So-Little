@@ -121,22 +121,37 @@ extension CompletedActivityTableViewController {
         if activity.today {
             todayOption = UITableViewRowAction(style: .Normal, title: "Postpone") { (action, activityIndexPath) in
                 print("\(activityIndexPath.row): Postpone tapped")
+                activity.today = false
+                activity.today_display_order = 0
+                activity.display_order = 0
+                self.saveSharedContext()
             }
         }
         else {
             todayOption = UITableViewRowAction(style: .Normal, title: "Today") { (action, activityIndexPath) in
                 print("\(activityIndexPath.row): Today tapped")
+                activity.today = true
+                activity.today_display_order = 0
+                self.saveSharedContext()
             }
         }
         
         if activity.completed {
             completedOption = UITableViewRowAction(style: .Normal, title: "Reactivate") { (action, completedIndexPath) in
                 print("\(completedIndexPath.row): Reactivate tapped")
+                activity.completed = false
+                activity.display_order = 0
+                self.saveSharedContext()
             }
         }
         else {
             completedOption = UITableViewRowAction(style: .Normal, title: "Complete") { (action, completedIndexPath) in
                 print("\(completedIndexPath.row): Complete tapped")
+                activity.completed = true
+                activity.display_order = 0
+                activity.today = false
+                activity.today_display_order = 0
+                self.saveSharedContext()
             }
         }
         
@@ -180,5 +195,7 @@ extension CompletedActivityTableViewController: NSFetchedResultsControllerDelega
         tableView.reloadRowsAtIndexPaths(updatedIndexPaths, withRowAnimation: .Automatic)
         
         tableView.endUpdates()
+        
+        saveSharedContext()
     }
 }

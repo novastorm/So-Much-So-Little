@@ -16,7 +16,7 @@ class ActivityTableViewController: UITableViewController {
     var updatedIndexPaths: [NSIndexPath]!
     
     var snapshot: UIView!
-    var activityList: [Activity]!
+//    var activityList: [Activity]!
     var moveIndexPathSource: NSIndexPath!
     
     
@@ -81,7 +81,7 @@ class ActivityTableViewController: UITableViewController {
         case .Began:
             if indexPath == nil { break }
             
-            activityList = fetchedResultsController.fetchedObjects as! [Activity]
+//            activityList = fetchedResultsController.fetchedObjects as! [Activity]
             moveIndexPathSource = indexPath
             
             let cell = tableView.cellForRowAtIndexPath(moveIndexPathSource)!
@@ -108,6 +108,7 @@ class ActivityTableViewController: UITableViewController {
             )
         case .Changed:
             var center = snapshot.center
+            var activityList = fetchedResultsController.fetchedObjects as! [Activity]
             center.y = location.y
             snapshot.center = center
             
@@ -138,14 +139,6 @@ class ActivityTableViewController: UITableViewController {
                     self.snapshot = nil
             })
             
-            
-            for (i, record) in activityList.enumerate() {
-                if record.display_order != i {
-                    record.display_order = i
-                }
-            }
-            
-            saveSharedContext()
         }
     }
     
@@ -204,9 +197,12 @@ extension ActivityTableViewController {
     
     override func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
         let activity = fetchedResultsController.objectAtIndexPath(indexPath) as! Activity
-        
-        guard activity.type != .Reference else {
-            return []
+
+        if activity.type == .Reference {
+            let referenceOption = UITableViewRowAction(style: .Normal, title: "Project") { (action, activityIndexPath) in
+                print("Project tapped")
+            }
+            return [referenceOption]
         }
         
         var todayOption: UITableViewRowAction!
@@ -216,14 +212,17 @@ extension ActivityTableViewController {
             todayOption = UITableViewRowAction(style: .Normal, title: "Postpone") { (action, activityIndexPath) in
                 print("\(activityIndexPath.row): Postpone tapped")
                 activity.today = false
-                CoreDataStackManager.saveMainContext()
+                activity.today_display_order = 0
+                activity.display_order = 0
+                self.saveSharedContext()
             }
         }
         else {
             todayOption = UITableViewRowAction(style: .Normal, title: "Today") { (action, activityIndexPath) in
                 print("\(activityIndexPath.row): Today tapped")
                 activity.today = true
-                CoreDataStackManager.saveMainContext()
+                activity.today_display_order = 0
+                self.saveSharedContext()
             }
         }
         
@@ -231,14 +230,18 @@ extension ActivityTableViewController {
             completedOption = UITableViewRowAction(style: .Normal, title: "Reactivate") { (action, completedIndexPath) in
                 print("\(completedIndexPath.row): Reactivate tapped")
                 activity.completed = false
-                CoreDataStackManager.saveMainContext()
+                activity.display_order = 0
+                self.saveSharedContext()
             }
         }
         else {
             completedOption = UITableViewRowAction(style: .Normal, title: "Complete") { (action, completedIndexPath) in
                 print("\(completedIndexPath.row): Complete tapped")
                 activity.completed = true
-                CoreDataStackManager.saveMainContext()
+                activity.display_order = 0
+                activity.today = false
+                activity.today_display_order = 0
+                self.saveSharedContext()
             }
         }
         
@@ -282,6 +285,16 @@ extension ActivityTableViewController: NSFetchedResultsControllerDelegate {
         tableView.reloadRowsAtIndexPaths(updatedIndexPaths, withRowAnimation: .Automatic)
         
         tableView.endUpdates()
+        
+        let activityList = fetchedResultsController.fetchedObjects as! [Activity]
+        
+        for (i, record) in activityList.enumerate() {
+            if record.display_order != i {
+                record.display_order = i
+            }
+        }
+        
+        saveSharedContext()
     }
 }
 

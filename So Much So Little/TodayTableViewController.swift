@@ -22,7 +22,6 @@ class TodayTableViewController: UITableViewController {
     var updatedIndexPaths: [NSIndexPath]!
     
     var snapshot: UIView!
-    var activityList: [Activity]!
     var moveIndexPathSource: NSIndexPath!
     
     var sharedContext: NSManagedObjectContext {
@@ -82,7 +81,6 @@ class TodayTableViewController: UITableViewController {
         case .Began:
             if indexPath == nil { break }
             
-            activityList = fetchedResultsController.fetchedObjects as! [Activity]
             moveIndexPathSource = indexPath
             
             let cell = tableView.cellForRowAtIndexPath(moveIndexPathSource)!
@@ -109,6 +107,8 @@ class TodayTableViewController: UITableViewController {
             )
         case .Changed:
             var center = snapshot.center
+            var activityList = fetchedResultsController.fetchedObjects as! [Activity]
+
             center.y = location.y
             snapshot.center = center
             
@@ -138,15 +138,6 @@ class TodayTableViewController: UITableViewController {
                     self.snapshot.removeFromSuperview()
                     self.snapshot = nil
             })
-            
-            
-            for (i, record) in activityList.enumerate() {
-                if record.today_display_order != i {
-                    record.today_display_order = i
-                }
-            }
-
-            saveSharedContext()
         }
     }
     
@@ -185,7 +176,7 @@ extension TodayTableViewController {
     
     func configureTodayCell(cell: TodayTableViewCell, atIndexPath indexPath: NSIndexPath) {
         let activity = fetchedResultsController.objectAtIndexPath(indexPath) as! Activity
-        let todayDisplayOrder = activity.today_display_order
+        let todayDisplayOrder = activity.today_display_order ?? 0
         let task = activity.task
         let actualTimeboxes = activity.actual_timeboxes
         let estimatedTimeboxes = activity.estimated_timeboxes
@@ -212,22 +203,37 @@ extension TodayTableViewController {
         if activity.today {
             todayOption = UITableViewRowAction(style: .Normal, title: "Postpone") { (action, activityIndexPath) in
                 print("\(activityIndexPath.row): Postpone tapped")
+                activity.today = false
+                activity.today_display_order = 0
+                activity.display_order = 0
+                self.saveSharedContext()
             }
         }
         else {
             todayOption = UITableViewRowAction(style: .Normal, title: "Today") { (action, activityIndexPath) in
                 print("\(activityIndexPath.row): Today tapped")
+                activity.today = true
+                activity.today_display_order = 0
+                self.saveSharedContext()
             }
         }
         
         if activity.completed {
             completedOption = UITableViewRowAction(style: .Normal, title: "Reactivate") { (action, completedIndexPath) in
                 print("\(completedIndexPath.row): Reactivate tapped")
+                activity.completed = false
+                activity.display_order = 0
+                self.saveSharedContext()
             }
         }
         else {
             completedOption = UITableViewRowAction(style: .Normal, title: "Complete") { (action, completedIndexPath) in
                 print("\(completedIndexPath.row): Complete tapped")
+                activity.completed = true
+                activity.display_order = 0
+                activity.today = false
+                activity.today_display_order = 0
+                self.saveSharedContext()
             }
         }
         
@@ -271,6 +277,16 @@ extension TodayTableViewController: NSFetchedResultsControllerDelegate {
         tableView.reloadRowsAtIndexPaths(updatedIndexPaths, withRowAnimation: .Automatic)
         
         tableView.endUpdates()
+        
+        let activityList = fetchedResultsController.fetchedObjects as! [Activity]
+        
+        for (i, record) in activityList.enumerate() {
+            if record.today_display_order != i {
+                record.today_display_order = i
+            }
+        }
+        
+        saveSharedContext()
     }
 }
 
