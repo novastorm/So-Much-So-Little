@@ -52,6 +52,11 @@ class CompletedActivityTableViewController: UITableViewController {
         try! fetchedResultsController.performFetch()
     }
     
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        tableView.reloadData()
+    }
+    
     
     // MARK: - Actions
     

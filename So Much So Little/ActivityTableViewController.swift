@@ -25,7 +25,7 @@ class ActivityTableViewController: UITableViewController {
     lazy var fetchedResultsController: NSFetchedResultsController = {
         let fetchRequest = Activity.fetchRequest
         // not complete and unattached reference.
-        fetchRequest.predicate = NSPredicate(format: "(completed != YES) AND ((project == NULL) OR (typeValue != \(ActivityType.Reference.rawValue)))")
+        fetchRequest.predicate = NSPredicate(format: "(completed != YES) OR ((project == NULL) AND (typeValue == \(ActivityType.Reference.rawValue)))")
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: Activity.Keys.DisplayOrder, ascending: true)]
 
         let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.sharedContext, sectionNameKeyPath: nil, cacheName: nil)
@@ -60,6 +60,7 @@ class ActivityTableViewController: UITableViewController {
     
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
+        tableView.reloadData()
     }
     
     
@@ -204,28 +205,40 @@ extension ActivityTableViewController {
     override func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
         let activity = fetchedResultsController.objectAtIndexPath(indexPath) as! Activity
         
+        guard activity.type != .Reference else {
+            return []
+        }
+        
         var todayOption: UITableViewRowAction!
         var completedOption: UITableViewRowAction!
         
         if activity.today {
             todayOption = UITableViewRowAction(style: .Normal, title: "Postpone") { (action, activityIndexPath) in
                 print("\(activityIndexPath.row): Postpone tapped")
+                activity.today = false
+                CoreDataStackManager.saveMainContext()
             }
         }
         else {
             todayOption = UITableViewRowAction(style: .Normal, title: "Today") { (action, activityIndexPath) in
                 print("\(activityIndexPath.row): Today tapped")
+                activity.today = true
+                CoreDataStackManager.saveMainContext()
             }
         }
         
         if activity.completed {
             completedOption = UITableViewRowAction(style: .Normal, title: "Reactivate") { (action, completedIndexPath) in
                 print("\(completedIndexPath.row): Reactivate tapped")
+                activity.completed = false
+                CoreDataStackManager.saveMainContext()
             }
         }
         else {
             completedOption = UITableViewRowAction(style: .Normal, title: "Complete") { (action, completedIndexPath) in
                 print("\(completedIndexPath.row): Complete tapped")
+                activity.completed = true
+                CoreDataStackManager.saveMainContext()
             }
         }
         

@@ -59,6 +59,11 @@ class TodayTableViewController: UITableViewController {
         tableView.addGestureRecognizer(longPress)
     }
     
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        tableView.reloadData()
+    }
+    
     
     // MARK: - Actions
     
