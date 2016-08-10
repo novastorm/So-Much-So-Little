@@ -24,7 +24,8 @@ class ActivityTableViewController: UITableViewController {
     
     lazy var fetchedResultsController: NSFetchedResultsController = {
         let fetchRequest = Activity.fetchRequest
-        fetchRequest.predicate = NSPredicate(format: "(completed != YES) AND (typeValue != \(ActivityType.Reference.rawValue))")
+        // not complete and unattached reference.
+        fetchRequest.predicate = NSPredicate(format: "(completed != YES) AND ((project == NULL) OR (typeValue != \(ActivityType.Reference.rawValue)))")
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: Activity.Keys.DisplayOrder, ascending: true)]
 
         let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.sharedContext, sectionNameKeyPath: nil, cacheName: nil)

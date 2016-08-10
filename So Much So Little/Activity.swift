@@ -14,6 +14,21 @@ enum ActivityType: Int {
     case Deferred
     case Reference
     case Scheduled
+    
+    static func fromString(string: String) -> ActivityType? {
+        switch string {
+        case "Flexible":
+            return .Flexible
+        case "Deferred":
+            return .Deferred
+        case "Reference":
+            return .Reference
+        case "Scheduled":
+            return .Scheduled
+        default:
+            return nil
+        }
+    }
 }
 
 class Activity: NSManagedObject {

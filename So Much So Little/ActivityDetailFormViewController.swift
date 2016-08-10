@@ -50,7 +50,9 @@ class ActivityDetailFormViewController: FormViewController {
         return CoreDataStackManager.sharedInstance.mainContext
     }
     
-    var temporaryContext: NSManagedObjectContext!
+    lazy var temporaryContext: NSManagedObjectContext = {
+        return CoreDataStackManager.getTemporaryContext(withName: "TempActivity")
+    }()
     
     @IBOutlet weak var saveButton: UIBarButtonItem!
     @IBOutlet weak var myTableView: UITableView!
@@ -63,15 +65,13 @@ class ActivityDetailFormViewController: FormViewController {
 
         super.viewDidLoad()
         
-        temporaryContext = CoreDataStackManager.getTemporaryContext(withName: "TempActivity")
-        temporaryContext.performBlockAndWait({
+        temporaryContext.performBlockAndWait {
             if self.activity == nil {
-                self.activity = Activity(inContext: self.temporaryContext)
                 self.activity = Activity(inContext: self.temporaryContext)
             }
 
-            self.activity = self.temporaryContext?.objectWithID(self.activity.objectID) as! Activity
-        })
+            self.activity = self.temporaryContext.objectWithID(self.activity.objectID) as! Activity
+        }
         
         
         // MARK: Eureka! Form Setup
@@ -81,37 +81,54 @@ class ActivityDetailFormViewController: FormViewController {
         form
             +++ Section()
                 <<< TextRow(FormInput.Task.rawValue) { (row) in
-                    
-                    temporaryContext.performBlockAndWait({ 
-                        row.value = self.activity?.task ?? Activity.defaultTask
-                    })
                     row.placeholder = Activity.defaultTask
+                    temporaryContext.performBlockAndWait {
+                        row.value = self.activity.task ?? Activity.defaultTask
+                    }
                 }
         
                 <<< TimeboxControlRow(FormInput.EstimatedTimeboxes.rawValue)
         
                 <<< TextAreaRow(FormInput.TaskInfo.rawValue) { (row) in
-                    temporaryContext.performBlockAndWait({
-                        row.value = self.activity?.task_info
-                    })
                     row.placeholder = "Description"
+                    temporaryContext.performBlockAndWait {
+                        row.value = self.activity.task_info
+                    }
                 }
         
                 <<< TextRow(FormInput.Project.rawValue){ (row) in
                     row.title = "Project"
+                    temporaryContext.performBlockAndWait {
+                        if let project = self.activity.project {
+                            print(project)
+                        }
+                    }
                 }
             
                 <<< TextRow(FormInput.Milestone.rawValue) { (row) in
                     row.title = "Milestone"
+                    temporaryContext.performBlockAndWait {
+                        if let milestone = self.activity.milestone {
+                            print(milestone)
+                        }
+                    }
                 }
-                
+            
                 <<< TextRow(FormInput.Role.rawValue) { (row) in
                     row.title = "Role"
+                    temporaryContext.performBlockAndWait {
+                        if let roleList = self.activity.roles {
+                            print(roleList)
+                        }
+                    }
                 }
         
                 <<< SegmentedRow<String>(FormInput.TypeValue.rawValue) { (type) in
                     type.options = ["Reference", "Scheduled", "Flexible", "Deferred"]
-                    type.value = "Flexible"
+                    temporaryContext.performBlockAndWait {
+                        print(String(self.activity.type))
+                        type.value = String(self.activity.type)
+                    }
                 }
             
                     // Schedule Section Fields
@@ -120,17 +137,32 @@ class ActivityDetailFormViewController: FormViewController {
                         row.hidden = Condition.Predicate(NSPredicate(format: String(format: "$%@ != '%@'", FormInput.TypeValue.rawValue, "Scheduled")))
                         row.title = "Start"
                         row.value = NSDate()
+                        temporaryContext.performBlockAndWait {
+                            if let scheduledStart = self.activity.scheduled_start {
+                                print(scheduledStart)
+                            }
+                        }
                     }
         
                     <<< DateTimeInlineRow(FormInput.ScheduledEnd.rawValue) { (row) in
                         row.hidden = Condition.Predicate(NSPredicate(format: String(format: "$%@ != '%@'", FormInput.TypeValue.rawValue, "Scheduled")))
                         row.title = "End"
                         row.value = NSDate()
+                        temporaryContext.performBlockAndWait {
+                            if let scheduledEnd = self.activity.scheduled_end {
+                                print(scheduledEnd)
+                            }
+                        }
                     }
         
                     <<< LabelRow(FormInput.Attendees.rawValue) { (row) in
                         row.hidden = Condition.Predicate(NSPredicate(format: String(format: "$%@ != '%@'", FormInput.TypeValue.rawValue, "Scheduled")))
                         row.title = "Attendees"
+                        temporaryContext.performBlockAndWait {
+                            if let attendeesList = self.activity.attendees {
+                                print(attendeesList)
+                            }
+                        }
                     }
 
             
@@ -139,6 +171,11 @@ class ActivityDetailFormViewController: FormViewController {
                     <<< DateInlineRow(FormInput.DueDate.rawValue) { (row) in
                         row.hidden = Condition.Predicate(NSPredicate(format: String(format: "$%@ != '%@'", FormInput.TypeValue.rawValue, "Flexible")))
                         row.title = "Due Date"
+                        temporaryContext.performBlockAndWait {
+                            if let dueDate = self.activity.due_date {
+                                print(dueDate)
+                            }
+                        }
                     }
             
             
@@ -147,20 +184,38 @@ class ActivityDetailFormViewController: FormViewController {
                     <<< TextRow(FormInput.DeferredTo.rawValue) { (row) in
                         row.hidden = Condition.Predicate(NSPredicate(format: String(format: "$%@ != '%@'", FormInput.TypeValue.rawValue, "Deferred")))
                         row.title = "Deferred To:"
+                        temporaryContext.performBlockAndWait {
+                            if let deferredTo = self.activity.deferred_to {
+                                print(deferredTo)
+                            }
+                        }
                     }
             
                     <<< DateInlineRow(FormInput.DeferredToResponseDueDate.rawValue) { (row) in
                         row.hidden = Condition.Predicate(NSPredicate(format: String(format: "$%@ != '%@'", FormInput.TypeValue.rawValue, "Deferred")))
                         row.title = "Due"
+                        temporaryContext.performBlockAndWait {
+                            if let deferredToResponseDueDate = self.activity.deferred_to_response_due_date {
+                                print(deferredToResponseDueDate)
+                            }
+                        }
                     }
 
 
             +++ Section(FormInput.Completed.rawValue) { (section) in
                         section.tag = "CompletedSection"
-                        section.hidden = true
+                        temporaryContext.performBlockAndWait {
+                            section.hidden = Condition(booleanLiteral: !self.activity.completed)
+                        }
                     }
-                        <<< TextRow("Completed Date")
-                        <<< DateRow("CompletedDate")
+                    <<< TextRow("Completed Date")
+                    <<< DateRow("CompletedDate") { (row) in
+                        temporaryContext.performBlockAndWait {
+                            if let completedDate = self.activity.completed_date {
+                                print(completedDate)
+                            }
+                        }
+                    }
     }
     
     
@@ -196,36 +251,48 @@ class ActivityDetailFormViewController: FormViewController {
         let formValues = form.values()
         print(formValues)
         
-        let completed = formValues[FormInput.Completed.rawValue]
-        let completedDate = formValues[FormInput.CompletedDate.rawValue]
-        let deferredTo = formValues[FormInput.DeferredTo.rawValue]
-        let deferredToResponseDueDate = formValues[FormInput.DeferredToResponseDueDate.rawValue]
+//        let completed = formValues[FormInput.Completed.rawValue]
+//        let completedDate = formValues[FormInput.CompletedDate.rawValue]
+//        let deferredTo = formValues[FormInput.DeferredTo.rawValue]
+//        let deferredToResponseDueDate = formValues[FormInput.DeferredToResponseDueDate.rawValue]
 //        let displayOrder
-        let dueDate = formValues[FormInput.DueDate.rawValue]
-        let estimatedTimeboxes = formValues[FormInput.EstimatedTimeboxes.rawValue]
-        let scheduledEnd = formValues[FormInput.ScheduledEnd.rawValue]
-        let scheduledStart = formValues[FormInput.ScheduledStart.rawValue]
+//        let dueDate = formValues[FormInput.DueDate.rawValue]
+//        let estimatedTimeboxes = formValues[FormInput.EstimatedTimeboxes.rawValue]
+//        let scheduledEnd = formValues[FormInput.ScheduledEnd.rawValue]
+//        let scheduledStart = formValues[FormInput.ScheduledStart.rawValue]
 //        let task = formValues[FormInput.Task.rawValue] as? Activity.TaskType ?? Activity.defaultTask
-        let taskInfo = formValues[FormInput.TaskInfo.rawValue]
-        let today = formValues[FormInput.Today.rawValue]
+//        let taskInfo = formValues[FormInput.TaskInfo.rawValue]
+//        let today = formValues[FormInput.Today.rawValue]
 //        let todayDisplayOrder
-        let typeValue = formValues[FormInput.TypeValue.rawValue]
+//        let typeValue = formValues[FormInput.TypeValue.rawValue]
         
 
-        let attendees = formValues[FormInput.Attendees.rawValue]
-        let milestone = formValues[FormInput.Milestone.rawValue]
-        let project = formValues[FormInput.Project.rawValue]
-        let role = formValues[FormInput.Role.rawValue]
-//        let timeboxes
+//        let attendees = formValues[FormInput.Attendees.rawValue]
+//        let milestone = formValues[FormInput.Milestone.rawValue]
+//        let project = formValues[FormInput.Project.rawValue]
+//        let role = formValues[FormInput.Role.rawValue]
         
-        
-        activity!.task = formValues[FormInput.Task.rawValue] as! Activity.TaskType
-        activity!.task_info = formValues[FormInput.TaskInfo.rawValue] as? Activity.TaskInfoType
-//        activity.completed = completed
-//        activity.completed_date = completedDate
-        
-        print(activity!.managedObjectContext)
-        print(activity!)
+        temporaryContext.performBlock { 
+            self.activity.completed = formValues[FormInput.Completed.rawValue] as? Activity.CompletedType ?? false
+            self.activity.completed_date = formValues[FormInput.CompletedDate.rawValue] as? Activity.CompletedDateType
+            self.activity.deferred_to = formValues[FormInput.DeferredTo.rawValue] as? Activity.DeferredToType
+            self.activity.deferred_to_response_due_date = formValues[FormInput.DeferredToResponseDueDate.rawValue] as? Activity.DeferredToResponseDueDateType
+            self.activity.due_date = formValues[FormInput.DueDate.rawValue] as? Activity.DueDateType
+            self.activity.estimated_timeboxes = formValues[FormInput.EstimatedTimeboxes.rawValue] as? Activity.EstimatedTimeboxesType ?? 0
+            self.activity.scheduled_end = formValues[FormInput.ScheduledEnd.rawValue] as? Activity.ScheduledEndType
+            self.activity.scheduled_start = formValues[FormInput.ScheduledStart.rawValue] as? Activity.ScheduledStartType
+            self.activity.task = formValues[FormInput.Task.rawValue] as! Activity.TaskType
+            self.activity.task_info = formValues[FormInput.TaskInfo.rawValue] as? Activity.TaskInfoType
+            self.activity.today = formValues[FormInput.Today.rawValue] as? Activity.TodayType ?? false
+            
+            self.activity.type = ActivityType.fromString(formValues[FormInput.TypeValue.rawValue] as! String)!
+            
+            print(self.activity.managedObjectContext)
+            if self.temporaryContext.hasChanges {
+                print(self.activity)
+                try! self.temporaryContext.save()
+            }
+        }
         
         CoreDataStackManager.saveMainContext()
     }    
