@@ -12,6 +12,35 @@ import CoreData
 
 class Timebox: NSManagedObject {
 
-// Insert code here to add functionality to your managed object subclass
+    struct Keys {
+        static let Completed = "completed"
+        static let ExternalInterruptions = "external_interruptions"
+        static let InternalInterruptions = "internal_interruptions"
+        static let Start = "start"
+        static let Stop = "stop"
 
+        static let Activity = "activity"
+    }
+    
+    typealias CompletedType = NSNumber
+    typealias ExtenralInterruptionsType = NSNumber
+    typealias IntenralInterruptionsType = NSNumber
+    typealias StartType = NSDate
+    typealias StopType = NSDate
+
+    typealias ActivityType = Activity
+
+    convenience init(withTask task: String = "", inContext context: NSManagedObjectContext) {
+        let className = self.dynamicType.className
+        let entity = NSEntityDescription.entityForName(className, inManagedObjectContext: context)!
+        
+        self.init(entity: entity, insertIntoManagedObjectContext: context)
+    }
+    
+    static var fetchRequest: NSFetchRequest {
+        let fetchRequest = NSFetchRequest(entityName: className)
+        fetchRequest.sortDescriptors = []
+        
+        return fetchRequest
+    }
 }

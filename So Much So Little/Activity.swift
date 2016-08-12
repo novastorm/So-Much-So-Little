@@ -52,7 +52,6 @@ class Activity: NSManagedObject {
         static let TypeValue = "typeValue"
 
         static let Milestone = "milestone"
-        
         static let Project = "project"
         static let Roles = "roles"
         static let Timeboxes = "timeboxes"

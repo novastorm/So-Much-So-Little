@@ -14,7 +14,8 @@ import CoreData
 
 extension Person {
 
-    @NSManaged var email: String?
+    @NSManaged var email: String
+    
     @NSManaged var activities: Set<Activity>?
 
 }

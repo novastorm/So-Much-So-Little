@@ -14,14 +14,15 @@ import CoreData
 
 extension Project {
 
-    @NSManaged var label: String?
-    @NSManaged var info: String?
-    @NSManaged var completed: NSNumber?
+    @NSManaged var completed: Bool
     @NSManaged var due_date: NSDate?
-    @NSManaged var activities: NSSet?
-    @NSManaged var milestones: NSSet?
-    @NSManaged var subprojects: NSSet?
-    @NSManaged var roles: NSSet?
+    @NSManaged var info: String?
+    @NSManaged var label: String
+    
+    @NSManaged var activities: Set<Activity>?
+    @NSManaged var milestones: Set<Milestone>?
     @NSManaged var parent: Project?
+    @NSManaged var subprojects: Set<Project>?
+    @NSManaged var roles: Set<Role>?
 
 }

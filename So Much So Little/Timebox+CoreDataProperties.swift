@@ -14,10 +14,12 @@ import CoreData
 
 extension Timebox {
 
-    @NSManaged var completed: NSNumber?
+    @NSManaged var completed: Bool
+    @NSManaged var external_interruptions: NSNumber
+    @NSManaged var internal_interruptions: NSNumber
     @NSManaged var start: NSDate?
     @NSManaged var stop: NSDate?
-    @NSManaged var interruptions: NSNumber?
+    
     @NSManaged var activity: Activity?
 
 }
