@@ -12,10 +12,12 @@ import Foundation
 class Project: NSManagedObject {
     
     struct Keys {
-        static let Label = "label"
-        static let Info = "info"
         static let Completed = "completed"
+        static let DisplayOrder = "display_order"
         static let DueDate = "due_date"
+        static let Info = "info"
+        static let Label = "label"
+        static let Active = "active"
 
         static let Activities = "activities"
         static let Milestones = "milestones"
@@ -24,10 +26,12 @@ class Project: NSManagedObject {
         static let Subprojects = "subprojects"
     }
     
-    typealias LabelType = String
-    typealias InfoType = String
     typealias CompletedType = Bool
+    typealias DisplayOrder = Int
     typealias DueDateType = NSDate
+    typealias InfoType = String
+    typealias LabelType = String
+    typealias ActiveType = Bool
     
     typealias ActivitiesType = Set<Activity>
     typealias MilestonesType = Set<Milestone>
@@ -37,7 +41,7 @@ class Project: NSManagedObject {
     
     static let defaultLabel = "New Project"
     
-    convenience init(withTask label: String = "", inContext context: NSManagedObjectContext) {
+    convenience init(withLabel label: String = "", inContext context: NSManagedObjectContext) {
         let className = self.dynamicType.className
         let entity = NSEntityDescription.entityForName(className, inManagedObjectContext: context)!
         

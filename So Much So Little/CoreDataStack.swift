@@ -104,6 +104,7 @@ extension CoreDataStack {
     
     // must call within context
     func saveTempContext(context: NSManagedObjectContext) {
+        print("saveTempContext")
         guard context.hasChanges else {
             return
         }
@@ -207,6 +208,7 @@ extension CoreDataStack {
 extension CoreDataStack {
     
     @objc func saveMainContext() {
+        print("saveMainContext")
         // We call this synchronously, but it's a very fast
         // operation (it doesn't hit the disk). We need to know
         // when it ends so we can call the next save (on the persisting
@@ -230,6 +232,7 @@ extension CoreDataStack {
     }
     
     func savePersistingContext() {
+        print("savePersistingContext")
         persistingContext.performBlock {
             do {
                 try self.persistingContext.save()

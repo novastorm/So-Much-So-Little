@@ -208,7 +208,7 @@
                     <navigationItem key="navigationItem" title="Activity List" id="kvl-Lb-5Px">
                         <barButtonItem key="rightBarButtonItem" systemItem="add" id="ARu-3g-DQ1">
                             <connections>
-                                <segue destination="029-GX-oH7" kind="show" id="K2Y-sP-VnF"/>
+                                <segue destination="029-GX-oH7" kind="show" identifier="CreateActivityDetail" id="K2Y-sP-VnF"/>
                             </connections>
                         </barButtonItem>
                     </navigationItem>
@@ -297,7 +297,7 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </tableViewCellContentView>
                                 <connections>
-                                    <segue destination="6pH-iX-TZ1" kind="show" action="showDetailViewController:sender:" id="UXf-aQ-RfB"/>
+                                    <segue destination="6pH-iX-TZ1" kind="show" identifier="ShowProjectDetail" id="13c-hZ-XUz"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -306,16 +306,22 @@
                             <outlet property="delegate" destination="bx4-RW-aS3" id="gg1-Uf-E6I"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Projects" id="4JZ-RK-Vsb"/>
+                    <navigationItem key="navigationItem" title="Projects" id="4JZ-RK-Vsb">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="53r-lI-PZ3">
+                            <connections>
+                                <segue destination="6pH-iX-TZ1" kind="show" identifier="CreateProjectDetail" id="Jv7-1v-EAA"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1gV-fY-GqM" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1730" y="4126"/>
         </scene>
-        <!--Project Detail-->
+        <!--Project Detail Form View Controller-->
         <scene sceneID="BtO-If-pnl">
             <objects>
-                <viewController title="Project Detail" id="6pH-iX-TZ1" sceneMemberID="viewController">
+                <viewController id="6pH-iX-TZ1" customClass="ProjectDetailFormViewController" customModule="So_Much_So_Little" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="NIo-le-Oah"/>
                         <viewControllerLayoutGuide type="bottom" id="KVi-Vg-ipQ"/>
@@ -325,6 +331,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
+                    <toolbarItems/>
+                    <navigationItem key="navigationItem" id="QKs-7M-igi">
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="Rpg-8z-8IG">
+                            <connections>
+                                <action selector="save:" destination="6pH-iX-TZ1" id="kdp-EZ-0nD"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1qk-vv-kRm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -448,6 +462,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
+        <segue reference="13c-hZ-XUz"/>
         <segue reference="A0u-qm-1Sh"/>
     </inferredMetricsTieBreakers>
 </document>

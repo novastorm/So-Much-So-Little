@@ -37,25 +37,36 @@ class ActivityDetailFormViewController: FormViewController {
         Milestone,
         Project,
         Role,
-        Timeboxes,
-
-        FINAL
+        Timeboxes
     }
     
     var timeboxControlRow: TimeboxControlRow!
     
+    @IBOutlet weak var saveButton: UIBarButtonItem!
+    @IBOutlet weak var myTableView: UITableView!
+
+    
     // MARK: - Core Data convenience methods
     
-    var sharedMainContext: NSManagedObjectContext {
-        return CoreDataStackManager.sharedInstance.mainContext
+    var sharedContext: NSManagedObjectContext {
+        return CoreDataStackManager.mainContext
     }
-    
+
     lazy var temporaryContext: NSManagedObjectContext = {
         return CoreDataStackManager.getTemporaryContext(withName: "TempActivity")
     }()
     
-    @IBOutlet weak var saveButton: UIBarButtonItem!
-    @IBOutlet weak var myTableView: UITableView!
+    func saveTemporaryContext() {
+        CoreDataStackManager.saveTemporaryContext(temporaryContext)
+    }
+    
+    lazy var projectFRC: NSFetchedResultsController = {
+        let fetchRequest = Project.fetchRequest
+        let frc = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.sharedContext, sectionNameKeyPath: nil, cacheName: nil)
+        
+        return frc
+    }()
+
     
     // MARK: - View Life Cycle
     
@@ -73,6 +84,8 @@ class ActivityDetailFormViewController: FormViewController {
             self.activity = self.temporaryContext.objectWithID(self.activity.objectID) as! Activity
         }
         
+        try! projectFRC.performFetch()
+        
         
         // MARK: Eureka! Form Setup
 
@@ -83,7 +96,7 @@ class ActivityDetailFormViewController: FormViewController {
                 <<< TextRow(FormInput.Task.rawValue) { (row) in
                     row.placeholder = Activity.defaultTask
                     temporaryContext.performBlockAndWait {
-                        row.value = self.activity.task ?? Activity.defaultTask
+                        row.value = self.activity.task
                     }
                 }
         
@@ -96,12 +109,16 @@ class ActivityDetailFormViewController: FormViewController {
                     }
                 }
         
-                <<< TextRow(FormInput.Project.rawValue){ (row) in
+                <<< PushRow<String>(FormInput.Project.rawValue) { (row) in
                     row.title = "Project"
                     temporaryContext.performBlockAndWait {
                         if let project = self.activity.project {
-                            print(project)
+                            row.value = project.label
                         }
+                    }
+                }.onChange { (row) in
+                    for project in self.projectFRC.fetchedObjects as! [Project] {
+                        row.options.append(project.label)
                     }
                 }
             
@@ -248,6 +265,7 @@ class ActivityDetailFormViewController: FormViewController {
     // MARK: - Utilities
     
     func saveActivity() {
+        print("Save Activity")
         
         let formValues = form.values()
         
@@ -266,10 +284,7 @@ class ActivityDetailFormViewController: FormViewController {
             
             self.activity.type = ActivityType.fromString(formValues[FormInput.TypeValue.rawValue] as! String)!
             
-            if self.temporaryContext.hasChanges {
-                try! self.temporaryContext.save()
-                CoreDataStackManager.saveMainContext()
-            }
+            self.saveTemporaryContext()
         }
         
     }

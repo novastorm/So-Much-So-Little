@@ -15,9 +15,11 @@ import CoreData
 extension Project {
 
     @NSManaged var completed: Bool
+    @NSManaged var display_order: NSNumber
     @NSManaged var due_date: NSDate?
     @NSManaged var info: String?
     @NSManaged var label: String
+    @NSManaged var active: Bool
     
     @NSManaged var activities: Set<Activity>?
     @NSManaged var milestones: Set<Milestone>?

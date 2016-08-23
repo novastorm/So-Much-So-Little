@@ -22,9 +22,9 @@ class Timebox: NSManagedObject {
         static let Activity = "activity"
     }
     
-    typealias CompletedType = NSNumber
-    typealias ExtenralInterruptionsType = NSNumber
-    typealias IntenralInterruptionsType = NSNumber
+    typealias CompletedType = Bool
+    typealias ExtenralInterruptionsType = Int
+    typealias IntenralInterruptionsType = Int
     typealias StartType = NSDate
     typealias StopType = NSDate
 

@@ -16,7 +16,6 @@ class ActivityTableViewController: UITableViewController {
     var updatedIndexPaths: [NSIndexPath]!
     
     var snapshot: UIView!
-//    var activityList: [Activity]!
     var moveIndexPathSource: NSIndexPath!
     
     
@@ -24,7 +23,7 @@ class ActivityTableViewController: UITableViewController {
     
     lazy var fetchedResultsController: NSFetchedResultsController = {
         let fetchRequest = Activity.fetchRequest
-        // not complete and unattached reference.
+        // get Activity that are not complete or (reference with no project).
         fetchRequest.predicate = NSPredicate(format: "(completed != YES) OR ((project == NULL) AND (typeValue == \(ActivityType.Reference.rawValue)))")
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: Activity.Keys.DisplayOrder, ascending: true)]
 
@@ -61,6 +60,17 @@ class ActivityTableViewController: UITableViewController {
     override func viewDidAppear(animated: Bool) {
         super.viewDidAppear(animated)
         tableView.reloadData()
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+        if segue.identifier == "ShowActivityDetail" {
+            guard let indexPath = tableView.indexPathForSelectedRow else {
+                return
+            }
+            let destinationVC = segue.destinationViewController as! ActivityDetailFormViewController
+            
+            destinationVC.activity = fetchedResultsController.objectAtIndexPath(indexPath) as? Activity
+        }
     }
     
     
@@ -141,20 +151,6 @@ class ActivityTableViewController: UITableViewController {
             
         }
     }
-    
-    
-    // MARK: - Segue
-    
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "ShowActivityDetail" {
-            guard let indexPath = tableView.indexPathForSelectedRow else {
-                return
-            }
-            let destinationVC = segue.destinationViewController as! ActivityDetailFormViewController
-            
-            destinationVC.activity = fetchedResultsController.objectAtIndexPath(indexPath) as? Activity
-        }
-    }
 }
 
 
@@ -162,7 +158,7 @@ class ActivityTableViewController: UITableViewController {
 
 extension ActivityTableViewController {
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let sectionInfo =  fetchedResultsController.sections![section]
+        let sectionInfo = fetchedResultsController.sections![section]
         return sectionInfo.numberOfObjects
     }
     
