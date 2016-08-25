@@ -13,6 +13,7 @@ class Project: NSManagedObject {
     
     struct Keys {
         static let Completed = "completed"
+        static let CompletedDate = "completed_date"
         static let DisplayOrder = "display_order"
         static let DueDate = "due_date"
         static let Info = "info"
@@ -27,6 +28,7 @@ class Project: NSManagedObject {
     }
     
     typealias CompletedType = Bool
+    typealias CompletedDateType = NSDate
     typealias DisplayOrder = Int
     typealias DueDateType = NSDate
     typealias InfoType = String

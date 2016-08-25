@@ -18,10 +18,28 @@ class CompletedActivityTableViewController: UITableViewController {
     var snapshot: UIView!
     var moveIndexPathSource: NSIndexPath!
     
+    enum ProjectSections: Int, CustomStringConvertible {
+        case
+        Activity,
+        Project
+        
+        static func count() -> Int {
+            return ProjectSections.Project.rawValue + 1
+        }
+        
+        var description: String {
+            switch self {
+            case .Activity:
+                return "Activity"
+            case .Project:
+                return "Project"
+            }
+        }
+    }
     
     // Mark: - Core Data Utilities
     
-    lazy var fetchedResultsController: NSFetchedResultsController = {
+    lazy var frcActivity: NSFetchedResultsController = {
         let fetchRequest = Activity.fetchRequest
         fetchRequest.predicate = NSPredicate(format: "(completed == YES) AND (typeValue != \(ActivityType.Reference.rawValue))") 
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: Activity.Keys.CompletedDate, ascending: true)]
@@ -30,6 +48,19 @@ class CompletedActivityTableViewController: UITableViewController {
         
         return fetchedResultsController
     }()
+    
+    lazy var frcProject: NSFetchedResultsController = {
+        let fetchRequest = Project.fetchRequest
+        fetchRequest.predicate = NSPredicate(format: "completed == YES")
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: Project.Keys.CompletedDate, ascending: true)]
+        
+        let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.sharedContext, sectionNameKeyPath: nil, cacheName: nil)
+        
+        return fetchedResultsController
+    }()
+    
+    // lazy var activityFRC
+    // lazy var projectFRC
     
     var sharedContext: NSManagedObjectContext {
         return CoreDataStackManager.mainContext
@@ -47,9 +78,10 @@ class CompletedActivityTableViewController: UITableViewController {
         
         navigationItem.hidesBackButton = true
         
-        fetchedResultsController.delegate = self
+        frcActivity.delegate = self
         
-        try! fetchedResultsController.performFetch()
+        try! frcActivity.performFetch()
+        try! frcProject.performFetch()
     }
     
     override func viewDidAppear(animated: Bool) {
@@ -64,13 +96,24 @@ class CompletedActivityTableViewController: UITableViewController {
     // MARK: - Segue
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        if segue.identifier == "ShowCompletedActivityDetail" {
+        switch segue.identifier! {
+        case "ShowCompletedActivityDetail" :
             guard let indexPath = tableView.indexPathForSelectedRow else {
                 return
             }
             let destinationVC = segue.destinationViewController as! ActivityDetailFormViewController
             
-            destinationVC.activity = fetchedResultsController.objectAtIndexPath(indexPath) as? Activity
+            destinationVC.activity = frcActivity.objectAtIndexPath(indexPath) as? Activity
+        case  "ShowCompletedProjectDetail" :
+            guard let indexPath = tableView.indexPathForSelectedRow else {
+                return
+            }
+            let destinationVC = segue.destinationViewController as! ProjectDetailFormViewController
+            let projectIndexPath = NSIndexPath(forRow: indexPath.row, inSection: 0)
+            
+            destinationVC.project = frcProject.objectAtIndexPath(projectIndexPath) as? Project
+        default:
+            break
         }
     }
 }
@@ -79,28 +122,67 @@ class CompletedActivityTableViewController: UITableViewController {
 // MARK: - Table View Data Source
 
 extension CompletedActivityTableViewController {
+    
+    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+        return ProjectSections.count()
+    }
+    
     override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let sectionInfo =  fetchedResultsController.sections![section]
-        return sectionInfo.numberOfObjects
+        print("Completed Section: [\(section)]")
+        var count: Int
+
+        switch ProjectSections(rawValue: section)! {
+        case .Activity:
+            let sectionInfo = frcActivity.sections!.first
+            count = sectionInfo!.numberOfObjects
+        case .Project:
+            let sectionInfo = frcProject.sections!.first
+            count = sectionInfo!.numberOfObjects
+        }
+        
+        return count
+    }
+    
+    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return ProjectSections(rawValue: section)?.description
     }
     
     override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let identifier = "CompletedActivityCell"
-        let cell = tableView.dequeueReusableCellWithIdentifier(identifier)!
+        let section = indexPath.section
+        var cell: UITableViewCell!
         
-        configureActivityCell(cell, atIndexPath: indexPath)
+        switch ProjectSections(rawValue: section)! {
+        case .Activity:
+            let identifier = "CompletedActivityCell"
+            cell = tableView.dequeueReusableCellWithIdentifier(identifier)!
+            
+            configureActivityCell(cell, atIndexPath: indexPath)
+        case .Project:
+            let identifier = "CompletedProjectCell"
+            cell = tableView.dequeueReusableCellWithIdentifier(identifier)!
+            configureProjectCell(cell, atIndexPath: indexPath)
+        }
         
         return cell
     }
     
     func configureActivityCell(cell: UITableViewCell, atIndexPath indexPath: NSIndexPath) {
-        let activity = fetchedResultsController.objectAtIndexPath(indexPath) as! Activity
+        let activity = frcActivity.objectAtIndexPath(indexPath) as! Activity
         let task = activity.task
         let actualTimeboxes = activity.actual_timeboxes
         let estimatedTimeboxes = activity.estimated_timeboxes
         
         cell.textLabel!.text = "\(task)"
         cell.detailTextLabel!.text = "\(actualTimeboxes)/\(estimatedTimeboxes)"
+    }
+    
+    func configureProjectCell(cell: UITableViewCell, atIndexPath indexPath: NSIndexPath) {
+        let projectIndexPath = NSIndexPath(forRow: indexPath.row, inSection: 0)
+        let project = frcProject.objectAtIndexPath(projectIndexPath) as! Project
+        let label = project.label
+        let displayOrder = project.display_order
+        
+        cell.textLabel!.text = "\(displayOrder): \(label)"
     }
 }
 
@@ -112,8 +194,12 @@ extension CompletedActivityTableViewController {
         return true
     }
     
+//    override func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+//        print(indexPath)
+//    }
+//    
     override func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
-        let activity = fetchedResultsController.objectAtIndexPath(indexPath) as! Activity
+        let activity = frcActivity.objectAtIndexPath(indexPath) as! Activity
         
         var todayOption: UITableViewRowAction!
         var completedOption: UITableViewRowAction!

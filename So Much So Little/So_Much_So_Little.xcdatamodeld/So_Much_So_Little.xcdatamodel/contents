@@ -33,6 +33,7 @@
     <entity name="Project" representedClassName=".Project" syncable="YES">
         <attribute name="active" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
         <attribute name="completed" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="completed_date" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="display_order" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="due_date" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="info" optional="YES" attributeType="String" syncable="YES"/>
@@ -60,7 +61,7 @@
         <element name="Activity" positionX="-63" positionY="-18" width="128" height="330"/>
         <element name="Milestone" positionX="-27" positionY="117" width="128" height="90"/>
         <element name="Person" positionX="-36" positionY="126" width="128" height="75"/>
-        <element name="Project" positionX="-54" positionY="-9" width="128" height="210"/>
+        <element name="Project" positionX="-54" positionY="-9" width="128" height="225"/>
         <element name="Role" positionX="-36" positionY="72" width="128" height="90"/>
         <element name="Timebox" positionX="-18" positionY="135" width="128" height="135"/>
     </elements>
