@@ -123,24 +123,6 @@ class ActivityDetailFormViewController: FormViewController {
                     }
 
                 }
-//
-//                <<< TextRow(FormInput.Milestone.rawValue) { (row) in
-//                    row.title = "Milestone"
-//                    temporaryContext.performBlockAndWait {
-//                        if let milestone = self.activity.milestone {
-//                            print(milestone)
-//                        }
-//                    }
-//                }
-//            
-//                <<< TextRow(FormInput.Role.rawValue) { (row) in
-//                    row.title = "Role"
-//                    temporaryContext.performBlockAndWait {
-//                        if let roleList = self.activity.roles {
-//                            print(roleList)
-//                        }
-//                    }
-//                }
         
                 <<< SegmentedRow<String>(FormInput.Kind.rawValue) { (type) in
                     type.options = [
