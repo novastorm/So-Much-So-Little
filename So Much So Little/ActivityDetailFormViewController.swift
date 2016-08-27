@@ -86,7 +86,6 @@ class ActivityDetailFormViewController: FormViewController {
         
         try! projectFRC.performFetch()
         
-        
         // MARK: Eureka! Form Setup
 
         form.inlineRowHideOptions = InlineRowHideOptions.AnotherInlineRowIsShown.union(.FirstResponderChanges)
@@ -111,34 +110,37 @@ class ActivityDetailFormViewController: FormViewController {
         
                 <<< PushRow<String>(FormInput.Project.rawValue) { (row) in
                     row.title = "Project"
-                    for project in self.projectFRC.fetchedObjects as! [Project] {
-                        row.options.append(project.label)
-                    }
                     temporaryContext.performBlockAndWait {
                         if let project = self.activity.project {
                             row.value = project.label
                         }
                     }
-//                }.onChange { (row) in
-                }
-            
-                <<< TextRow(FormInput.Milestone.rawValue) { (row) in
-                    row.title = "Milestone"
-                    temporaryContext.performBlockAndWait {
-                        if let milestone = self.activity.milestone {
-                            print(milestone)
-                        }
+                }.onCellSelection { (cell, row) in
+                    try! self.projectFRC.performFetch()
+                    row.options.removeAll()
+                    for project in self.projectFRC.fetchedObjects as! [Project] {
+                        row.options.append(project.label)
                     }
+
                 }
-            
-                <<< TextRow(FormInput.Role.rawValue) { (row) in
-                    row.title = "Role"
-                    temporaryContext.performBlockAndWait {
-                        if let roleList = self.activity.roles {
-                            print(roleList)
-                        }
-                    }
-                }
+//
+//                <<< TextRow(FormInput.Milestone.rawValue) { (row) in
+//                    row.title = "Milestone"
+//                    temporaryContext.performBlockAndWait {
+//                        if let milestone = self.activity.milestone {
+//                            print(milestone)
+//                        }
+//                    }
+//                }
+//            
+//                <<< TextRow(FormInput.Role.rawValue) { (row) in
+//                    row.title = "Role"
+//                    temporaryContext.performBlockAndWait {
+//                        if let roleList = self.activity.roles {
+//                            print(roleList)
+//                        }
+//                    }
+//                }
         
                 <<< SegmentedRow<String>(FormInput.Kind.rawValue) { (type) in
                     type.options = [
@@ -293,5 +295,12 @@ class ActivityDetailFormViewController: FormViewController {
         self.temporaryContext.performBlockAndWait { 
             self.activity.today = flag
         }
+    }
+}
+
+
+extension ActivityDetailFormViewController: NSFetchedResultsControllerDelegate {
+    func controllerDidChangeContent(controller: NSFetchedResultsController) {
+        print("**** CHANGE DETECTED ****")
     }
 }

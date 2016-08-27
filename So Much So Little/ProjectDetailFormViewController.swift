@@ -87,9 +87,9 @@ class ProjectDetailFormViewController: FormViewController {
                 }
             }
             <<< DateInlineRow(FormInput.DueDate.rawValue) { (row) in
-                row.hidden = Condition.Function([FormInput.Active.rawValue]) { (form) -> Bool in
-                    return ((form.rowByTag(FormInput.Active.rawValue) as? SwitchRow)?.value)!
-                    }
+//                row.hidden = Condition.Function([FormInput.Active.rawValue]) { (form) -> Bool in
+//                    return ((form.rowByTag(FormInput.Active.rawValue) as? SwitchRow)?.value)!
+//                    }
                 row.title = "Due Date"
                 temporaryContext.performBlockAndWait {
                     row.value = self.project.due_date
@@ -101,33 +101,33 @@ class ProjectDetailFormViewController: FormViewController {
                     row.value = self.project.info
                 }
             }
-            <<< PushRow<String>(FormInput.Roles.rawValue) { (row) in
-                let roleList = ["RR AAA", "RR BBB", "RR CCC"]
-                row.title = "Roles"
-                row.options = roleList
-                row.selectorTitle = "Choose Role"
-            }
-            <<< MultipleSelectorRow<String>(FormInput.Milestones.rawValue) { (row) in
-                let milestoneList = ["MM AAA", "MM BBB", "MM CCC"]
-                row.title = "Milestones"
-                row.options = milestoneList
-                row.selectorTitle = "Choose Milestones"
-            }
-            <<< SwitchRow(FormInput.HasParentProject.rawValue) { (row) in
-                row.title = "Parent Project Switch"
-                temporaryContext.performBlockAndWait {
-                    // true if parent project exists
-                    row.value = true
-                }
-            }
-            <<< TextRow(FormInput.Parent.rawValue) { (row) in
-                // Choose existing
-                let parentProject = ["label": "PP AAA"]
-                let isChild = !parentProject.isEmpty
-                row.hidden = Condition(booleanLiteral: isChild)
-                row.title = "Parent Project"
-                row.value = parentProject["label"]
-            }
+//            <<< PushRow<String>(FormInput.Roles.rawValue) { (row) in
+//                let roleList = ["RR AAA", "RR BBB", "RR CCC"]
+//                row.title = "Roles"
+//                row.options = roleList
+//                row.selectorTitle = "Choose Role"
+//            }
+//            <<< MultipleSelectorRow<String>(FormInput.Milestones.rawValue) { (row) in
+//                let milestoneList = ["MM AAA", "MM BBB", "MM CCC"]
+//                row.title = "Milestones"
+//                row.options = milestoneList
+//                row.selectorTitle = "Choose Milestones"
+//            }
+//            <<< SwitchRow(FormInput.HasParentProject.rawValue) { (row) in
+//                row.title = "Parent Project Switch"
+//                temporaryContext.performBlockAndWait {
+//                    // true if parent project exists
+//                    row.value = true
+//                }
+//            }
+//            <<< TextRow(FormInput.Parent.rawValue) { (row) in
+//                // Choose existing
+//                let parentProject = ["label": "PP AAA"]
+//                let isChild = !parentProject.isEmpty
+//                row.hidden = Condition(booleanLiteral: isChild)
+//                row.title = "Parent Project"
+//                row.value = parentProject["label"]
+//            }
         
     }
     
