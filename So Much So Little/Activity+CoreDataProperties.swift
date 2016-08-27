@@ -21,6 +21,7 @@ extension Activity {
     @NSManaged var display_order: NSNumber
     @NSManaged var due_date: NSDate?
     @NSManaged var estimated_timeboxes: NSNumber
+    @NSManaged var kind: Kind
     @NSManaged var scheduled_end: NSDate?
     @NSManaged var scheduled_start: NSDate?
     @NSManaged var task: String

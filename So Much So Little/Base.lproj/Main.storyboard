@@ -220,7 +220,7 @@
         <!--Activity Detail Form View Controller-->
         <scene sceneID="dZO-Xu-3N7">
             <objects>
-                <viewController automaticallyAdjustsScrollViewInsets="NO" id="029-GX-oH7" customClass="ActivityDetailFormViewController" customModule="So_Much_So_Little" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="029-GX-oH7" customClass="ActivityDetailFormViewController" customModule="So_Much_So_Little" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="GfE-yy-vwM"/>
                         <viewControllerLayoutGuide type="bottom" id="SKc-MO-xFy"/>
@@ -489,7 +489,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="Jqf-q6-joS"/>
         <segue reference="Ms9-6L-3NV"/>
+        <segue reference="13c-hZ-XUz"/>
     </inferredMetricsTieBreakers>
 </document>

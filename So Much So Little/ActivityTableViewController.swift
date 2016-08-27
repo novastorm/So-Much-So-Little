@@ -24,7 +24,7 @@ class ActivityTableViewController: UITableViewController {
     lazy var fetchedResultsController: NSFetchedResultsController = {
         let fetchRequest = Activity.fetchRequest
         // get Activity that are not complete or (reference with no project).
-        fetchRequest.predicate = NSPredicate(format: "(completed != YES) OR ((project == NULL) AND (typeValue == \(ActivityType.Reference.rawValue)))")
+        fetchRequest.predicate = NSPredicate(format: "(completed != YES) OR ((project == NULL) AND (kind == \(Activity.Kind.Reference.rawValue)))")
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: Activity.Keys.DisplayOrder, ascending: true)]
 
         let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.sharedContext, sectionNameKeyPath: nil, cacheName: nil)
@@ -194,7 +194,7 @@ extension ActivityTableViewController {
     override func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
         let activity = fetchedResultsController.objectAtIndexPath(indexPath) as! Activity
 
-        if activity.type == .Reference {
+        if activity.kind == .Reference {
             let referenceOption = UITableViewRowAction(style: .Normal, title: "Project") { (action, activityIndexPath) in
                 print("Project tapped")
             }

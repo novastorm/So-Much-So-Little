@@ -9,29 +9,39 @@
 import CoreData
 import Foundation
 
-enum ActivityType: Int {
-    case Flexible
-    case Deferred
-    case Reference
-    case Scheduled
+class Activity: NSManagedObject {
     
-    static func fromString(string: String) -> ActivityType? {
-        switch string {
-        case "Flexible":
-            return .Flexible
-        case "Deferred":
-            return .Deferred
-        case "Reference":
-            return .Reference
-        case "Scheduled":
-            return .Scheduled
-        default:
-            return nil
+    @objc // <- required for Core Data type compatibility 
+    enum Kind: Int32, CustomStringConvertible {
+        case Flexible
+        case Deferred
+        case Reference
+        case Scheduled
+        
+        static func fromString(string: String) -> Kind? {
+            switch string {
+            case "Flexible":
+                return .Flexible
+            case "Deferred":
+                return .Deferred
+            case "Reference":
+                return .Reference
+            case "Scheduled":
+                return .Scheduled
+            default:
+                return nil
+            }
+        }
+        
+        var description: String {
+            switch self {
+            case .Flexible: return "Flexible"
+            case .Deferred: return "Deferred"
+            case .Reference: return "Reference"
+            case .Scheduled: return "Scheduled"
+            }
         }
     }
-}
-
-class Activity: NSManagedObject {
     
     struct Keys {
         static let Attendees = "attendees"
@@ -42,14 +52,13 @@ class Activity: NSManagedObject {
         static let DisplayOrder = "display_order"
         static let DueDate = "due_date"
         static let EstimatedTimeboxes = "estimated_timeboxes"
+        static let Kind = "kind"
         static let ScheduledStart = "scheduled_start"
         static let ScheduledEnd = "scheduled_end"
         static let Task = "task"
         static let TaskInfo = "task_info"
         static let TodayDisplayOrder = "today_display_order"
         static let Today = "today"
-        static let Type = "type"
-        static let TypeValue = "typeValue"
 
         static let Milestone = "milestone"
         static let Project = "project"
@@ -65,13 +74,13 @@ class Activity: NSManagedObject {
     typealias DisplayOrderType = Int
     typealias DueDateType = NSDate
     typealias EstimatedTimeboxesType = Int
+//    typealias Kind = Kind
     typealias ScheduledEndType = NSDate
     typealias ScheduledStartType = NSDate
     typealias TaskType = String
     typealias TaskInfoType = String
     typealias TodayType = Bool
     typealias TodayDisplayOrderType = Int
-    typealias TypeValueType = NSNumber
     
     typealias MilestoneType = Milestone
     typealias ProjectType = Project
@@ -79,15 +88,6 @@ class Activity: NSManagedObject {
     typealias TimeBoxesType = Set<Timebox>
     
     static let defaultTask = "New Activity"
-
-    var type: ActivityType {
-        get {
-            return ActivityType(rawValue: typeValue as! Int)!
-        }
-        set {
-            typeValue = newValue.rawValue
-        }
-    }
 
     convenience init(task: String = "", context: NSManagedObjectContext) {
         let className = self.dynamicType.className
@@ -101,7 +101,7 @@ class Activity: NSManagedObject {
         }
         
         self.task = task
-        type = .Flexible
+        kind = .Flexible
     }
     
     static var fetchRequest: NSFetchRequest {

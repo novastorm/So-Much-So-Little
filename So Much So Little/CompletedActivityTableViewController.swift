@@ -41,7 +41,7 @@ class CompletedActivityTableViewController: UITableViewController {
     
     lazy var frcActivity: NSFetchedResultsController = {
         let fetchRequest = Activity.fetchRequest
-        fetchRequest.predicate = NSPredicate(format: "(completed == YES) AND (typeValue != \(ActivityType.Reference.rawValue))") 
+        fetchRequest.predicate = NSPredicate(format: "(completed == YES) AND (kind != \(Activity.Kind.Reference.rawValue))")
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: Activity.Keys.CompletedDate, ascending: true)]
         
         let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.sharedContext, sectionNameKeyPath: nil, cacheName: nil)

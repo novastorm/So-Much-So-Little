@@ -8,13 +8,13 @@
         <attribute name="display_order" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="due_date" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="estimated_timeboxes" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="kind" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <attribute name="scheduled_end" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="scheduled_start" optional="YES" attributeType="Date" syncable="YES"/>
         <attribute name="task" attributeType="String" indexed="YES" syncable="YES"/>
         <attribute name="task_info" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="today" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
-        <attribute name="today_display_order" optional="YES" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <attribute name="typeValue" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
+        <attribute name="today_display_order" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
         <relationship name="attendees" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Person" inverseName="activities" inverseEntity="Person" syncable="YES"/>
         <relationship name="milestone" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Milestone" inverseName="activities" inverseEntity="Milestone" syncable="YES"/>
         <relationship name="project" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Project" inverseName="activities" inverseEntity="Project" syncable="YES"/>
