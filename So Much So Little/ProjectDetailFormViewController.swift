@@ -58,7 +58,7 @@ class ProjectDetailFormViewController: FormViewController {
         
         temporaryContext.performBlockAndWait { 
             if self.project == nil {
-                self.project = Project(inContext: self.temporaryContext)
+                self.project = Project(context: self.temporaryContext)
             }
             
             self.project = self.temporaryContext.objectWithID(self.project.objectID) as! Project

@@ -78,7 +78,7 @@ class ActivityDetailFormViewController: FormViewController {
         
         temporaryContext.performBlockAndWait {
             if self.activity == nil {
-                self.activity = Activity(inContext: self.temporaryContext)
+                self.activity = Activity(context: self.temporaryContext)
             }
 
             self.activity = self.temporaryContext.objectWithID(self.activity.objectID) as! Activity
@@ -111,15 +111,15 @@ class ActivityDetailFormViewController: FormViewController {
         
                 <<< PushRow<String>(FormInput.Project.rawValue) { (row) in
                     row.title = "Project"
+                    for project in self.projectFRC.fetchedObjects as! [Project] {
+                        row.options.append(project.label)
+                    }
                     temporaryContext.performBlockAndWait {
                         if let project = self.activity.project {
                             row.value = project.label
                         }
                     }
-                }.onChange { (row) in
-                    for project in self.projectFRC.fetchedObjects as! [Project] {
-                        row.options.append(project.label)
-                    }
+//                }.onChange { (row) in
                 }
             
                 <<< TextRow(FormInput.Milestone.rawValue) { (row) in

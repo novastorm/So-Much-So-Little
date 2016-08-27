@@ -30,7 +30,7 @@ class Timebox: NSManagedObject {
 
     typealias ActivityType = Activity
 
-    convenience init(withTask task: String = "", inContext context: NSManagedObjectContext) {
+    convenience init(task: String = "", context: NSManagedObjectContext) {
         let className = self.dynamicType.className
         let entity = NSEntityDescription.entityForName(className, inManagedObjectContext: context)!
         

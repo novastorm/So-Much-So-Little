@@ -43,7 +43,7 @@ class Project: NSManagedObject {
     
     static let defaultLabel = "New Project"
     
-    convenience init(withLabel label: String = "", inContext context: NSManagedObjectContext) {
+    convenience init(label: String = "", context: NSManagedObjectContext) {
         let className = self.dynamicType.className
         let entity = NSEntityDescription.entityForName(className, inManagedObjectContext: context)!
         
