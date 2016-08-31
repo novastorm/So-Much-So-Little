@@ -72,7 +72,7 @@ class ActivityDetailFormViewController: FormViewController {
     
     override func viewDidLoad() {
 
-//        tableView = myTableView
+        tableView = myTableView
 
         super.viewDidLoad()
         
@@ -108,20 +108,37 @@ class ActivityDetailFormViewController: FormViewController {
                     }
                 }
         
-                <<< PushRow<String>(FormInput.Project.rawValue) { (row) in
+                <<< PushRow<Project>(FormInput.Project.rawValue) { (row) in
                     row.title = "Project"
+                    
+                    // get project from temporary context into main context for display
                     temporaryContext.performBlockAndWait {
                         if let project = self.activity.project {
-                            row.value = project.label
+                            let projectInContext = self.sharedContext.objectWithID(project.objectID) as! Project
+                            row.value = projectInContext
                         }
+                    }
+                    row.displayValueFor = { (value) in
+                        return value!.label
                     }
                 }.onCellSelection { (cell, row) in
                     try! self.projectFRC.performFetch()
                     row.options.removeAll()
-                    for project in self.projectFRC.fetchedObjects as! [Project] {
-                        row.options.append(project.label)
-                    }
+                    row.options = self.projectFRC.fetchedObjects as! [Project]
 
+                    row.displayValueFor = { (value) in
+                        return value!.label
+                    }
+                }.onChange { (row) in
+                    row.displayValueFor = { (value) in
+                        return value!.label
+                    }
+                    
+                    
+                    self.temporaryContext.performBlockAndWait {
+                        let project = self.temporaryContext.objectWithID(row.value!.objectID) as! Project
+                        self.activity.project = project
+                    }
                 }
         
                 <<< SegmentedRow<String>(FormInput.Kind.rawValue) { (type) in
@@ -136,92 +153,91 @@ class ActivityDetailFormViewController: FormViewController {
                         type.value = String(self.activity.kind)
                     }
                 }
-            
-                    // Schedule Section Fields
-            
-                    <<< DateTimeInlineRow(FormInput.ScheduledStart.rawValue) { (row) in
-                        row.hidden = Condition.Predicate(NSPredicate(format: String(format: "$%@ != '%@'", FormInput.Kind.rawValue, String(Activity.Kind.Scheduled))))
-                        row.title = "Start"
-                        row.value = NSDate()
-                        temporaryContext.performBlockAndWait {
-                            if let scheduledStart = self.activity.scheduled_start {
-                                print(scheduledStart)
-                            }
-                        }
-                    }
         
-                    <<< DateTimeInlineRow(FormInput.ScheduledEnd.rawValue) { (row) in
-                        row.hidden = Condition.Predicate(NSPredicate(format: String(format: "$%@ != '%@'", FormInput.Kind.rawValue, String(Activity.Kind.Scheduled))))
-                        row.title = "End"
-                        row.value = NSDate()
-                        temporaryContext.performBlockAndWait {
-                            if let scheduledEnd = self.activity.scheduled_end {
-                                print(scheduledEnd)
-                            }
-                        }
-                    }
+                // Schedule Section Fields
         
-                    <<< LabelRow(FormInput.Attendees.rawValue) { (row) in
-                        row.hidden = Condition.Predicate(NSPredicate(format: String(format: "$%@ != '%@'", FormInput.Kind.rawValue, String(Activity.Kind.Scheduled))))
-                        row.title = "Attendees"
-                        temporaryContext.performBlockAndWait {
-                            if let attendeesList = self.activity.attendees {
-                                print(attendeesList)
-                            }
+                <<< DateTimeInlineRow(FormInput.ScheduledStart.rawValue) { (row) in
+                    row.hidden = Condition.Predicate(NSPredicate(format: String(format: "$%@ != '%@'", FormInput.Kind.rawValue, String(Activity.Kind.Scheduled))))
+                    row.title = "Start"
+                    row.value = NSDate()
+                    temporaryContext.performBlockAndWait {
+                        if let scheduledStart = self.activity.scheduled_start {
+                            print(scheduledStart)
                         }
                     }
+                }
+    
+                <<< DateTimeInlineRow(FormInput.ScheduledEnd.rawValue) { (row) in
+                    row.hidden = Condition.Predicate(NSPredicate(format: String(format: "$%@ != '%@'", FormInput.Kind.rawValue, String(Activity.Kind.Scheduled))))
+                    row.title = "End"
+                    row.value = NSDate()
+                    temporaryContext.performBlockAndWait {
+                        if let scheduledEnd = self.activity.scheduled_end {
+                            print(scheduledEnd)
+                        }
+                    }
+                }
+    
+                <<< LabelRow(FormInput.Attendees.rawValue) { (row) in
+                    row.hidden = Condition.Predicate(NSPredicate(format: String(format: "$%@ != '%@'", FormInput.Kind.rawValue, String(Activity.Kind.Scheduled))))
+                    row.title = "Attendees"
+                    temporaryContext.performBlockAndWait {
+                        if let attendeesList = self.activity.attendees {
+                            print(attendeesList)
+                        }
+                    }
+                }
 
-            
-                    // Flexible Section Fields
-            
-                    <<< DateInlineRow(FormInput.DueDate.rawValue) { (row) in
-                        row.hidden = Condition.Predicate(NSPredicate(format: String(format: "$%@ != '%@'", FormInput.Kind.rawValue, String(Activity.Kind.Flexible))))
-                        row.title = "Due Date"
-                        temporaryContext.performBlockAndWait {
-                            if let dueDate = self.activity.due_date {
-                                print(dueDate)
-                            }
+        
+                // Flexible Section Fields
+        
+                <<< DateInlineRow(FormInput.DueDate.rawValue) { (row) in
+                    row.hidden = Condition.Predicate(NSPredicate(format: String(format: "$%@ != '%@'", FormInput.Kind.rawValue, String(Activity.Kind.Flexible))))
+                    row.title = "Due Date"
+                    temporaryContext.performBlockAndWait {
+                        if let dueDate = self.activity.due_date {
+                            print(dueDate)
                         }
                     }
-            
-            
-                    // Deferred Section Fields
-            
-                    <<< TextRow(FormInput.DeferredTo.rawValue) { (row) in
-                        row.hidden = Condition.Predicate(NSPredicate(format: String(format: "$%@ != '%@'", FormInput.Kind.rawValue, String(Activity.Kind.Deferred))))
-                        row.title = "Deferred To:"
-                        temporaryContext.performBlockAndWait {
-                            if let deferredTo = self.activity.deferred_to {
-                                print(deferredTo)
-                            }
+                }
+        
+        
+                // Deferred Section Fields
+        
+                <<< TextRow(FormInput.DeferredTo.rawValue) { (row) in
+                    row.hidden = Condition.Predicate(NSPredicate(format: String(format: "$%@ != '%@'", FormInput.Kind.rawValue, String(Activity.Kind.Deferred))))
+                    row.title = "Deferred To:"
+                    temporaryContext.performBlockAndWait {
+                        if let deferredTo = self.activity.deferred_to {
+                            print(deferredTo)
                         }
                     }
-            
-                    <<< DateInlineRow(FormInput.DeferredToResponseDueDate.rawValue) { (row) in
-                        row.hidden = Condition.Predicate(NSPredicate(format: String(format: "$%@ != '%@'", FormInput.Kind.rawValue, String(Activity.Kind.Deferred))))
-                        row.title = "Due"
-                        temporaryContext.performBlockAndWait {
-                            if let deferredToResponseDueDate = self.activity.deferred_to_response_due_date {
-                                print(deferredToResponseDueDate)
-                            }
+                }
+        
+                <<< DateInlineRow(FormInput.DeferredToResponseDueDate.rawValue) { (row) in
+                    row.hidden = Condition.Predicate(NSPredicate(format: String(format: "$%@ != '%@'", FormInput.Kind.rawValue, String(Activity.Kind.Deferred))))
+                    row.title = "Due"
+                    temporaryContext.performBlockAndWait {
+                        if let deferredToResponseDueDate = self.activity.deferred_to_response_due_date {
+                            print(deferredToResponseDueDate)
                         }
                     }
-
+                }
 
             +++ Section(FormInput.Completed.rawValue) { (section) in
-                        section.tag = "CompletedSection"
-                        temporaryContext.performBlockAndWait {
-                            section.hidden = Condition(booleanLiteral: !self.activity.completed)
+                    section.tag = "CompletedSection"
+                    temporaryContext.performBlockAndWait {
+                        section.hidden = Condition(booleanLiteral: !self.activity.completed)
+                    }
+                }
+                <<< TextRow("Completed Date")
+                <<< DateRow("CompletedDate") { (row) in
+                    temporaryContext.performBlockAndWait {
+                        if let completedDate = self.activity.completed_date {
+                            print(completedDate)
                         }
                     }
-                    <<< TextRow("Completed Date")
-                    <<< DateRow("CompletedDate") { (row) in
-                        temporaryContext.performBlockAndWait {
-                            if let completedDate = self.activity.completed_date {
-                                print(completedDate)
-                            }
-                        }
-                    }
+                }
     }
     
     

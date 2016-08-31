@@ -26,17 +26,22 @@ class ProjectDetailFormViewController: FormViewController {
         DueDate,
         Info,
         Label,
-        HasParentProject,
-        HasSubproject,
+//        HasParentProject,
+//        HasSubproject,
         
-        Activities,
-        Milestones,
-        Parent,
-        Subprojects,
-        Roles
+        PendingActivities,
+        CompletedActivities
+//        Milestones,
+//        Parent,
+//        Subprojects,
+//        Roles
     }
     
     // MARK: - Core Data convenience methods
+    
+    var sharedContext: NSManagedObjectContext {
+        return CoreDataStackManager.mainContext
+    }
     
     lazy var temporaryContext: NSManagedObjectContext = {
         return CoreDataStackManager.getTemporaryContext(withName: "TempProject")
@@ -45,6 +50,17 @@ class ProjectDetailFormViewController: FormViewController {
     func saveTemporaryContext() {
         CoreDataStackManager.saveTemporaryContext(temporaryContext)
     }
+    
+    lazy var activityFRC: NSFetchedResultsController = {
+        let fetchRequest = Activity.fetchRequest
+        fetchRequest.predicate = NSPredicate(format: "project == %@", self.project)
+        fetchRequest.sortDescriptors = [
+            NSSortDescriptor(key: Activity.Keys.Completed, ascending: true)
+        ]
+        let frc = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.sharedContext, sectionNameKeyPath: nil, cacheName: nil)
+        
+        return frc
+    }()
     
     
     // MARK: - View Life Cycle
@@ -96,6 +112,15 @@ class ProjectDetailFormViewController: FormViewController {
                 row.placeholder = "Description"
                 temporaryContext.performBlockAndWait {
                     row.value = self.project.info
+                }
+            }
+            <<< MultipleSelectorRow<String>(FormInput.PendingActivities.rawValue) { (row) in
+                row.title = "Actvities"
+            }.onCellSelection { (cell, row) in
+                try! self.activityFRC.performFetch()
+                row.options.removeAll()
+                for activity in self.activityFRC.fetchedObjects as! [Activity] {
+                    row.options.append(activity.task)
                 }
             }
     }
