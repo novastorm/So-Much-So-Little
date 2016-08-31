@@ -29,8 +29,7 @@ class ProjectDetailFormViewController: FormViewController {
 //        HasParentProject,
 //        HasSubproject,
         
-        PendingActivities,
-        CompletedActivities
+        Activities
 //        Milestones,
 //        Parent,
 //        Subprojects,
@@ -114,7 +113,7 @@ class ProjectDetailFormViewController: FormViewController {
                     row.value = self.project.info
                 }
             }
-            <<< MultipleSelectorRow<String>(FormInput.PendingActivities.rawValue) { (row) in
+            <<< MultipleSelectorRow<String>(FormInput.Activities.rawValue) { (row) in
                 row.title = "Actvities"
             }.onCellSelection { (cell, row) in
                 try! self.activityFRC.performFetch()

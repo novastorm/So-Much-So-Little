@@ -118,8 +118,10 @@ class ActivityDetailFormViewController: FormViewController {
                             row.value = projectInContext
                         }
                     }
-                    row.displayValueFor = { (value) in
-                        return value!.label
+                    if row.value != nil {
+                        row.displayValueFor = { (value) in
+                            return value?.label
+                        }
                     }
                 }.onCellSelection { (cell, row) in
                     try! self.projectFRC.performFetch()
@@ -127,11 +129,13 @@ class ActivityDetailFormViewController: FormViewController {
                     row.options = self.projectFRC.fetchedObjects as! [Project]
 
                     row.displayValueFor = { (value) in
-                        return value!.label
+                        return value?.label
                     }
                 }.onChange { (row) in
-                    row.displayValueFor = { (value) in
-                        return value!.label
+                    if row.value != nil {
+                        row.displayValueFor = { (value) in
+                            return value?.label
+                        }
                     }
                     
                     
