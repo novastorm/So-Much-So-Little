@@ -243,7 +243,6 @@ class ActivityDetailFormViewController: FormViewController {
     // MARK: - Actions
     
     @IBAction func save(sender: AnyObject) {
-        print("save")
         saveActivity()
     }
     
@@ -264,8 +263,6 @@ class ActivityDetailFormViewController: FormViewController {
     // MARK: - Utilities
     
     func saveActivity() {
-        print("Save Activity")
-        
         let formValues = form.values()
         
         temporaryContext.performBlock { 

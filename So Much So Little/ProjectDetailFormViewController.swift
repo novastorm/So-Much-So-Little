@@ -76,6 +76,8 @@ class ProjectDetailFormViewController: FormViewController {
             self.project = self.temporaryContext.objectWithID(self.project.objectID) as! Project
         }
         
+        try! activityFRC.performFetch()
+        
         form.inlineRowHideOptions = InlineRowHideOptions.AnotherInlineRowIsShown.union(.FirstResponderChanges)
         
         form
@@ -113,13 +115,24 @@ class ProjectDetailFormViewController: FormViewController {
                     row.value = self.project.info
                 }
             }
-            <<< MultipleSelectorRow<String>(FormInput.Activities.rawValue) { (row) in
+            <<< MultipleSelectorRow<Activity>(FormInput.Activities.rawValue) { (row) in
+                print("Add Activity Cell")
                 row.title = "Actvities"
+                row.options = self.activityFRC.fetchedObjects as! [Activity]
+            }.cellSetup{ (cell, row) in
+                print("Activity cellSetup")
+            }.cellUpdate { (cell, row) in
+                print("Activity cellUpdate")
             }.onCellSelection { (cell, row) in
-                try! self.activityFRC.performFetch()
-                row.options.removeAll()
-                for activity in self.activityFRC.fetchedObjects as! [Activity] {
-                    row.options.append(activity.task)
+                print("Activity onCellSelection")
+            }.onChange { (row) in
+                print("Activity onChange")
+            }.onPresent { (from, to) in
+                print("Activity onPresent")
+                to.selectableRowCellSetup = { (cell, row) in
+                    if let value = row.selectableValue {
+                        row.title = value.task
+                    }
                 }
             }
     }

@@ -84,7 +84,6 @@ extension ProjectTableViewController {
     }
     
     func configureProjectCell(cell: UITableViewCell, atIndexPath indexPath: NSIndexPath) {
-        print("configureProjectCell")
         let project = fetchedResultsController.objectAtIndexPath(indexPath) as! Project
         let label = project.label
         let displayOrder = project.display_order
