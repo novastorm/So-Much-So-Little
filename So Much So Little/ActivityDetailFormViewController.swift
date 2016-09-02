@@ -83,9 +83,7 @@ class ActivityDetailFormViewController: FormViewController {
 
             self.activity = self.temporaryContext.objectWithID(self.activity.objectID) as! Activity
         }
-        
-        try! projectFRC.performFetch()
-        
+                
         // MARK: Eureka! Form Setup
 
         form.inlineRowHideOptions = InlineRowHideOptions.AnotherInlineRowIsShown.union(.FirstResponderChanges)
@@ -123,20 +121,22 @@ class ActivityDetailFormViewController: FormViewController {
                     }
                 }.onCellSelection { (cell, row) in
                     try! self.projectFRC.performFetch()
-                    row.options.removeAll()
                     row.options = self.projectFRC.fetchedObjects as! [Project]
-
-                    row.displayValueFor = { (value) in
-                        return value?.label
-                    }
                 }.onChange { (row) in
-                    row.displayValueFor = { (value) in
-                        return value?.label
-                    }
-                    
                     self.temporaryContext.performBlockAndWait {
-                        let project = self.temporaryContext.objectWithID(row.value!.objectID) as! Project
-                        self.activity.project = project
+                        
+                        guard row.value != nil else {
+                            self.activity.project = nil
+                            return
+                        }
+                        
+                        self.activity.project = self.temporaryContext.objectWithID(row.value!.objectID) as? Project
+                    }
+                }.onPresent { (from, to) in
+                    to.selectableRowCellUpdate = { (cell, row) in
+                        if let value = row.selectableValue {
+                            row.title = value.label
+                        }
                     }
                 }
         
