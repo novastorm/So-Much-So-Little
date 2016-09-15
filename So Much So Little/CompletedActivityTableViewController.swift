@@ -11,27 +11,27 @@ import UIKit
 
 class CompletedActivityTableViewController: UITableViewController {
     
-    var insertedIndexPaths: [NSIndexPath]!
-    var deletedIndexPaths: [NSIndexPath]!
-    var updatedIndexPaths: [NSIndexPath]!
+    var insertedIndexPaths: [IndexPath]!
+    var deletedIndexPaths: [IndexPath]!
+    var updatedIndexPaths: [IndexPath]!
     
     var snapshot: UIView!
-    var moveIndexPathSource: NSIndexPath!
+    var moveIndexPathSource: IndexPath!
     
     enum ProjectSections: Int, CustomStringConvertible {
         case
-        Activity,
-        Project
+        activity,
+        project
         
         static func count() -> Int {
-            return ProjectSections.Project.rawValue + 1
+            return ProjectSections.project.rawValue + 1
         }
         
         var description: String {
             switch self {
-            case .Activity:
+            case .activity:
                 return "Activity"
-            case .Project:
+            case .project:
                 return "Project"
             }
         }
@@ -39,9 +39,9 @@ class CompletedActivityTableViewController: UITableViewController {
     
     // Mark: - Core Data Utilities
     
-    lazy var frcActivity: NSFetchedResultsController = {
+    lazy var frcActivity: NSFetchedResultsController = { () -> <<error type>> in 
         let fetchRequest = Activity.fetchRequest
-        fetchRequest.predicate = NSPredicate(format: "(completed == YES) AND (kind != \(Activity.Kind.Reference.rawValue))")
+        fetchRequest.predicate = NSPredicate(format: "(completed == YES) AND (kind != \(Activity.Kind.reference.rawValue))")
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: Activity.Keys.CompletedDate, ascending: true)]
         
         let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.sharedContext, sectionNameKeyPath: nil, cacheName: nil)
@@ -49,7 +49,7 @@ class CompletedActivityTableViewController: UITableViewController {
         return fetchedResultsController
     }()
     
-    lazy var frcProject: NSFetchedResultsController = {
+    lazy var frcProject: NSFetchedResultsController = { () -> <<error type>> in 
         let fetchRequest = Project.fetchRequest
         fetchRequest.predicate = NSPredicate(format: "completed == YES")
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: Project.Keys.CompletedDate, ascending: true)]
@@ -84,7 +84,7 @@ class CompletedActivityTableViewController: UITableViewController {
         try! frcProject.performFetch()
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         tableView.reloadData()
     }
@@ -95,23 +95,23 @@ class CompletedActivityTableViewController: UITableViewController {
     
     // MARK: - Segue
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         switch segue.identifier! {
         case "ShowCompletedActivityDetail" :
             guard let indexPath = tableView.indexPathForSelectedRow else {
                 return
             }
-            let destinationVC = segue.destinationViewController as! ActivityDetailFormViewController
+            let destinationVC = segue.destination as! ActivityDetailFormViewController
             
-            destinationVC.activity = frcActivity.objectAtIndexPath(indexPath) as? Activity
+            destinationVC.activity = frcActivity.object(at: indexPath) as? Activity
         case  "ShowCompletedProjectDetail" :
             guard let indexPath = tableView.indexPathForSelectedRow else {
                 return
             }
-            let destinationVC = segue.destinationViewController as! ProjectDetailFormViewController
-            let projectIndexPath = NSIndexPath(forRow: indexPath.row, inSection: 0)
+            let destinationVC = segue.destination as! ProjectDetailFormViewController
+            let projectIndexPath = IndexPath(row: (indexPath as NSIndexPath).row, section: 0)
             
-            destinationVC.project = frcProject.objectAtIndexPath(projectIndexPath) as? Project
+            destinationVC.project = frcProject.object(at: projectIndexPath) as? Project
         default:
             break
         }
@@ -123,19 +123,19 @@ class CompletedActivityTableViewController: UITableViewController {
 
 extension CompletedActivityTableViewController {
     
-    override func numberOfSectionsInTableView(tableView: UITableView) -> Int {
+    override func numberOfSections(in tableView: UITableView) -> Int {
         return ProjectSections.count()
     }
     
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         print("Completed Section: [\(section)]")
         var count: Int
 
         switch ProjectSections(rawValue: section)! {
-        case .Activity:
+        case .activity:
             let sectionInfo = frcActivity.sections!.first
             count = sectionInfo!.numberOfObjects
-        case .Project:
+        case .project:
             let sectionInfo = frcProject.sections!.first
             count = sectionInfo!.numberOfObjects
         }
@@ -143,31 +143,31 @@ extension CompletedActivityTableViewController {
         return count
     }
     
-    override func tableView(tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+    override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         return ProjectSections(rawValue: section)?.description
     }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let section = indexPath.section
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let section = (indexPath as NSIndexPath).section
         var cell: UITableViewCell!
         
         switch ProjectSections(rawValue: section)! {
-        case .Activity:
+        case .activity:
             let identifier = "CompletedActivityCell"
-            cell = tableView.dequeueReusableCellWithIdentifier(identifier)!
+            cell = tableView.dequeueReusableCell(withIdentifier: identifier)!
             
             configureActivityCell(cell, atIndexPath: indexPath)
-        case .Project:
+        case .project:
             let identifier = "CompletedProjectCell"
-            cell = tableView.dequeueReusableCellWithIdentifier(identifier)!
+            cell = tableView.dequeueReusableCell(withIdentifier: identifier)!
             configureProjectCell(cell, atIndexPath: indexPath)
         }
         
         return cell
     }
     
-    func configureActivityCell(cell: UITableViewCell, atIndexPath indexPath: NSIndexPath) {
-        let activity = frcActivity.objectAtIndexPath(indexPath) as! Activity
+    func configureActivityCell(_ cell: UITableViewCell, atIndexPath indexPath: IndexPath) {
+        let activity = frcActivity.object(at: indexPath) as! Activity
         let task = activity.task
         let actualTimeboxes = activity.actual_timeboxes
         let estimatedTimeboxes = activity.estimated_timeboxes
@@ -176,9 +176,9 @@ extension CompletedActivityTableViewController {
         cell.detailTextLabel!.text = "\(actualTimeboxes)/\(estimatedTimeboxes)"
     }
     
-    func configureProjectCell(cell: UITableViewCell, atIndexPath indexPath: NSIndexPath) {
-        let projectIndexPath = NSIndexPath(forRow: indexPath.row, inSection: 0)
-        let project = frcProject.objectAtIndexPath(projectIndexPath) as! Project
+    func configureProjectCell(_ cell: UITableViewCell, atIndexPath indexPath: IndexPath) {
+        let projectIndexPath = IndexPath(row: (indexPath as NSIndexPath).row, section: 0)
+        let project = frcProject.object(at: projectIndexPath) as! Project
         let label = project.label
         let displayOrder = project.display_order
         
@@ -190,7 +190,7 @@ extension CompletedActivityTableViewController {
 // MARK: - Table View Delegate
 
 extension CompletedActivityTableViewController {
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
     }
     
@@ -198,15 +198,15 @@ extension CompletedActivityTableViewController {
 //        print(indexPath)
 //    }
 //    
-    override func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
-        let activity = frcActivity.objectAtIndexPath(indexPath) as! Activity
+    override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        let activity = frcActivity.object(at: indexPath) as! Activity
         
         var todayOption: UITableViewRowAction!
         var completedOption: UITableViewRowAction!
         
         if activity.today {
-            todayOption = UITableViewRowAction(style: .Normal, title: "Postpone") { (action, activityIndexPath) in
-                print("\(activityIndexPath.row): Postpone tapped")
+            todayOption = UITableViewRowAction(style: .normal, title: "Postpone") { (action, activityIndexPath) in
+                print("\((activityIndexPath as NSIndexPath).row): Postpone tapped")
                 activity.today = false
                 activity.today_display_order = 0
                 activity.display_order = 0
@@ -214,8 +214,8 @@ extension CompletedActivityTableViewController {
             }
         }
         else {
-            todayOption = UITableViewRowAction(style: .Normal, title: "Today") { (action, activityIndexPath) in
-                print("\(activityIndexPath.row): Today tapped")
+            todayOption = UITableViewRowAction(style: .normal, title: "Today") { (action, activityIndexPath) in
+                print("\((activityIndexPath as NSIndexPath).row): Today tapped")
                 activity.today = true
                 activity.today_display_order = 0
                 self.saveSharedContext()
@@ -223,16 +223,16 @@ extension CompletedActivityTableViewController {
         }
         
         if activity.completed {
-            completedOption = UITableViewRowAction(style: .Normal, title: "Reactivate") { (action, completedIndexPath) in
-                print("\(completedIndexPath.row): Reactivate tapped")
+            completedOption = UITableViewRowAction(style: .normal, title: "Reactivate") { (action, completedIndexPath) in
+                print("\((completedIndexPath as NSIndexPath).row): Reactivate tapped")
                 activity.completed = false
                 activity.display_order = 0
                 self.saveSharedContext()
             }
         }
         else {
-            completedOption = UITableViewRowAction(style: .Normal, title: "Complete") { (action, completedIndexPath) in
-                print("\(completedIndexPath.row): Complete tapped")
+            completedOption = UITableViewRowAction(style: .normal, title: "Complete") { (action, completedIndexPath) in
+                print("\((completedIndexPath as NSIndexPath).row): Complete tapped")
                 activity.completed = true
                 activity.display_order = 0
                 activity.today = false
@@ -250,35 +250,35 @@ extension CompletedActivityTableViewController {
 
 extension CompletedActivityTableViewController: NSFetchedResultsControllerDelegate {
     
-    func controllerWillChangeContent(controller: NSFetchedResultsController) {
+    func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         
-        insertedIndexPaths = [NSIndexPath]()
-        deletedIndexPaths = [NSIndexPath]()
-        updatedIndexPaths = [NSIndexPath]()
+        insertedIndexPaths = [IndexPath]()
+        deletedIndexPaths = [IndexPath]()
+        updatedIndexPaths = [IndexPath]()
         
         tableView.beginUpdates()
     }
     
-    func controller(controller: NSFetchedResultsController, didChangeObject anObject: AnyObject, atIndexPath indexPath: NSIndexPath?, forChangeType type: NSFetchedResultsChangeType, newIndexPath: NSIndexPath?) {
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
         
         switch type {
-        case .Insert:
+        case .insert:
             insertedIndexPaths.append(newIndexPath!)
-        case .Delete:
+        case .delete:
             deletedIndexPaths.append(indexPath!)
-        case .Move:
+        case .move:
             updatedIndexPaths.append(newIndexPath!)
             updatedIndexPaths.append(indexPath!)
-        case .Update:
+        case .update:
             updatedIndexPaths.append(indexPath!)
         }
     }
     
-    func controllerDidChangeContent(controller: NSFetchedResultsController) {
+    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         
-        tableView.insertRowsAtIndexPaths(insertedIndexPaths, withRowAnimation: .Fade)
-        tableView.deleteRowsAtIndexPaths(deletedIndexPaths, withRowAnimation: .Fade)
-        tableView.reloadRowsAtIndexPaths(updatedIndexPaths, withRowAnimation: .Automatic)
+        tableView.insertRows(at: insertedIndexPaths, with: .fade)
+        tableView.deleteRows(at: deletedIndexPaths, with: .fade)
+        tableView.reloadRows(at: updatedIndexPaths, with: .automatic)
         
         tableView.endUpdates()
         

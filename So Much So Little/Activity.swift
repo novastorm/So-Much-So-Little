@@ -13,21 +13,21 @@ class Activity: NSManagedObject {
     
     @objc // <- required for Core Data type compatibility 
     enum Kind: Int32, CustomStringConvertible {
-        case Flexible
-        case Deferred
-        case Reference
-        case Scheduled
+        case flexible
+        case deferred
+        case reference
+        case scheduled
         
-        static func fromString(string: String) -> Kind? {
+        static func fromString(_ string: String) -> Kind? {
             switch string {
             case "Flexible":
-                return .Flexible
+                return .flexible
             case "Deferred":
-                return .Deferred
+                return .deferred
             case "Reference":
-                return .Reference
+                return .reference
             case "Scheduled":
-                return .Scheduled
+                return .scheduled
             default:
                 return nil
             }
@@ -35,10 +35,10 @@ class Activity: NSManagedObject {
         
         var description: String {
             switch self {
-            case .Flexible: return "Flexible"
-            case .Deferred: return "Deferred"
-            case .Reference: return "Reference"
-            case .Scheduled: return "Scheduled"
+            case .flexible: return "Flexible"
+            case .deferred: return "Deferred"
+            case .reference: return "Reference"
+            case .scheduled: return "Scheduled"
             }
         }
     }
@@ -68,15 +68,15 @@ class Activity: NSManagedObject {
     
     typealias Attendees = Set<String>
     typealias CompletedType = Bool
-    typealias CompletedDateType = NSDate
+    typealias CompletedDateType = Date
     typealias DeferredToType = String
-    typealias DeferredToResponseDueDateType = NSDate
+    typealias DeferredToResponseDueDateType = Date
     typealias DisplayOrderType = Int
-    typealias DueDateType = NSDate
+    typealias DueDateType = Date
     typealias EstimatedTimeboxesType = Int
 //    typealias Kind = Kind
-    typealias ScheduledEndType = NSDate
-    typealias ScheduledStartType = NSDate
+    typealias ScheduledEndType = Date
+    typealias ScheduledStartType = Date
     typealias TaskType = String
     typealias TaskInfoType = String
     typealias TodayType = Bool
@@ -90,21 +90,21 @@ class Activity: NSManagedObject {
     static let defaultTask = "New Activity"
 
     convenience init(task: String = "", context: NSManagedObjectContext) {
-        let className = self.dynamicType.className
-        let entity = NSEntityDescription.entityForName(className, inManagedObjectContext: context)!
+        let className = type(of: self).className
+        let entity = NSEntityDescription.entity(forEntityName: className, in: context)!
         
-        self.init(entity: entity, insertIntoManagedObjectContext: context)
+        self.init(entity: entity, insertInto: context)
 
         var task = task
         if task.isEmpty {
-            task = self.dynamicType.defaultTask
+            task = type(of: self).defaultTask
         }
         
         self.task = task
-        kind = .Flexible
+        kind = .flexible
     }
     
-    static var fetchRequest: NSFetchRequest {
+    static var fetchRequest: NSFetchRequest<AnyObject> {
         let fetchRequest = NSFetchRequest(entityName: className)
         fetchRequest.sortDescriptors = []
         

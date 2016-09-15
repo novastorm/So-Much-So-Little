@@ -28,9 +28,9 @@ class Project: NSManagedObject {
     }
     
     typealias CompletedType = Bool
-    typealias CompletedDateType = NSDate
+    typealias CompletedDateType = Date
     typealias DisplayOrder = Int
-    typealias DueDateType = NSDate
+    typealias DueDateType = Date
     typealias InfoType = String
     typealias LabelType = String
     typealias ActiveType = Bool
@@ -44,20 +44,20 @@ class Project: NSManagedObject {
     static let defaultLabel = "New Project"
     
     convenience init(label: String = "", context: NSManagedObjectContext) {
-        let className = self.dynamicType.className
-        let entity = NSEntityDescription.entityForName(className, inManagedObjectContext: context)!
+        let className = type(of: self).className
+        let entity = NSEntityDescription.entity(forEntityName: className, in: context)!
         
-        self.init(entity: entity, insertIntoManagedObjectContext: context)
+        self.init(entity: entity, insertInto: context)
 
         var label = label
         if label.isEmpty {
-            label = self.dynamicType.defaultLabel
+            label = type(of: self).defaultLabel
         }
         
         self.label = label
     }
     
-    static var fetchRequest: NSFetchRequest {
+    static var fetchRequest: NSFetchRequest<AnyObject> {
         let fetchRequest = NSFetchRequest(entityName: className)
         fetchRequest.sortDescriptors = []
         

@@ -12,30 +12,30 @@ import UIKit
 
 private var TimeboxControlCellContext = 0
 
-public class TimeboxControlCell: Cell<Int>, CellType {
+open class TimeboxControlCell: Cell<Int>, CellType {
     
 //    let estimatedTimeboxesKeyPath = "estimatedTimeboxes"
     
     @IBOutlet weak var timeboxControl: TimeboxControl!
     
-    public override func setup() {
-        print ("\(self.dynamicType.className) setup")
+    open override func setup() {
+        print ("\(type(of: self).className) setup")
         
         super.setup()
         #if swift(>=3.0)
         timeboxControl.addObserver(self, forKeyPath: #keyPath(TimeboxControl.estimatedTimeboxes), options: .New, context: &TimeboxControlCellContext)
         #elseif swift(>=2.2)
-        timeboxControl.addObserver(self, forKeyPath: "estimatedTimeboxes", options: .New, context: &TimeboxControlCellContext)
+        timeboxControl.addObserver(self, forKeyPath: "estimatedTimeboxes", options: .new, context: &TimeboxControlCellContext)
         #endif
         row.value = 0
     }
     
-    public override func update() {
-        print ("\(self.dynamicType.className) update")
+    open override func update() {
+        print ("\(type(of: self).className) update")
         super.update()
     }
     
-    public override func observeValueForKeyPath(keyPath: String?, ofObject object: AnyObject?, change: [String : AnyObject]?, context: UnsafeMutablePointer<Void>) {
+    open override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
         #if swift(>=3.0)
         if keyPath == #keyPath(TimeboxControl.estimatedTimeboxes) {
             print("timeboxControl.estimatedTimeboxes changed: \(timeboxControl.estimatedTimeboxes)")

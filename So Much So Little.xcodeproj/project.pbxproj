@@ -361,13 +361,17 @@
 				TargetAttributes = {
 					3EE741151D1090DC00064BF6 = {
 						CreatedOnToolsVersion = 7.3.1;
+						DevelopmentTeam = KY9W9NLJDU;
+						LastSwiftMigration = 0800;
 					};
 					3EE7412C1D1090DC00064BF6 = {
 						CreatedOnToolsVersion = 7.3.1;
+						LastSwiftMigration = 0800;
 						TestTargetID = 3EE741151D1090DC00064BF6;
 					};
 					3EE741371D1090DC00064BF6 = {
 						CreatedOnToolsVersion = 7.3.1;
+						LastSwiftMigration = 0800;
 						TestTargetID = 3EE741151D1090DC00064BF6;
 					};
 				};
@@ -628,6 +632,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.4mfd.So-Much-So-Little";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -645,6 +650,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.4mfd.So-Much-So-Little";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
@@ -657,6 +663,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.4mfd.So-Much-So-LittleTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/So Much So Little.app/So Much So Little";
 			};
 			name = Debug;
@@ -669,6 +676,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.4mfd.So-Much-So-LittleTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/So Much So Little.app/So Much So Little";
 			};
 			name = Release;
@@ -681,6 +689,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.4mfd.So-Much-So-LittleUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_VERSION = 3.0;
 				TEST_TARGET_NAME = "So Much So Little";
 			};
 			name = Debug;
@@ -693,6 +702,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.4mfd.So-Much-So-LittleUITests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_VERSION = 3.0;
 				TEST_TARGET_NAME = "So Much So Little";
 			};
 			name = Release;

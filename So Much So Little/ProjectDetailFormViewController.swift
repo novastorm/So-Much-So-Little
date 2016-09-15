@@ -50,7 +50,7 @@ class ProjectDetailFormViewController: FormViewController {
         CoreDataStackManager.saveTemporaryContext(temporaryContext)
     }
     
-    lazy var activityFRC: NSFetchedResultsController = {
+    lazy var activityFRC: NSFetchedResultsController = { () -> <<error type>> in 
         let fetchRequest = Activity.fetchRequest
         fetchRequest.predicate = NSPredicate(format: "project == %@", self.project)
         fetchRequest.sortDescriptors = [
@@ -68,12 +68,12 @@ class ProjectDetailFormViewController: FormViewController {
         
         super.viewDidLoad()
         
-        temporaryContext.performBlockAndWait { 
+        temporaryContext.performAndWait { 
             if self.project == nil {
                 self.project = Project(context: self.temporaryContext)
             }
             
-            self.project = self.temporaryContext.objectWithID(self.project.objectID) as! Project
+            self.project = self.temporaryContext.object(with: self.project.objectID) as! Project
         }
         
         form.inlineRowHideOptions = InlineRowHideOptions.AnotherInlineRowIsShown.union(.FirstResponderChanges)
@@ -82,19 +82,19 @@ class ProjectDetailFormViewController: FormViewController {
         +++ Section()
             <<< TextRow(FormInput.Label.rawValue) { (row) in
                 row.placeholder = Project.defaultLabel
-                temporaryContext.performBlockAndWait {
+                temporaryContext.performAndWait {
                     row.value = self.project.label
                 }
             }
             <<< SwitchRow(FormInput.Completed.rawValue) { (row) in
                 row.title = "Completed"
-                temporaryContext.performBlockAndWait {
+                temporaryContext.performAndWait {
                     row.value = self.project.completed
                 }
             }
             <<< SwitchRow(FormInput.Active.rawValue) { (row) in
                 row.title = "Active"
-                temporaryContext.performBlockAndWait {
+                temporaryContext.performAndWait {
                     row.value = self.project.active
                 }
             }
@@ -103,13 +103,13 @@ class ProjectDetailFormViewController: FormViewController {
 //                    return ((form.rowByTag(FormInput.Active.rawValue) as? SwitchRow)?.value)!
 //                    }
                 row.title = "Due Date"
-                temporaryContext.performBlockAndWait {
+                temporaryContext.performAndWait {
                     row.value = self.project.due_date
                 }
             }
             <<< TextAreaRow(FormInput.Info.rawValue) { (row) in
                 row.placeholder = "Description"
-                temporaryContext.performBlockAndWait {
+                temporaryContext.performAndWait {
                     row.value = self.project.info
                 }
             }
@@ -139,7 +139,7 @@ class ProjectDetailFormViewController: FormViewController {
     
     // MARK: - Actions
     
-    @IBAction func save(sender: AnyObject) {
+    @IBAction func save(_ sender: AnyObject) {
         print("save")
         saveProject()
     }
@@ -151,7 +151,7 @@ class ProjectDetailFormViewController: FormViewController {
         print("Save Project")
         let formValues = form.values()
         
-        temporaryContext.performBlock {
+        temporaryContext.perform {
             self.project.completed = formValues[FormInput.Completed.rawValue] as! Project.CompletedType
             self.project.due_date = formValues[FormInput.DueDate.rawValue] as? Project.DueDateType
             self.project.info = formValues[FormInput.Info.rawValue] as? Project.InfoType

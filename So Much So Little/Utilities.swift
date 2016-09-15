@@ -11,7 +11,7 @@ import Foundation
 extension NSObject {
     
     static var className: String {
-        return description().componentsSeparatedByString(".")[1]
+        return description().components(separatedBy: ".")[1]
     }
 
 }

@@ -15,15 +15,15 @@ import CoreData
 extension Activity {
 
     @NSManaged var completed: Bool
-    @NSManaged var completed_date: NSDate?
+    @NSManaged var completed_date: Date?
     @NSManaged var deferred_to: String?
-    @NSManaged var deferred_to_response_due_date: NSDate?
+    @NSManaged var deferred_to_response_due_date: Date?
     @NSManaged var display_order: NSNumber
-    @NSManaged var due_date: NSDate?
+    @NSManaged var due_date: Date?
     @NSManaged var estimated_timeboxes: NSNumber
     @NSManaged var kind: Kind
-    @NSManaged var scheduled_end: NSDate?
-    @NSManaged var scheduled_start: NSDate?
+    @NSManaged var scheduled_end: Date?
+    @NSManaged var scheduled_start: Date?
     @NSManaged var task: String
     @NSManaged var task_info: String?
     @NSManaged var today: Bool

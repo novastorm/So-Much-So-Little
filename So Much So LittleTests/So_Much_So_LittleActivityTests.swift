@@ -17,7 +17,7 @@ class So_Much_So_LittleActivityTests: XCTestCase {
     var managedObjectModel: NSManagedObjectModel!
     var persistentStore: NSPersistentStore!
     
-    func getFetchedResultsController(fetchRequest: NSFetchRequest) -> NSFetchedResultsController {
+    func getFetchedResultsController(_ fetchRequest: NSFetchRequest) -> NSFetchedResultsController<AnyObject> {
         let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.managedObjectContext, sectionNameKeyPath: nil, cacheName: nil)
 
         return fetchedResultsController
@@ -52,23 +52,23 @@ class So_Much_So_LittleActivityTests: XCTestCase {
     override func setUp() {
         super.setUp()
         
-        managedObjectModel = NSManagedObjectModel.mergedModelFromBundles(nil)
+        managedObjectModel = NSManagedObjectModel.mergedModel(from: nil)
         storeCoordinator = NSPersistentStoreCoordinator(managedObjectModel: managedObjectModel)
         do {
-            persistentStore = try storeCoordinator.addPersistentStoreWithType(NSInMemoryStoreType, configuration: nil, URL: nil, options: nil)
+            persistentStore = try storeCoordinator.addPersistentStore(ofType: NSInMemoryStoreType, configurationName: nil, at: nil, options: nil)
         }
         catch {
             print(error)
             abort()
         }
         
-        managedObjectContext = NSManagedObjectContext(concurrencyType: .MainQueueConcurrencyType)
+        managedObjectContext = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
         managedObjectContext.persistentStoreCoordinator = storeCoordinator
     }
     
     override func tearDown() {
         managedObjectContext = nil
-        try! storeCoordinator.removePersistentStore(persistentStore)
+        try! storeCoordinator.remove(persistentStore)
         
         super.tearDown()
     }
@@ -95,7 +95,7 @@ class So_Much_So_LittleActivityTests: XCTestCase {
         XCTAssertEqual(fetchedResultsController.sections?.count, 1)
         XCTAssertEqual(fetchedResultsController.fetchedObjects?.count, 1)
 
-        let fetchedActivity = fetchedResultsController.objectAtIndexPath(NSIndexPath(forRow: 0, inSection: 0)) as! Activity
+        let fetchedActivity = fetchedResultsController.objectAtIndexPath(IndexPath(forRow: 0, inSection: 0)) as! Activity
 
         XCTAssertEqual(fetchedActivity.completed, false, "Default Activity completed should be false")
         XCTAssertNil(fetchedActivity.completed_date, "Default Activity completed_data should be nil")

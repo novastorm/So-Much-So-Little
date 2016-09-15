@@ -17,8 +17,8 @@ extension Timebox {
     @NSManaged var completed: Bool
     @NSManaged var external_interruptions: NSNumber
     @NSManaged var internal_interruptions: NSNumber
-    @NSManaged var start: NSDate?
-    @NSManaged var stop: NSDate?
+    @NSManaged var start: Date?
+    @NSManaged var stop: Date?
     
     @NSManaged var activity: Activity?
 

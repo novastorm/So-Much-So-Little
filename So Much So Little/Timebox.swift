@@ -25,19 +25,19 @@ class Timebox: NSManagedObject {
     typealias CompletedType = Bool
     typealias ExtenralInterruptionsType = Int
     typealias IntenralInterruptionsType = Int
-    typealias StartType = NSDate
-    typealias StopType = NSDate
+    typealias StartType = Date
+    typealias StopType = Date
 
     typealias ActivityType = Activity
 
     convenience init(task: String = "", context: NSManagedObjectContext) {
-        let className = self.dynamicType.className
-        let entity = NSEntityDescription.entityForName(className, inManagedObjectContext: context)!
+        let className = type(of: self).className
+        let entity = NSEntityDescription.entity(forEntityName: className, in: context)!
         
-        self.init(entity: entity, insertIntoManagedObjectContext: context)
+        self.init(entity: entity, insertInto: context)
     }
     
-    static var fetchRequest: NSFetchRequest {
+    static var fetchRequest: NSFetchRequest<AnyObject> {
         let fetchRequest = NSFetchRequest(entityName: className)
         fetchRequest.sortDescriptors = []
         

@@ -41,13 +41,13 @@ class TimeboxControl: UIView {
         for _ in 0 ..< timeboxCount {
             let button = UIButton()
             
-            button.setImage(self.dynamicType.defaultTimeboxImage, forState: .Normal)
-            button.setImage(self.dynamicType.estimatedTimeboxImage, forState: .Selected)
-            button.setImage(self.dynamicType.estimatedTimeboxImage, forState: [.Selected, .Highlighted])
+            button.setImage(type(of: self).defaultTimeboxImage, for: UIControlState())
+            button.setImage(type(of: self).estimatedTimeboxImage, for: .selected)
+            button.setImage(type(of: self).estimatedTimeboxImage, for: [.selected, .highlighted])
             
             button.adjustsImageWhenHighlighted = false
             
-            button.addTarget(self, action: #selector(TimeboxControl.timeboxButtonTapped(_:)), forControlEvents: .TouchDown)
+            button.addTarget(self, action: #selector(TimeboxControl.timeboxButtonTapped(_:)), for: .touchDown)
             
             timeboxButtons += [button]
             
@@ -63,7 +63,7 @@ class TimeboxControl: UIView {
 //        let buttonSize = maxButtonSize
         var buttonFrame = CGRect(x: 0, y: 0, width: buttonSize, height: buttonSize)
         
-        for (index, button) in timeboxButtons.enumerate() {
+        for (index, button) in timeboxButtons.enumerated() {
             buttonFrame.origin.x = CGFloat(index * (buttonSize + timeboxSpacing))
             button.frame = buttonFrame
         }
@@ -71,7 +71,7 @@ class TimeboxControl: UIView {
         updateButtonSelectionStates()
     }
     
-    override func intrinsicContentSize() -> CGSize {
+    override var intrinsicContentSize : CGSize {
         let spacingTotal = timeboxSpacing * (timeboxCount - 1)
         
 //        let buttonSize = (Int(frame.size.width) - spacingTotal) / (timeboxCount)
@@ -86,19 +86,19 @@ class TimeboxControl: UIView {
     
     // MARK: Button Action
     
-    func timeboxButtonTapped(button: UIButton) {
-        estimatedTimeboxes = timeboxButtons.indexOf(button)! + 1
+    func timeboxButtonTapped(_ button: UIButton) {
+        estimatedTimeboxes = timeboxButtons.index(of: button)! + 1
         
         updateButtonSelectionStates()
     }
     
     func updateButtonSelectionStates() {
-        for (index, button) in timeboxButtons.enumerate() {
-            button.selected = index < estimatedTimeboxes
+        for (index, button) in timeboxButtons.enumerated() {
+            button.isSelected = index < estimatedTimeboxes
             let completed = (index < completedTimeboxes)
             if completed {
-                button.setImage(self.dynamicType.completedTimeboxImage, forState: .Selected)
-                button.selected = completed
+                button.setImage(type(of: self).completedTimeboxImage, for: .selected)
+                button.isSelected = completed
                 
             }
         }

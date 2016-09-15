@@ -11,20 +11,20 @@ import UIKit
 
 class ActivityTableViewController: UITableViewController {
     
-    var insertedIndexPaths: [NSIndexPath]!
-    var deletedIndexPaths: [NSIndexPath]!
-    var updatedIndexPaths: [NSIndexPath]!
+    var insertedIndexPaths: [IndexPath]!
+    var deletedIndexPaths: [IndexPath]!
+    var updatedIndexPaths: [IndexPath]!
     
     var snapshot: UIView!
-    var moveIndexPathSource: NSIndexPath!
+    var moveIndexPathSource: IndexPath!
     
     
     // Mark: - Core Data Utilities
     
-    lazy var fetchedResultsController: NSFetchedResultsController = {
+    lazy var fetchedResultsController: NSFetchedResultsController = { () -> <<error type>> in 
         let fetchRequest = Activity.fetchRequest
         // get Activity that are not complete or (reference with no project).
-        fetchRequest.predicate = NSPredicate(format: "(completed != YES) OR ((project == NULL) AND (kind == \(Activity.Kind.Reference.rawValue)))")
+        fetchRequest.predicate = NSPredicate(format: "(completed != YES) OR ((project == NULL) AND (kind == \(Activity.Kind.reference.rawValue)))")
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: Activity.Keys.DisplayOrder, ascending: true)]
 
         let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.sharedContext, sectionNameKeyPath: nil, cacheName: nil)
@@ -57,44 +57,44 @@ class ActivityTableViewController: UITableViewController {
         tableView.addGestureRecognizer(longPress)
     }
     
-    override func viewDidAppear(animated: Bool) {
+    override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         tableView.reloadData()
     }
     
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "ShowActivityDetail" {
             guard let indexPath = tableView.indexPathForSelectedRow else {
                 return
             }
-            let destinationVC = segue.destinationViewController as! ActivityDetailFormViewController
+            let destinationVC = segue.destination as! ActivityDetailFormViewController
             
-            destinationVC.activity = fetchedResultsController.objectAtIndexPath(indexPath) as? Activity
+            destinationVC.activity = fetchedResultsController.object(at: indexPath) as? Activity
         }
     }
     
     
     // MARK: - Actions
     
-    @IBAction func longPressGestureRecognized(sender: AnyObject) {
+    @IBAction func longPressGestureRecognized(_ sender: AnyObject) {
         
         // retrieve longPress details and target indexPath
         let longPress = sender as! UILongPressGestureRecognizer
         let state = longPress.state
         
-        let location = longPress.locationInView(tableView)
-        let indexPath = tableView.indexPathForRowAtPoint(location)
+        let location = longPress.location(in: tableView)
+        let indexPath = tableView.indexPathForRow(at: location)
         
         // generate snapshot of target row
         
         switch state {
-        case .Began:
+        case .began:
             if indexPath == nil { break }
             
 //            activityList = fetchedResultsController.fetchedObjects as! [Activity]
             moveIndexPathSource = indexPath
             
-            let cell = tableView.cellForRowAtIndexPath(moveIndexPathSource)!
+            let cell = tableView.cellForRow(at: moveIndexPathSource)!
             
             snapshot = customSnapshotFromView(cell)
             
@@ -103,8 +103,8 @@ class ActivityTableViewController: UITableViewController {
             snapshot.alpha = 0.0
             tableView.addSubview(snapshot)
             
-            UIView.animateWithDuration(
-                0.25,
+            UIView.animate(
+                withDuration: 0.25,
                 animations: {
                     center.y = location.y
                     self.snapshot.center = center
@@ -113,31 +113,31 @@ class ActivityTableViewController: UITableViewController {
                     cell.alpha = 0.0
                 },
                 completion: { (finished) in
-                    cell.hidden = true
+                    cell.isHidden = true
                 }
             )
-        case .Changed:
+        case .changed:
             var center = snapshot.center
             var activityList = fetchedResultsController.fetchedObjects as! [Activity]
             center.y = location.y
             snapshot.center = center
             
-            guard let indexPath = indexPath where indexPath != moveIndexPathSource else { break }
+            guard let indexPath = indexPath , indexPath != moveIndexPathSource else { break }
             
-            tableView.moveRowAtIndexPath(moveIndexPathSource, toIndexPath: indexPath)
+            tableView.moveRow(at: moveIndexPathSource, to: indexPath)
             
             let src = moveIndexPathSource.row
-            let dst = indexPath.row
+            let dst = (indexPath as NSIndexPath).row
             (activityList[dst], activityList[src]) = (activityList[src], activityList[dst])
             
             moveIndexPathSource = indexPath
         default:
-            let cell = tableView.cellForRowAtIndexPath(moveIndexPathSource)!
-            cell.hidden = false
+            let cell = tableView.cellForRow(at: moveIndexPathSource)!
+            cell.isHidden = false
             cell.alpha = 0.0
             
-            UIView.animateWithDuration(
-                0.25,
+            UIView.animate(
+                withDuration: 0.25,
                 animations: {
                     self.snapshot.center = cell.center
                     self.snapshot.alpha = 0.0
@@ -157,22 +157,22 @@ class ActivityTableViewController: UITableViewController {
 // MARK: - Table View Data Source
 
 extension ActivityTableViewController {
-    override func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let sectionInfo = fetchedResultsController.sections![section]
         return sectionInfo.numberOfObjects
     }
     
-    override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let identifier = "ActivityCell"
-        let cell = tableView.dequeueReusableCellWithIdentifier(identifier)!
+        let cell = tableView.dequeueReusableCell(withIdentifier: identifier)!
         
         configureActivityCell(cell, atIndexPath: indexPath)
         
         return cell
     }
     
-    func configureActivityCell(cell: UITableViewCell, atIndexPath indexPath: NSIndexPath) {
-        let activity = fetchedResultsController.objectAtIndexPath(indexPath) as! Activity
+    func configureActivityCell(_ cell: UITableViewCell, atIndexPath indexPath: IndexPath) {
+        let activity = fetchedResultsController.object(at: indexPath) as! Activity
         let displayOrder = activity.display_order
         let task = activity.task
         let actualTimeboxes = activity.actual_timeboxes
@@ -187,15 +187,15 @@ extension ActivityTableViewController {
 // MARK: - Table View Delegate
 
 extension ActivityTableViewController {
-    override func tableView(tableView: UITableView, canEditRowAtIndexPath indexPath: NSIndexPath) -> Bool {
+    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
     }
     
-    override func tableView(tableView: UITableView, editActionsForRowAtIndexPath indexPath: NSIndexPath) -> [UITableViewRowAction]? {
-        let activity = fetchedResultsController.objectAtIndexPath(indexPath) as! Activity
+    override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+        let activity = fetchedResultsController.object(at: indexPath) as! Activity
 
-        if activity.kind == .Reference {
-            let referenceOption = UITableViewRowAction(style: .Normal, title: "Project") { (action, activityIndexPath) in
+        if activity.kind == .reference {
+            let referenceOption = UITableViewRowAction(style: .normal, title: "Project") { (action, activityIndexPath) in
                 print("Project tapped")
             }
             return [referenceOption]
@@ -205,8 +205,8 @@ extension ActivityTableViewController {
         var completedOption: UITableViewRowAction!
         
         if activity.today {
-            todayOption = UITableViewRowAction(style: .Normal, title: "Postpone") { (action, activityIndexPath) in
-                print("\(activityIndexPath.row): Postpone tapped")
+            todayOption = UITableViewRowAction(style: .normal, title: "Postpone") { (action, activityIndexPath) in
+                print("\((activityIndexPath as NSIndexPath).row): Postpone tapped")
                 activity.today = false
                 activity.today_display_order = 0
                 activity.display_order = 0
@@ -214,8 +214,8 @@ extension ActivityTableViewController {
             }
         }
         else {
-            todayOption = UITableViewRowAction(style: .Normal, title: "Today") { (action, activityIndexPath) in
-                print("\(activityIndexPath.row): Today tapped")
+            todayOption = UITableViewRowAction(style: .normal, title: "Today") { (action, activityIndexPath) in
+                print("\((activityIndexPath as NSIndexPath).row): Today tapped")
                 activity.today = true
                 activity.today_display_order = 0
                 self.saveSharedContext()
@@ -223,16 +223,16 @@ extension ActivityTableViewController {
         }
         
         if activity.completed {
-            completedOption = UITableViewRowAction(style: .Normal, title: "Reactivate") { (action, completedIndexPath) in
-                print("\(completedIndexPath.row): Reactivate tapped")
+            completedOption = UITableViewRowAction(style: .normal, title: "Reactivate") { (action, completedIndexPath) in
+                print("\((completedIndexPath as NSIndexPath).row): Reactivate tapped")
                 activity.completed = false
                 activity.display_order = 0
                 self.saveSharedContext()
             }
         }
         else {
-            completedOption = UITableViewRowAction(style: .Normal, title: "Complete") { (action, completedIndexPath) in
-                print("\(completedIndexPath.row): Complete tapped")
+            completedOption = UITableViewRowAction(style: .normal, title: "Complete") { (action, completedIndexPath) in
+                print("\((completedIndexPath as NSIndexPath).row): Complete tapped")
                 activity.completed = true
                 activity.display_order = 0
                 activity.today = false
@@ -250,41 +250,41 @@ extension ActivityTableViewController {
 
 extension ActivityTableViewController: NSFetchedResultsControllerDelegate {
     
-    func controllerWillChangeContent(controller: NSFetchedResultsController) {
+    func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         
-        insertedIndexPaths = [NSIndexPath]()
-        deletedIndexPaths = [NSIndexPath]()
-        updatedIndexPaths = [NSIndexPath]()
+        insertedIndexPaths = [IndexPath]()
+        deletedIndexPaths = [IndexPath]()
+        updatedIndexPaths = [IndexPath]()
         
         tableView.beginUpdates()
     }
     
-    func controller(controller: NSFetchedResultsController, didChangeObject anObject: AnyObject, atIndexPath indexPath: NSIndexPath?, forChangeType type: NSFetchedResultsChangeType, newIndexPath: NSIndexPath?) {
+    func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
         
         switch type {
-        case .Insert:
+        case .insert:
             insertedIndexPaths.append(newIndexPath!)
-        case .Delete:
+        case .delete:
             deletedIndexPaths.append(indexPath!)
-        case .Move:
+        case .move:
             updatedIndexPaths.append(newIndexPath!)
             updatedIndexPaths.append(indexPath!)
-        case .Update:
+        case .update:
             updatedIndexPaths.append(indexPath!)
         }
     }
     
-    func controllerDidChangeContent(controller: NSFetchedResultsController) {
+    func controllerDidChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         
-        tableView.insertRowsAtIndexPaths(insertedIndexPaths, withRowAnimation: .Fade)
-        tableView.deleteRowsAtIndexPaths(deletedIndexPaths, withRowAnimation: .Fade)
-        tableView.reloadRowsAtIndexPaths(updatedIndexPaths, withRowAnimation: .Automatic)
+        tableView.insertRows(at: insertedIndexPaths, with: .fade)
+        tableView.deleteRows(at: deletedIndexPaths, with: .fade)
+        tableView.reloadRows(at: updatedIndexPaths, with: .automatic)
         
         tableView.endUpdates()
         
         let activityList = fetchedResultsController.fetchedObjects as! [Activity]
         
-        for (i, record) in activityList.enumerate() {
+        for (i, record) in activityList.enumerated() {
             if record.display_order != i {
                 record.display_order = i
             }
@@ -298,9 +298,9 @@ extension ActivityTableViewController: NSFetchedResultsControllerDelegate {
 // MARK: - Helpers
 
 extension ActivityTableViewController {
-    func customSnapshotFromView(inputView: UIView) -> UIView {
+    func customSnapshotFromView(_ inputView: UIView) -> UIView {
         UIGraphicsBeginImageContextWithOptions(inputView.bounds.size, false, 0)
-        inputView.layer.renderInContext(UIGraphicsGetCurrentContext()!)
+        inputView.layer.render(in: UIGraphicsGetCurrentContext()!)
         
         let image = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
@@ -308,7 +308,7 @@ extension ActivityTableViewController {
         let snapshot = UIImageView(image: image)
         snapshot.layer.masksToBounds = false
         snapshot.layer.cornerRadius = 0.0
-        snapshot.layer.shadowOffset = CGSizeMake(-5.0, 0.0)
+        snapshot.layer.shadowOffset = CGSize(width: -5.0, height: 0.0)
         snapshot.layer.shadowRadius = 5.0
         snapshot.layer.shadowOpacity = 0.4
         

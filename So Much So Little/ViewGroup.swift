@@ -19,9 +19,9 @@ class ViewGroup: NSObject {
         super.init()
     }
     
-    func setView(targetView: UIView?) {
+    func setView(_ targetView: UIView?) {
         for view in viewList {
-            view.hidden = targetView != view
+            view.isHidden = targetView != view
         }
     }
 }
