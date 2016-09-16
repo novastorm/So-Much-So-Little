@@ -66,22 +66,22 @@ class Activity: NSManagedObject {
         static let Timeboxes = "timeboxes"
     }
     
-    typealias Attendees = Set<String>
     typealias CompletedType = Bool
     typealias CompletedDateType = Date
     typealias DeferredToType = String
     typealias DeferredToResponseDueDateType = Date
-    typealias DisplayOrderType = Int
+    typealias DisplayOrderType = NSNumber
     typealias DueDateType = Date
-    typealias EstimatedTimeboxesType = Int
+    typealias EstimatedTimeboxesType = NSNumber
 //    typealias Kind = Kind
     typealias ScheduledEndType = Date
     typealias ScheduledStartType = Date
     typealias TaskType = String
     typealias TaskInfoType = String
     typealias TodayType = Bool
-    typealias TodayDisplayOrderType = Int
+    typealias TodayDisplayOrderType = NSNumber
     
+    typealias Attendees = Set<String>
     typealias MilestoneType = Milestone
     typealias ProjectType = Project
     typealias RolesType = Set<Role>
@@ -89,7 +89,7 @@ class Activity: NSManagedObject {
     
     static let defaultTask = "New Activity"
 
-    convenience init(task: String = "", context: NSManagedObjectContext) {
+    convenience init(task: String, context: NSManagedObjectContext) {
         let className = type(of: self).className
         let entity = NSEntityDescription.entity(forEntityName: className, in: context)!
         
@@ -104,8 +104,12 @@ class Activity: NSManagedObject {
         kind = .flexible
     }
     
-    static var fetchRequest: NSFetchRequest<AnyObject> {
-        let fetchRequest = NSFetchRequest(entityName: className)
+    convenience init(context: NSManagedObjectContext) {
+        self.init(task: "", context: context)
+    }
+    
+    static func getAFetchRequest() -> NSFetchRequest<Activity> {
+        let fetchRequest = NSFetchRequest<Activity>(entityName: className)
         fetchRequest.sortDescriptors = []
         
         return fetchRequest

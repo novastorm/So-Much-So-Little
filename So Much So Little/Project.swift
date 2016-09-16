@@ -43,7 +43,7 @@ class Project: NSManagedObject {
     
     static let defaultLabel = "New Project"
     
-    convenience init(label: String = "", context: NSManagedObjectContext) {
+    convenience init(label: String, context: NSManagedObjectContext) {
         let className = type(of: self).className
         let entity = NSEntityDescription.entity(forEntityName: className, in: context)!
         
@@ -57,8 +57,13 @@ class Project: NSManagedObject {
         self.label = label
     }
     
-    static var fetchRequest: NSFetchRequest<AnyObject> {
-        let fetchRequest = NSFetchRequest(entityName: className)
+    
+    convenience init(context: NSManagedObjectContext) {
+        self.init(label: "", context: context)
+    }
+
+    static func getAFetchRequest() -> NSFetchRequest<Project> {
+        let fetchRequest = NSFetchRequest<Project>(entityName: className)
         fetchRequest.sortDescriptors = []
         
         return fetchRequest

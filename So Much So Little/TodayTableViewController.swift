@@ -28,8 +28,8 @@ class TodayTableViewController: UITableViewController {
         return CoreDataStackManager.mainContext
     }
     
-    lazy var fetchedResultsController: NSFetchedResultsController = { () -> <<error type>> in 
-        let fetchRequest = Activity.fetchRequest
+    lazy var fetchedResultsController: NSFetchedResultsController<Activity> = {
+        let fetchRequest = Activity.getAFetchRequest()
         fetchRequest.predicate = NSPredicate(format: "(today == YES) AND (completed != YES) AND (kind != \(Activity.Kind.reference.rawValue))")
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: Activity.Keys.TodayDisplayOrder, ascending: true)]
         
@@ -107,7 +107,7 @@ class TodayTableViewController: UITableViewController {
             )
         case .changed:
             var center = snapshot.center
-            var activityList = fetchedResultsController.fetchedObjects as! [Activity]
+            var activityList = fetchedResultsController.fetchedObjects!
 
             center.y = location.y
             snapshot.center = center
@@ -151,7 +151,7 @@ class TodayTableViewController: UITableViewController {
             }
             let destinationVC = segue.destination as! ActivityDetailFormViewController
             
-            destinationVC.activity = fetchedResultsController.object(at: indexPath) as? Activity
+            destinationVC.activity = fetchedResultsController.object(at: indexPath)
         }
     }
 }
@@ -175,8 +175,8 @@ extension TodayTableViewController {
     }
     
     func configureTodayCell(_ cell: TodayTableViewCell, atIndexPath indexPath: IndexPath) {
-        let activity = fetchedResultsController.object(at: indexPath) as! Activity
-        let todayDisplayOrder = activity.today_display_order ?? 0
+        let activity = fetchedResultsController.object(at: indexPath)
+        let todayDisplayOrder = activity.today_display_order 
         let task = activity.task
         let actualTimeboxes = activity.actual_timeboxes
         let estimatedTimeboxes = activity.estimated_timeboxes
@@ -195,7 +195,7 @@ extension TodayTableViewController {
     }
     
     override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-        let activity = fetchedResultsController.object(at: indexPath) as! Activity
+        let activity = fetchedResultsController.object(at: indexPath)
         
         var todayOption: UITableViewRowAction!
         var completedOption: UITableViewRowAction!
@@ -278,11 +278,11 @@ extension TodayTableViewController: NSFetchedResultsControllerDelegate {
         
         tableView.endUpdates()
         
-        let activityList = fetchedResultsController.fetchedObjects as! [Activity]
+        let activityList = fetchedResultsController.fetchedObjects!
         
         for (i, record) in activityList.enumerated() {
-            if record.today_display_order != i {
-                record.today_display_order = i
+            if record.today_display_order != NSNumber(value: i) {
+                record.today_display_order = NSNumber(value: i)
             }
         }
         

@@ -23,7 +23,7 @@ open class TimeboxControlCell: Cell<Int>, CellType {
         
         super.setup()
         #if swift(>=3.0)
-        timeboxControl.addObserver(self, forKeyPath: #keyPath(TimeboxControl.estimatedTimeboxes), options: .New, context: &TimeboxControlCellContext)
+        timeboxControl.addObserver(self, forKeyPath: #keyPath(TimeboxControl.estimatedTimeboxes), options: .new, context: &TimeboxControlCellContext)
         #elseif swift(>=2.2)
         timeboxControl.addObserver(self, forKeyPath: "estimatedTimeboxes", options: .new, context: &TimeboxControlCellContext)
         #endif
@@ -57,7 +57,7 @@ open class TimeboxControlCell: Cell<Int>, CellType {
     }
 }
 
-public final class TimeboxControlRow: Row<Int, TimeboxControlCell>, RowType {
+public final class TimeboxControlRow: Row<TimeboxControlCell>, RowType {
     required public init(tag: String?) {
         super.init(tag: tag)
         cellProvider = CellProvider<TimeboxControlCell>(nibName: "TimeboxControlCell")

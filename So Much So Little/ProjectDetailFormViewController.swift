@@ -50,8 +50,8 @@ class ProjectDetailFormViewController: FormViewController {
         CoreDataStackManager.saveTemporaryContext(temporaryContext)
     }
     
-    lazy var activityFRC: NSFetchedResultsController = { () -> <<error type>> in 
-        let fetchRequest = Activity.fetchRequest
+    lazy var activityFRC: NSFetchedResultsController<Activity> = {
+        let fetchRequest = Activity.getAFetchRequest()
         fetchRequest.predicate = NSPredicate(format: "project == %@", self.project)
         fetchRequest.sortDescriptors = [
             NSSortDescriptor(key: Activity.Keys.Completed, ascending: true)
@@ -123,7 +123,7 @@ class ProjectDetailFormViewController: FormViewController {
             }.onCellSelection { (cell, row) in
                 print("Activity onCellSelection")
                 try! self.activityFRC.performFetch()
-                row.options = self.activityFRC.fetchedObjects as! [Activity]
+                row.options = self.activityFRC.fetchedObjects!
             }.onChange { (row) in
                 print("Activity onChange")
             }.onPresent { (from, to) in

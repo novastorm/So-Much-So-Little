@@ -39,8 +39,8 @@ class CompletedActivityTableViewController: UITableViewController {
     
     // Mark: - Core Data Utilities
     
-    lazy var frcActivity: NSFetchedResultsController = { () -> <<error type>> in 
-        let fetchRequest = Activity.fetchRequest
+    lazy var frcActivity: NSFetchedResultsController<Activity> = {
+        let fetchRequest = Activity.getAFetchRequest()
         fetchRequest.predicate = NSPredicate(format: "(completed == YES) AND (kind != \(Activity.Kind.reference.rawValue))")
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: Activity.Keys.CompletedDate, ascending: true)]
         
@@ -49,8 +49,8 @@ class CompletedActivityTableViewController: UITableViewController {
         return fetchedResultsController
     }()
     
-    lazy var frcProject: NSFetchedResultsController = { () -> <<error type>> in 
-        let fetchRequest = Project.fetchRequest
+    lazy var frcProject: NSFetchedResultsController<Project> = {
+        let fetchRequest = Project.getAFetchRequest()
         fetchRequest.predicate = NSPredicate(format: "completed == YES")
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: Project.Keys.CompletedDate, ascending: true)]
         
@@ -103,7 +103,7 @@ class CompletedActivityTableViewController: UITableViewController {
             }
             let destinationVC = segue.destination as! ActivityDetailFormViewController
             
-            destinationVC.activity = frcActivity.object(at: indexPath) as? Activity
+            destinationVC.activity = frcActivity.object(at: indexPath)
         case  "ShowCompletedProjectDetail" :
             guard let indexPath = tableView.indexPathForSelectedRow else {
                 return
@@ -111,7 +111,7 @@ class CompletedActivityTableViewController: UITableViewController {
             let destinationVC = segue.destination as! ProjectDetailFormViewController
             let projectIndexPath = IndexPath(row: (indexPath as NSIndexPath).row, section: 0)
             
-            destinationVC.project = frcProject.object(at: projectIndexPath) as? Project
+            destinationVC.project = frcProject.object(at: projectIndexPath)
         default:
             break
         }
@@ -167,7 +167,7 @@ extension CompletedActivityTableViewController {
     }
     
     func configureActivityCell(_ cell: UITableViewCell, atIndexPath indexPath: IndexPath) {
-        let activity = frcActivity.object(at: indexPath) as! Activity
+        let activity = frcActivity.object(at: indexPath) 
         let task = activity.task
         let actualTimeboxes = activity.actual_timeboxes
         let estimatedTimeboxes = activity.estimated_timeboxes
@@ -178,7 +178,7 @@ extension CompletedActivityTableViewController {
     
     func configureProjectCell(_ cell: UITableViewCell, atIndexPath indexPath: IndexPath) {
         let projectIndexPath = IndexPath(row: (indexPath as NSIndexPath).row, section: 0)
-        let project = frcProject.object(at: projectIndexPath) as! Project
+        let project = frcProject.object(at: projectIndexPath) 
         let label = project.label
         let displayOrder = project.display_order
         
@@ -199,7 +199,7 @@ extension CompletedActivityTableViewController {
 //    }
 //    
     override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-        let activity = frcActivity.object(at: indexPath) as! Activity
+        let activity = frcActivity.object(at: indexPath) 
         
         var todayOption: UITableViewRowAction!
         var completedOption: UITableViewRowAction!

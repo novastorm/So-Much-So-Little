@@ -17,8 +17,8 @@ class ProjectTableViewController: UITableViewController {
     
     // MARK: - Core Data Utilities
     
-    lazy var fetchedResultsController: NSFetchedResultsController = { () -> <<error type>> in 
-        let fetchRequest = Project.fetchRequest
+    lazy var fetchedResultsController: NSFetchedResultsController<Project> = {
+        let fetchRequest = Project.getAFetchRequest()
         fetchRequest.predicate = NSPredicate(format: "completed != YES")
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: Project.Keys.DisplayOrder, ascending: true)]
         
@@ -60,7 +60,7 @@ class ProjectTableViewController: UITableViewController {
             }
             let destinationVC = segue.destination as! ProjectDetailFormViewController
             
-            destinationVC.project = fetchedResultsController.object(at: indexPath) as? Project
+            destinationVC.project = fetchedResultsController.object(at: indexPath)
         }
     }
 }
@@ -84,7 +84,7 @@ extension ProjectTableViewController {
     }
     
     func configureProjectCell(_ cell: UITableViewCell, atIndexPath indexPath: IndexPath) {
-        let project = fetchedResultsController.object(at: indexPath) as! Project
+        let project = fetchedResultsController.object(at: indexPath)
         let label = project.label
         let displayOrder = project.display_order
         
@@ -131,11 +131,11 @@ extension ProjectTableViewController: NSFetchedResultsControllerDelegate {
         
         tableView.endUpdates()
         
-        let projectList = fetchedResultsController.fetchedObjects as! [Project]
+        let projectList = fetchedResultsController.fetchedObjects!
         
         for (i, record) in projectList.enumerated() {
-            if record.display_order != i {
-                record.display_order = i
+            if record.display_order != NSNumber(value: i) {
+                record.display_order = NSNumber(value: i)
             }
         }
         
