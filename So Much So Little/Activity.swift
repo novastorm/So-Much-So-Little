@@ -108,12 +108,12 @@ class Activity: NSManagedObject {
         self.init(task: "", context: context)
     }
     
-    static func getAFetchRequest() -> NSFetchRequest<Activity> {
-        let fetchRequest = NSFetchRequest<Activity>(entityName: className)
-        fetchRequest.sortDescriptors = []
-        
-        return fetchRequest
-    }
+//    static func getAFetchRequest() -> NSFetchRequest<Activity> {
+//        let fetchRequest = NSFetchRequest<Activity>(entityName: className)
+//        fetchRequest.sortDescriptors = []
+//
+//        return fetchRequest
+//    }
     
     var actual_timeboxes: Int {
         return timeboxes?.count ?? 0

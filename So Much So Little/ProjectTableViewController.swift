@@ -18,7 +18,7 @@ class ProjectTableViewController: UITableViewController {
     // MARK: - Core Data Utilities
     
     lazy var fetchedResultsController: NSFetchedResultsController<Project> = {
-        let fetchRequest = Project.getAFetchRequest()
+        let fetchRequest = Project.fetchRequest() as! NSFetchRequest<Project>
         fetchRequest.predicate = NSPredicate(format: "completed != YES")
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: Project.Keys.DisplayOrder, ascending: true)]
         

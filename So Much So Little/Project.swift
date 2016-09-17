@@ -62,10 +62,10 @@ class Project: NSManagedObject {
         self.init(label: "", context: context)
     }
 
-    static func getAFetchRequest() -> NSFetchRequest<Project> {
-        let fetchRequest = NSFetchRequest<Project>(entityName: className)
-        fetchRequest.sortDescriptors = []
-        
-        return fetchRequest
-    }
+//    static func getAFetchRequest() -> NSFetchRequest<Project> {
+//        let fetchRequest = NSFetchRequest<Project>(entityName: className)
+//        fetchRequest.sortDescriptors = []
+//
+//        return fetchRequest
+//    }
 }

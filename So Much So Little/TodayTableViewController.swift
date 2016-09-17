@@ -29,7 +29,7 @@ class TodayTableViewController: UITableViewController {
     }
     
     lazy var fetchedResultsController: NSFetchedResultsController<Activity> = {
-        let fetchRequest = Activity.getAFetchRequest()
+        let fetchRequest = Activity.fetchRequest() as! NSFetchRequest<Activity>
         fetchRequest.predicate = NSPredicate(format: "(today == YES) AND (completed != YES) AND (kind != \(Activity.Kind.reference.rawValue))")
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: Activity.Keys.TodayDisplayOrder, ascending: true)]
         

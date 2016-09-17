@@ -51,12 +51,12 @@ class ProjectDetailFormViewController: FormViewController {
     }
     
     lazy var activityFRC: NSFetchedResultsController<Activity> = {
-        let fetchRequest = Activity.getAFetchRequest()
+        let fetchRequest = Activity.fetchRequest() as! NSFetchRequest<Activity>
         fetchRequest.predicate = NSPredicate(format: "project == %@", self.project)
         fetchRequest.sortDescriptors = [
             NSSortDescriptor(key: Activity.Keys.Completed, ascending: true)
         ]
-        let frc = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.sharedContext, sectionNameKeyPath: nil, cacheName: nil)
+        let frc = NSFetchedResultsController<Activity>(fetchRequest: fetchRequest, managedObjectContext: self.sharedContext, sectionNameKeyPath: nil, cacheName: nil)
         
         return frc
     }()

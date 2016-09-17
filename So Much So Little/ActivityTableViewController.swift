@@ -22,7 +22,7 @@ class ActivityTableViewController: UITableViewController {
     // Mark: - Core Data Utilities
     
     lazy var fetchedResultsController: NSFetchedResultsController<Activity> = {
-        let fetchRequest = Activity.getAFetchRequest()
+        let fetchRequest = Activity.fetchRequest() as! NSFetchRequest<Activity>
         // get Activity that are not complete or (reference with no project).
         fetchRequest.predicate = NSPredicate(format: "(completed != YES) OR ((project == NULL) AND (kind == \(Activity.Kind.reference.rawValue)))")
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: Activity.Keys.DisplayOrder, ascending: true)]

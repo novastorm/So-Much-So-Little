@@ -37,10 +37,10 @@ class Timebox: NSManagedObject {
         self.init(entity: entity, insertInto: context)
     }
     
-    static func getAFetchRequest() -> NSFetchRequest<Timebox> {
-        let fetchRequest = NSFetchRequest<Timebox>(entityName: className)
-        fetchRequest.sortDescriptors = []
-        
-        return fetchRequest
-    }
+//    static func getAFetchRequest() -> NSFetchRequest<Timebox> {
+//        let fetchRequest = NSFetchRequest<Timebox>(entityName: className)
+//        fetchRequest.sortDescriptors = []
+//
+//        return fetchRequest
+//    }
 }

@@ -40,7 +40,7 @@ class CompletedActivityTableViewController: UITableViewController {
     // Mark: - Core Data Utilities
     
     lazy var frcActivity: NSFetchedResultsController<Activity> = {
-        let fetchRequest = Activity.getAFetchRequest()
+        let fetchRequest = Activity.fetchRequest() as! NSFetchRequest<Activity>
         fetchRequest.predicate = NSPredicate(format: "(completed == YES) AND (kind != \(Activity.Kind.reference.rawValue))")
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: Activity.Keys.CompletedDate, ascending: true)]
         
@@ -50,7 +50,7 @@ class CompletedActivityTableViewController: UITableViewController {
     }()
     
     lazy var frcProject: NSFetchedResultsController<Project> = {
-        let fetchRequest = Project.getAFetchRequest()
+        let fetchRequest = Project.fetchRequest() as! NSFetchRequest<Project>
         fetchRequest.predicate = NSPredicate(format: "completed == YES")
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: Project.Keys.CompletedDate, ascending: true)]
         

@@ -61,7 +61,7 @@ class ActivityDetailFormViewController: FormViewController {
     }
     
     lazy var projectFRC: NSFetchedResultsController<Project> = {
-        let fetchRequest = Project.getAFetchRequest()
+        let fetchRequest = Project.fetchRequest() as! NSFetchRequest<Project>
         let frc = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.sharedContext, sectionNameKeyPath: nil, cacheName: nil)
         
         return frc
