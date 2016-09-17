@@ -128,7 +128,6 @@ extension CompletedActivityTableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print("Completed Section: [\(section)]")
         var count: Int
 
         switch ProjectSections(rawValue: section)! {
