@@ -1,68 +1,44 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model userDefinedModelVersionIdentifier="" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="10174" systemVersion="15G31" minimumToolsVersion="Automatic">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="11232" systemVersion="15G1004" minimumToolsVersion="Xcode 7.3" sourceLanguage="Objective-C" userDefinedModelVersionIdentifier="">
     <entity name="Activity" representedClassName=".Activity" syncable="YES">
-        <attribute name="completed" attributeType="Boolean" defaultValueString="NO" indexed="YES" syncable="YES"/>
-        <attribute name="completed_date" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="completed" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="NO" indexed="YES" syncable="YES"/>
+        <attribute name="completed_date" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="deferred_to" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="deferred_to_response_due_date" optional="YES" attributeType="Date" syncable="YES"/>
-        <attribute name="display_order" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <attribute name="due_date" optional="YES" attributeType="Date" syncable="YES"/>
-        <attribute name="estimated_timeboxes" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <attribute name="kind" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <attribute name="scheduled_end" optional="YES" attributeType="Date" syncable="YES"/>
-        <attribute name="scheduled_start" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="deferred_to_response_due_date" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="display_order" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="due_date" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="estimated_timeboxes" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="kind" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="scheduled_end" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="scheduled_start" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="task" attributeType="String" indexed="YES" syncable="YES"/>
         <attribute name="task_info" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="today" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
-        <attribute name="today_display_order" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <relationship name="attendees" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Person" inverseName="activities" inverseEntity="Person" syncable="YES"/>
-        <relationship name="milestone" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Milestone" inverseName="activities" inverseEntity="Milestone" syncable="YES"/>
+        <attribute name="today" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="today_display_order" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
         <relationship name="project" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Project" inverseName="activities" inverseEntity="Project" syncable="YES"/>
-        <relationship name="roles" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Role" inverseName="activities" inverseEntity="Role" syncable="YES"/>
         <relationship name="timeboxes" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="Timebox" inverseName="activity" inverseEntity="Timebox" syncable="YES"/>
     </entity>
-    <entity name="Milestone" representedClassName=".Milestone" syncable="YES">
-        <attribute name="label" attributeType="String" indexed="YES" syncable="YES"/>
-        <relationship name="activities" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Activity" inverseName="milestone" inverseEntity="Activity" syncable="YES"/>
-        <relationship name="project" maxCount="1" deletionRule="Nullify" destinationEntity="Project" inverseName="milestones" inverseEntity="Project" syncable="YES"/>
-    </entity>
-    <entity name="Person" representedClassName=".Person" syncable="YES">
-        <attribute name="email" attributeType="String" syncable="YES"/>
-        <relationship name="activities" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Activity" inverseName="attendees" inverseEntity="Activity" syncable="YES"/>
-    </entity>
     <entity name="Project" representedClassName=".Project" syncable="YES">
-        <attribute name="active" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
-        <attribute name="completed" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
-        <attribute name="completed_date" optional="YES" attributeType="Date" syncable="YES"/>
-        <attribute name="display_order" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <attribute name="due_date" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="active" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="completed" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="completed_date" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="display_order" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="due_date" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="info" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="label" attributeType="String" indexed="YES" syncable="YES"/>
         <relationship name="activities" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Activity" inverseName="project" inverseEntity="Activity" syncable="YES"/>
-        <relationship name="milestones" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Milestone" inverseName="project" inverseEntity="Milestone" syncable="YES"/>
-        <relationship name="parent" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Project" inverseName="subprojects" inverseEntity="Project" syncable="YES"/>
-        <relationship name="roles" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Role" inverseName="projects" inverseEntity="Role" syncable="YES"/>
-        <relationship name="subprojects" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Project" inverseName="parent" inverseEntity="Project" syncable="YES"/>
-    </entity>
-    <entity name="Role" representedClassName=".Role" syncable="YES">
-        <attribute name="label" attributeType="String" indexed="YES" syncable="YES"/>
-        <relationship name="activities" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Activity" inverseName="roles" inverseEntity="Activity" syncable="YES"/>
-        <relationship name="projects" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Project" inverseName="roles" inverseEntity="Project" syncable="YES"/>
     </entity>
     <entity name="Timebox" representedClassName=".Timebox" syncable="YES">
-        <attribute name="completed" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
-        <attribute name="external_interruptions" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <attribute name="internal_interruptions" attributeType="Integer 32" defaultValueString="0" syncable="YES"/>
-        <attribute name="start" attributeType="Date" syncable="YES"/>
-        <attribute name="stop" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="completed" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="external_interruptions" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="internal_interruptions" attributeType="Integer 32" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="start" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="stop" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <relationship name="activity" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Activity" inverseName="timeboxes" inverseEntity="Activity" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Activity" positionX="-63" positionY="-18" width="128" height="330"/>
-        <element name="Milestone" positionX="-27" positionY="117" width="128" height="90"/>
-        <element name="Person" positionX="-36" positionY="126" width="128" height="75"/>
-        <element name="Project" positionX="-54" positionY="-9" width="128" height="225"/>
-        <element name="Role" positionX="-36" positionY="72" width="128" height="90"/>
+        <element name="Activity" positionX="-567" positionY="-72" width="128" height="283"/>
+        <element name="Project" positionX="-270" positionY="-189" width="128" height="163"/>
         <element name="Timebox" positionX="-18" positionY="135" width="128" height="135"/>
     </elements>
 </model>

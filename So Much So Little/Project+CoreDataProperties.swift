@@ -23,9 +23,5 @@ extension Project {
     @NSManaged var active: Bool
     
     @NSManaged var activities: Set<Activity>?
-    @NSManaged var milestones: Set<Milestone>?
-    @NSManaged var parent: Project?
-    @NSManaged var subprojects: Set<Project>?
-    @NSManaged var roles: Set<Role>?
 
 }

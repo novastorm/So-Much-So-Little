@@ -21,10 +21,6 @@ class Project: NSManagedObject {
         static let Active = "active"
 
         static let Activities = "activities"
-        static let Milestones = "milestones"
-        static let Parent = "parent"
-        static let Roles = "roles"
-        static let Subprojects = "subprojects"
     }
     
     typealias CompletedType = Bool
@@ -36,10 +32,6 @@ class Project: NSManagedObject {
     typealias ActiveType = Bool
     
     typealias ActivitiesType = Set<Activity>
-    typealias MilestonesType = Set<Milestone>
-    typealias ParentType = Project
-    typealias Roles = Set<Role>
-    typealias SubprojectsType = Set<Project>
     
     static let defaultLabel = "New Project"
     
@@ -62,10 +54,4 @@ class Project: NSManagedObject {
         self.init(label: "", context: context)
     }
 
-//    static func getAFetchRequest() -> NSFetchRequest<Project> {
-//        let fetchRequest = NSFetchRequest<Project>(entityName: className)
-//        fetchRequest.sortDescriptors = []
-//
-//        return fetchRequest
-//    }
 }

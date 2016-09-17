@@ -82,9 +82,7 @@ class Activity: NSManagedObject {
     typealias TodayDisplayOrderType = NSNumber
     
     typealias Attendees = Set<String>
-    typealias MilestoneType = Milestone
     typealias ProjectType = Project
-    typealias RolesType = Set<Role>
     typealias TimeBoxesType = Set<Timebox>
     
     static let defaultTask = "New Activity"
@@ -107,13 +105,6 @@ class Activity: NSManagedObject {
     convenience init(context: NSManagedObjectContext) {
         self.init(task: "", context: context)
     }
-    
-//    static func getAFetchRequest() -> NSFetchRequest<Activity> {
-//        let fetchRequest = NSFetchRequest<Activity>(entityName: className)
-//        fetchRequest.sortDescriptors = []
-//
-//        return fetchRequest
-//    }
     
     var actual_timeboxes: Int {
         return timeboxes?.count ?? 0

@@ -33,10 +33,7 @@ class ActivityDetailFormViewController: FormViewController {
         Today,
 //        TodayDisplayOrder,
 
-        Attendees,
-        Milestone,
         Project,
-        Role,
         Timeboxes
     }
     
@@ -174,16 +171,6 @@ class ActivityDetailFormViewController: FormViewController {
                     temporaryContext.performAndWait {
                         if let scheduledEnd = self.activity.scheduled_end {
                             print(scheduledEnd)
-                        }
-                    }
-                }
-    
-                <<< LabelRow(FormInput.Attendees.rawValue) { (row) in
-                    row.hidden = Condition.predicate(NSPredicate(format: String(format: "$%@ != '%@'", FormInput.Kind.rawValue, String(describing: Activity.Kind.scheduled))))
-                    row.title = "Attendees"
-                    temporaryContext.performAndWait {
-                        if let attendeesList = self.activity.attendees {
-                            print(attendeesList)
                         }
                     }
                 }

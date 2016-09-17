@@ -17,10 +17,6 @@
 		3E0977941D18CEA000A7F2C4 /* ActivityTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0977931D18CEA000A7F2C4 /* ActivityTableViewController.swift */; };
 		3E0977961D18CEE200A7F2C4 /* ProjectTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0977951D18CEE200A7F2C4 /* ProjectTableViewController.swift */; };
 		3E0977981D18F08A00A7F2C4 /* Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0977971D18F08A00A7F2C4 /* Project.swift */; };
-		3E0977A11D18FA7B00A7F2C4 /* Role+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0977991D18FA7A00A7F2C4 /* Role+CoreDataProperties.swift */; };
-		3E0977A21D18FA7B00A7F2C4 /* Role.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E09779A1D18FA7B00A7F2C4 /* Role.swift */; };
-		3E0977A31D18FA7B00A7F2C4 /* Milestone+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E09779B1D18FA7B00A7F2C4 /* Milestone+CoreDataProperties.swift */; };
-		3E0977A41D18FA7B00A7F2C4 /* Milestone.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E09779C1D18FA7B00A7F2C4 /* Milestone.swift */; };
 		3E0977A51D18FA7B00A7F2C4 /* Activity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E09779D1D18FA7B00A7F2C4 /* Activity+CoreDataProperties.swift */; };
 		3E0977A61D18FA7B00A7F2C4 /* Timebox+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E09779E1D18FA7B00A7F2C4 /* Timebox+CoreDataProperties.swift */; };
 		3E0977A71D18FA7B00A7F2C4 /* Timebox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E09779F1D18FA7B00A7F2C4 /* Timebox.swift */; };
@@ -28,21 +24,20 @@
 		3E0977AA1D1A3D1A00A7F2C4 /* CoreDataStackManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0977A91D1A3D1A00A7F2C4 /* CoreDataStackManager.swift */; };
 		3E31123A1D5D970100E691AC /* ProjectDetailFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3112391D5D970100E691AC /* ProjectDetailFormViewController.swift */; };
 		3E3112B71D74E72E00E691AC /* ProjectSelectorRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3112B61D74E72E00E691AC /* ProjectSelectorRow.swift */; };
+		3E41D0F51D8DC3B2002EAD8A /* So_Much_So_Little.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3E41D0F31D8DC3B2002EAD8A /* So_Much_So_Little.xcdatamodeld */; };
 		3E7AB57F1D31839B002F6C2D /* ActivityDetailFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7AB57E1D31839B002F6C2D /* ActivityDetailFormViewController.swift */; };
 		3E7AB5831D318A45002F6C2D /* Eureka.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3ED6DF591D2B03070064E440 /* Eureka.framework */; };
 		3E7AB5841D318A45002F6C2D /* Eureka.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3ED6DF591D2B03070064E440 /* Eureka.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3E7AB5881D333343002F6C2D /* TimeboxControlRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7AB5871D333343002F6C2D /* TimeboxControlRow.swift */; };
 		3E7AB58C1D333B25002F6C2D /* TimeboxControlCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E7AB58B1D333B25002F6C2D /* TimeboxControlCell.xib */; };
 		3E7D99C31D21C1BD008FA84B /* TimeboxControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7D99C21D21C1BD008FA84B /* TimeboxControl.swift */; };
-		3EB4DE041D504FAE005CD1FD /* Person+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB4DE021D504FAE005CD1FD /* Person+CoreDataProperties.swift */; };
-		3EB4DE051D504FAE005CD1FD /* Person.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EB4DE031D504FAE005CD1FD /* Person.swift */; };
 		3ED6DF521D2731F10064E440 /* DateTextFieldDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED6DF511D2731F10064E440 /* DateTextFieldDelegate.swift */; };
 		3ED6DF541D2AEF350064E440 /* ButtonGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED6DF531D2AEF350064E440 /* ButtonGroup.swift */; };
 		3ED6DF601D2B0D050064E440 /* ViewGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED6DF5F1D2B0D050064E440 /* ViewGroup.swift */; };
 		3EE7411A1D1090DC00064BF6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EE741191D1090DC00064BF6 /* AppDelegate.swift */; };
 		3EE7411C1D1090DC00064BF6 /* TodayTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EE7411B1D1090DC00064BF6 /* TodayTableViewController.swift */; };
 		3EE7411F1D1090DC00064BF6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3EE7411D1D1090DC00064BF6 /* Main.storyboard */; };
-		3EE741221D1090DC00064BF6 /* So_Much_So_Little.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3EE741201D1090DC00064BF6 /* So_Much_So_Little.xcdatamodeld */; };
+		3EE741221D1090DC00064BF6 /* (null) in Sources */ = {isa = PBXBuildFile; };
 		3EE741241D1090DC00064BF6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3EE741231D1090DC00064BF6 /* Assets.xcassets */; };
 		3EE741271D1090DC00064BF6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3EE741251D1090DC00064BF6 /* LaunchScreen.storyboard */; };
 		3EE741321D1090DC00064BF6 /* So_Much_So_LittleActivityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EE741311D1090DC00064BF6 /* So_Much_So_LittleActivityTests.swift */; };
@@ -91,10 +86,6 @@
 		3E0977931D18CEA000A7F2C4 /* ActivityTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityTableViewController.swift; sourceTree = "<group>"; };
 		3E0977951D18CEE200A7F2C4 /* ProjectTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectTableViewController.swift; sourceTree = "<group>"; };
 		3E0977971D18F08A00A7F2C4 /* Project.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Project.swift; sourceTree = "<group>"; };
-		3E0977991D18FA7A00A7F2C4 /* Role+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Role+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		3E09779A1D18FA7B00A7F2C4 /* Role.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Role.swift; sourceTree = "<group>"; };
-		3E09779B1D18FA7B00A7F2C4 /* Milestone+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Milestone+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		3E09779C1D18FA7B00A7F2C4 /* Milestone.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Milestone.swift; sourceTree = "<group>"; };
 		3E09779D1D18FA7B00A7F2C4 /* Activity+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Activity+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		3E09779E1D18FA7B00A7F2C4 /* Timebox+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Timebox+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		3E09779F1D18FA7B00A7F2C4 /* Timebox.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Timebox.swift; sourceTree = "<group>"; };
@@ -102,13 +93,12 @@
 		3E0977A91D1A3D1A00A7F2C4 /* CoreDataStackManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStackManager.swift; sourceTree = "<group>"; };
 		3E3112391D5D970100E691AC /* ProjectDetailFormViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectDetailFormViewController.swift; sourceTree = "<group>"; };
 		3E3112B61D74E72E00E691AC /* ProjectSelectorRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectSelectorRow.swift; sourceTree = "<group>"; };
+		3E41D0F41D8DC3B2002EAD8A /* So_Much_So_Little.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = So_Much_So_Little.xcdatamodel; sourceTree = "<group>"; };
 		3E7AB57E1D31839B002F6C2D /* ActivityDetailFormViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityDetailFormViewController.swift; sourceTree = "<group>"; };
 		3E7AB5871D333343002F6C2D /* TimeboxControlRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeboxControlRow.swift; sourceTree = "<group>"; };
 		3E7AB58B1D333B25002F6C2D /* TimeboxControlCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TimeboxControlCell.xib; sourceTree = "<group>"; };
 		3E7D99C21D21C1BD008FA84B /* TimeboxControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeboxControl.swift; sourceTree = "<group>"; };
 		3E7D99C41D21DE70008FA84B /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		3EB4DE021D504FAE005CD1FD /* Person+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Person+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		3EB4DE031D504FAE005CD1FD /* Person.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Person.swift; sourceTree = "<group>"; };
 		3ED6DF511D2731F10064E440 /* DateTextFieldDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateTextFieldDelegate.swift; sourceTree = "<group>"; };
 		3ED6DF531D2AEF350064E440 /* ButtonGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonGroup.swift; sourceTree = "<group>"; };
 		3ED6DF551D2B00620064E440 /* Cartfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Cartfile; sourceTree = "<group>"; };
@@ -119,7 +109,6 @@
 		3EE741191D1090DC00064BF6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		3EE7411B1D1090DC00064BF6 /* TodayTableViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TodayTableViewController.swift; sourceTree = "<group>"; };
 		3EE7411E1D1090DC00064BF6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
-		3EE741211D1090DC00064BF6 /* So_Much_So_Little.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = So_Much_So_Little.xcdatamodel; sourceTree = "<group>"; };
 		3EE741231D1090DC00064BF6 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		3EE741261D1090DC00064BF6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3EE741281D1090DC00064BF6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -167,12 +156,6 @@
 		3E09777B1D11E15400A7F2C4 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				3EB4DE021D504FAE005CD1FD /* Person+CoreDataProperties.swift */,
-				3EB4DE031D504FAE005CD1FD /* Person.swift */,
-				3E0977991D18FA7A00A7F2C4 /* Role+CoreDataProperties.swift */,
-				3E09779A1D18FA7B00A7F2C4 /* Role.swift */,
-				3E09779B1D18FA7B00A7F2C4 /* Milestone+CoreDataProperties.swift */,
-				3E09779C1D18FA7B00A7F2C4 /* Milestone.swift */,
 				3E09779D1D18FA7B00A7F2C4 /* Activity+CoreDataProperties.swift */,
 				3E0977841D13216000A7F2C4 /* Activity.swift */,
 				3E09779E1D18FA7B00A7F2C4 /* Timebox+CoreDataProperties.swift */,
@@ -264,8 +247,8 @@
 				3EE7411B1D1090DC00064BF6 /* TodayTableViewController.swift */,
 				3EE741231D1090DC00064BF6 /* Assets.xcassets */,
 				3EE741251D1090DC00064BF6 /* LaunchScreen.storyboard */,
+				3E41D0F31D8DC3B2002EAD8A /* So_Much_So_Little.xcdatamodeld */,
 				3EE741281D1090DC00064BF6 /* Info.plist */,
-				3EE741201D1090DC00064BF6 /* So_Much_So_Little.xcdatamodeld */,
 				3E0977801D12015800A7F2C4 /* Utilities.swift */,
 				3E0977821D12064100A7F2C4 /* GCDUtilities.swift */,
 				3ED6DF5C1D2B03530064E440 /* Resources */,
@@ -448,7 +431,6 @@
 			files = (
 				3ED6DF521D2731F10064E440 /* DateTextFieldDelegate.swift in Sources */,
 				3E7D99C31D21C1BD008FA84B /* TimeboxControl.swift in Sources */,
-				3E0977A41D18FA7B00A7F2C4 /* Milestone.swift in Sources */,
 				3E3112B71D74E72E00E691AC /* ProjectSelectorRow.swift in Sources */,
 				3ED6DF601D2B0D050064E440 /* ViewGroup.swift in Sources */,
 				3EE7411C1D1090DC00064BF6 /* TodayTableViewController.swift in Sources */,
@@ -458,23 +440,19 @@
 				3E7AB57F1D31839B002F6C2D /* ActivityDetailFormViewController.swift in Sources */,
 				3E0977851D13216000A7F2C4 /* Activity.swift in Sources */,
 				3E0977AA1D1A3D1A00A7F2C4 /* CoreDataStackManager.swift in Sources */,
-				3EB4DE051D504FAE005CD1FD /* Person.swift in Sources */,
 				3EE7411A1D1090DC00064BF6 /* AppDelegate.swift in Sources */,
 				3E0977981D18F08A00A7F2C4 /* Project.swift in Sources */,
 				3E0977A81D18FA7B00A7F2C4 /* Project+CoreDataProperties.swift in Sources */,
-				3E0977A11D18FA7B00A7F2C4 /* Role+CoreDataProperties.swift in Sources */,
-				3E0977A21D18FA7B00A7F2C4 /* Role.swift in Sources */,
 				3E0977961D18CEE200A7F2C4 /* ProjectTableViewController.swift in Sources */,
 				3E7AB5881D333343002F6C2D /* TimeboxControlRow.swift in Sources */,
-				3EE741221D1090DC00064BF6 /* So_Much_So_Little.xcdatamodeld in Sources */,
+				3EE741221D1090DC00064BF6 /* (null) in Sources */,
 				3E31123A1D5D970100E691AC /* ProjectDetailFormViewController.swift in Sources */,
-				3E0977A31D18FA7B00A7F2C4 /* Milestone+CoreDataProperties.swift in Sources */,
 				3E09778E1D18CD7400A7F2C4 /* CalendarViewController.swift in Sources */,
 				3E0977941D18CEA000A7F2C4 /* ActivityTableViewController.swift in Sources */,
+				3E41D0F51D8DC3B2002EAD8A /* So_Much_So_Little.xcdatamodeld in Sources */,
 				3E0977811D12015800A7F2C4 /* Utilities.swift in Sources */,
 				3E0977A71D18FA7B00A7F2C4 /* Timebox.swift in Sources */,
 				3E0977901D18CDD300A7F2C4 /* CompletedActivityTableViewController.swift in Sources */,
-				3EB4DE041D504FAE005CD1FD /* Person+CoreDataProperties.swift in Sources */,
 				3E09777F1D11FC9200A7F2C4 /* CoreDataStack.swift in Sources */,
 				3E0977A51D18FA7B00A7F2C4 /* Activity+CoreDataProperties.swift in Sources */,
 				3ED6DF541D2AEF350064E440 /* ButtonGroup.swift in Sources */,
@@ -754,12 +732,12 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		3EE741201D1090DC00064BF6 /* So_Much_So_Little.xcdatamodeld */ = {
+		3E41D0F31D8DC3B2002EAD8A /* So_Much_So_Little.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
-				3EE741211D1090DC00064BF6 /* So_Much_So_Little.xcdatamodel */,
+				3E41D0F41D8DC3B2002EAD8A /* So_Much_So_Little.xcdatamodel */,
 			);
-			currentVersion = 3EE741211D1090DC00064BF6 /* So_Much_So_Little.xcdatamodel */;
+			currentVersion = 3E41D0F41D8DC3B2002EAD8A /* So_Much_So_Little.xcdatamodel */;
 			path = So_Much_So_Little.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

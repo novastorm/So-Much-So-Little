@@ -63,25 +63,6 @@
             </objects>
             <point key="canvasLocation" x="1722" y="1838"/>
         </scene>
-        <!--Calendar-->
-        <scene sceneID="M8l-Cf-is0">
-            <objects>
-                <viewController title="Calendar" id="jYW-TQ-0qj" customClass="CalendarViewController" customModule="So_Much_So_Little" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="7J6-Z6-PQb"/>
-                        <viewControllerLayoutGuide type="bottom" id="ZtY-gh-fpV"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="IjJ-96-HUQ">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                    </view>
-                    <navigationItem key="navigationItem" title="Calendar" id="a2I-1X-fWt"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="W3I-47-8UD" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1722" y="1089"/>
-        </scene>
         <!--Today Nav-->
         <scene sceneID="wjR-r1-nRV">
             <objects>
@@ -108,40 +89,21 @@
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="OHH-iH-yxE"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="Bix-aS-HnT">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                     </tabBar>
                     <connections>
                         <segue destination="SU8-SW-Qlq" kind="relationship" relationship="viewControllers" id="jGw-4E-myY"/>
-                        <segue destination="al2-wQ-isR" kind="relationship" relationship="viewControllers" id="ac4-UI-DT2"/>
                         <segue destination="6Yf-qB-OGf" kind="relationship" relationship="viewControllers" id="56p-Qt-nRx"/>
-                        <segue destination="SSh-B5-jx7" kind="relationship" relationship="viewControllers" id="Ybg-q8-NMP"/>
                         <segue destination="V6V-sY-Bxh" kind="relationship" relationship="viewControllers" id="Zey-de-kKT"/>
+                        <segue destination="SSh-B5-jx7" kind="relationship" relationship="viewControllers" id="Ybg-q8-NMP"/>
                         <segue destination="L2O-ph-Wuq" kind="relationship" relationship="viewControllers" id="eu1-o8-B2L"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oPf-ys-JxG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="106" y="1089"/>
-        </scene>
-        <!--Calendar Nav-->
-        <scene sceneID="aQr-ir-OwM">
-            <objects>
-                <navigationController title="Calendar Nav" automaticallyAdjustsScrollViewInsets="NO" id="al2-wQ-isR" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Calendar" id="Hg1-c0-BAN"/>
-                    <toolbarItems/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="FBI-tZ-X43">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <nil name="viewControllers"/>
-                    <connections>
-                        <segue destination="jYW-TQ-0qj" kind="relationship" relationship="rootViewController" id="O8L-Yw-N8b"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Ye4-te-LhQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="918" y="1089"/>
         </scene>
         <!--Activity Nav-->
         <scene sceneID="d0q-9q-arI">
