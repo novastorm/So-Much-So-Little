@@ -25,12 +25,14 @@
 		3E31123A1D5D970100E691AC /* ProjectDetailFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3112391D5D970100E691AC /* ProjectDetailFormViewController.swift */; };
 		3E3112B71D74E72E00E691AC /* ProjectSelectorRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3112B61D74E72E00E691AC /* ProjectSelectorRow.swift */; };
 		3E41D0F51D8DC3B2002EAD8A /* So_Much_So_Little.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3E41D0F31D8DC3B2002EAD8A /* So_Much_So_Little.xcdatamodeld */; };
+		3E41D0F91D8DCA62002EAD8A /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E41D0F81D8DCA62002EAD8A /* CloudKit.framework */; };
 		3E7AB57F1D31839B002F6C2D /* ActivityDetailFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7AB57E1D31839B002F6C2D /* ActivityDetailFormViewController.swift */; };
 		3E7AB5831D318A45002F6C2D /* Eureka.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3ED6DF591D2B03070064E440 /* Eureka.framework */; };
 		3E7AB5841D318A45002F6C2D /* Eureka.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3ED6DF591D2B03070064E440 /* Eureka.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3E7AB5881D333343002F6C2D /* TimeboxControlRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7AB5871D333343002F6C2D /* TimeboxControlRow.swift */; };
 		3E7AB58C1D333B25002F6C2D /* TimeboxControlCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3E7AB58B1D333B25002F6C2D /* TimeboxControlCell.xib */; };
 		3E7D99C31D21C1BD008FA84B /* TimeboxControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7D99C21D21C1BD008FA84B /* TimeboxControl.swift */; };
+		3E825F101D9C493100ABACCE /* TimerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E825F0F1D9C493100ABACCE /* TimerViewController.swift */; };
 		3ED6DF521D2731F10064E440 /* DateTextFieldDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED6DF511D2731F10064E440 /* DateTextFieldDelegate.swift */; };
 		3ED6DF541D2AEF350064E440 /* ButtonGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED6DF531D2AEF350064E440 /* ButtonGroup.swift */; };
 		3ED6DF601D2B0D050064E440 /* ViewGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED6DF5F1D2B0D050064E440 /* ViewGroup.swift */; };
@@ -94,11 +96,14 @@
 		3E3112391D5D970100E691AC /* ProjectDetailFormViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectDetailFormViewController.swift; sourceTree = "<group>"; };
 		3E3112B61D74E72E00E691AC /* ProjectSelectorRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectSelectorRow.swift; sourceTree = "<group>"; };
 		3E41D0F41D8DC3B2002EAD8A /* So_Much_So_Little.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = So_Much_So_Little.xcdatamodel; sourceTree = "<group>"; };
+		3E41D0F61D8DCA4B002EAD8A /* So Much So Little.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "So Much So Little.entitlements"; sourceTree = "<group>"; };
+		3E41D0F81D8DCA62002EAD8A /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		3E7AB57E1D31839B002F6C2D /* ActivityDetailFormViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityDetailFormViewController.swift; sourceTree = "<group>"; };
 		3E7AB5871D333343002F6C2D /* TimeboxControlRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeboxControlRow.swift; sourceTree = "<group>"; };
 		3E7AB58B1D333B25002F6C2D /* TimeboxControlCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TimeboxControlCell.xib; sourceTree = "<group>"; };
 		3E7D99C21D21C1BD008FA84B /* TimeboxControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeboxControl.swift; sourceTree = "<group>"; };
 		3E7D99C41D21DE70008FA84B /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		3E825F0F1D9C493100ABACCE /* TimerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerViewController.swift; sourceTree = "<group>"; };
 		3ED6DF511D2731F10064E440 /* DateTextFieldDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateTextFieldDelegate.swift; sourceTree = "<group>"; };
 		3ED6DF531D2AEF350064E440 /* ButtonGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonGroup.swift; sourceTree = "<group>"; };
 		3ED6DF551D2B00620064E440 /* Cartfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Cartfile; sourceTree = "<group>"; };
@@ -126,6 +131,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				3E7AB5831D318A45002F6C2D /* Eureka.framework in Frameworks */,
+				3E41D0F91D8DCA62002EAD8A /* CloudKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -188,6 +194,14 @@
 			name = "Core Data";
 			sourceTree = "<group>";
 		};
+		3E41D0F71D8DCA62002EAD8A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				3E41D0F81D8DCA62002EAD8A /* CloudKit.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		3ED6DF501D2731DB0064E440 /* Delegates */ = {
 			isa = PBXGroup;
 			children = (
@@ -214,6 +228,7 @@
 				3EE741301D1090DC00064BF6 /* So Much So LittleTests */,
 				3EE7413B1D1090DC00064BF6 /* So Much So LittleUITests */,
 				3EE741171D1090DC00064BF6 /* Products */,
+				3E41D0F71D8DCA62002EAD8A /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -230,6 +245,7 @@
 		3EE741181D1090DC00064BF6 /* So Much So Little */ = {
 			isa = PBXGroup;
 			children = (
+				3E41D0F61D8DCA4B002EAD8A /* So Much So Little.entitlements */,
 				3ED6DF501D2731DB0064E440 /* Delegates */,
 				3E09777D1D11FC8200A7F2C4 /* Core Data */,
 				3E09777C1D11E15C00A7F2C4 /* Views */,
@@ -237,6 +253,7 @@
 				3E09777A1D11E14E00A7F2C4 /* Clients */,
 				3EE741191D1090DC00064BF6 /* AppDelegate.swift */,
 				3EE7411D1D1090DC00064BF6 /* Main.storyboard */,
+				3E825F0F1D9C493100ABACCE /* TimerViewController.swift */,
 				3E0977931D18CEA000A7F2C4 /* ActivityTableViewController.swift */,
 				3E7AB57E1D31839B002F6C2D /* ActivityDetailFormViewController.swift */,
 				3E09778D1D18CD7400A7F2C4 /* CalendarViewController.swift */,
@@ -346,6 +363,14 @@
 						CreatedOnToolsVersion = 7.3.1;
 						DevelopmentTeam = KY9W9NLJDU;
 						LastSwiftMigration = 0800;
+						SystemCapabilities = {
+							com.apple.Push = {
+								enabled = 1;
+							};
+							com.apple.iCloud = {
+								enabled = 1;
+							};
+						};
 					};
 					3EE7412C1D1090DC00064BF6 = {
 						CreatedOnToolsVersion = 7.3.1;
@@ -453,6 +478,7 @@
 				3E0977811D12015800A7F2C4 /* Utilities.swift in Sources */,
 				3E0977A71D18FA7B00A7F2C4 /* Timebox.swift in Sources */,
 				3E0977901D18CDD300A7F2C4 /* CompletedActivityTableViewController.swift in Sources */,
+				3E825F101D9C493100ABACCE /* TimerViewController.swift in Sources */,
 				3E09777F1D11FC9200A7F2C4 /* CoreDataStack.swift in Sources */,
 				3E0977A51D18FA7B00A7F2C4 /* Activity+CoreDataProperties.swift in Sources */,
 				3ED6DF541D2AEF350064E440 /* ButtonGroup.swift in Sources */,
@@ -532,6 +558,8 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				DEBUG_ACTIVITY_MODE = "";
+				"DEBUG_ACTIVITY_MODE[sdk=iphonesimulator*]" = disable;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEFINES_MODULE = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -581,6 +609,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				DEBUG_ACTIVITY_MODE = "";
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = NO;
 				ENABLE_NS_ASSERTIONS = NO;
@@ -606,6 +635,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "So Much So Little/So Much So Little.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -624,6 +654,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = "So Much So Little/So Much So Little.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
