@@ -86,6 +86,8 @@ class CompletedActivityTableViewController: UITableViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        tabBarController?.title = "Completed"
+        tabBarController?.navigationItem.rightBarButtonItem = nil
         tableView.reloadData()
     }
     

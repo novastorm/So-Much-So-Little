@@ -60,6 +60,8 @@ class TodayTableViewController: UITableViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        tabBarController?.title = "Today"
+        tabBarController?.navigationItem.rightBarButtonItem = nil
         tableView.reloadData()
     }
     

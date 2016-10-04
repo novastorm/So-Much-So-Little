@@ -11,9 +11,9 @@ import UIKit
 
 class ActivityTableViewController: UITableViewController {
     
-    var insertedIndexPaths: [IndexPath]!
-    var deletedIndexPaths: [IndexPath]!
-    var updatedIndexPaths: [IndexPath]!
+    var insertedIndexPaths = [IndexPath]()
+    var deletedIndexPaths = [IndexPath]()
+    var updatedIndexPaths = [IndexPath]()
     
     var snapshot: UIView!
     var moveIndexPathSource: IndexPath!
@@ -21,22 +21,22 @@ class ActivityTableViewController: UITableViewController {
     
     // Mark: - Core Data Utilities
     
-    lazy var fetchedResultsController: NSFetchedResultsController<Activity> = {
-        let fetchRequest = Activity.fetchRequest() as! NSFetchRequest<Activity>
+    lazy var fetchedResultsController: NSFetchedResultsController<NSFetchRequestResult> = {
+        let fetchRequest = Activity.fetchRequest()
         // get Activity that are not complete or (reference with no project).
         fetchRequest.predicate = NSPredicate(format: "(completed != YES) OR ((project == NULL) AND (kind == \(Activity.Kind.reference.rawValue)))")
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: Activity.Keys.DisplayOrder, ascending: true)]
 
-        let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.sharedContext, sectionNameKeyPath: nil, cacheName: nil)
+        let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.mainContext, sectionNameKeyPath: nil, cacheName: nil)
         
         return fetchedResultsController
     }()
     
-    var sharedContext: NSManagedObjectContext {
+    var mainContext: NSManagedObjectContext {
         return CoreDataStackManager.mainContext
     }
     
-    func saveSharedContext() {
+    func saveMainContext() {
         CoreDataStackManager.saveMainContext()
     }
     
@@ -59,6 +59,8 @@ class ActivityTableViewController: UITableViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        tabBarController?.title = "Activity"
+        tabBarController?.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(createActivity))
         tableView.reloadData()
     }
     
@@ -69,14 +71,14 @@ class ActivityTableViewController: UITableViewController {
             }
             let destinationVC = segue.destination as! ActivityDetailFormViewController
             
-            destinationVC.activity = fetchedResultsController.object(at: indexPath)
+            destinationVC.activity = fetchedResultsController.object(at: indexPath) as! Activity
         }
     }
     
     
     // MARK: - Actions
     
-    @IBAction func longPressGestureRecognized(_ sender: AnyObject) {
+    func longPressGestureRecognized(_ sender: AnyObject) {
         
         // retrieve longPress details and target indexPath
         let longPress = sender as! UILongPressGestureRecognizer
@@ -118,7 +120,7 @@ class ActivityTableViewController: UITableViewController {
             )
         case .changed:
             var center = snapshot.center
-            var activityList = fetchedResultsController.fetchedObjects!
+            var activityList = fetchedResultsController.fetchedObjects as! [Activity]
             center.y = location.y
             snapshot.center = center
             
@@ -128,7 +130,7 @@ class ActivityTableViewController: UITableViewController {
             
             let src = moveIndexPathSource.row
             let dst = (indexPath as NSIndexPath).row
-            (activityList[dst], activityList[src]) = (activityList[src], activityList[dst])
+            (activityList[dst].display_order, activityList[src].display_order) = (activityList[src].display_order, activityList[dst].display_order)
             
             moveIndexPathSource = indexPath
         default:
@@ -148,8 +150,11 @@ class ActivityTableViewController: UITableViewController {
                     self.snapshot.removeFromSuperview()
                     self.snapshot = nil
             })
-            
         }
+    }
+    
+    func createActivity() {
+        performSegue(withIdentifier: "CreateActivityDetail", sender: self)
     }
 }
 
@@ -172,7 +177,7 @@ extension ActivityTableViewController {
     }
     
     func configureActivityCell(_ cell: UITableViewCell, atIndexPath indexPath: IndexPath) {
-        let activity = fetchedResultsController.object(at: indexPath)
+        let activity = fetchedResultsController.object(at: indexPath) as! Activity
         let displayOrder = activity.display_order
         let task = activity.task
         let actualTimeboxes = activity.actual_timeboxes
@@ -192,7 +197,7 @@ extension ActivityTableViewController {
     }
     
     override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-        let activity = fetchedResultsController.object(at: indexPath)
+        let activity = fetchedResultsController.object(at: indexPath) as! Activity
 
         if activity.kind == .reference {
             let referenceOption = UITableViewRowAction(style: .normal, title: "Project") { (action, activityIndexPath) in
@@ -210,7 +215,7 @@ extension ActivityTableViewController {
                 activity.today = false
                 activity.today_display_order = 0
                 activity.display_order = 0
-                self.saveSharedContext()
+                self.saveMainContext()
             }
         }
         else {
@@ -218,7 +223,7 @@ extension ActivityTableViewController {
                 print("\((activityIndexPath as NSIndexPath).row): Today tapped")
                 activity.today = true
                 activity.today_display_order = 0
-                self.saveSharedContext()
+                self.saveMainContext()
             }
         }
         
@@ -227,7 +232,7 @@ extension ActivityTableViewController {
                 print("\((completedIndexPath as NSIndexPath).row): Reactivate tapped")
                 activity.completed = false
                 activity.display_order = 0
-                self.saveSharedContext()
+                self.saveMainContext()
             }
         }
         else {
@@ -237,11 +242,15 @@ extension ActivityTableViewController {
                 activity.display_order = 0
                 activity.today = false
                 activity.today_display_order = 0
-                self.saveSharedContext()
+                self.saveMainContext()
             }
         }
         
         return [todayOption, completedOption]
+    }
+    
+    override func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+        print("move row")
     }
 }
 
@@ -282,15 +291,17 @@ extension ActivityTableViewController: NSFetchedResultsControllerDelegate {
         
         tableView.endUpdates()
         
-        let activityList = fetchedResultsController.fetchedObjects!
+        let activityList = fetchedResultsController.fetchedObjects as! [Activity]
         
         for (i, record) in activityList.enumerated() {
             if record.display_order != NSNumber(value: i) {
                 record.display_order = NSNumber(value: i)
             }
         }
-        
-        saveSharedContext()
+
+        performUIUpdatesOnMain {
+            self.saveMainContext()
+        }
     }
 }
 

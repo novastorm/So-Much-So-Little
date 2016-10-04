@@ -50,6 +50,8 @@ class ProjectTableViewController: UITableViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
+        tabBarController?.navigationItem.title = "Project"
+        tabBarController?.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(createProject))
         tableView.reloadData()
     }
     
@@ -62,6 +64,13 @@ class ProjectTableViewController: UITableViewController {
             
             destinationVC.project = fetchedResultsController.object(at: indexPath)
         }
+    }
+    
+    
+    // MARK: - Actions
+    
+    func createProject() {
+        performSegue(withIdentifier: "CreateProjectDetail", sender: self)
     }
 }
 

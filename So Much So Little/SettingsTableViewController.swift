@@ -12,7 +12,11 @@ class SettingsTableViewController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        navigationItem.hidesBackButton = true
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        tabBarController?.navigationItem.title = "Settings"
+        tabBarController?.navigationItem.rightBarButtonItem = nil
     }
 }
