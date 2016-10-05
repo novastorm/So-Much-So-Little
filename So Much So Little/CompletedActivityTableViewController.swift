@@ -67,7 +67,9 @@ class CompletedActivityTableViewController: UITableViewController {
     }
     
     func saveSharedContext() {
-        CoreDataStackManager.saveMainContext()
+        performUIUpdatesOnMain {
+            CoreDataStackManager.saveMainContext()
+        }
     }
     
     

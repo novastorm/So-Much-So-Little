@@ -39,7 +39,9 @@ class TodayTableViewController: UITableViewController {
     }()
     
     func saveSharedContext() {
-        CoreDataStackManager.saveMainContext()
+        performUIUpdatesOnMain {
+            CoreDataStackManager.saveMainContext()
+        }
     }
     
     // MARK: - View Lifecycle
@@ -120,7 +122,7 @@ class TodayTableViewController: UITableViewController {
             
             let src = moveIndexPathSource.row
             let dst = (indexPath as NSIndexPath).row
-            (activityList[dst], activityList[src]) = (activityList[src], activityList[dst])
+            (activityList[dst].display_order, activityList[src].display_order) = (activityList[src].display_order, activityList[dst].display_order)
 
             moveIndexPathSource = indexPath
         default:
@@ -183,7 +185,7 @@ extension TodayTableViewController {
         let actualTimeboxes = activity.actual_timeboxes
         let estimatedTimeboxes = activity.estimated_timeboxes
         
-        cell.taskLabel.text = "\(todayDisplayOrder): \(task)"
+        cell.taskLabel.text = "\(todayDisplayOrder!): \(task)"
         cell.timeBoxTallyLabel.text = "\(actualTimeboxes)/\(estimatedTimeboxes)"
     }
 }

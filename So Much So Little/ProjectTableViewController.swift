@@ -32,7 +32,9 @@ class ProjectTableViewController: UITableViewController {
     }
     
     func saveSharedContext() {
-        CoreDataStackManager.saveMainContext()
+        performUIUpdatesOnMain {
+            CoreDataStackManager.saveMainContext()
+        }
     }
     
     
@@ -147,7 +149,7 @@ extension ProjectTableViewController: NSFetchedResultsControllerDelegate {
                 record.display_order = NSNumber(value: i)
             }
         }
-        
+
         saveSharedContext()
     }
 }

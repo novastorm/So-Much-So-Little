@@ -28,7 +28,6 @@ extension Activity {
     @NSManaged var task_info: String?
     @NSManaged var today: Bool
     @NSManaged var today_display_order: NSNumber?
-    @NSManaged var typeValue: NSNumber?
     
     @NSManaged var project: Project?
     @NSManaged var timeboxes: Set<Timebox>?

@@ -21,13 +21,13 @@ class ActivityTableViewController: UITableViewController {
     
     // Mark: - Core Data Utilities
     
-    lazy var fetchedResultsController: NSFetchedResultsController<NSFetchRequestResult> = {
-        let fetchRequest = Activity.fetchRequest()
+    lazy var fetchedResultsController: NSFetchedResultsController<Activity> = {
+        let fetchRequest = Activity.fetchRequest() as! NSFetchRequest<Activity>
         // get Activity that are not complete or (reference with no project).
         fetchRequest.predicate = NSPredicate(format: "(completed != YES) OR ((project == NULL) AND (kind == \(Activity.Kind.reference.rawValue)))")
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: Activity.Keys.DisplayOrder, ascending: true)]
 
-        let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.mainContext, sectionNameKeyPath: nil, cacheName: nil)
+        let fetchedResultsController = NSFetchedResultsController<Activity>(fetchRequest: fetchRequest, managedObjectContext: self.mainContext, sectionNameKeyPath: nil, cacheName: nil)
         
         return fetchedResultsController
     }()
@@ -37,7 +37,9 @@ class ActivityTableViewController: UITableViewController {
     }
     
     func saveMainContext() {
-        CoreDataStackManager.saveMainContext()
+        performUIUpdatesOnMain {
+            CoreDataStackManager.saveMainContext()
+        }
     }
     
     
@@ -71,7 +73,7 @@ class ActivityTableViewController: UITableViewController {
             }
             let destinationVC = segue.destination as! ActivityDetailFormViewController
             
-            destinationVC.activity = fetchedResultsController.object(at: indexPath) as! Activity
+            destinationVC.activity = fetchedResultsController.object(at: indexPath) 
         }
     }
     
@@ -120,7 +122,7 @@ class ActivityTableViewController: UITableViewController {
             )
         case .changed:
             var center = snapshot.center
-            var activityList = fetchedResultsController.fetchedObjects as! [Activity]
+            var activityList = fetchedResultsController.fetchedObjects!
             center.y = location.y
             snapshot.center = center
             
@@ -177,7 +179,7 @@ extension ActivityTableViewController {
     }
     
     func configureActivityCell(_ cell: UITableViewCell, atIndexPath indexPath: IndexPath) {
-        let activity = fetchedResultsController.object(at: indexPath) as! Activity
+        let activity = fetchedResultsController.object(at: indexPath)
         let displayOrder = activity.display_order
         let task = activity.task
         let actualTimeboxes = activity.actual_timeboxes
@@ -197,7 +199,7 @@ extension ActivityTableViewController {
     }
     
     override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-        let activity = fetchedResultsController.object(at: indexPath) as! Activity
+        let activity = fetchedResultsController.object(at: indexPath)
 
         if activity.kind == .reference {
             let referenceOption = UITableViewRowAction(style: .normal, title: "Project") { (action, activityIndexPath) in
@@ -291,17 +293,14 @@ extension ActivityTableViewController: NSFetchedResultsControllerDelegate {
         
         tableView.endUpdates()
         
-        let activityList = fetchedResultsController.fetchedObjects as! [Activity]
-        
+        let activityList = fetchedResultsController.fetchedObjects!
         for (i, record) in activityList.enumerated() {
             if record.display_order != NSNumber(value: i) {
                 record.display_order = NSNumber(value: i)
             }
         }
 
-        performUIUpdatesOnMain {
-            self.saveMainContext()
-        }
+        saveMainContext()
     }
 }
 

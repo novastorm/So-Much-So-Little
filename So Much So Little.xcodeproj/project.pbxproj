@@ -25,6 +25,7 @@
 		3E3112B71D74E72E00E691AC /* ProjectSelectorRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3112B61D74E72E00E691AC /* ProjectSelectorRow.swift */; };
 		3E41D0F51D8DC3B2002EAD8A /* So_Much_So_Little.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3E41D0F31D8DC3B2002EAD8A /* So_Much_So_Little.xcdatamodeld */; };
 		3E41D0F91D8DCA62002EAD8A /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E41D0F81D8DCA62002EAD8A /* CloudKit.framework */; };
+		3E746D121DA58BD200ABD25E /* So_Much_So_LittleActivityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EE741311D1090DC00064BF6 /* So_Much_So_LittleActivityTests.swift */; };
 		3E7AB57F1D31839B002F6C2D /* ActivityDetailFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7AB57E1D31839B002F6C2D /* ActivityDetailFormViewController.swift */; };
 		3E7AB5831D318A45002F6C2D /* Eureka.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3ED6DF591D2B03070064E440 /* Eureka.framework */; };
 		3E7AB5841D318A45002F6C2D /* Eureka.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3ED6DF591D2B03070064E440 /* Eureka.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -41,19 +42,10 @@
 		3EE741221D1090DC00064BF6 /* (null) in Sources */ = {isa = PBXBuildFile; };
 		3EE741241D1090DC00064BF6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3EE741231D1090DC00064BF6 /* Assets.xcassets */; };
 		3EE741271D1090DC00064BF6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3EE741251D1090DC00064BF6 /* LaunchScreen.storyboard */; };
-		3EE741321D1090DC00064BF6 /* So_Much_So_LittleActivityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EE741311D1090DC00064BF6 /* So_Much_So_LittleActivityTests.swift */; };
-		3EE7413D1D1090DC00064BF6 /* So_Much_So_LittleUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EE7413C1D1090DC00064BF6 /* So_Much_So_LittleUITests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
 		3EE7412E1D1090DC00064BF6 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 3EE7410E1D1090DC00064BF6 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 3EE741151D1090DC00064BF6;
-			remoteInfo = "So Much So Little";
-		};
-		3EE741391D1090DC00064BF6 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 3EE7410E1D1090DC00064BF6 /* Project object */;
 			proxyType = 1;
@@ -118,9 +110,6 @@
 		3EE7412D1D1090DC00064BF6 /* So Much So LittleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "So Much So LittleTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3EE741311D1090DC00064BF6 /* So_Much_So_LittleActivityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = So_Much_So_LittleActivityTests.swift; sourceTree = "<group>"; };
 		3EE741331D1090DC00064BF6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		3EE741381D1090DC00064BF6 /* So Much So LittleUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "So Much So LittleUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		3EE7413C1D1090DC00064BF6 /* So_Much_So_LittleUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = So_Much_So_LittleUITests.swift; sourceTree = "<group>"; };
-		3EE7413E1D1090DC00064BF6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -134,13 +123,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		3EE7412A1D1090DC00064BF6 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		3EE741351D1090DC00064BF6 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -224,7 +206,6 @@
 				3ED6DF5E1D2B04450064E440 /* Cartfile.resolved */,
 				3EE741181D1090DC00064BF6 /* So Much So Little */,
 				3EE741301D1090DC00064BF6 /* So Much So LittleTests */,
-				3EE7413B1D1090DC00064BF6 /* So Much So LittleUITests */,
 				3EE741171D1090DC00064BF6 /* Products */,
 				3E41D0F71D8DCA62002EAD8A /* Frameworks */,
 			);
@@ -235,7 +216,6 @@
 			children = (
 				3EE741161D1090DC00064BF6 /* So Much So Little.app */,
 				3EE7412D1D1090DC00064BF6 /* So Much So LittleTests.xctest */,
-				3EE741381D1090DC00064BF6 /* So Much So LittleUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -279,15 +259,6 @@
 			path = "So Much So LittleTests";
 			sourceTree = "<group>";
 		};
-		3EE7413B1D1090DC00064BF6 /* So Much So LittleUITests */ = {
-			isa = PBXGroup;
-			children = (
-				3EE7413C1D1090DC00064BF6 /* So_Much_So_LittleUITests.swift */,
-				3EE7413E1D1090DC00064BF6 /* Info.plist */,
-			);
-			path = "So Much So LittleUITests";
-			sourceTree = "<group>";
-		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -328,24 +299,6 @@
 			productReference = 3EE7412D1D1090DC00064BF6 /* So Much So LittleTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		3EE741371D1090DC00064BF6 /* So Much So LittleUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 3EE741471D1090DC00064BF6 /* Build configuration list for PBXNativeTarget "So Much So LittleUITests" */;
-			buildPhases = (
-				3EE741341D1090DC00064BF6 /* Sources */,
-				3EE741351D1090DC00064BF6 /* Frameworks */,
-				3EE741361D1090DC00064BF6 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				3EE7413A1D1090DC00064BF6 /* PBXTargetDependency */,
-			);
-			name = "So Much So LittleUITests";
-			productName = "So Much So LittleUITests";
-			productReference = 3EE741381D1090DC00064BF6 /* So Much So LittleUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -374,11 +327,6 @@
 						LastSwiftMigration = 0800;
 						TestTargetID = 3EE741151D1090DC00064BF6;
 					};
-					3EE741371D1090DC00064BF6 = {
-						CreatedOnToolsVersion = 7.3.1;
-						LastSwiftMigration = 0800;
-						TestTargetID = 3EE741151D1090DC00064BF6;
-					};
 				};
 			};
 			buildConfigurationList = 3EE741111D1090DC00064BF6 /* Build configuration list for PBXProject "So Much So Little" */;
@@ -396,7 +344,6 @@
 			targets = (
 				3EE741151D1090DC00064BF6 /* So Much So Little */,
 				3EE7412C1D1090DC00064BF6 /* So Much So LittleTests */,
-				3EE741371D1090DC00064BF6 /* So Much So LittleUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -414,13 +361,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		3EE7412B1D1090DC00064BF6 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		3EE741361D1090DC00064BF6 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -485,15 +425,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3EE741321D1090DC00064BF6 /* So_Much_So_LittleActivityTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		3EE741341D1090DC00064BF6 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				3EE7413D1D1090DC00064BF6 /* So_Much_So_LittleUITests.swift in Sources */,
+				3E746D121DA58BD200ABD25E /* So_Much_So_LittleActivityTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -504,11 +436,6 @@
 			isa = PBXTargetDependency;
 			target = 3EE741151D1090DC00064BF6 /* So Much So Little */;
 			targetProxy = 3EE7412E1D1090DC00064BF6 /* PBXContainerItemProxy */;
-		};
-		3EE7413A1D1090DC00064BF6 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 3EE741151D1090DC00064BF6 /* So Much So Little */;
-			targetProxy = 3EE741391D1090DC00064BF6 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -691,32 +618,6 @@
 			};
 			name = Release;
 		};
-		3EE741481D1090DC00064BF6 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				INFOPLIST_FILE = "So Much So LittleUITests/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.4mfd.So-Much-So-LittleUITests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				SWIFT_VERSION = 3.0;
-				TEST_TARGET_NAME = "So Much So Little";
-			};
-			name = Debug;
-		};
-		3EE741491D1090DC00064BF6 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				INFOPLIST_FILE = "So Much So LittleUITests/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.4mfd.So-Much-So-LittleUITests";
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
-				SWIFT_VERSION = 3.0;
-				TEST_TARGET_NAME = "So Much So Little";
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -743,15 +644,6 @@
 			buildConfigurations = (
 				3EE741451D1090DC00064BF6 /* Debug */,
 				3EE741461D1090DC00064BF6 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		3EE741471D1090DC00064BF6 /* Build configuration list for PBXNativeTarget "So Much So LittleUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				3EE741481D1090DC00064BF6 /* Debug */,
-				3EE741491D1090DC00064BF6 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

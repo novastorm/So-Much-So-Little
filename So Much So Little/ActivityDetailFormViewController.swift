@@ -174,7 +174,7 @@ class ActivityDetailFormViewController: FormViewController {
                         }
                     }
                 }
-
+            
         
                 // Flexible Section Fields
         

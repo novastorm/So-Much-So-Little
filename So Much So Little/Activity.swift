@@ -44,7 +44,6 @@ class Activity: NSManagedObject {
     }
     
     struct Keys {
-        static let Attendees = "attendees"
         static let Completed = "completed"
         static let CompletedDate = "completed_date"
         static let DeferredTo = "deferred_to"
@@ -53,16 +52,14 @@ class Activity: NSManagedObject {
         static let DueDate = "due_date"
         static let EstimatedTimeboxes = "estimated_timeboxes"
         static let Kind = "kind"
-        static let ScheduledStart = "scheduled_start"
         static let ScheduledEnd = "scheduled_end"
+        static let ScheduledStart = "scheduled_start"
         static let Task = "task"
         static let TaskInfo = "task_info"
-        static let TodayDisplayOrder = "today_display_order"
         static let Today = "today"
+        static let TodayDisplayOrder = "today_display_order"
 
-        static let Milestone = "milestone"
         static let Project = "project"
-        static let Roles = "roles"
         static let Timeboxes = "timeboxes"
     }
     
@@ -81,7 +78,6 @@ class Activity: NSManagedObject {
     typealias TodayType = Bool
     typealias TodayDisplayOrderType = NSNumber
     
-    typealias Attendees = Set<String>
     typealias ProjectType = Project
     typealias TimeBoxesType = Set<Timebox>
     
@@ -104,6 +100,10 @@ class Activity: NSManagedObject {
     
     convenience init(context: NSManagedObjectContext) {
         self.init(task: "", context: context)
+    }
+    
+    override class func fetchRequest() -> NSFetchRequest<NSFetchRequestResult> {
+        return super.fetchRequest()
     }
     
     var actual_timeboxes: Int {

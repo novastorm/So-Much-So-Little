@@ -1,1 +1,1 @@
-github "xmartlabs/Eureka" "Swift3"
+github "xmartlabs/Eureka" ~> 2.0
