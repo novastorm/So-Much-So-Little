@@ -151,7 +151,7 @@ class So_Much_So_LittleActivityTests: XCTestCase {
     
     func testManageActivity() {
         
-        let fetchRequest = Activity.fetchRequest() as! NSFetchRequest<Activity>
+        let fetchRequest = getActivityFetchRequest()
         let fetchedResultsController = getFetchedResultsController(fetchRequest)
         var fetchedActivityList: [Activity] {
             return fetchedResultsController.fetchedObjects!
@@ -247,8 +247,8 @@ class So_Much_So_LittleActivityTests: XCTestCase {
         
         // test activity list
         
-        let activityListFetchRequest = Activity.fetchRequest() as! NSFetchRequest<Activity>
-        activityListFetchRequest.predicate = NSPredicate(format: "(completed != YES) AND (typeValue != \(Activity.Kind.reference.rawValue))")
+        let activityListFetchRequest = getActivityFetchRequest()
+        activityListFetchRequest.predicate = NSPredicate(format: "(completed != YES) AND (kind != \(Activity.Kind.reference.rawValue))")
         activityListFetchRequest.sortDescriptors = [NSSortDescriptor(key: Activity.Keys.DisplayOrder, ascending: true)]
 
         let fetchedResultsController = getFetchedResultsController(activityListFetchRequest)
@@ -263,8 +263,8 @@ class So_Much_So_LittleActivityTests: XCTestCase {
         
         // test today's activity list
         
-        let todayListFetchRequest = Activity.fetchRequest() as! NSFetchRequest<Activity>
-        todayListFetchRequest.predicate = NSPredicate(format: "(today == YES) AND (completed != YES) AND (typeValue != \(Activity.Kind.reference.rawValue))")
+        let todayListFetchRequest = getActivityFetchRequest()
+        todayListFetchRequest.predicate = NSPredicate(format: "(today == YES) AND (completed != YES) AND (kind != \(Activity.Kind.reference.rawValue))")
         todayListFetchRequest.sortDescriptors = [NSSortDescriptor(key: Activity.Keys.TodayDisplayOrder, ascending: true)]
         
         let todayFetchedResultsController = getFetchedResultsController(todayListFetchRequest)
@@ -279,8 +279,8 @@ class So_Much_So_LittleActivityTests: XCTestCase {
         
         // test completed activity list
         
-        let completedListFetchRequest = Activity.fetchRequest() as! NSFetchRequest<Activity>
-        completedListFetchRequest.predicate = NSPredicate(format: "(completed == YES) AND (typeValue != \(Activity.Kind.reference.rawValue))")
+        let completedListFetchRequest = getActivityFetchRequest()
+        completedListFetchRequest.predicate = NSPredicate(format: "(completed == YES) AND (kind != \(Activity.Kind.reference.rawValue))")
         completedListFetchRequest.sortDescriptors = [NSSortDescriptor(key: Activity.Keys.CompletedDate, ascending: true)]
         
         let completedFetchedResultsController = getFetchedResultsController(completedListFetchRequest)
