@@ -102,10 +102,6 @@ class Activity: NSManagedObject {
         self.init(task: "", context: context)
     }
     
-    override class func fetchRequest() -> NSFetchRequest<NSFetchRequestResult> {
-        return super.fetchRequest()
-    }
-    
     var actual_timeboxes: Int {
         return timeboxes?.count ?? 0
     }

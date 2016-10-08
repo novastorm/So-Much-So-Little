@@ -92,16 +92,7 @@ class ProjectDetailFormViewController: FormViewController {
                     row.value = self.project.completed
                 }
             }
-            <<< SwitchRow(FormInput.Active.rawValue) { (row) in
-                row.title = "Active"
-                temporaryContext.performAndWait {
-                    row.value = self.project.active
-                }
-            }
             <<< DateInlineRow(FormInput.DueDate.rawValue) { (row) in
-//                row.hidden = Condition.Function([FormInput.Active.rawValue]) { (form) -> Bool in
-//                    return ((form.rowByTag(FormInput.Active.rawValue) as? SwitchRow)?.value)!
-//                    }
                 row.title = "Due Date"
                 temporaryContext.performAndWait {
                     row.value = self.project.due_date
@@ -156,7 +147,6 @@ class ProjectDetailFormViewController: FormViewController {
             self.project.due_date = formValues[FormInput.DueDate.rawValue] as? Project.DueDateType
             self.project.info = formValues[FormInput.Info.rawValue] as? Project.InfoType
             self.project.label = formValues[FormInput.Label.rawValue] as! Project.LabelType
-            self.project.active = formValues[FormInput.Active.rawValue] as! Project.ActiveType
 
             self.saveTemporaryContext()
         }

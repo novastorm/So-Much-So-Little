@@ -18,18 +18,16 @@ class Project: NSManagedObject {
         static let DueDate = "due_date"
         static let Info = "info"
         static let Label = "label"
-        static let Active = "active"
 
         static let Activities = "activities"
     }
     
     typealias CompletedType = Bool
     typealias CompletedDateType = Date
-    typealias DisplayOrder = Int
+    typealias DisplayOrderType = NSNumber
     typealias DueDateType = Date
     typealias InfoType = String
     typealias LabelType = String
-    typealias ActiveType = Bool
     
     typealias ActivitiesType = Set<Activity>
     

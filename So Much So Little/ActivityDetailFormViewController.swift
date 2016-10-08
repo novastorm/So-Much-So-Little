@@ -59,6 +59,7 @@ class ActivityDetailFormViewController: FormViewController {
     
     lazy var projectFRC: NSFetchedResultsController<Project> = {
         let fetchRequest = Project.fetchRequest() as! NSFetchRequest<Project>
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: Project.Keys.Label, ascending: true)]
         let frc = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.sharedContext, sectionNameKeyPath: nil, cacheName: nil)
         
         return frc

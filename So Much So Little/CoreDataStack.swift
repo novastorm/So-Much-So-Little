@@ -27,6 +27,8 @@ class CoreDataStack {
     fileprivate let backgroundContext : NSManagedObjectContext
     let mainContext : NSManagedObjectContext
     
+    static let ImportingTaskDidFinishNotification = Notification.Name(CoreDataStackNotifications.ImportingTaskDidFinish.rawValue)
+    
     
     // MARK:  - Initializers
     init?(modelName: String){

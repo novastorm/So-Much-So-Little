@@ -95,7 +95,6 @@ class ActivityTableViewController: UITableViewController {
         case .began:
             if indexPath == nil { break }
             
-//            activityList = fetchedResultsController.fetchedObjects as! [Activity]
             moveIndexPathSource = indexPath
             
             let cell = tableView.cellForRow(at: moveIndexPathSource)!

@@ -20,7 +20,6 @@ extension Project {
     @NSManaged var due_date: Date?
     @NSManaged var info: String?
     @NSManaged var label: String
-    @NSManaged var active: Bool
     
     @NSManaged var activities: Set<Activity>?
 

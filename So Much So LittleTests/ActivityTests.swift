@@ -12,7 +12,7 @@ import CoreData
 
 extension Activity {
     convenience init(data: [String:Any], context: NSManagedObjectContext) {
-        let task = (data[Keys.Task] as? TaskType) ?? ""
+        let task = data[Keys.Task] as? TaskType  ?? ""
         self.init(task: task, context: context)
         
         completed = data[Keys.Completed] as? CompletedType ?? false
@@ -32,7 +32,7 @@ extension Activity {
     }
 }
 
-class So_Much_So_LittleActivityTests: XCTestCase {
+class ActivityTests: XCTestCase {
     
     var storeCoordinator: NSPersistentStoreCoordinator!
     var managedObjectContext: NSManagedObjectContext!
@@ -127,7 +127,7 @@ class So_Much_So_LittleActivityTests: XCTestCase {
         let fetchedActivity = fetchedResultsController.object(at: IndexPath(row: 0, section: 0))
 
         XCTAssertEqual(fetchedActivity.completed, false, "Default Activity completed should be false")
-        XCTAssertNil(fetchedActivity.completed_date, "Default Activity completed_data should be nil")
+        XCTAssertNil(fetchedActivity.completed_date, "Default Activity completed_date should be nil")
         XCTAssertNil(fetchedActivity.deferred_to, "Default Activity deferred_to should be nil")
         XCTAssertNil(fetchedActivity.deferred_to_response_due_date, "Default Activity deferred_to_response_due_date should be nil")
         XCTAssertEqual(fetchedActivity.display_order, 0, "Default Activity display_order should be 0")
@@ -165,7 +165,7 @@ class So_Much_So_LittleActivityTests: XCTestCase {
         XCTAssertFalse(alpha.objectID.isTemporaryID, "Activity should not have a temporaryID")
     
         try! fetchedResultsController.performFetch()
-        let fetchedActivity = fetchedActivityList[0]
+        let fetchedActivity = fetchedActivityList.first
         
         // confirm only one activity
         XCTAssertEqual(fetchedActivityList.count, 1)
@@ -218,14 +218,8 @@ class So_Much_So_LittleActivityTests: XCTestCase {
 
         XCTAssertFalse(bravo.isDeleted, "Activity bravo should not be in a deleted state")
         managedObjectContext.delete(bravo)
-
-        try! fetchedResultsController.performFetch()
-
-        XCTAssertTrue(fetchedActivityList.contains(alpha))
-        XCTAssertFalse(fetchedActivityList.contains(bravo))
-        XCTAssertTrue(fetchedActivityList.contains(charlie))
-
         XCTAssertTrue(bravo.isDeleted, "Activity bravo should be in a deleted state")
+
         try! fetchedResultsController.performFetch()
         
         XCTAssertTrue(fetchedActivityList.contains(alpha))
