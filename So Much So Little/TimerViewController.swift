@@ -20,7 +20,7 @@ class TimerViewController: UIViewController {
     }
     
     var activity: Activity?
-    var timer = Timer()
+    var timer: Timer?
     var secondsCount: Int = 0
     
     @IBOutlet weak var time10Label: UILabel!
@@ -49,6 +49,17 @@ class TimerViewController: UIViewController {
     
     // MARK: - View Life Cycle
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        if timer != nil {
+            
+        }
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "ShowActivityTab" {
             print("ShowActivityTab")
@@ -63,19 +74,26 @@ class TimerViewController: UIViewController {
     
     @IBAction func startActivityTimer(_ sender: AnyObject) {
         print("startActivityTimer")
-        sender.setTitle("Interrupt", for: .normal)
-        sender.removeTarget(self, action: #selector(startActivityTimer(_:)), for: .touchUpInside)
-        sender.addTarget(self, action: #selector(interruptActivityTimer(_:)), for: .touchUpInside)
         resetTimer(to: Preset.long)
         startTimer()
+        showInterruptButton()
     }
     
     @IBAction func interruptActivityTimer(_ sender: AnyObject) {
         print("interruptActivityTimer")
-        sender.setTitle("Start", for: .normal)
-        sender.removeTarget(self, action: #selector(interruptActivityTimer(_:)), for: .touchUpInside)
-        sender.addTarget(self, action: #selector(startActivityTimer(_:)), for: .touchUpInside)
         showInterruptAlert()
+    }
+    
+    func showInterruptButton() {
+        startInterruptButton.setTitle("Interrupt", for: .normal)
+        startInterruptButton.removeTarget(self, action: #selector(startActivityTimer(_:)), for: .touchUpInside)
+        startInterruptButton.addTarget(self, action: #selector(interruptActivityTimer(_:)), for: .touchUpInside)
+    }
+    
+    func showStartButton() {
+        startInterruptButton.setTitle("Start", for: .normal)
+        startInterruptButton.removeTarget(self, action: #selector(interruptActivityTimer(_:)), for: .touchUpInside)
+        startInterruptButton.addTarget(self, action: #selector(startActivityTimer(_:)), for: .touchUpInside)
     }
     
     func showInterruptAlert() {
@@ -87,8 +105,8 @@ class TimerViewController: UIViewController {
         
         let createActivityAction = UIAlertAction(title: "Note and Resume Task", style: .default) { _ in
             if let field = alertController.textFields?[0] {
-                let newActivity = Activity(context: self.temporaryContext)
                 self.temporaryContext.perform {
+                    let newActivity = Activity(context: self.temporaryContext)
                     newActivity.task_info = field.text
                     self.saveTemporaryContext()
                 }
@@ -100,6 +118,7 @@ class TimerViewController: UIViewController {
         
         let stopAction = UIAlertAction(title: "Stop", style: .destructive) { _ in
             self.stopTimer()
+            self.showStartButton()
         }
         let resumeAction = UIAlertAction(title: "Resume Task", style: .cancel)
         
@@ -114,10 +133,12 @@ class TimerViewController: UIViewController {
     
     func startTimer() {
         let interval = 1.0
+        stopTimer()
         timer = Timer.scheduledTimer(timeInterval: interval, target: self, selector: #selector(decrementTime), userInfo: nil, repeats: true)    }
     
     func stopTimer() {
-        timer.invalidate()
+        timer?.invalidate()
+        timer = nil
     }
     
     func resetTimer(to seconds: Preset) {
