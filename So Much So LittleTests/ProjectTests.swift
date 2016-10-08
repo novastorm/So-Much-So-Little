@@ -201,4 +201,41 @@ class ProjectTests: XCTestCase {
         XCTAssertFalse(fetchedProjectList.contains(projectBravo))
         XCTAssertTrue(fetchedProjectList.contains(projectCharlie))
     }
+    
+    
+    // MARK: - Test Project Lists
+    func testProjectLists() {
+        let projectAlpha = Project(data: mockProjectList["alpha"]!, context: managedObjectContext)
+        let projectBravo = Project(data: mockProjectList["bravo"]!, context: managedObjectContext)
+        let projectCharlie = Project(data: mockProjectList["charlie"]!, context: managedObjectContext)
+        
+        // MARK: test project list
+        let projectListFetchRequest = getProjectFetchRequest()
+        projectListFetchRequest.predicate = NSPredicate(format: "completed != YES")
+        projectListFetchRequest.sortDescriptors = [NSSortDescriptor(key: Project.Keys.DisplayOrder, ascending: true)]
+        
+        let projectFetchedResultsController = getProjectFetchedResultsController(projectListFetchRequest)
+        try! projectFetchedResultsController.performFetch()
+        
+        let projectList = projectFetchedResultsController.fetchedObjects!
+        
+        XCTAssertTrue(projectList.contains(projectAlpha))
+        XCTAssertFalse(projectList.contains(projectBravo))
+        XCTAssertTrue(projectList.contains(projectCharlie))
+        
+        
+        // MARK: test completed project list
+        let completedProjectListFetchRequest = getProjectFetchRequest()
+        completedProjectListFetchRequest.predicate = NSPredicate(format: "completed == YES")
+        completedProjectListFetchRequest.sortDescriptors = [NSSortDescriptor(key: Project.Keys.CompletedDate, ascending: true)]
+        
+        let completedProjectFetchedResultsController = getProjectFetchedResultsController(completedProjectListFetchRequest)
+        try! completedProjectFetchedResultsController.performFetch()
+        
+        let completedProjectList = completedProjectFetchedResultsController.fetchedObjects!
+        
+        XCTAssertFalse(completedProjectList.contains(projectAlpha))
+        XCTAssertTrue(completedProjectList.contains(projectBravo))
+        XCTAssertFalse(completedProjectList.contains(projectCharlie))
+    }
 }
