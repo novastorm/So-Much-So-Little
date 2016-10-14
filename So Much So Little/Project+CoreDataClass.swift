@@ -1,15 +1,16 @@
 //
-//  Project.swift
+//  Project+CoreDataClass.swift
 //  So Much So Little
 //
-//  Created by Adland Lee on 6/20/16.
+//  Created by Adland Lee on 10/14/16.
 //  Copyright © 2016 Adland Lee. All rights reserved.
 //
 
-import CoreData
 import Foundation
+import CoreData
 
-class Project: NSManagedObject {
+
+public class Project: NSManagedObject {
     
     struct Keys {
         static let Completed = "completed"
@@ -18,13 +19,13 @@ class Project: NSManagedObject {
         static let DueDate = "due_date"
         static let Info = "info"
         static let Label = "label"
-
+        
         static let Activities = "activities"
     }
     
     typealias CompletedType = Bool
     typealias CompletedDateType = Date
-    typealias DisplayOrderType = NSNumber
+    typealias DisplayOrderType = Int32
     typealias DueDateType = Date
     typealias InfoType = String
     typealias LabelType = String
@@ -38,7 +39,7 @@ class Project: NSManagedObject {
         let entity = NSEntityDescription.entity(forEntityName: className, in: context)!
         
         self.init(entity: entity, insertInto: context)
-
+        
         var label = label
         if label.isEmpty {
             label = type(of: self).defaultLabel
@@ -51,5 +52,5 @@ class Project: NSManagedObject {
     convenience init(context: NSManagedObjectContext) {
         self.init(label: "", context: context)
     }
-
+    
 }

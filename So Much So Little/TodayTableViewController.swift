@@ -29,7 +29,7 @@ class TodayTableViewController: UITableViewController {
     }
     
     lazy var fetchedResultsController: NSFetchedResultsController<Activity> = {
-        let fetchRequest = Activity.fetchRequest() as! NSFetchRequest<Activity>
+        let fetchRequest = Activity.fetchRequest() as NSFetchRequest<Activity>
         fetchRequest.predicate = NSPredicate(format: "(today == YES) AND (completed != YES) AND (kind != \(Activity.Kind.reference.rawValue))")
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: Activity.Keys.TodayDisplayOrder, ascending: true)]
         
@@ -185,7 +185,7 @@ extension TodayTableViewController {
         let actualTimeboxes = activity.actual_timeboxes
         let estimatedTimeboxes = activity.estimated_timeboxes
         
-        cell.taskLabel.text = "\(todayDisplayOrder!): \(task)"
+        cell.taskLabel.text = "\(todayDisplayOrder): \(task)"
         cell.timeBoxTallyLabel.text = "\(actualTimeboxes)/\(estimatedTimeboxes)"
     }
 }
@@ -285,8 +285,8 @@ extension TodayTableViewController: NSFetchedResultsControllerDelegate {
         let activityList = fetchedResultsController.fetchedObjects!
         
         for (i, record) in activityList.enumerated() {
-            if record.today_display_order != NSNumber(value: i) {
-                record.today_display_order = NSNumber(value: i)
+            if Int(record.today_display_order) != i {
+                record.today_display_order = Int32(i)
             }
         }
         

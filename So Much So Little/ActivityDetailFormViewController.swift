@@ -58,7 +58,7 @@ class ActivityDetailFormViewController: FormViewController {
     }
     
     lazy var projectFRC: NSFetchedResultsController<Project> = {
-        let fetchRequest = Project.fetchRequest() as! NSFetchRequest<Project>
+        let fetchRequest = Project.fetchRequest() as NSFetchRequest<Project>
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: Project.Keys.Label, ascending: true)]
         let frc = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.sharedContext, sectionNameKeyPath: nil, cacheName: nil)
         
@@ -264,7 +264,7 @@ class ActivityDetailFormViewController: FormViewController {
             self.activity.kind = Activity.Kind.fromString(formValues[FormInput.Kind.rawValue] as! String)!
             self.activity.scheduled_end = formValues[FormInput.ScheduledEnd.rawValue] as? Activity.ScheduledEndType
             self.activity.scheduled_start = formValues[FormInput.ScheduledStart.rawValue] as? Activity.ScheduledStartType
-            self.activity.task = formValues[FormInput.Task.rawValue] as! Activity.TaskType
+            self.activity.task = formValues[FormInput.Task.rawValue] as? Activity.TaskType
             self.activity.task_info = formValues[FormInput.TaskInfo.rawValue] as? Activity.TaskInfoType
             self.activity.today = formValues[FormInput.Today.rawValue] as? Activity.TodayType ?? false
             

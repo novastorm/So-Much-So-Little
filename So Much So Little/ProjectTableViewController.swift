@@ -18,7 +18,7 @@ class ProjectTableViewController: UITableViewController {
     // MARK: - Core Data Utilities
     
     lazy var fetchedResultsController: NSFetchedResultsController<Project> = {
-        let fetchRequest = Project.fetchRequest() as! NSFetchRequest<Project>
+        let fetchRequest = Project.fetchRequest() as NSFetchRequest<Project>
         fetchRequest.predicate = NSPredicate(format: "completed != YES")
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: Project.Keys.DisplayOrder, ascending: true)]
         
@@ -96,7 +96,7 @@ extension ProjectTableViewController {
     
     func configureProjectCell(_ cell: UITableViewCell, atIndexPath indexPath: IndexPath) {
         let project = fetchedResultsController.object(at: indexPath)
-        let label = project.label
+        let label = project.label!
         let displayOrder = project.display_order
         
         cell.textLabel!.text = "\(displayOrder): \(label)"
@@ -145,8 +145,8 @@ extension ProjectTableViewController: NSFetchedResultsControllerDelegate {
         let projectList = fetchedResultsController.fetchedObjects!
         
         for (i, record) in projectList.enumerated() {
-            if record.display_order != NSNumber(value: i) {
-                record.display_order = NSNumber(value: i)
+            if record.display_order != i {
+                record.display_order = i
             }
         }
 

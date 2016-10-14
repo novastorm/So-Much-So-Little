@@ -2,11 +2,8 @@
 //  Timebox+CoreDataProperties.swift
 //  So Much So Little
 //
-//  Created by Adland Lee on 6/29/16.
+//  Created by Adland Lee on 10/14/16.
 //  Copyright © 2016 Adland Lee. All rights reserved.
-//
-//  Choose "Create NSManagedObject Subclass…" from the Core Data editor menu
-//  to delete and recreate this implementation file for your updated model.
 //
 
 import Foundation
@@ -14,12 +11,15 @@ import CoreData
 
 extension Timebox {
 
-    @NSManaged var completed: Bool
-    @NSManaged var external_interruptions: NSNumber
-    @NSManaged var internal_interruptions: NSNumber
-    @NSManaged var start: Date?
-    @NSManaged var stop: Date?
-    
-    @NSManaged var activity: Activity?
+    @nonobjc public class func fetchRequest() -> NSFetchRequest<Timebox> {
+        return NSFetchRequest<Timebox>(entityName: "Timebox");
+    }
+
+    @NSManaged public var completed: Bool
+    @NSManaged public var external_interruptions: Int32
+    @NSManaged public var internal_interruptions: Int32
+    @NSManaged public var start: NSDate?
+    @NSManaged public var stop: NSDate?
+    @NSManaged public var activity: Activity?
 
 }

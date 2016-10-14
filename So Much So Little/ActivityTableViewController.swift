@@ -22,7 +22,7 @@ class ActivityTableViewController: UITableViewController {
     // Mark: - Core Data Utilities
     
     lazy var fetchedResultsController: NSFetchedResultsController<Activity> = {
-        let fetchRequest = Activity.fetchRequest() as! NSFetchRequest<Activity>
+        let fetchRequest = Activity.fetchRequest() as NSFetchRequest<Activity>
         // get Activity that are not complete or (reference with no project).
         fetchRequest.predicate = NSPredicate(format: "(completed != YES) OR ((project == NULL) AND (kind == \(Activity.Kind.reference.rawValue)))")
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: Activity.Keys.DisplayOrder, ascending: true)]
@@ -180,7 +180,7 @@ extension ActivityTableViewController {
     func configureActivityCell(_ cell: UITableViewCell, atIndexPath indexPath: IndexPath) {
         let activity = fetchedResultsController.object(at: indexPath)
         let displayOrder = activity.display_order
-        let task = activity.task
+        let task = activity.task!
         let actualTimeboxes = activity.actual_timeboxes
         let estimatedTimeboxes = activity.estimated_timeboxes
         
@@ -294,8 +294,8 @@ extension ActivityTableViewController: NSFetchedResultsControllerDelegate {
         
         let activityList = fetchedResultsController.fetchedObjects!
         for (i, record) in activityList.enumerated() {
-            if record.display_order != NSNumber(value: i) {
-                record.display_order = NSNumber(value: i)
+            if Int(record.display_order) != i {
+                record.display_order = Int32(i)
             }
         }
 

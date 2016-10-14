@@ -1,18 +1,19 @@
 //
-//  Activity.swift
+//  Activity+CoreDataClass.swift
 //  So Much So Little
 //
-//  Created by Adland Lee on 6/16/16.
+//  Created by Adland Lee on 10/14/16.
 //  Copyright © 2016 Adland Lee. All rights reserved.
 //
 
-import CoreData
 import Foundation
+import CoreData
 
-class Activity: NSManagedObject {
+
+public class Activity: NSManagedObject {
     
-    @objc // <- required for Core Data type compatibility 
-    enum Kind: Int32, CustomStringConvertible {
+    @objc // <- required for Core Data type compatibility
+    public enum Kind: Int32, CustomStringConvertible {
         case flexible
         case deferred
         case reference
@@ -33,7 +34,7 @@ class Activity: NSManagedObject {
             }
         }
         
-        var description: String {
+        public var description: String {
             switch self {
             case .flexible: return "Flexible"
             case .deferred: return "Deferred"
@@ -58,7 +59,7 @@ class Activity: NSManagedObject {
         static let TaskInfo = "task_info"
         static let Today = "today"
         static let TodayDisplayOrder = "today_display_order"
-
+        
         static let Project = "project"
         static let Timeboxes = "timeboxes"
     }
@@ -67,28 +68,28 @@ class Activity: NSManagedObject {
     typealias CompletedDateType = Date
     typealias DeferredToType = String
     typealias DeferredToResponseDueDateType = Date
-    typealias DisplayOrderType = NSNumber
+    typealias DisplayOrderType = Int32
     typealias DueDateType = Date
-    typealias EstimatedTimeboxesType = NSNumber
-//    typealias Kind = Kind
+    typealias EstimatedTimeboxesType = Int32
+    //    typealias Kind = Kind
     typealias ScheduledEndType = Date
     typealias ScheduledStartType = Date
     typealias TaskType = String
     typealias TaskInfoType = String
     typealias TodayType = Bool
-    typealias TodayDisplayOrderType = NSNumber
+    typealias TodayDisplayOrderType = Int32
     
     typealias ProjectType = Project
     typealias TimeBoxesType = Set<Timebox>
     
     static let defaultTask = "New Activity"
-
+    
     convenience init(task: String, context: NSManagedObjectContext) {
         let className = type(of: self).className
         let entity = NSEntityDescription.entity(forEntityName: className, in: context)!
         
         self.init(entity: entity, insertInto: context)
-
+        
         var task = task
         if task.isEmpty {
             task = type(of: self).defaultTask
@@ -103,6 +104,6 @@ class Activity: NSManagedObject {
     }
     
     var actual_timeboxes: Int {
-        return timeboxes?.count ?? 0
+        return timeboxes.count 
     }
 }
