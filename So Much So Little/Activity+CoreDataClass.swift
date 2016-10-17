@@ -52,11 +52,11 @@ public class Activity: NSManagedObject {
         static let DisplayOrder = "display_order"
         static let DueDate = "due_date"
         static let EstimatedTimeboxes = "estimated_timeboxes"
+        static let Info = "info"
         static let Kind = "kind"
         static let ScheduledEnd = "scheduled_end"
         static let ScheduledStart = "scheduled_start"
-        static let Task = "task"
-        static let TaskInfo = "task_info"
+        static let Name = "name"
         static let Today = "today"
         static let TodayDisplayOrder = "today_display_order"
         
@@ -71,36 +71,36 @@ public class Activity: NSManagedObject {
     typealias DisplayOrderType = NSNumber
     typealias DueDateType = Date
     typealias EstimatedTimeboxesType = NSNumber
+    typealias InfoType = String
     //    typealias Kind = Kind
     typealias ScheduledEndType = Date
     typealias ScheduledStartType = Date
-    typealias TaskType = String
-    typealias TaskInfoType = String
+    typealias NameType = String
     typealias TodayType = Bool
     typealias TodayDisplayOrderType = NSNumber
     
     typealias ProjectType = Project
     typealias TimeBoxesType = Set<Timebox>
     
-    static let defaultTask = "New Activity"
+    static let defaultName = "New Activity"
     
-    convenience init(task: String, context: NSManagedObjectContext) {
+    convenience init(name: String, context: NSManagedObjectContext) {
         let className = type(of: self).className
         let entity = NSEntityDescription.entity(forEntityName: className, in: context)!
         
         self.init(entity: entity, insertInto: context)
         
-        var task = task
-        if task.isEmpty {
-            task = type(of: self).defaultTask
+        var name = name
+        if name.isEmpty {
+            name = type(of: self).defaultName
         }
         
-        self.task = task
+        self.name = name
         kind = .flexible
     }
     
     convenience init(context: NSManagedObjectContext) {
-        self.init(task: "", context: context)
+        self.init(name: "", context: context)
     }
     
     var actual_timeboxes: Int {

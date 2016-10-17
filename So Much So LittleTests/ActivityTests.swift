@@ -12,8 +12,8 @@ import CoreData
 
 extension Activity {
     convenience init(data: [String:Any], context: NSManagedObjectContext) {
-        let task = data[Keys.Task] as? TaskType  ?? ""
-        self.init(task: task, context: context)
+        let task = data[Keys.Name] as? NameType  ?? ""
+        self.init(name: task, context: context)
         
         completed = data[Keys.Completed] as? CompletedType ?? false
         completed_date = data[Keys.CompletedDate] as? CompletedDateType
@@ -22,10 +22,10 @@ extension Activity {
         display_order = data[Keys.DisplayOrder] as? DisplayOrderType ?? 0
         due_date = data[Keys.DueDate] as? DueDateType
         estimated_timeboxes = data[Keys.EstimatedTimeboxes] as? EstimatedTimeboxesType ?? 0
+        info = data[Keys.Info] as? InfoType
         kind = data[Keys.Kind] as? Kind ?? .flexible
         scheduled_end = data[Keys.ScheduledEnd] as? ScheduledEndType
         scheduled_start = data[Keys.ScheduledStart] as? ScheduledStartType
-        task_info = data[Keys.TaskInfo] as? TaskInfoType
         today = data[Keys.Today] as? TodayType ?? false
         today_display_order = data[Keys.TodayDisplayOrder] as? TodayDisplayOrderType ?? 0
         
@@ -54,25 +54,25 @@ class ActivityTests: XCTestCase {
     
     let mockActivityList: [String:[String:Any]] = [
         "alpha": [
-            Activity.Keys.Task: "Activity Alpha",
+            Activity.Keys.Name: "Activity Alpha",
             Activity.Keys.EstimatedTimeboxes: 4,
-            Activity.Keys.TaskInfo: "Alpha task info",
+            Activity.Keys.Info: "Alpha info",
         ],
         "bravo": [
-            Activity.Keys.Task: "Activity Bravo",
+            Activity.Keys.Name: "Activity Bravo",
             Activity.Keys.EstimatedTimeboxes: 2,
             Activity.Keys.Today: true,
             Activity.Keys.Completed: true
         ],
         "charlie": [
-            Activity.Keys.Task: "Activity Charlie",
+            Activity.Keys.Name: "Activity Charlie",
         ],
         "delta": [
-            Activity.Keys.Task: "Activity Delta",
+            Activity.Keys.Name: "Activity Delta",
             Activity.Keys.Completed: true
         ],
         "echo": [
-            Activity.Keys.Task: "Activity Echo",
+            Activity.Keys.Name: "Activity Echo",
             Activity.Keys.EstimatedTimeboxes: 4,
             Activity.Keys.Today: true,
         ]
@@ -104,15 +104,15 @@ class ActivityTests: XCTestCase {
     
     func testIncompleteActivityData() {
         let defaultActivity = Activity(context: managedObjectContext)
-        XCTAssertEqual(defaultActivity.task, Activity.defaultTask)
+        XCTAssertEqual(defaultActivity.name, Activity.defaultName)
         
         let blankActivity = Activity(context: managedObjectContext)
-        XCTAssertEqual(blankActivity.task, Activity.defaultTask)
+        XCTAssertEqual(blankActivity.name, Activity.defaultName)
     }
     
     func testOneActivity() {
-        let task = "test activity"
-        let activity = Activity(task: task, context: managedObjectContext)
+        let name = "test activity"
+        let activity = Activity(name: name, context: managedObjectContext)
         try! managedObjectContext.save()
         
         let fetchRequest = getActivityFetchRequest()
@@ -133,12 +133,12 @@ class ActivityTests: XCTestCase {
         XCTAssertEqual(fetchedActivity.display_order, 0, "Default Activity display_order should be 0")
         XCTAssertNil(fetchedActivity.due_date, "Default Activity due_date should be nil")
         XCTAssertEqual(fetchedActivity.estimated_timeboxes, 0, "Default Activity estimated_timeboxes should be 0")
+        XCTAssertNil(fetchedActivity.info, "Default Activity info should be nil")
         XCTAssertEqual(fetchedActivity.kind, .flexible, "Default Activity typeValue should be .flexible")
+        XCTAssertEqual(fetchedActivity.name, name, "Default Activity name should be \"\(name)\"")
         XCTAssertNil(fetchedActivity.project, "Default Activity project should be nil")
         XCTAssertNil(fetchedActivity.scheduled_start, "Default Activity scheduled_start should be nil")
         XCTAssertNil(fetchedActivity.scheduled_end, "Default Activity scheduled_end should be nil")
-        XCTAssertEqual(fetchedActivity.task, task, "Default Activity task should be \"\(task)\"")
-        XCTAssertNil(fetchedActivity.task_info, "Default Activity task_info should be nil")
         XCTAssertEqual(fetchedActivity.today, false, "Default Activity today should be false")
         XCTAssertEqual(fetchedActivity.today_display_order, 0, "Default Activity today_display_order should be 0")
         
@@ -176,8 +176,8 @@ class ActivityTests: XCTestCase {
         // compare activity details
         XCTAssertEqual(fetchedActivity, alpha)
         
-        let task = alphaData[Activity.Keys.Task] as! String
-        XCTAssertEqual(alpha.task, task, "Activity task should be \"\(task)\"")
+        let name = alphaData[Activity.Keys.Name] as! String
+        XCTAssertEqual(alpha.name, name, "Activity name should be \"\(name)\"")
 
         let estimated_timeboxes = alphaData[Activity.Keys.EstimatedTimeboxes] as? Activity.EstimatedTimeboxesType
         XCTAssertEqual(alpha.estimated_timeboxes, estimated_timeboxes, "Activity estimated_timeboxes should be \(estimated_timeboxes)")

@@ -181,11 +181,11 @@ extension TodayTableViewController {
     func configureTodayCell(_ cell: TodayTableViewCell, atIndexPath indexPath: IndexPath) {
         let activity = fetchedResultsController.object(at: indexPath)
         let todayDisplayOrder = activity.today_display_order 
-        let task = activity.task
+        let name = activity.name
         let actualTimeboxes = activity.actual_timeboxes
         let estimatedTimeboxes = activity.estimated_timeboxes
         
-        cell.taskLabel.text = "\(todayDisplayOrder): \(task)"
+        cell.taskLabel.text = "\(todayDisplayOrder): \(name)"
         cell.timeBoxTallyLabel.text = "\(actualTimeboxes)/\(estimatedTimeboxes)"
     }
 }

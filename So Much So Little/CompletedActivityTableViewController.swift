@@ -171,21 +171,21 @@ extension CompletedActivityTableViewController {
     
     func configureActivityCell(_ cell: UITableViewCell, atIndexPath indexPath: IndexPath) {
         let activity = frcActivity.object(at: indexPath) 
-        let task = activity.task
+        let name = activity.name
         let actualTimeboxes = activity.actual_timeboxes
         let estimatedTimeboxes = activity.estimated_timeboxes
         
-        cell.textLabel!.text = "\(task)"
+        cell.textLabel!.text = "\(name)"
         cell.detailTextLabel!.text = "\(actualTimeboxes)/\(estimatedTimeboxes)"
     }
     
     func configureProjectCell(_ cell: UITableViewCell, atIndexPath indexPath: IndexPath) {
         let projectIndexPath = IndexPath(row: (indexPath as NSIndexPath).row, section: 0)
         let project = frcProject.object(at: projectIndexPath) 
-        let label = project.label
+        let name = project.name
         let displayOrder = project.display_order
         
-        cell.textLabel!.text = "\(displayOrder): \(label)"
+        cell.textLabel!.text = "\(displayOrder): \(name)"
     }
 }
 

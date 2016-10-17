@@ -20,8 +20,9 @@ extension Project {
     @NSManaged public var completed_date: Date?
     @NSManaged public var display_order: NSNumber
     @NSManaged public var due_date: Date?
-    @NSManaged public var info: String
-    @NSManaged public var label: String
+    @NSManaged public var info: String?
+    @NSManaged public var name: String
+    
     @NSManaged public var activities: Set<Activity>
 
 }

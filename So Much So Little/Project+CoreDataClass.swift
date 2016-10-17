@@ -19,7 +19,7 @@ public class Project: NSManagedObject {
         static let DisplayOrder = "display_order"
         static let DueDate = "due_date"
         static let Info = "info"
-        static let Label = "label"
+        static let Name = "name"
         
         static let Activities = "activities"
     }
@@ -30,29 +30,29 @@ public class Project: NSManagedObject {
     typealias DisplayOrderType = NSNumber
     typealias DueDateType = Date
     typealias InfoType = String
-    typealias LabelType = String
+    typealias NameType = String
     
     typealias ActivitiesType = Set<Activity>
     
-    static let defaultLabel = "New Project"
+    static let defaultName = "New Project"
     
-    convenience init(label: String, context: NSManagedObjectContext) {
+    convenience init(name: String, context: NSManagedObjectContext) {
         let className = type(of: self).className
         let entity = NSEntityDescription.entity(forEntityName: className, in: context)!
         
         self.init(entity: entity, insertInto: context)
         
-        var label = label
-        if label.isEmpty {
-            label = type(of: self).defaultLabel
+        var name = name
+        if name.isEmpty {
+            name = type(of: self).defaultName
         }
         
-        self.label = label
+        self.name = name
     }
     
     
     convenience init(context: NSManagedObjectContext) {
-        self.init(label: "", context: context)
+        self.init(name: "", context: context)
     }
     
 }

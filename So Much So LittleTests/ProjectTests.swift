@@ -12,14 +12,14 @@ import CoreData
 
 extension Project {
     convenience init(data: [String:Any], context: NSManagedObjectContext) {
-        let label = data[Keys.Label] as? LabelType ?? ""
-        self.init(label: label, context: context)
+        let name = data[Keys.Name] as? NameType ?? ""
+        self.init(name: name, context: context)
         
         completed = data[Keys.Completed] as? CompletedType ?? false
         completed_date = data[Keys.CompletedDate] as? CompletedDateType
-        display_order = data[Keys.DisplayOrder] as! DisplayOrderType
+        display_order = data[Keys.DisplayOrder] as? DisplayOrderType ?? 0
         due_date = data[Keys.DueDate] as? DueDateType
-        info = data[Keys.Info] as! InfoType
+        info = data[Keys.Info] as? InfoType
         
     }
 }
@@ -59,30 +59,30 @@ class ProjectTests: XCTestCase {
     
     let mockActivityList: [String: [String:Any]] = [
         "alpha": [
-            Activity.Keys.Task: "Activity Alpha"
+            Activity.Keys.Name: "Activity Alpha"
         ],
         "bravo": [
-            Activity.Keys.Task: "Activity Bravo"
+            Activity.Keys.Name: "Activity Bravo"
         ],
         "charlie": [
-            Activity.Keys.Task: "Activity Charlie"
+            Activity.Keys.Name: "Activity Charlie"
         ],
         "delta": [
-            Activity.Keys.Task: "Activity Delta"
+            Activity.Keys.Name: "Activity Delta"
         ]
     ]
     
     let mockProjectList: [String: [String:Any]] = [
         "alpha": [
-            Project.Keys.Label: "AAAA Project",
+            Project.Keys.Name: "AAAA Project",
             Project.Keys.Info: "AAAA Project extended tnformation"
         ],
         "bravo": [
-            Project.Keys.Label: "BBBB Project",
+            Project.Keys.Name: "BBBB Project",
             Project.Keys.Completed: true
         ],
         "charlie": [
-            Project.Keys.Label: "CCCC Project"
+            Project.Keys.Name: "CCCC Project"
         ]
     ]
     
@@ -112,8 +112,8 @@ class ProjectTests: XCTestCase {
     }
     
     func testOneProject() {
-        let label = "test project"
-        let project = Project(label: label, context: managedObjectContext)
+        let name = "test project"
+        let project = Project(name: name, context: managedObjectContext)
         try! managedObjectContext.save()
         
         let fetchRequest = getProjectFetchRequest()
@@ -163,9 +163,9 @@ class ProjectTests: XCTestCase {
         // MARK: Compare project details
         XCTAssertEqual(fetchedProject, projectAlpha)
         
-        let label = projectAlphaData[Project.Keys.Label] as! Project.LabelType
-        XCTAssertEqual(projectAlpha.label, label, "Project label should be \"\(label)\"")
-        let info = projectAlphaData[Project.Keys.Info] as! Project.InfoType
+        let name = projectAlphaData[Project.Keys.Name] as! Project.NameType
+        XCTAssertEqual(projectAlpha.name, name, "Project name should be \"\(name)\"")
+        let info = projectAlphaData[Project.Keys.Info] as? Project.InfoType
         XCTAssertEqual(projectAlpha.info, info, "Project info should be \(info)")
         
         // MARK: Create additional projects

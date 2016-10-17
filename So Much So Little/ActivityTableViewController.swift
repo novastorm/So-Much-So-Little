@@ -180,11 +180,11 @@ extension ActivityTableViewController {
     func configureActivityCell(_ cell: UITableViewCell, atIndexPath indexPath: IndexPath) {
         let activity = fetchedResultsController.object(at: indexPath)
         let displayOrder = activity.display_order
-        let task = activity.task
+        let name = activity.name
         let actualTimeboxes = activity.actual_timeboxes
         let estimatedTimeboxes = activity.estimated_timeboxes
         
-        cell.textLabel!.text = "\(displayOrder): \(task)"
+        cell.textLabel!.text = "\(displayOrder): \(name)"
         cell.detailTextLabel!.text = "\(actualTimeboxes)/\(estimatedTimeboxes)"
     }
 }

@@ -25,7 +25,7 @@ class ProjectDetailFormViewController: FormViewController {
         DisplayOrder,
         DueDate,
         Info,
-        Label,
+        Name,
 //        HasParentProject,
 //        HasSubproject,
         
@@ -80,10 +80,10 @@ class ProjectDetailFormViewController: FormViewController {
         
         form
         +++ Section()
-            <<< TextRow(FormInput.Label.rawValue) { (row) in
-                row.placeholder = Project.defaultLabel
+            <<< TextRow(FormInput.Name.rawValue) { (row) in
+                row.placeholder = Project.defaultName
                 temporaryContext.performAndWait {
-                    row.value = self.project.label
+                    row.value = self.project.name
                 }
             }
             <<< SwitchRow(FormInput.Completed.rawValue) { (row) in
@@ -120,8 +120,8 @@ class ProjectDetailFormViewController: FormViewController {
             }.onPresent { (from, to) in
                 print("Activity onPresent")
                 to.selectableRowCellSetup = { (cell, row) in
-                    if let value = row.selectableValue {
-                        row.title = value.task
+                    if let activity = row.selectableValue {
+                        row.title = activity.name
                     }
                 }
             }
@@ -145,8 +145,8 @@ class ProjectDetailFormViewController: FormViewController {
         temporaryContext.perform {
             self.project.completed = formValues[FormInput.Completed.rawValue] as! Project.CompletedType
             self.project.due_date = formValues[FormInput.DueDate.rawValue] as? Project.DueDateType
-            self.project.info = formValues[FormInput.Info.rawValue] as! Project.InfoType
-            self.project.label = formValues[FormInput.Label.rawValue] as! Project.LabelType
+            self.project.info = formValues[FormInput.Info.rawValue] as? Project.InfoType
+            self.project.name = formValues[FormInput.Name.rawValue] as! Project.NameType
 
             self.saveTemporaryContext()
         }

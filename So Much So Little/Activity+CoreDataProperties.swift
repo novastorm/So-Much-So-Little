@@ -22,13 +22,14 @@ extension Activity {
     @NSManaged public var display_order: NSNumber
     @NSManaged public var due_date: Date?
     @NSManaged public var estimated_timeboxes: NSNumber
+    @NSManaged public var info: String?
     @NSManaged public var kind: Kind
     @NSManaged public var scheduled_end: Date?
     @NSManaged public var scheduled_start: Date?
-    @NSManaged public var task: String
-    @NSManaged public var task_info: String?
+    @NSManaged public var name: String
     @NSManaged public var today: Bool
     @NSManaged public var today_display_order: NSNumber
+    
     @NSManaged public var project: Project?
     @NSManaged public var timeboxes: [Timebox]
 

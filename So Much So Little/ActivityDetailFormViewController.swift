@@ -25,11 +25,11 @@ class ActivityDetailFormViewController: FormViewController {
 //        DisplayOrder,
         DueDate,
         EstimatedTimeboxes,
+        Info,
         Kind,
         ScheduledEnd,
         ScheduledStart,
-        Task,
-        TaskInfo,
+        Name,
         Today,
 //        TodayDisplayOrder,
 
@@ -59,7 +59,7 @@ class ActivityDetailFormViewController: FormViewController {
     
     lazy var projectFRC: NSFetchedResultsController<Project> = {
         let fetchRequest = Project.fetchRequest() as NSFetchRequest<Project>
-        fetchRequest.sortDescriptors = [NSSortDescriptor(key: Project.Keys.Label, ascending: true)]
+        fetchRequest.sortDescriptors = [NSSortDescriptor(key: Project.Keys.Name, ascending: true)]
         let frc = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.sharedContext, sectionNameKeyPath: nil, cacheName: nil)
         
         return frc
@@ -89,19 +89,19 @@ class ActivityDetailFormViewController: FormViewController {
         
         form
             +++ Section()
-                <<< TextRow(FormInput.Task.rawValue) { (row) in
-                    row.placeholder = Activity.defaultTask
+                <<< TextRow(FormInput.Name.rawValue) { (row) in
+                    row.placeholder = Activity.defaultName
                     temporaryContext.performAndWait {
-                        row.value = self.activity.task
+                        row.value = self.activity.name
                     }
                 }
         
                 <<< TimeboxControlRow(FormInput.EstimatedTimeboxes.rawValue)
         
-                <<< TextAreaRow(FormInput.TaskInfo.rawValue) { (row) in
+                <<< TextAreaRow(FormInput.Info.rawValue) { (row) in
                     row.placeholder = "Description"
                     temporaryContext.performAndWait {
-                        row.value = self.activity.task_info
+                        row.value = self.activity.info
                     }
                 }
         
@@ -115,8 +115,8 @@ class ActivityDetailFormViewController: FormViewController {
                             row.value = projectInContext
                         }
                     }
-                    row.displayValueFor = { (value) in
-                        return value?.label
+                    row.displayValueFor = { (project) in
+                        return project?.name
                     }
                 }.onCellSelection { (cell, row) in
                     try! self.projectFRC.performFetch()
@@ -133,8 +133,8 @@ class ActivityDetailFormViewController: FormViewController {
                     }
                 }.onPresent { (from, to) in
                     to.selectableRowCellUpdate = { (cell, row) in
-                        if let value = row.selectableValue {
-                            row.title = value.label
+                        if let project = row.selectableValue {
+                            row.title = project.name
                         }
                     }
                 }
@@ -261,11 +261,11 @@ class ActivityDetailFormViewController: FormViewController {
             self.activity.deferred_to_response_due_date = formValues[FormInput.DeferredToResponseDueDate.rawValue] as? Activity.DeferredToResponseDueDateType
             self.activity.due_date = formValues[FormInput.DueDate.rawValue] as? Activity.DueDateType
             self.activity.estimated_timeboxes = formValues[FormInput.EstimatedTimeboxes.rawValue] as? Activity.EstimatedTimeboxesType ?? 0
+            self.activity.info = formValues[FormInput.Info.rawValue] as? Activity.InfoType
             self.activity.kind = Activity.Kind.fromString(formValues[FormInput.Kind.rawValue] as! String)!
             self.activity.scheduled_end = formValues[FormInput.ScheduledEnd.rawValue] as? Activity.ScheduledEndType
             self.activity.scheduled_start = formValues[FormInput.ScheduledStart.rawValue] as? Activity.ScheduledStartType
-            self.activity.task = formValues[FormInput.Task.rawValue] as! Activity.TaskType
-            self.activity.task_info = formValues[FormInput.TaskInfo.rawValue] as? Activity.TaskInfoType
+            self.activity.name = formValues[FormInput.Name.rawValue] as! Activity.NameType
             self.activity.today = formValues[FormInput.Today.rawValue] as? Activity.TodayType ?? false
             
             

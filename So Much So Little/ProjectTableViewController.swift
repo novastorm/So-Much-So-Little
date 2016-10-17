@@ -96,10 +96,10 @@ extension ProjectTableViewController {
     
     func configureProjectCell(_ cell: UITableViewCell, atIndexPath indexPath: IndexPath) {
         let project = fetchedResultsController.object(at: indexPath)
-        let label = project.label
+        let name = project.name
         let displayOrder = project.display_order
         
-        cell.textLabel!.text = "\(displayOrder): \(label)"
+        cell.textLabel!.text = "\(displayOrder): \(name)"
     }
 }
 

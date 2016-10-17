@@ -27,8 +27,8 @@ class TimerViewController: UIViewController {
     @IBOutlet weak var time01Label: UILabel!
     @IBOutlet weak var time10sLabel: UILabel!
     @IBOutlet weak var time01sLabel: UILabel!
-    @IBOutlet weak var taskLabel: UILabel!
-    @IBOutlet weak var taskInfoLabel: UITextView!
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var infoLabel: UITextView!
     @IBOutlet weak var startInterruptButton: UIButton!
     
     
@@ -104,7 +104,7 @@ class TimerViewController: UIViewController {
             if let field = alertController.textFields?[0] {
                 self.temporaryContext.perform {
                     let newActivity = Activity(context: self.temporaryContext)
-                    newActivity.task_info = field.text
+                    newActivity.info = field.text
                     self.saveTemporaryContext()
                 }
             }
@@ -169,8 +169,8 @@ class TimerViewController: UIViewController {
     }
     
     func clearActivity() {
-        taskLabel.text = DefaultTaskLabel
-        taskInfoLabel.text.removeAll()
+        nameLabel.text = DefaultTaskLabel
+        infoLabel.text.removeAll()
         activity = nil
     }
     
@@ -179,7 +179,7 @@ class TimerViewController: UIViewController {
             return
         }
         
-        taskLabel.text = activity?.task
-        taskInfoLabel.text = activity?.task_info
+        nameLabel.text = activity?.name
+        infoLabel.text = activity?.info
     }
 }
