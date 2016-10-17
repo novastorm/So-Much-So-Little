@@ -7,7 +7,6 @@
 //
 
 import Eureka
-import Foundation
 import UIKit
 
 private var TimeboxControlCellContext = 0

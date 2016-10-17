@@ -6,7 +6,6 @@
 //  Copyright © 2016 Adland Lee. All rights reserved.
 //
 
-import Foundation
 import CoreData
 
 
