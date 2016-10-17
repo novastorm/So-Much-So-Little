@@ -2,7 +2,7 @@
 //  Timebox+CoreDataProperties.swift
 //  So Much So Little
 //
-//  Created by Adland Lee on 10/14/16.
+//  Created by Adland Lee on 10/16/16.
 //  Copyright © 2016 Adland Lee. All rights reserved.
 //
 
@@ -16,10 +16,10 @@ extension Timebox {
     }
 
     @NSManaged public var completed: Bool
-    @NSManaged public var external_interruptions: Int32
-    @NSManaged public var internal_interruptions: Int32
-    @NSManaged public var start: NSDate?
-    @NSManaged public var stop: NSDate?
+    @NSManaged public var external_interruptions: NSNumber
+    @NSManaged public var internal_interruptions: NSNumber
+    @NSManaged public var start: Date?
+    @NSManaged public var stop: Date?
     @NSManaged public var activity: Activity?
 
 }

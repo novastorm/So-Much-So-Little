@@ -29,7 +29,8 @@ class TimeboxControl: UIView {
         }
     }
     
-    static let defaultTimeboxImage = UIImage(named: "Timebox")
+//    static let defaultTimeboxImage = UIImage(named: "TimeBox")
+    static let defaultTimeboxImage = #imageLiteral(resourceName: "TimeBox")
     static let estimatedTimeboxImage = UIImage(named: "Clock")
     static let completedTimeboxImage = UIImage(named: "FilledBox")
 

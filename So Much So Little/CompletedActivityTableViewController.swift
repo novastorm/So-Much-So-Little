@@ -171,7 +171,7 @@ extension CompletedActivityTableViewController {
     
     func configureActivityCell(_ cell: UITableViewCell, atIndexPath indexPath: IndexPath) {
         let activity = frcActivity.object(at: indexPath) 
-        let task = activity.task!
+        let task = activity.task
         let actualTimeboxes = activity.actual_timeboxes
         let estimatedTimeboxes = activity.estimated_timeboxes
         

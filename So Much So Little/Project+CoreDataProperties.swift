@@ -2,7 +2,7 @@
 //  Project+CoreDataProperties.swift
 //  So Much So Little
 //
-//  Created by Adland Lee on 10/14/16.
+//  Created by Adland Lee on 10/16/16.
 //  Copyright © 2016 Adland Lee. All rights reserved.
 //
 
@@ -18,10 +18,10 @@ extension Project {
     @NSManaged public var active: Bool
     @NSManaged public var completed: Bool
     @NSManaged public var completed_date: Date?
-    @NSManaged public var display_order: Int
+    @NSManaged public var display_order: NSNumber
     @NSManaged public var due_date: Date?
-    @NSManaged public var info: String?
-    @NSManaged public var label: String?
+    @NSManaged public var info: String
+    @NSManaged public var label: String
     @NSManaged public var activities: Set<Activity>
 
 }

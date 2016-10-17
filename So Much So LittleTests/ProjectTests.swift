@@ -17,9 +17,9 @@ extension Project {
         
         completed = data[Keys.Completed] as? CompletedType ?? false
         completed_date = data[Keys.CompletedDate] as? CompletedDateType
-        display_order = data[Keys.DisplayOrder] as? DisplayOrderType ?? 0
+        display_order = data[Keys.DisplayOrder] as! DisplayOrderType
         due_date = data[Keys.DueDate] as? DueDateType
-        info = data[Keys.Info] as? InfoType
+        info = data[Keys.Info] as! InfoType
         
     }
 }

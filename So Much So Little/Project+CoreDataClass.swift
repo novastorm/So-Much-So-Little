@@ -13,6 +13,7 @@ import CoreData
 public class Project: NSManagedObject {
     
     struct Keys {
+        static let Active = "active"
         static let Completed = "completed"
         static let CompletedDate = "completed_date"
         static let DisplayOrder = "display_order"
@@ -23,9 +24,10 @@ public class Project: NSManagedObject {
         static let Activities = "activities"
     }
     
+    typealias ActiveType = Bool
     typealias CompletedType = Bool
     typealias CompletedDateType = Date
-    typealias DisplayOrderType = Int32
+    typealias DisplayOrderType = NSNumber
     typealias DueDateType = Date
     typealias InfoType = String
     typealias LabelType = String

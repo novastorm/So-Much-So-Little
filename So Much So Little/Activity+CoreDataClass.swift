@@ -68,16 +68,16 @@ public class Activity: NSManagedObject {
     typealias CompletedDateType = Date
     typealias DeferredToType = String
     typealias DeferredToResponseDueDateType = Date
-    typealias DisplayOrderType = Int32
+    typealias DisplayOrderType = NSNumber
     typealias DueDateType = Date
-    typealias EstimatedTimeboxesType = Int32
+    typealias EstimatedTimeboxesType = NSNumber
     //    typealias Kind = Kind
     typealias ScheduledEndType = Date
     typealias ScheduledStartType = Date
     typealias TaskType = String
     typealias TaskInfoType = String
     typealias TodayType = Bool
-    typealias TodayDisplayOrderType = Int32
+    typealias TodayDisplayOrderType = NSNumber
     
     typealias ProjectType = Project
     typealias TimeBoxesType = Set<Timebox>

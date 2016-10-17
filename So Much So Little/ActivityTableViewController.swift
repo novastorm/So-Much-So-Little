@@ -180,7 +180,7 @@ extension ActivityTableViewController {
     func configureActivityCell(_ cell: UITableViewCell, atIndexPath indexPath: IndexPath) {
         let activity = fetchedResultsController.object(at: indexPath)
         let displayOrder = activity.display_order
-        let task = activity.task!
+        let task = activity.task
         let actualTimeboxes = activity.actual_timeboxes
         let estimatedTimeboxes = activity.estimated_timeboxes
         
@@ -294,8 +294,9 @@ extension ActivityTableViewController: NSFetchedResultsControllerDelegate {
         
         let activityList = fetchedResultsController.fetchedObjects!
         for (i, record) in activityList.enumerated() {
-            if Int(record.display_order) != i {
-                record.display_order = Int32(i)
+            let i = i as NSNumber
+            if record.display_order != i {
+                record.display_order = i
             }
         }
 

@@ -2,7 +2,7 @@
 //  Activity+CoreDataProperties.swift
 //  So Much So Little
 //
-//  Created by Adland Lee on 10/14/16.
+//  Created by Adland Lee on 10/16/16.
 //  Copyright © 2016 Adland Lee. All rights reserved.
 //
 
@@ -19,18 +19,18 @@ extension Activity {
     @NSManaged public var completed_date: Date?
     @NSManaged public var deferred_to: String?
     @NSManaged public var deferred_to_response_due_date: Date?
-    @NSManaged public var display_order: Int32
+    @NSManaged public var display_order: NSNumber
     @NSManaged public var due_date: Date?
-    @NSManaged public var estimated_timeboxes: Int32
+    @NSManaged public var estimated_timeboxes: NSNumber
     @NSManaged public var kind: Kind
     @NSManaged public var scheduled_end: Date?
     @NSManaged public var scheduled_start: Date?
-    @NSManaged public var task: String?
+    @NSManaged public var task: String
     @NSManaged public var task_info: String?
     @NSManaged public var today: Bool
-    @NSManaged public var today_display_order: Int32
+    @NSManaged public var today_display_order: NSNumber
     @NSManaged public var project: Project?
-    @NSManaged public var timeboxes: Set<Timebox>
+    @NSManaged public var timeboxes: [Timebox]
 
 }
 

@@ -145,8 +145,8 @@ class ProjectDetailFormViewController: FormViewController {
         temporaryContext.perform {
             self.project.completed = formValues[FormInput.Completed.rawValue] as! Project.CompletedType
             self.project.due_date = formValues[FormInput.DueDate.rawValue] as? Project.DueDateType
-            self.project.info = formValues[FormInput.Info.rawValue] as? Project.InfoType
-            self.project.label = formValues[FormInput.Label.rawValue] as? Project.LabelType
+            self.project.info = formValues[FormInput.Info.rawValue] as! Project.InfoType
+            self.project.label = formValues[FormInput.Label.rawValue] as! Project.LabelType
 
             self.saveTemporaryContext()
         }

@@ -23,8 +23,8 @@ public class Timebox: NSManagedObject {
     }
     
     typealias CompletedType = Bool
-    typealias ExternalInterruptionsType = Int32
-    typealias InternalInterruptionsType = Int32
+    typealias ExternalInterruptionsType = NSNumber
+    typealias InternalInterruptionsType = NSNumber
     typealias StartType = Date
     typealias StopType = Date
     

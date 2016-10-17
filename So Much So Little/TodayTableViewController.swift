@@ -285,8 +285,9 @@ extension TodayTableViewController: NSFetchedResultsControllerDelegate {
         let activityList = fetchedResultsController.fetchedObjects!
         
         for (i, record) in activityList.enumerated() {
-            if Int(record.today_display_order) != i {
-                record.today_display_order = Int32(i)
+            let i = i as NSNumber
+            if record.today_display_order != i {
+                record.today_display_order = i
             }
         }
         
