@@ -10,19 +10,6 @@ import XCTest
 import CoreData
 @testable import So_Much_So_Little
 
-extension Project {
-    convenience init(data: [String:Any], context: NSManagedObjectContext) {
-        let name = data[Keys.Name] as? NameType ?? ""
-        self.init(name: name, context: context)
-        
-        completed = data[Keys.Completed] as? CompletedType ?? false
-        completed_date = data[Keys.CompletedDate] as? CompletedDateType
-        display_order = data[Keys.DisplayOrder] as? DisplayOrderType ?? 0
-        due_date = data[Keys.DueDate] as? DueDateType
-        info = data[Keys.Info] as? InfoType
-        
-    }
-}
 
 class ProjectTests: XCTestCase {
     
@@ -57,7 +44,7 @@ class ProjectTests: XCTestCase {
         return fetchRequest
     }
     
-    let mockActivityList: [String: [String:Any]] = [
+    let mockActivityList: [AnyHashable: [AnyHashable:Any]] = [
         "alpha": [
             Activity.Keys.Name: "Activity Alpha"
         ],
@@ -72,7 +59,7 @@ class ProjectTests: XCTestCase {
         ]
     ]
     
-    let mockProjectList: [String: [String:Any]] = [
+    let mockProjectList: [AnyHashable: [AnyHashable:Any]] = [
         "alpha": [
             Project.Keys.Name: "AAAA Project",
             Project.Keys.Info: "AAAA Project extended tnformation"
@@ -113,7 +100,7 @@ class ProjectTests: XCTestCase {
     
     func testOneProject() {
         let name = "test project"
-        let project = Project(name: name, context: managedObjectContext)
+        let project = Project(context: managedObjectContext, name: name)
         try! managedObjectContext.save()
         
         let fetchRequest = getProjectFetchRequest()
@@ -146,7 +133,7 @@ class ProjectTests: XCTestCase {
         
         // MARK: Create project
         let projectAlphaData = mockProjectList["alpha"]!
-        let projectAlpha = Project(data: projectAlphaData, context: managedObjectContext)
+        let projectAlpha = Project(context: managedObjectContext, data: projectAlphaData)
         XCTAssertTrue(projectAlpha.objectID.isTemporaryID, "Project should have a temporary ID")
         try! managedObjectContext.save()
         XCTAssertFalse(projectAlpha.objectID.isTemporaryID, "Project should not have a temporary ID")
@@ -170,7 +157,7 @@ class ProjectTests: XCTestCase {
         
         // MARK: Create additional projects
         let projectBravoData = mockProjectList["bravo"]!
-        let projectBravo = Project(data: projectBravoData, context: managedObjectContext)
+        let projectBravo = Project(context: managedObjectContext, data: projectBravoData)
         
         try! managedObjectContext.save()
         try! projectFetchedResultsController.performFetch()
@@ -180,7 +167,7 @@ class ProjectTests: XCTestCase {
         XCTAssertTrue(fetchedProjectList.contains(projectBravo))
         
         let projectCharlieData = mockProjectList["charlie"]!
-        let projectCharlie = Project(data: projectCharlieData, context: managedObjectContext)
+        let projectCharlie = Project(context: managedObjectContext, data: projectCharlieData)
         
         XCTAssertTrue(projectCharlie.objectID.isTemporaryID, "Project Charlie should have temporary ID")
         try! projectFetchedResultsController.performFetch()
@@ -205,9 +192,9 @@ class ProjectTests: XCTestCase {
     
     // MARK: - Test Project Lists
     func testProjectLists() {
-        let projectAlpha = Project(data: mockProjectList["alpha"]!, context: managedObjectContext)
-        let projectBravo = Project(data: mockProjectList["bravo"]!, context: managedObjectContext)
-        let projectCharlie = Project(data: mockProjectList["charlie"]!, context: managedObjectContext)
+        let projectAlpha = Project(context: managedObjectContext, data: mockProjectList["alpha"]!)
+        let projectBravo = Project(context: managedObjectContext, data: mockProjectList["bravo"]!)
+        let projectCharlie = Project(context: managedObjectContext, data: mockProjectList["charlie"]!)
         
         // MARK: test project list
         let projectListFetchRequest = getProjectFetchRequest()

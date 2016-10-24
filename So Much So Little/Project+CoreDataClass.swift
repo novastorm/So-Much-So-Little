@@ -35,13 +35,13 @@ public class Project: NSManagedObject {
     
     static let defaultName = "New Project"
     
-    convenience init(name: String, context: NSManagedObjectContext) {
+    convenience init(context: NSManagedObjectContext, name: String) {
         let className = type(of: self).className
         let entity = NSEntityDescription.entity(forEntityName: className, in: context)!
         
         self.init(entity: entity, insertInto: context)
         
-        var name = name
+        var name = name.trimmingCharacters(in: .whitespacesAndNewlines)
         if name.isEmpty {
             name = type(of: self).defaultName
         }
@@ -49,9 +49,19 @@ public class Project: NSManagedObject {
         self.name = name
     }
     
-    
     convenience init(context: NSManagedObjectContext) {
-        self.init(name: "", context: context)
+        self.init(context: context, name: type(of: self).defaultName)
     }
-    
+
+    convenience init(context: NSManagedObjectContext, data: [AnyHashable:Any]) {
+        let name = data[Keys.Name] as? NameType ?? ""
+        self.init(context: context, name: name)
+        
+        active = data[Keys.Active] as? ActiveType ?? false
+        completed = data[Keys.Completed] as? CompletedType ?? false
+        completed_date = data[Keys.CompletedDate] as? CompletedDateType
+        display_order = data[Keys.DisplayOrder] as? DisplayOrderType ?? 0
+        due_date = data[Keys.DueDate] as? DueDateType
+        info = data[Keys.Info] as? InfoType
+    }
 }

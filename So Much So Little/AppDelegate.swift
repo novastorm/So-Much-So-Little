@@ -56,8 +56,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func checkIfFirstLaunch() {
         if !UserDefaults.standard.bool(forKey: UserDefaultKeys.HasLaunchedBefore) {
             UserDefaults.standard.set(true, forKey: UserDefaultKeys.HasLaunchedBefore)
-            
-//            Activity.populateActivityList()
+            // MARK: TODO: Populate initial records
+            CloudKitClient.importDefaultRecords()
         }
     }
 }

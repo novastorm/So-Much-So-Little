@@ -10,27 +10,6 @@ import XCTest
 import CoreData
 @testable import So_Much_So_Little
 
-extension Activity {
-    convenience init(data: [String:Any], context: NSManagedObjectContext) {
-        let task = data[Keys.Name] as? NameType  ?? ""
-        self.init(name: task, context: context)
-        
-        completed = data[Keys.Completed] as? CompletedType ?? false
-        completed_date = data[Keys.CompletedDate] as? CompletedDateType
-        deferred_to = data[Keys.DeferredTo] as? DeferredToType
-        deferred_to_response_due_date = data[Keys.DeferredToResponseDueDate] as? DeferredToResponseDueDateType
-        display_order = data[Keys.DisplayOrder] as? DisplayOrderType ?? 0
-        due_date = data[Keys.DueDate] as? DueDateType
-        estimated_timeboxes = data[Keys.EstimatedTimeboxes] as? EstimatedTimeboxesType ?? 0
-        info = data[Keys.Info] as? InfoType
-        kind = data[Keys.Kind] as? Kind ?? .flexible
-        scheduled_end = data[Keys.ScheduledEnd] as? ScheduledEndType
-        scheduled_start = data[Keys.ScheduledStart] as? ScheduledStartType
-        today = data[Keys.Today] as? TodayType ?? false
-        today_display_order = data[Keys.TodayDisplayOrder] as? TodayDisplayOrderType ?? 0
-        
-    }
-}
 
 class ActivityTests: XCTestCase {
     
@@ -52,7 +31,7 @@ class ActivityTests: XCTestCase {
         return fetchRequest
     }
     
-    let mockActivityList: [String:[String:Any]] = [
+    let mockActivityList: [AnyHashable:[AnyHashable:Any]] = [
         "alpha": [
             Activity.Keys.Name: "Activity Alpha",
             Activity.Keys.EstimatedTimeboxes: 4,
@@ -106,13 +85,13 @@ class ActivityTests: XCTestCase {
         let defaultActivity = Activity(context: managedObjectContext)
         XCTAssertEqual(defaultActivity.name, Activity.defaultName)
         
-        let blankActivity = Activity(context: managedObjectContext)
+        let blankActivity = Activity(context: managedObjectContext, name: "")
         XCTAssertEqual(blankActivity.name, Activity.defaultName)
     }
     
     func testOneActivity() {
         let name = "test activity"
-        let activity = Activity(name: name, context: managedObjectContext)
+        let activity = Activity(context: managedObjectContext, name: name)
         try! managedObjectContext.save()
         
         let fetchRequest = getActivityFetchRequest()
@@ -159,7 +138,7 @@ class ActivityTests: XCTestCase {
 
         // create an activity
         let alphaData = mockActivityList["alpha"]!
-        let alpha = Activity(data: alphaData, context: managedObjectContext)
+        let alpha = Activity(context: managedObjectContext, data: alphaData)
         XCTAssertTrue(alpha.objectID.isTemporaryID, "Activity should have a temporaryID")
         try! managedObjectContext.save()
         XCTAssertFalse(alpha.objectID.isTemporaryID, "Activity should not have a temporaryID")
@@ -195,7 +174,7 @@ class ActivityTests: XCTestCase {
         
         // create another activity
         let bravoData = mockActivityList["bravo"]!
-        let bravo = Activity(data: bravoData, context: managedObjectContext)
+        let bravo = Activity(context: managedObjectContext, data: bravoData)
         try! managedObjectContext.save()
         
         try! fetchedResultsController.performFetch()
@@ -206,7 +185,7 @@ class ActivityTests: XCTestCase {
         XCTAssertTrue(fetchedActivityList.contains(bravo))
 
         let charlieData = mockActivityList["charlie"]!
-        let charlie = Activity(data: charlieData, context: managedObjectContext)
+        let charlie = Activity(context: managedObjectContext, data: charlieData)
 
         XCTAssertTrue(charlie.objectID.isTemporaryID, "Activity Charlie should have temporary ID")
         try! fetchedResultsController.performFetch()
@@ -229,15 +208,15 @@ class ActivityTests: XCTestCase {
     
     func testActivityLists() {
         let alphaData = mockActivityList["alpha"]!
-        let alpha = Activity(data: alphaData, context: managedObjectContext)
+        let alpha = Activity(context: managedObjectContext, data: alphaData)
         let bravoData = mockActivityList["bravo"]!
-        let bravo = Activity(data: bravoData, context: managedObjectContext)
+        let bravo = Activity(context: managedObjectContext, data: bravoData)
         let charlieData = mockActivityList["charlie"]!
-        let charlie = Activity(data: charlieData, context: managedObjectContext)
+        let charlie = Activity(context: managedObjectContext, data: charlieData)
         let deltaData = mockActivityList["delta"]!
-        let delta = Activity(data: deltaData, context: managedObjectContext)
+        let delta = Activity(context: managedObjectContext, data: deltaData)
         let echoData = mockActivityList["echo"]!
-        let echo = Activity(data: echoData, context: managedObjectContext)
+        let echo = Activity(context: managedObjectContext, data: echoData)
         
         // test activity list
         

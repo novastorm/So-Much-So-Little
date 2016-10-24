@@ -83,13 +83,23 @@ public class Activity: NSManagedObject {
     
     static let defaultName = "New Activity"
     
-    convenience init(name: String, context: NSManagedObjectContext) {
+    /**
+     Create an instance with given `name` or defaultName if `name` contains only whitespace.
+     
+     - parameters:
+        - context:
+            The context into which the new instance is inserted.
+        - name:
+            The name property of the instance. Defaults to defaultName if containing only whitespace.
+     */
+    convenience init(context: NSManagedObjectContext, name: String) {
+
         let className = type(of: self).className
         let entity = NSEntityDescription.entity(forEntityName: className, in: context)!
         
         self.init(entity: entity, insertInto: context)
         
-        var name = name
+        var name = name.trimmingCharacters(in: .whitespacesAndNewlines)
         if name.isEmpty {
             name = type(of: self).defaultName
         }
@@ -97,11 +107,47 @@ public class Activity: NSManagedObject {
         self.name = name
         kind = .flexible
     }
-    
+
+    /**
+     Create an default instance.
+     
+     - parameters:
+         - context:
+            The context into which the new instance is inserted.
+     */
     convenience init(context: NSManagedObjectContext) {
-        self.init(name: "", context: context)
+        self.init(context: context, name: type(of: self).defaultName)
     }
     
+    /**
+     Create an instance from the given `data`.
+     
+     - parameters:
+        - context:
+            The context into which the new instance is inserted.
+        - data:
+            A dictionary of property keys and values.
+     */
+    convenience init(context: NSManagedObjectContext, data: [AnyHashable:Any]) {
+        let name = data[Keys.Name] as? NameType ?? ""
+        self.init(context: context, name: name)
+        
+        completed = data[Keys.Completed] as? CompletedType ?? false
+        completed_date = data[Keys.CompletedDate] as? CompletedDateType
+        deferred_to = data[Keys.DeferredTo] as? DeferredToType
+        deferred_to_response_due_date = data[Keys.DeferredToResponseDueDate] as? DeferredToResponseDueDateType
+        display_order = data[Keys.DisplayOrder] as? DisplayOrderType ?? 0
+        due_date = data[Keys.DueDate] as? DueDateType
+        estimated_timeboxes = data[Keys.EstimatedTimeboxes] as? EstimatedTimeboxesType ?? 0
+        info = data[Keys.Info] as? InfoType
+        kind = data[Keys.Kind] as? Kind ?? .flexible
+        scheduled_end = data[Keys.ScheduledEnd] as? ScheduledEndType
+        scheduled_start = data[Keys.ScheduledStart] as? ScheduledStartType
+        today = data[Keys.Today] as? TodayType ?? false
+        today_display_order = data[Keys.TodayDisplayOrder] as? TodayDisplayOrderType ?? 0
+        
+    }
+
     var actual_timeboxes: Int {
         return timeboxes.count 
     }

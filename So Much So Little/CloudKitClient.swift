@@ -10,4 +10,21 @@ import CloudKit
 
 class CloudKitClient {
     
+    public enum RecordType: String {
+        case Activity, Project
+    }
+
+    static var publicDatabase: CKDatabase {
+        return CKContainer.default().publicCloudDatabase
+    }
+    
+    static var privateDatabase: CKDatabase {
+        return CKContainer.default().privateCloudDatabase
+    }
+    
+    // MARK: - GET INDEX
+    // MARK: - GET
+    // MARK: - POST
+    // MARK: - PUT
+    // MARK: - DELETE
 }

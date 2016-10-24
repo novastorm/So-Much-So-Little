@@ -19,6 +19,7 @@
 		3E0977A81D18FA7B00A7F2C4 /* Project+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0977A01D18FA7B00A7F2C4 /* Project+CoreDataProperties.swift */; };
 		3E0977AA1D1A3D1A00A7F2C4 /* CoreDataStackManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0977A91D1A3D1A00A7F2C4 /* CoreDataStackManager.swift */; };
 		3E31123A1D5D970100E691AC /* ProjectDetailFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3112391D5D970100E691AC /* ProjectDetailFormViewController.swift */; };
+		3E3E41B41DBA9C4400FCE6DE /* StubTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3E41B31DBA9C4400FCE6DE /* StubTest.swift */; };
 		3E41D0F51D8DC3B2002EAD8A /* So_Much_So_Little.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3E41D0F31D8DC3B2002EAD8A /* So_Much_So_Little.xcdatamodeld */; };
 		3E41D0F91D8DCA62002EAD8A /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E41D0F81D8DCA62002EAD8A /* CloudKit.framework */; };
 		3E746D121DA58BD200ABD25E /* ActivityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EE741311D1090DC00064BF6 /* ActivityTests.swift */; };
@@ -31,6 +32,7 @@
 		3E7BDB801DB0B9F9006E526A /* Project+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7BDB7D1DB0B9F9006E526A /* Project+CoreDataClass.swift */; };
 		3E7BDB811DB0B9F9006E526A /* Activity+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7BDB7E1DB0B9F9006E526A /* Activity+CoreDataClass.swift */; };
 		3E7BDB871DB58071006E526A /* CloudKitClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7BDB861DB58071006E526A /* CloudKitClient.swift */; };
+		3E7BDB891DB5C417006E526A /* CloudKitClient+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7BDB881DB5C417006E526A /* CloudKitClient+Convenience.swift */; };
 		3E7D99C31D21C1BD008FA84B /* TimeboxControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7D99C21D21C1BD008FA84B /* TimeboxControl.swift */; };
 		3E825F101D9C493100ABACCE /* TimerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E825F0F1D9C493100ABACCE /* TimerViewController.swift */; };
 		3ED6DF521D2731F10064E440 /* DateTextFieldDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED6DF511D2731F10064E440 /* DateTextFieldDelegate.swift */; };
@@ -81,6 +83,7 @@
 		3E0977A01D18FA7B00A7F2C4 /* Project+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Project+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		3E0977A91D1A3D1A00A7F2C4 /* CoreDataStackManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStackManager.swift; sourceTree = "<group>"; };
 		3E3112391D5D970100E691AC /* ProjectDetailFormViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectDetailFormViewController.swift; sourceTree = "<group>"; };
+		3E3E41B31DBA9C4400FCE6DE /* StubTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StubTest.swift; sourceTree = "<group>"; };
 		3E41D0F41D8DC3B2002EAD8A /* So_Much_So_Little.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = So_Much_So_Little.xcdatamodel; sourceTree = "<group>"; };
 		3E41D0F61D8DCA4B002EAD8A /* So Much So Little.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "So Much So Little.entitlements"; sourceTree = "<group>"; };
 		3E41D0F81D8DCA62002EAD8A /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
@@ -91,6 +94,7 @@
 		3E7BDB7D1DB0B9F9006E526A /* Project+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Project+CoreDataClass.swift"; sourceTree = "<group>"; };
 		3E7BDB7E1DB0B9F9006E526A /* Activity+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Activity+CoreDataClass.swift"; sourceTree = "<group>"; };
 		3E7BDB861DB58071006E526A /* CloudKitClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CloudKitClient.swift; sourceTree = "<group>"; };
+		3E7BDB881DB5C417006E526A /* CloudKitClient+Convenience.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CloudKitClient+Convenience.swift"; sourceTree = "<group>"; };
 		3E7D99C21D21C1BD008FA84B /* TimeboxControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeboxControl.swift; sourceTree = "<group>"; };
 		3E7D99C41D21DE70008FA84B /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		3E825F0F1D9C493100ABACCE /* TimerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerViewController.swift; sourceTree = "<group>"; };
@@ -186,6 +190,7 @@
 			isa = PBXGroup;
 			children = (
 				3E7BDB861DB58071006E526A /* CloudKitClient.swift */,
+				3E7BDB881DB5C417006E526A /* CloudKitClient+Convenience.swift */,
 			);
 			name = Clients;
 			sourceTree = "<group>";
@@ -240,6 +245,7 @@
 				3E09777A1D11E14E00A7F2C4 /* Clients */,
 				3EE741191D1090DC00064BF6 /* AppDelegate.swift */,
 				3EE7411D1D1090DC00064BF6 /* Main.storyboard */,
+				3E3E41B31DBA9C4400FCE6DE /* StubTest.swift */,
 				3E825F0F1D9C493100ABACCE /* TimerViewController.swift */,
 				3E0977931D18CEA000A7F2C4 /* ActivityTableViewController.swift */,
 				3E7AB57E1D31839B002F6C2D /* ActivityDetailFormViewController.swift */,
@@ -418,9 +424,11 @@
 				3E0977A81D18FA7B00A7F2C4 /* Project+CoreDataProperties.swift in Sources */,
 				3E0977961D18CEE200A7F2C4 /* ProjectTableViewController.swift in Sources */,
 				3E7AB5881D333343002F6C2D /* TimeboxControlRow.swift in Sources */,
+				3E3E41B41DBA9C4400FCE6DE /* StubTest.swift in Sources */,
 				3E31123A1D5D970100E691AC /* ProjectDetailFormViewController.swift in Sources */,
 				3E0977941D18CEA000A7F2C4 /* ActivityTableViewController.swift in Sources */,
 				3E41D0F51D8DC3B2002EAD8A /* So_Much_So_Little.xcdatamodeld in Sources */,
+				3E7BDB891DB5C417006E526A /* CloudKitClient+Convenience.swift in Sources */,
 				3E0977811D12015800A7F2C4 /* Utilities.swift in Sources */,
 				3E0977901D18CDD300A7F2C4 /* CompletedActivityTableViewController.swift in Sources */,
 				3E825F101D9C493100ABACCE /* TimerViewController.swift in Sources */,
