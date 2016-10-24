@@ -122,7 +122,7 @@ class TodayTableViewController: UITableViewController {
             
             let src = moveIndexPathSource.row
             let dst = (indexPath as NSIndexPath).row
-            (activityList[dst].display_order, activityList[src].display_order) = (activityList[src].display_order, activityList[dst].display_order)
+            (activityList[dst].displayOrder, activityList[src].displayOrder) = (activityList[src].displayOrder, activityList[dst].displayOrder)
 
             moveIndexPathSource = indexPath
         default:
@@ -180,10 +180,10 @@ extension TodayTableViewController {
     
     func configureTodayCell(_ cell: TodayTableViewCell, atIndexPath indexPath: IndexPath) {
         let activity = fetchedResultsController.object(at: indexPath)
-        let todayDisplayOrder = activity.today_display_order 
+        let todayDisplayOrder = activity.todayDisplayOrder 
         let name = activity.name
-        let actualTimeboxes = activity.actual_timeboxes
-        let estimatedTimeboxes = activity.estimated_timeboxes
+        let actualTimeboxes = activity.actualTimeboxes
+        let estimatedTimeboxes = activity.estimatedTimeboxes
         
         cell.taskLabel.text = "\(todayDisplayOrder): \(name)"
         cell.timeBoxTallyLabel.text = "\(actualTimeboxes)/\(estimatedTimeboxes)"
@@ -208,8 +208,8 @@ extension TodayTableViewController {
             todayOption = UITableViewRowAction(style: .normal, title: "Postpone") { (action, activityIndexPath) in
                 print("\((activityIndexPath as NSIndexPath).row): Postpone tapped")
                 activity.today = false
-                activity.today_display_order = 0
-                activity.display_order = 0
+                activity.todayDisplayOrder = 0
+                activity.displayOrder = 0
                 self.saveSharedContext()
             }
         }
@@ -217,7 +217,7 @@ extension TodayTableViewController {
             todayOption = UITableViewRowAction(style: .normal, title: "Today") { (action, activityIndexPath) in
                 print("\((activityIndexPath as NSIndexPath).row): Today tapped")
                 activity.today = true
-                activity.today_display_order = 0
+                activity.todayDisplayOrder = 0
                 self.saveSharedContext()
             }
         }
@@ -226,7 +226,7 @@ extension TodayTableViewController {
             completedOption = UITableViewRowAction(style: .normal, title: "Reactivate") { (action, completedIndexPath) in
                 print("\((completedIndexPath as NSIndexPath).row): Reactivate tapped")
                 activity.completed = false
-                activity.display_order = 0
+                activity.displayOrder = 0
                 self.saveSharedContext()
             }
         }
@@ -234,9 +234,9 @@ extension TodayTableViewController {
             completedOption = UITableViewRowAction(style: .normal, title: "Complete") { (action, completedIndexPath) in
                 print("\((completedIndexPath as NSIndexPath).row): Complete tapped")
                 activity.completed = true
-                activity.display_order = 0
+                activity.displayOrder = 0
                 activity.today = false
-                activity.today_display_order = 0
+                activity.todayDisplayOrder = 0
                 self.saveSharedContext()
             }
         }
@@ -286,8 +286,8 @@ extension TodayTableViewController: NSFetchedResultsControllerDelegate {
         
         for (i, record) in activityList.enumerated() {
             let i = i as NSNumber
-            if record.today_display_order != i {
-                record.today_display_order = i
+            if record.todayDisplayOrder != i {
+                record.todayDisplayOrder = i
             }
         }
         

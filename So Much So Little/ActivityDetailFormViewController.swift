@@ -159,7 +159,7 @@ class ActivityDetailFormViewController: FormViewController {
                     row.title = "Start"
                     row.value = Date()
                     temporaryContext.performAndWait {
-                        if let scheduledStart = self.activity.scheduled_start {
+                        if let scheduledStart = self.activity.scheduledStart {
                             print(scheduledStart)
                         }
                     }
@@ -170,7 +170,7 @@ class ActivityDetailFormViewController: FormViewController {
                     row.title = "End"
                     row.value = Date()
                     temporaryContext.performAndWait {
-                        if let scheduledEnd = self.activity.scheduled_end {
+                        if let scheduledEnd = self.activity.scheduledEnd {
                             print(scheduledEnd)
                         }
                     }
@@ -183,7 +183,7 @@ class ActivityDetailFormViewController: FormViewController {
                     row.hidden = Condition.predicate(NSPredicate(format: String(format: "$%@ != '%@'", FormInput.Kind.rawValue, String(describing: Activity.Kind.flexible))))
                     row.title = "Due Date"
                     temporaryContext.performAndWait {
-                        if let dueDate = self.activity.due_date {
+                        if let dueDate = self.activity.dueDate {
                             print(dueDate)
                         }
                     }
@@ -196,7 +196,7 @@ class ActivityDetailFormViewController: FormViewController {
                     row.hidden = Condition.predicate(NSPredicate(format: String(format: "$%@ != '%@'", FormInput.Kind.rawValue, String(describing: Activity.Kind.deferred))))
                     row.title = "Deferred To:"
                     temporaryContext.performAndWait {
-                        if let deferredTo = self.activity.deferred_to {
+                        if let deferredTo = self.activity.deferredTo {
                             print(deferredTo)
                         }
                     }
@@ -206,7 +206,7 @@ class ActivityDetailFormViewController: FormViewController {
                     row.hidden = Condition.predicate(NSPredicate(format: String(format: "$%@ != '%@'", FormInput.Kind.rawValue, String(describing: Activity.Kind.deferred))))
                     row.title = "Due"
                     temporaryContext.performAndWait {
-                        if let deferredToResponseDueDate = self.activity.deferred_to_response_due_date {
+                        if let deferredToResponseDueDate = self.activity.deferredToResponseDueDate {
                             print(deferredToResponseDueDate)
                         }
                     }
@@ -221,7 +221,7 @@ class ActivityDetailFormViewController: FormViewController {
                 <<< TextRow("Completed Date")
                 <<< DateRow("CompletedDate") { (row) in
                     temporaryContext.performAndWait {
-                        if let completedDate = self.activity.completed_date {
+                        if let completedDate = self.activity.completedDate {
                             print(completedDate)
                         }
                     }
@@ -256,15 +256,15 @@ class ActivityDetailFormViewController: FormViewController {
         
         temporaryContext.perform { 
             self.activity.completed = formValues[FormInput.Completed.rawValue] as? Activity.CompletedType ?? false
-            self.activity.completed_date = formValues[FormInput.CompletedDate.rawValue] as? Activity.CompletedDateType
-            self.activity.deferred_to = formValues[FormInput.DeferredTo.rawValue] as? Activity.DeferredToType
-            self.activity.deferred_to_response_due_date = formValues[FormInput.DeferredToResponseDueDate.rawValue] as? Activity.DeferredToResponseDueDateType
-            self.activity.due_date = formValues[FormInput.DueDate.rawValue] as? Activity.DueDateType
-            self.activity.estimated_timeboxes = formValues[FormInput.EstimatedTimeboxes.rawValue] as? Activity.EstimatedTimeboxesType ?? 0
+            self.activity.completedDate = formValues[FormInput.CompletedDate.rawValue] as? Activity.CompletedDateType
+            self.activity.deferredTo = formValues[FormInput.DeferredTo.rawValue] as? Activity.DeferredToType
+            self.activity.deferredToResponseDueDate = formValues[FormInput.DeferredToResponseDueDate.rawValue] as? Activity.DeferredToResponseDueDateType
+            self.activity.dueDate = formValues[FormInput.DueDate.rawValue] as? Activity.DueDateType
+            self.activity.estimatedTimeboxes = formValues[FormInput.EstimatedTimeboxes.rawValue] as? Activity.EstimatedTimeboxesType ?? 0
             self.activity.info = formValues[FormInput.Info.rawValue] as? Activity.InfoType
             self.activity.kind = Activity.Kind.fromString(formValues[FormInput.Kind.rawValue] as! String)!
-            self.activity.scheduled_end = formValues[FormInput.ScheduledEnd.rawValue] as? Activity.ScheduledEndType
-            self.activity.scheduled_start = formValues[FormInput.ScheduledStart.rawValue] as? Activity.ScheduledStartType
+            self.activity.scheduledEnd = formValues[FormInput.ScheduledEnd.rawValue] as? Activity.ScheduledEndType
+            self.activity.scheduledStart = formValues[FormInput.ScheduledStart.rawValue] as? Activity.ScheduledStartType
             self.activity.name = formValues[FormInput.Name.rawValue] as! Activity.NameType
             self.activity.today = formValues[FormInput.Today.rawValue] as? Activity.TodayType ?? false
             

@@ -106,24 +106,24 @@ class ActivityTests: XCTestCase {
         let fetchedActivity = fetchedResultsController.object(at: IndexPath(row: 0, section: 0))
 
         XCTAssertEqual(fetchedActivity.completed, false, "Default Activity completed should be false")
-        XCTAssertNil(fetchedActivity.completed_date, "Default Activity completed_date should be nil")
-        XCTAssertNil(fetchedActivity.deferred_to, "Default Activity deferred_to should be nil")
-        XCTAssertNil(fetchedActivity.deferred_to_response_due_date, "Default Activity deferred_to_response_due_date should be nil")
-        XCTAssertEqual(fetchedActivity.display_order, 0, "Default Activity display_order should be 0")
-        XCTAssertNil(fetchedActivity.due_date, "Default Activity due_date should be nil")
-        XCTAssertEqual(fetchedActivity.estimated_timeboxes, 0, "Default Activity estimated_timeboxes should be 0")
+        XCTAssertNil(fetchedActivity.completedDate, "Default Activity completedDate should be nil")
+        XCTAssertNil(fetchedActivity.deferredTo, "Default Activity deferredTo should be nil")
+        XCTAssertNil(fetchedActivity.deferredToResponseDueDate, "Default Activity deferredToResponseDueDate should be nil")
+        XCTAssertEqual(fetchedActivity.displayOrder, 0, "Default Activity displayOrder should be 0")
+        XCTAssertNil(fetchedActivity.dueDate, "Default Activity dueDate should be nil")
+        XCTAssertEqual(fetchedActivity.estimatedTimeboxes, 0, "Default Activity estimatedTimeboxes should be 0")
         XCTAssertNil(fetchedActivity.info, "Default Activity info should be nil")
-        XCTAssertEqual(fetchedActivity.kind, .flexible, "Default Activity typeValue should be .flexible")
+        XCTAssertEqual(fetchedActivity.kind, .flexible, "Default Activity kind should be .flexible")
         XCTAssertEqual(fetchedActivity.name, name, "Default Activity name should be \"\(name)\"")
         XCTAssertNil(fetchedActivity.project, "Default Activity project should be nil")
-        XCTAssertNil(fetchedActivity.scheduled_start, "Default Activity scheduled_start should be nil")
-        XCTAssertNil(fetchedActivity.scheduled_end, "Default Activity scheduled_end should be nil")
+        XCTAssertNil(fetchedActivity.scheduledEnd, "Default Activity scheduledEnd should be nil")
+        XCTAssertNil(fetchedActivity.scheduledStart, "Default Activity scheduledStart should be nil")
         XCTAssertEqual(fetchedActivity.today, false, "Default Activity today should be false")
-        XCTAssertEqual(fetchedActivity.today_display_order, 0, "Default Activity today_display_order should be 0")
+        XCTAssertEqual(fetchedActivity.todayDisplayOrder, 0, "Default Activity todayDisplayOrder should be 0")
         
         XCTAssertNil(fetchedActivity.project, "Default Activity projects should be nil")
         XCTAssertEqual(fetchedActivity.timeboxes, [], "Default Activity timeboxes should be []")
-        XCTAssertEqual(fetchedActivity.actual_timeboxes, 0, "Default Activity actual_timeboxes should be 0")
+        XCTAssertEqual(fetchedActivity.actualTimeboxes, 0, "Default Activity actualTimeboxes should be 0")
         
         XCTAssertEqual(fetchedActivity, activity)
     }
@@ -158,8 +158,8 @@ class ActivityTests: XCTestCase {
         let name = alphaData[Activity.Keys.Name] as! String
         XCTAssertEqual(alpha.name, name, "Activity name should be \"\(name)\"")
 
-        let estimated_timeboxes = alphaData[Activity.Keys.EstimatedTimeboxes] as? Activity.EstimatedTimeboxesType
-        XCTAssertEqual(alpha.estimated_timeboxes, estimated_timeboxes, "Activity estimated_timeboxes should be \(estimated_timeboxes)")
+        let estimatedTimeboxes = alphaData[Activity.Keys.EstimatedTimeboxes] as? Activity.EstimatedTimeboxesType
+        XCTAssertEqual(alpha.estimatedTimeboxes, estimatedTimeboxes, "Activity estimatedTimeboxes should be \(estimatedTimeboxes)")
         
         // update acitivity details
         alpha.completed = true
@@ -169,7 +169,7 @@ class ActivityTests: XCTestCase {
         XCTAssertTrue(alpha.today, "Activity today should be true")
         
         alpha.kind = .reference
-        XCTAssertEqual(alpha.kind, Activity.Kind.reference, "Activity type should be .Reference")
+        XCTAssertEqual(alpha.kind, Activity.Kind.reference, "Activity type should be \(Activity.Kind.reference)")
         
         
         // create another activity

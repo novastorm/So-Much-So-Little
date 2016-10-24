@@ -95,7 +95,7 @@ class ProjectDetailFormViewController: FormViewController {
             <<< DateInlineRow(FormInput.DueDate.rawValue) { (row) in
                 row.title = "Due Date"
                 temporaryContext.performAndWait {
-                    row.value = self.project.due_date
+                    row.value = self.project.dueDate
                 }
             }
             <<< TextAreaRow(FormInput.Info.rawValue) { (row) in
@@ -144,7 +144,7 @@ class ProjectDetailFormViewController: FormViewController {
         
         temporaryContext.perform {
             self.project.completed = formValues[FormInput.Completed.rawValue] as! Project.CompletedType
-            self.project.due_date = formValues[FormInput.DueDate.rawValue] as? Project.DueDateType
+            self.project.dueDate = formValues[FormInput.DueDate.rawValue] as? Project.DueDateType
             self.project.info = formValues[FormInput.Info.rawValue] as? Project.InfoType
             self.project.name = formValues[FormInput.Name.rawValue] as! Project.NameType
 

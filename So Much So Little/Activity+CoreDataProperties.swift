@@ -15,19 +15,19 @@ extension Activity {
     }
 
     @NSManaged public var completed: Bool
-    @NSManaged public var completed_date: Date?
-    @NSManaged public var deferred_to: String?
-    @NSManaged public var deferred_to_response_due_date: Date?
-    @NSManaged public var display_order: NSNumber
-    @NSManaged public var due_date: Date?
-    @NSManaged public var estimated_timeboxes: NSNumber
+    @NSManaged public var completedDate: Date?
+    @NSManaged public var deferredTo: String?
+    @NSManaged public var deferredToResponseDueDate: Date?
+    @NSManaged public var displayOrder: NSNumber
+    @NSManaged public var dueDate: Date?
+    @NSManaged public var estimatedTimeboxes: NSNumber
     @NSManaged public var info: String?
     @NSManaged public var kind: Kind
-    @NSManaged public var scheduled_end: Date?
-    @NSManaged public var scheduled_start: Date?
+    @NSManaged public var scheduledEnd: Date?
+    @NSManaged public var scheduledStart: Date?
     @NSManaged public var name: String
     @NSManaged public var today: Bool
-    @NSManaged public var today_display_order: NSNumber
+    @NSManaged public var todayDisplayOrder: NSNumber
     
     @NSManaged public var project: Project?
     @NSManaged public var timeboxes: [Timebox]

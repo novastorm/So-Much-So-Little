@@ -12,9 +12,10 @@ import CoreData
 public class Timebox: NSManagedObject {
     
     struct Keys {
+        static let CKRecordID = "ckRecordID"
         static let Completed = "completed"
-        static let ExternalInterruptions = "external_interruptions"
-        static let InternalInterruptions = "internal_interruptions"
+        static let ExternalInterruptions = "externalInterruptions"
+        static let InternalInterruptions = "internalInterruptions"
         static let Start = "start"
         static let Stop = "stop"
         

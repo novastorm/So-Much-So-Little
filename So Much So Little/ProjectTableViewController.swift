@@ -97,7 +97,7 @@ extension ProjectTableViewController {
     func configureProjectCell(_ cell: UITableViewCell, atIndexPath indexPath: IndexPath) {
         let project = fetchedResultsController.object(at: indexPath)
         let name = project.name
-        let displayOrder = project.display_order
+        let displayOrder = project.displayOrder
         
         cell.textLabel!.text = "\(displayOrder): \(name)"
     }
@@ -146,8 +146,8 @@ extension ProjectTableViewController: NSFetchedResultsControllerDelegate {
         
         for (i, record) in projectList.enumerated() {
             let i = i as NSNumber
-            if record.display_order != i {
-                record.display_order = i
+            if record.displayOrder != i {
+                record.displayOrder = i
             }
         }
 

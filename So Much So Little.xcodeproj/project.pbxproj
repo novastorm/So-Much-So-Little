@@ -20,6 +20,7 @@
 		3E0977AA1D1A3D1A00A7F2C4 /* CoreDataStackManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0977A91D1A3D1A00A7F2C4 /* CoreDataStackManager.swift */; };
 		3E31123A1D5D970100E691AC /* ProjectDetailFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3112391D5D970100E691AC /* ProjectDetailFormViewController.swift */; };
 		3E3E41B41DBA9C4400FCE6DE /* StubTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3E41B31DBA9C4400FCE6DE /* StubTest.swift */; };
+		3E3E41B61DBE568E00FCE6DE /* CloudKitClient+CoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3E41B51DBE568E00FCE6DE /* CloudKitClient+CoreData.swift */; };
 		3E41D0F51D8DC3B2002EAD8A /* So_Much_So_Little.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3E41D0F31D8DC3B2002EAD8A /* So_Much_So_Little.xcdatamodeld */; };
 		3E41D0F91D8DCA62002EAD8A /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E41D0F81D8DCA62002EAD8A /* CloudKit.framework */; };
 		3E746D121DA58BD200ABD25E /* ActivityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EE741311D1090DC00064BF6 /* ActivityTests.swift */; };
@@ -84,6 +85,7 @@
 		3E0977A91D1A3D1A00A7F2C4 /* CoreDataStackManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStackManager.swift; sourceTree = "<group>"; };
 		3E3112391D5D970100E691AC /* ProjectDetailFormViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectDetailFormViewController.swift; sourceTree = "<group>"; };
 		3E3E41B31DBA9C4400FCE6DE /* StubTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StubTest.swift; sourceTree = "<group>"; };
+		3E3E41B51DBE568E00FCE6DE /* CloudKitClient+CoreData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CloudKitClient+CoreData.swift"; sourceTree = "<group>"; };
 		3E41D0F41D8DC3B2002EAD8A /* So_Much_So_Little.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = So_Much_So_Little.xcdatamodel; sourceTree = "<group>"; };
 		3E41D0F61D8DCA4B002EAD8A /* So Much So Little.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "So Much So Little.entitlements"; sourceTree = "<group>"; };
 		3E41D0F81D8DCA62002EAD8A /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
@@ -191,6 +193,7 @@
 			children = (
 				3E7BDB861DB58071006E526A /* CloudKitClient.swift */,
 				3E7BDB881DB5C417006E526A /* CloudKitClient+Convenience.swift */,
+				3E3E41B51DBE568E00FCE6DE /* CloudKitClient+CoreData.swift */,
 			);
 			name = Clients;
 			sourceTree = "<group>";
@@ -413,6 +416,7 @@
 				3E7BDB871DB58071006E526A /* CloudKitClient.swift in Sources */,
 				3E7BDB801DB0B9F9006E526A /* Project+CoreDataClass.swift in Sources */,
 				3E7BDB811DB0B9F9006E526A /* Activity+CoreDataClass.swift in Sources */,
+				3E3E41B61DBE568E00FCE6DE /* CloudKitClient+CoreData.swift in Sources */,
 				3EE7411C1D1090DC00064BF6 /* TodayTableViewController.swift in Sources */,
 				3E0977831D12064100A7F2C4 /* GCDUtilities.swift in Sources */,
 				3E0977921D18CE3A00A7F2C4 /* SettingsTableViewController.swift in Sources */,

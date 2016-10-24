@@ -114,9 +114,9 @@ class ProjectTests: XCTestCase {
         let fetchedProject = fetchedResultsController.object(at: IndexPath(row: 0, section: 0))
         
         XCTAssertEqual(fetchedProject.completed, false, "Default Project completed should be false")
-        XCTAssertNil(fetchedProject.completed_date, "Default Project completed_date should be nil")
-        XCTAssertEqual(fetchedProject.display_order, 0, "Default Project display_order should be 0")
-        XCTAssertNil(fetchedProject.due_date, "Default Project due_date should be nil")
+        XCTAssertNil(fetchedProject.completedDate, "Default Project completedDate should be nil")
+        XCTAssertEqual(fetchedProject.displayOrder, 0, "Default Project displayOrder should be 0")
+        XCTAssertNil(fetchedProject.dueDate, "Default Project dueDate should be nil")
         XCTAssertNil(fetchedProject.info, "Default Project info should be nil")
         
         XCTAssertEqual(fetchedProject, project)

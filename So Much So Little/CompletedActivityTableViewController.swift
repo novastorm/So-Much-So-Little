@@ -172,8 +172,8 @@ extension CompletedActivityTableViewController {
     func configureActivityCell(_ cell: UITableViewCell, atIndexPath indexPath: IndexPath) {
         let activity = frcActivity.object(at: indexPath) 
         let name = activity.name
-        let actualTimeboxes = activity.actual_timeboxes
-        let estimatedTimeboxes = activity.estimated_timeboxes
+        let actualTimeboxes = activity.actualTimeboxes
+        let estimatedTimeboxes = activity.estimatedTimeboxes
         
         cell.textLabel!.text = "\(name)"
         cell.detailTextLabel!.text = "\(actualTimeboxes)/\(estimatedTimeboxes)"
@@ -183,7 +183,7 @@ extension CompletedActivityTableViewController {
         let projectIndexPath = IndexPath(row: (indexPath as NSIndexPath).row, section: 0)
         let project = frcProject.object(at: projectIndexPath) 
         let name = project.name
-        let displayOrder = project.display_order
+        let displayOrder = project.displayOrder
         
         cell.textLabel!.text = "\(displayOrder): \(name)"
     }
@@ -211,8 +211,8 @@ extension CompletedActivityTableViewController {
             todayOption = UITableViewRowAction(style: .normal, title: "Postpone") { (action, activityIndexPath) in
                 print("\((activityIndexPath as NSIndexPath).row): Postpone tapped")
                 activity.today = false
-                activity.today_display_order = 0
-                activity.display_order = 0
+                activity.todayDisplayOrder = 0
+                activity.displayOrder = 0
                 self.saveSharedContext()
             }
         }
@@ -220,7 +220,7 @@ extension CompletedActivityTableViewController {
             todayOption = UITableViewRowAction(style: .normal, title: "Today") { (action, activityIndexPath) in
                 print("\((activityIndexPath as NSIndexPath).row): Today tapped")
                 activity.today = true
-                activity.today_display_order = 0
+                activity.todayDisplayOrder = 0
                 self.saveSharedContext()
             }
         }
@@ -229,7 +229,7 @@ extension CompletedActivityTableViewController {
             completedOption = UITableViewRowAction(style: .normal, title: "Reactivate") { (action, completedIndexPath) in
                 print("\((completedIndexPath as NSIndexPath).row): Reactivate tapped")
                 activity.completed = false
-                activity.display_order = 0
+                activity.displayOrder = 0
                 self.saveSharedContext()
             }
         }
@@ -237,9 +237,9 @@ extension CompletedActivityTableViewController {
             completedOption = UITableViewRowAction(style: .normal, title: "Complete") { (action, completedIndexPath) in
                 print("\((completedIndexPath as NSIndexPath).row): Complete tapped")
                 activity.completed = true
-                activity.display_order = 0
+                activity.displayOrder = 0
                 activity.today = false
-                activity.today_display_order = 0
+                activity.todayDisplayOrder = 0
                 self.saveSharedContext()
             }
         }

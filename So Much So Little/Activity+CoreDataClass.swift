@@ -6,6 +6,7 @@
 //  Copyright © 2016 Adland Lee. All rights reserved.
 //
 
+import CloudKit
 import CoreData
 
 
@@ -44,20 +45,21 @@ public class Activity: NSManagedObject {
     }
     
     struct Keys {
+        static let CKRecordID = "ckRecordID"
         static let Completed = "completed"
-        static let CompletedDate = "completed_date"
-        static let DeferredTo = "deferred_to"
-        static let DeferredToResponseDueDate = "deferred_to_response_due_date"
-        static let DisplayOrder = "display_order"
-        static let DueDate = "due_date"
-        static let EstimatedTimeboxes = "estimated_timeboxes"
+        static let CompletedDate = "completedDate"
+        static let DeferredTo = "deferredTo"
+        static let DeferredToResponseDueDate = "deferredToResponseDueDate"
+        static let DisplayOrder = "displayOrder"
+        static let DueDate = "dueDate"
+        static let EstimatedTimeboxes = "estimatedTimeboxes"
         static let Info = "info"
         static let Kind = "kind"
-        static let ScheduledEnd = "scheduled_end"
-        static let ScheduledStart = "scheduled_start"
+        static let ScheduledEnd = "scheduledEnd"
+        static let ScheduledStart = "scheduledStart"
         static let Name = "name"
         static let Today = "today"
-        static let TodayDisplayOrder = "today_display_order"
+        static let TodayDisplayOrder = "todayDisplayOrder"
         
         static let Project = "project"
         static let Timeboxes = "timeboxes"
@@ -133,22 +135,53 @@ public class Activity: NSManagedObject {
         self.init(context: context, name: name)
         
         completed = data[Keys.Completed] as? CompletedType ?? false
-        completed_date = data[Keys.CompletedDate] as? CompletedDateType
-        deferred_to = data[Keys.DeferredTo] as? DeferredToType
-        deferred_to_response_due_date = data[Keys.DeferredToResponseDueDate] as? DeferredToResponseDueDateType
-        display_order = data[Keys.DisplayOrder] as? DisplayOrderType ?? 0
-        due_date = data[Keys.DueDate] as? DueDateType
-        estimated_timeboxes = data[Keys.EstimatedTimeboxes] as? EstimatedTimeboxesType ?? 0
+        completedDate = data[Keys.CompletedDate] as? CompletedDateType
+        deferredTo = data[Keys.DeferredTo] as? DeferredToType
+        deferredToResponseDueDate = data[Keys.DeferredToResponseDueDate] as? DeferredToResponseDueDateType
+        displayOrder = data[Keys.DisplayOrder] as? DisplayOrderType ?? 0
+        dueDate = data[Keys.DueDate] as? DueDateType
+        estimatedTimeboxes = data[Keys.EstimatedTimeboxes] as? EstimatedTimeboxesType ?? 0
         info = data[Keys.Info] as? InfoType
         kind = data[Keys.Kind] as? Kind ?? .flexible
-        scheduled_end = data[Keys.ScheduledEnd] as? ScheduledEndType
-        scheduled_start = data[Keys.ScheduledStart] as? ScheduledStartType
+        scheduledEnd = data[Keys.ScheduledEnd] as? ScheduledEndType
+        scheduledStart = data[Keys.ScheduledStart] as? ScheduledStartType
         today = data[Keys.Today] as? TodayType ?? false
-        today_display_order = data[Keys.TodayDisplayOrder] as? TodayDisplayOrderType ?? 0
+        todayDisplayOrder = data[Keys.TodayDisplayOrder] as? TodayDisplayOrderType ?? 0
         
     }
+    
+    /**
+     Create an instance from the given `ckRecord`.
+     
+     - parameters:
+         - context:
+             The context into which the new instance is inserted.
+         - ckRecord:
+             A Cloud Kit Record.
+     */
+    
+    convenience init(context: NSManagedObjectContext, ckRecord: CKRecord) {
+        let data: [AnyHashable: Any] = [
+            Keys.Completed: ckRecord[Keys.Completed] as? CompletedType ?? false,
+            Keys.CompletedDate: ckRecord[Keys.CompletedDate] as? CompletedDateType,
+            Keys.DeferredTo: ckRecord[Keys.DeferredTo] as? DeferredToType,
+            Keys.DeferredToResponseDueDate: ckRecord[Keys.DeferredToResponseDueDate] as? DeferredToResponseDueDateType,
+            Keys.DisplayOrder: ckRecord[Keys.DisplayOrder] as? DisplayOrderType ?? 0,
+            Keys.DueDate: ckRecord[Keys.DueDate] as? DueDateType,
+            Keys.EstimatedTimeboxes: ckRecord[Keys.EstimatedTimeboxes] as? EstimatedTimeboxesType ?? 0,
+            Keys.Info: ckRecord[Keys.Info] as? InfoType,
+            Keys.Kind: ckRecord[Keys.Kind] as? Kind ?? .flexible,
+            Keys.Name: ckRecord[Keys.Name] as? NameType ?? "",
+            Keys.ScheduledEnd: ckRecord[Keys.ScheduledEnd] as? ScheduledEndType,
+            Keys.ScheduledStart: ckRecord[Keys.ScheduledStart] as? ScheduledStartType,
+            Keys.Today: ckRecord[Keys.Today] as? TodayType ?? false,
+            Keys.TodayDisplayOrder: ckRecord[Keys.TodayDisplayOrder] as? TodayDisplayOrderType ?? 0
+        ]
+        
+        self.init(context: context, data: data)
+    }
 
-    var actual_timeboxes: Int {
+    var actualTimeboxes: Int {
         return timeboxes.count 
     }
 }

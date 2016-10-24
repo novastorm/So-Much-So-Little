@@ -131,7 +131,7 @@ class ActivityTableViewController: UITableViewController {
             
             let src = moveIndexPathSource.row
             let dst = (indexPath as NSIndexPath).row
-            (activityList[dst].display_order, activityList[src].display_order) = (activityList[src].display_order, activityList[dst].display_order)
+            (activityList[dst].displayOrder, activityList[src].displayOrder) = (activityList[src].displayOrder, activityList[dst].displayOrder)
             
             moveIndexPathSource = indexPath
         default:
@@ -179,10 +179,10 @@ extension ActivityTableViewController {
     
     func configureActivityCell(_ cell: UITableViewCell, atIndexPath indexPath: IndexPath) {
         let activity = fetchedResultsController.object(at: indexPath)
-        let displayOrder = activity.display_order
+        let displayOrder = activity.displayOrder
         let name = activity.name
-        let actualTimeboxes = activity.actual_timeboxes
-        let estimatedTimeboxes = activity.estimated_timeboxes
+        let actualTimeboxes = activity.actualTimeboxes
+        let estimatedTimeboxes = activity.estimatedTimeboxes
         
         cell.textLabel!.text = "\(displayOrder): \(name)"
         cell.detailTextLabel!.text = "\(actualTimeboxes)/\(estimatedTimeboxes)"
@@ -214,8 +214,8 @@ extension ActivityTableViewController {
             todayOption = UITableViewRowAction(style: .normal, title: "Postpone") { (action, activityIndexPath) in
                 print("\((activityIndexPath as NSIndexPath).row): Postpone tapped")
                 activity.today = false
-                activity.today_display_order = 0
-                activity.display_order = 0
+                activity.todayDisplayOrder = 0
+                activity.displayOrder = 0
                 self.saveMainContext()
             }
         }
@@ -223,7 +223,7 @@ extension ActivityTableViewController {
             todayOption = UITableViewRowAction(style: .normal, title: "Today") { (action, activityIndexPath) in
                 print("\((activityIndexPath as NSIndexPath).row): Today tapped")
                 activity.today = true
-                activity.today_display_order = 0
+                activity.todayDisplayOrder = 0
                 self.saveMainContext()
             }
         }
@@ -232,7 +232,7 @@ extension ActivityTableViewController {
             completedOption = UITableViewRowAction(style: .normal, title: "Reactivate") { (action, completedIndexPath) in
                 print("\((completedIndexPath as NSIndexPath).row): Reactivate tapped")
                 activity.completed = false
-                activity.display_order = 0
+                activity.displayOrder = 0
                 self.saveMainContext()
             }
         }
@@ -240,9 +240,9 @@ extension ActivityTableViewController {
             completedOption = UITableViewRowAction(style: .normal, title: "Complete") { (action, completedIndexPath) in
                 print("\((completedIndexPath as NSIndexPath).row): Complete tapped")
                 activity.completed = true
-                activity.display_order = 0
+                activity.displayOrder = 0
                 activity.today = false
-                activity.today_display_order = 0
+                activity.todayDisplayOrder = 0
                 self.saveMainContext()
             }
         }
@@ -295,8 +295,8 @@ extension ActivityTableViewController: NSFetchedResultsControllerDelegate {
         let activityList = fetchedResultsController.fetchedObjects!
         for (i, record) in activityList.enumerated() {
             let i = i as NSNumber
-            if record.display_order != i {
-                record.display_order = i
+            if record.displayOrder != i {
+                record.displayOrder = i
             }
         }
 

@@ -16,9 +16,9 @@ extension Project {
 
     @NSManaged public var active: Bool
     @NSManaged public var completed: Bool
-    @NSManaged public var completed_date: Date?
-    @NSManaged public var display_order: NSNumber
-    @NSManaged public var due_date: Date?
+    @NSManaged public var completedDate: Date?
+    @NSManaged public var displayOrder: NSNumber
+    @NSManaged public var dueDate: Date?
     @NSManaged public var info: String?
     @NSManaged public var name: String
     
