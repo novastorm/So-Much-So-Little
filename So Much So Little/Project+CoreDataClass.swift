@@ -26,6 +26,7 @@ public class Project: NSManagedObject {
     }
     
     typealias ActiveType = Bool
+    typealias CKRecordIDType = String
     typealias CompletedType = Bool
     typealias CompletedDateType = Date
     typealias DisplayOrderType = NSNumber
@@ -60,6 +61,7 @@ public class Project: NSManagedObject {
         self.init(context: context, name: name)
         
         active = data[Keys.Active] as? ActiveType ?? false
+        ckRecordID = data[Keys.CKRecordID] as? CKRecordIDType
         completed = data[Keys.Completed] as? CompletedType ?? false
         completedDate = data[Keys.CompletedDate] as? CompletedDateType
         displayOrder = data[Keys.DisplayOrder] as? DisplayOrderType ?? 0
@@ -70,6 +72,7 @@ public class Project: NSManagedObject {
     convenience init(context: NSManagedObjectContext, ckRecord: CKRecord) {
         let data: [AnyHashable: Any] = [
             Keys.Active: ckRecord[Keys.Active] as? ActiveType ?? false,
+            Keys.CKRecordID: ckRecord.recordID.recordName,
             Keys.Completed: ckRecord[Keys.Completed] as? CompletedType ?? false,
             Keys.CompletedDate: ckRecord[Keys.CompletedDate] as? CompletedDateType,
             Keys.DisplayOrder: ckRecord[Keys.DisplayOrder] as? DisplayOrderType ?? 0,

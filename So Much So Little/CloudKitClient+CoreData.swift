@@ -52,14 +52,18 @@ extension CloudKitClient {
         }
         
         group.notify(queue: .main) {
-            for project in ckProjectList! {
-                print(project)
-                let _ = Project(context: CoreDataStackManager.mainContext, ckRecord: project)
+            for ckProject in ckProjectList! {
+                print(ckProject)
+                _ = Project(context: CoreDataStackManager.mainContext, ckRecord: ckProject)
             }
             
-            for activity in ckActivityList! {
-                print(activity)
-                let _ = Activity(context: CoreDataStackManager.mainContext, ckRecord: activity)
+            for ckActivity in ckActivityList! {
+                print(ckActivity)
+                let activity = Activity(context: CoreDataStackManager.mainContext, ckRecord: ckActivity)
+                if let projectRef = ckActivity[Activity.Keys.Project] as? CKReference {
+                    print(projectRef.recordID.recordName)
+                    // Fetch from Core Data the project with ckRecordID string
+                }
             }
             
             CoreDataStackManager.saveMainContext()

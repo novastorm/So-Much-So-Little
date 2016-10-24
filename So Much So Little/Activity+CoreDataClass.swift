@@ -65,6 +65,7 @@ public class Activity: NSManagedObject {
         static let Timeboxes = "timeboxes"
     }
     
+    typealias CKRecordIDType = String
     typealias CompletedType = Bool
     typealias CompletedDateType = Date
     typealias DeferredToType = String
@@ -134,6 +135,7 @@ public class Activity: NSManagedObject {
         let name = data[Keys.Name] as? NameType ?? ""
         self.init(context: context, name: name)
         
+        ckRecordID = data[Keys.CKRecordID] as? CKRecordIDType
         completed = data[Keys.Completed] as? CompletedType ?? false
         completedDate = data[Keys.CompletedDate] as? CompletedDateType
         deferredTo = data[Keys.DeferredTo] as? DeferredToType
@@ -162,6 +164,7 @@ public class Activity: NSManagedObject {
     
     convenience init(context: NSManagedObjectContext, ckRecord: CKRecord) {
         let data: [AnyHashable: Any] = [
+            Keys.CKRecordID: ckRecord.recordID.recordName,
             Keys.Completed: ckRecord[Keys.Completed] as? CompletedType ?? false,
             Keys.CompletedDate: ckRecord[Keys.CompletedDate] as? CompletedDateType,
             Keys.DeferredTo: ckRecord[Keys.DeferredTo] as? DeferredToType,

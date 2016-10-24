@@ -22,6 +22,7 @@ public class Timebox: NSManagedObject {
         static let Activity = "activity"
     }
     
+    typealias CKRecordIDType = String
     typealias CompletedType = Bool
     typealias ExternalInterruptionsType = NSNumber
     typealias InternalInterruptionsType = NSNumber

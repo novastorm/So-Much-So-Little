@@ -14,6 +14,7 @@ extension Timebox {
         return NSFetchRequest<Timebox>(entityName: "Timebox");
     }
 
+    @NSManaged public var ckRecordID: String?
     @NSManaged public var completed: Bool
     @NSManaged public var externalInterruptions: NSNumber
     @NSManaged public var internalInterruptions: NSNumber

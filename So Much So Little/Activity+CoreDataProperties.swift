@@ -14,6 +14,7 @@ extension Activity {
         return NSFetchRequest<Activity>(entityName: "Activity");
     }
 
+    @NSManaged public var ckRecordID: String?
     @NSManaged public var completed: Bool
     @NSManaged public var completedDate: Date?
     @NSManaged public var deferredTo: String?
