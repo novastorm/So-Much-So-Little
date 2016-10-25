@@ -21,9 +21,7 @@ extension CloudKitClient {
     // MARK: - Sync methods
     
     static func importDefaultRecords() {
-//        let projectQueue = DispatchQueue(label: "com.4mfd.project")
-//        let activityQueue = DispatchQueue(label: "com.4mfd.activity")
-        
+
         let group = DispatchGroup()
         
         var ckProjectList: [CKRecord]?
