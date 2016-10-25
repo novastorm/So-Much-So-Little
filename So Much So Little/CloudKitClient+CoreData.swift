@@ -14,7 +14,7 @@ extension CloudKitClient {
     
     // MARK: - Core Data convenience methods
     
-    var sharedContext: NSManagedObjectContext {
+    var mainContext: NSManagedObjectContext {
         return CoreDataStackManager.mainContext
     }
 
@@ -63,6 +63,10 @@ extension CloudKitClient {
                 if let projectRef = ckActivity[Activity.Keys.Project] as? CKReference {
                     print(projectRef.recordID.recordName)
                     // Fetch from Core Data the project with ckRecordID string
+                    let projectFetchRequest: NSFetchRequest<Project> = Project.fetchRequest()
+                    projectFetchRequest.predicate = NSPredicate(format: "ckRecordID = %@", projectRef.recordID.recordName)
+                    let project = (try! CoreDataStackManager.mainContext.fetch(projectFetchRequest)).first
+                    activity.project = project
                 }
             }
             
