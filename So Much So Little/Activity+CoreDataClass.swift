@@ -165,20 +165,20 @@ public class Activity: NSManagedObject {
     convenience init(context: NSManagedObjectContext, ckRecord: CKRecord) {
         let data: [AnyHashable: Any] = [
             Keys.CKRecordID: ckRecord.recordID.recordName,
-            Keys.Completed: ckRecord[Keys.Completed] as? CompletedType ?? false,
-            Keys.CompletedDate: ckRecord[Keys.CompletedDate] as? CompletedDateType,
-            Keys.DeferredTo: ckRecord[Keys.DeferredTo] as? DeferredToType,
-            Keys.DeferredToResponseDueDate: ckRecord[Keys.DeferredToResponseDueDate] as? DeferredToResponseDueDateType,
-            Keys.DisplayOrder: ckRecord[Keys.DisplayOrder] as? DisplayOrderType ?? 0,
-            Keys.DueDate: ckRecord[Keys.DueDate] as? DueDateType,
-            Keys.EstimatedTimeboxes: ckRecord[Keys.EstimatedTimeboxes] as? EstimatedTimeboxesType ?? 0,
-            Keys.Info: ckRecord[Keys.Info] as? InfoType,
-            Keys.Kind: ckRecord[Keys.Kind] as? Kind ?? .flexible,
-            Keys.Name: ckRecord[Keys.Name] as? NameType ?? "",
-            Keys.ScheduledEnd: ckRecord[Keys.ScheduledEnd] as? ScheduledEndType,
-            Keys.ScheduledStart: ckRecord[Keys.ScheduledStart] as? ScheduledStartType,
-            Keys.Today: ckRecord[Keys.Today] as? TodayType ?? false,
-            Keys.TodayDisplayOrder: ckRecord[Keys.TodayDisplayOrder] as? TodayDisplayOrderType ?? 0
+            Keys.Completed: ckRecord[Keys.Completed] as Any,
+            Keys.CompletedDate: ckRecord[Keys.CompletedDate] as Any,
+            Keys.DeferredTo: ckRecord[Keys.DeferredTo] as Any,
+            Keys.DeferredToResponseDueDate: ckRecord[Keys.DeferredToResponseDueDate] as Any,
+            Keys.DisplayOrder: ckRecord[Keys.DisplayOrder] as Any,
+            Keys.DueDate: ckRecord[Keys.DueDate] as Any,
+            Keys.EstimatedTimeboxes: ckRecord[Keys.EstimatedTimeboxes] as Any,
+            Keys.Info: ckRecord[Keys.Info] as Any,
+            Keys.Kind: ckRecord[Keys.Kind] as Any,
+            Keys.Name: ckRecord[Keys.Name] as Any,
+            Keys.ScheduledEnd: ckRecord[Keys.ScheduledEnd] as Any,
+            Keys.ScheduledStart: ckRecord[Keys.ScheduledStart] as Any,
+            Keys.Today: ckRecord[Keys.Today] as Any,
+            Keys.TodayDisplayOrder: ckRecord[Keys.TodayDisplayOrder] as Any
         ]
         
         self.init(context: context, data: data)
@@ -186,5 +186,15 @@ public class Activity: NSManagedObject {
 
     var actualTimeboxes: Int {
         return timeboxes.count 
+    }
+    
+    public override func didSave() {
+        if isDeleted {
+            // TODO: Add deleted record cloud kit processing
+            return
+        }
+        if managedObjectContext == CoreDataStackManager.mainContext {
+            
+        }
     }
 }

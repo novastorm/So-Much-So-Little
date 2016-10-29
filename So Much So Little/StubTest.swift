@@ -29,7 +29,7 @@ class StubTest: UIViewController {
                 print("error")
                 return
             }
-            print(results)
+            print(results!)
         }
     }
     

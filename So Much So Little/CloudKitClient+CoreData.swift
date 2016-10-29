@@ -21,45 +21,46 @@ extension CloudKitClient {
     // MARK: - Sync methods
     
     static func importDefaultRecords() {
+        
+        // TODO: check if network connection exists.
 
         let group = DispatchGroup()
         
-        var ckProjectList: [CKRecord]?
-        var ckActivityList: [CKRecord]?
+        var ckProjectList = [CKRecord]()
+        var ckActivityList = [CKRecord]()
         
         group.enter()
         CloudKitClient.getPublicProjectList { (results, error) in
+            defer {
+                group.leave()
+            }
             guard error == nil else {
                 print(error!)
-                group.leave()
                 return
             }
-            ckProjectList = results
-            group.leave()
+            ckProjectList = results!
         }
         
         group.enter()
         CloudKitClient.getPublicActivityList { (results, error) in
+            defer {
+                group.leave()
+            }
             guard error == nil else {
                 print(error!)
-                group.leave()
                 return
             }
-            ckActivityList = results
-            group.leave()
+            ckActivityList = results!
         }
         
         group.notify(queue: .main) {
-            for ckProject in ckProjectList! {
-                print(ckProject)
+            for ckProject in ckProjectList {
                 _ = Project(context: CoreDataStackManager.mainContext, ckRecord: ckProject)
             }
             
-            for ckActivity in ckActivityList! {
-                print(ckActivity)
+            for ckActivity in ckActivityList {
                 let activity = Activity(context: CoreDataStackManager.mainContext, ckRecord: ckActivity)
                 if let projectRef = ckActivity[Activity.Keys.Project] as? CKReference {
-                    print(projectRef.recordID.recordName)
                     // Fetch from Core Data the project with ckRecordID string
                     let projectFetchRequest: NSFetchRequest<Project> = Project.fetchRequest()
                     projectFetchRequest.predicate = NSPredicate(format: "ckRecordID = %@", projectRef.recordID.recordName)

@@ -102,7 +102,7 @@ extension CloudKitClient {
         let ckActivity = CKRecord(recordType: RecordType.Activity.rawValue)
         ckActivity[Activity.Keys.Name] = data[Activity.Keys.Name] as? CKRecordValue
         
-        // MARK: TODO: add completion handler code
+        // TODO: add completion handler code
     }
     
     

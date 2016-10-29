@@ -38,4 +38,7 @@ public class Timebox: NSManagedObject {
         self.init(entity: entity, insertInto: context)
     }
 
+    public override func didSave() {
+        print("Timebox didSave")
+    }
 }

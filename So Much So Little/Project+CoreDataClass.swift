@@ -71,16 +71,26 @@ public class Project: NSManagedObject {
     
     convenience init(context: NSManagedObjectContext, ckRecord: CKRecord) {
         let data: [AnyHashable: Any] = [
-            Keys.Active: ckRecord[Keys.Active] as? ActiveType ?? false,
+            Keys.Active: ckRecord[Keys.Active] as Any,
             Keys.CKRecordID: ckRecord.recordID.recordName,
-            Keys.Completed: ckRecord[Keys.Completed] as? CompletedType ?? false,
-            Keys.CompletedDate: ckRecord[Keys.CompletedDate] as? CompletedDateType,
-            Keys.DisplayOrder: ckRecord[Keys.DisplayOrder] as? DisplayOrderType ?? 0,
-            Keys.DueDate: ckRecord[Keys.DueDate] as? DueDateType,
-            Keys.Info: ckRecord[Keys.Info] as? InfoType,
-            Keys.Name: ckRecord[Keys.Name] as? NameType ?? ""
+            Keys.Completed: ckRecord[Keys.Completed] as Any,
+            Keys.CompletedDate: ckRecord[Keys.CompletedDate] as Any,
+            Keys.DisplayOrder: ckRecord[Keys.DisplayOrder] as Any,
+            Keys.DueDate: ckRecord[Keys.DueDate] as Any,
+            Keys.Info: ckRecord[Keys.Info] as Any,
+            Keys.Name: ckRecord[Keys.Name] as Any
         ]
         
         self.init(context: context, data: data)
+    }
+    
+    public override func didSave() {
+        if isDeleted {
+            print("Delete Activity [\(self.name)] didSave")
+            return
+        }
+        if managedObjectContext == CoreDataStackManager.mainContext {
+            print("Project [\(self.name)] didSave")
+        }
     }
 }

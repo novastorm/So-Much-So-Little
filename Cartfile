@@ -1,1 +1,2 @@
 github "xmartlabs/Eureka" ~> 2.0
+github "ashleymills/Reachability.swift" ~> 3.0
