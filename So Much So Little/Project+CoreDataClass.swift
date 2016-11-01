@@ -86,11 +86,31 @@ public class Project: NSManagedObject {
     
     public override func didSave() {
         if isDeleted {
-            print("Delete Activity [\(self.name)] didSave")
+            print("Delete Project [\(self.name)] didSave")
             return
         }
         if managedObjectContext == CoreDataStackManager.mainContext {
             print("Project [\(self.name)] didSave")
+            
+            // if ckrecordid does not exist create record
+            // else fetch record and update
+            
+            if ckRecordID == nil {
+                print("creating new record")
+                let projectCKRecord = CKRecord(recordType: CloudKitClient.RecordType.Project.rawValue)
+                
+                projectCKRecord[Keys.Active] = active as NSNumber
+                projectCKRecord[Keys.Completed] = completed as NSNumber
+                projectCKRecord[Keys.CompletedDate] = completedDate as NSDate?
+                projectCKRecord[Keys.DisplayOrder] = displayOrder
+                projectCKRecord[Keys.DueDate] = dueDate as NSDate?
+                projectCKRecord[Keys.Info] = info as NSString?
+                projectCKRecord[Keys.Name] = name as NSString?
+                
+                CloudKitClient.privateDatabase.save(projectCKRecord) { (ckRecord, error) in
+                    print("project uploaded to cloudkit")
+                }
+            }
         }
     }
 }

@@ -13,6 +13,10 @@ class CloudKitClient {
     public enum RecordType: String {
         case Activity, Project
     }
+    
+    static var ubiquityIdentityToken: Any? {
+        return FileManager.default.ubiquityIdentityToken
+    }
 
     static var publicDatabase: CKDatabase {
         return CKContainer.default().publicCloudDatabase

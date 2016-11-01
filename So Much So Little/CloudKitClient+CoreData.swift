@@ -22,6 +22,11 @@ extension CloudKitClient {
     
     static func importDefaultRecords() {
         
+        guard ubiquityIdentityToken != nil else {
+            print("Log into iCloud for remote sync")
+            return
+        }
+        
         // TODO: check if network connection exists.
 
         let group = DispatchGroup()
@@ -68,16 +73,44 @@ extension CloudKitClient {
                     activity.project = project
                 }
             }
+
+            let projectFetchRequest: NSFetchRequest<Project> = Project.fetchRequest()
+            let projectList = try! CoreDataStackManager.mainContext.fetch(projectFetchRequest)
+            let activityFetchRequest: NSFetchRequest<Activity> = Activity.fetchRequest()
+            let activityList = try! CoreDataStackManager.mainContext.fetch(activityFetchRequest)
+
+            for project in projectList {
+                project.ckRecordID = nil
+            }
+            for activity in activityList {
+                activity.ckRecordID = nil
+            }
             
             CoreDataStackManager.saveMainContext()
         }
     }
     
-    static func syncProjectList() {
+    static func importRecords() {
         
     }
     
-    static func syncActivityList() {
+    static func exportRecords() {
+
+    }
+    
+    static func pushProjectList() {
+
+    }
+    
+    static func pushActivityList() {
+        
+    }
+    
+    static func pullProjectList() {
+        
+    }
+    
+    static func pullActivityList() {
         
     }
 }
