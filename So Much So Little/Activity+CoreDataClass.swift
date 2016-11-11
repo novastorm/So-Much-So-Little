@@ -45,7 +45,7 @@ public class Activity: NSManagedObject {
     }
     
     struct Keys {
-        static let CKRecordID = "ckRecordID"
+        static let EncodedCKRecord = "encodedCKRecord"
         static let Completed = "completed"
         static let CompletedDate = "completedDate"
         static let DeferredTo = "deferredTo"
@@ -65,7 +65,7 @@ public class Activity: NSManagedObject {
         static let Timeboxes = "timeboxes"
     }
     
-    typealias CKRecordIDType = Data
+    typealias EncodedCKRecordType = Data
     typealias CompletedType = Bool
     typealias CompletedDateType = Date
     typealias DeferredToType = String
@@ -135,7 +135,7 @@ public class Activity: NSManagedObject {
         let name = data[Keys.Name] as? NameType ?? ""
         self.init(context: context, name: name)
         
-        ckRecordID = data[Keys.CKRecordID] as? CKRecordIDType
+        encodedCKRecord = data[Keys.EncodedCKRecord] as? EncodedCKRecordType
         completed = data[Keys.Completed] as? CompletedType ?? false
         completedDate = data[Keys.CompletedDate] as? CompletedDateType
         deferredTo = data[Keys.DeferredTo] as? DeferredToType
@@ -164,7 +164,7 @@ public class Activity: NSManagedObject {
     
     convenience init(context: NSManagedObjectContext, ckRecord: CKRecord) {
         let data: [AnyHashable: Any] = [
-            Keys.CKRecordID: ckRecord.encodedCKRecordSystemFields,
+            Keys.EncodedCKRecord: ckRecord.encodedCKRecordSystemFields,
             Keys.Completed: ckRecord[Keys.Completed] as Any,
             Keys.CompletedDate: ckRecord[Keys.CompletedDate] as Any,
             Keys.DeferredTo: ckRecord[Keys.DeferredTo] as Any,
@@ -201,13 +201,13 @@ public class Activity: NSManagedObject {
             
             var activityCKRecord: CKRecord
             
-            if ckRecordID == nil {
+            if encodedCKRecord == nil {
                 print("Activity: Create Cloud Kit record")
                 activityCKRecord = CKRecord(recordType: CloudKitClient.RecordType.Activity.rawValue)
             }
             else {
                 print("Activity: Update Cloud Kit record")
-                activityCKRecord = CKRecord.decodeCKRecordSystemFields(from: ckRecordID!)
+                activityCKRecord = CKRecord.decodeCKRecordSystemFields(from: encodedCKRecord!)
             }
             
             activityCKRecord[Keys.Completed] = completed as NSNumber
@@ -224,6 +224,12 @@ public class Activity: NSManagedObject {
             activityCKRecord[Keys.ScheduledStart] = scheduledStart as NSDate?
             activityCKRecord[Keys.Today] = today as NSNumber
             activityCKRecord[Keys.TodayDisplayOrder] = todayDisplayOrder as NSNumber
+            
+            if let project = project {
+                let ckRecord = CKRecord.decodeCKRecordSystemFields(from: project.encodedCKRecord!)
+                activityCKRecord[Keys.Project] = CKReference(record: ckRecord, action: .none)
+            }
+            
             
             CloudKitClient.privateDatabase.save(activityCKRecord) { (ckRecord, error) in
                 guard error == nil else {

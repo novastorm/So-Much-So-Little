@@ -89,7 +89,7 @@ extension CloudKitClient {
                     }).first!
                     
                     let fetchRequest = Project.fetchRequest() as NSFetchRequest
-                    fetchRequest.predicate = NSPredicate(format: "ckRecordID = %@", ckProject.encodedCKRecordSystemFields as NSData)
+                    fetchRequest.predicate = NSPredicate(format: "encodedCKRecord = %@", ckProject.encodedCKRecordSystemFields as NSData)
                     
                     let projectList = try! CoreDataStackManager.mainContext.fetch(fetchRequest)
                     activity.project = projectList.first

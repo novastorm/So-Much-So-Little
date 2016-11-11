@@ -12,7 +12,7 @@ import CoreData
 public class Timebox: NSManagedObject {
     
     struct Keys {
-        static let CKRecordID = "ckRecordID"
+        static let EncodedCKRecord = "encodedCKRecord"
         static let Completed = "completed"
         static let ExternalInterruptions = "externalInterruptions"
         static let InternalInterruptions = "internalInterruptions"
@@ -22,7 +22,7 @@ public class Timebox: NSManagedObject {
         static let Activity = "activity"
     }
     
-    typealias CKRecordIDType = Data
+    typealias EncodedCKRecord = Data
     typealias CompletedType = Bool
     typealias ExternalInterruptionsType = NSNumber
     typealias InternalInterruptionsType = NSNumber
