@@ -26,7 +26,7 @@ public class Project: NSManagedObject {
     }
     
     typealias ActiveType = Bool
-    typealias CKRecordIDType = String
+    typealias CKRecordIDType = Data
     typealias CompletedType = Bool
     typealias CompletedDateType = Date
     typealias DisplayOrderType = NSNumber
@@ -72,7 +72,7 @@ public class Project: NSManagedObject {
     convenience init(context: NSManagedObjectContext, ckRecord: CKRecord) {
         let data: [AnyHashable: Any] = [
             Keys.Active: ckRecord[Keys.Active] as Any,
-            Keys.CKRecordID: ckRecord.recordID.recordName,
+            Keys.CKRecordID: ckRecord.encodedCKRecordSystemFields,
             Keys.Completed: ckRecord[Keys.Completed] as Any,
             Keys.CompletedDate: ckRecord[Keys.CompletedDate] as Any,
             Keys.DisplayOrder: ckRecord[Keys.DisplayOrder] as Any,
@@ -95,21 +95,27 @@ public class Project: NSManagedObject {
             // if ckrecordid does not exist create record
             // else fetch record and update
             
+            var projectCKRecord: CKRecord
+            
             if ckRecordID == nil {
-                print("creating new record")
-                let projectCKRecord = CKRecord(recordType: CloudKitClient.RecordType.Project.rawValue)
-                
-                projectCKRecord[Keys.Active] = active as NSNumber
-                projectCKRecord[Keys.Completed] = completed as NSNumber
-                projectCKRecord[Keys.CompletedDate] = completedDate as NSDate?
-                projectCKRecord[Keys.DisplayOrder] = displayOrder
-                projectCKRecord[Keys.DueDate] = dueDate as NSDate?
-                projectCKRecord[Keys.Info] = info as NSString?
-                projectCKRecord[Keys.Name] = name as NSString?
-                
-                CloudKitClient.privateDatabase.save(projectCKRecord) { (ckRecord, error) in
-                    print("project uploaded to cloudkit")
-                }
+                print("Project: Creating Cloud Kit record")
+                projectCKRecord = CKRecord(recordType: CloudKitClient.RecordType.Project.rawValue)
+            }
+            else {
+                print("Project: Update Cloud Kit record")
+                projectCKRecord = CKRecord.decodeCKRecordSystemFields(from: ckRecordID!)
+            }
+            
+            projectCKRecord[Keys.Active] = active as NSNumber
+            projectCKRecord[Keys.Completed] = completed as NSNumber
+            projectCKRecord[Keys.CompletedDate] = completedDate as NSDate?
+            projectCKRecord[Keys.DisplayOrder] = displayOrder
+            projectCKRecord[Keys.DueDate] = dueDate as NSDate?
+            projectCKRecord[Keys.Info] = info as NSString?
+            projectCKRecord[Keys.Name] = name as NSString?
+            
+            CloudKitClient.privateDatabase.save(projectCKRecord) { (ckRecord, error) in
+                print("project uploaded to cloudkit")
             }
         }
     }

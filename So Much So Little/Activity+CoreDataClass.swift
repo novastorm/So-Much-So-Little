@@ -65,7 +65,7 @@ public class Activity: NSManagedObject {
         static let Timeboxes = "timeboxes"
     }
     
-    typealias CKRecordIDType = String
+    typealias CKRecordIDType = Data
     typealias CompletedType = Bool
     typealias CompletedDateType = Date
     typealias DeferredToType = String
@@ -164,7 +164,7 @@ public class Activity: NSManagedObject {
     
     convenience init(context: NSManagedObjectContext, ckRecord: CKRecord) {
         let data: [AnyHashable: Any] = [
-            Keys.CKRecordID: ckRecord.recordID.recordName,
+            Keys.CKRecordID: ckRecord.encodedCKRecordSystemFields,
             Keys.Completed: ckRecord[Keys.Completed] as Any,
             Keys.CompletedDate: ckRecord[Keys.CompletedDate] as Any,
             Keys.DeferredTo: ckRecord[Keys.DeferredTo] as Any,
@@ -190,7 +190,7 @@ public class Activity: NSManagedObject {
     
     public override func didSave() {
         if isDeleted {
-            // TODO: Add deleted record cloud kit processing
+            print("Delete Activity [\(self.name)] didSave")
             return
         }
         if managedObjectContext == CoreDataStackManager.mainContext {

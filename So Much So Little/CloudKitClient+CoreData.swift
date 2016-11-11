@@ -66,24 +66,17 @@ extension CloudKitClient {
             for ckActivity in ckActivityList {
                 let activity = Activity(context: CoreDataStackManager.mainContext, ckRecord: ckActivity)
                 if let projectRef = ckActivity[Activity.Keys.Project] as? CKReference {
-                    // Fetch from Core Data the project with ckRecordID string
-                    let projectFetchRequest: NSFetchRequest<Project> = Project.fetchRequest()
-                    projectFetchRequest.predicate = NSPredicate(format: "ckRecordID = %@", projectRef.recordID.recordName)
-                    let project = (try! CoreDataStackManager.mainContext.fetch(projectFetchRequest)).first
-                    activity.project = project
+                    
+                    let ckProject = ckProjectList.filter({ (ckRecord) -> Bool in
+                        return ckRecord.recordID == projectRef.recordID
+                    }).first!
+                    
+                    let fetchRequest = Project.fetchRequest() as NSFetchRequest
+                    fetchRequest.predicate = NSPredicate(format: "ckRecordID = %@", ckProject.encodedCKRecordSystemFields as NSData)
+                    
+                    let projectList = try! CoreDataStackManager.mainContext.fetch(fetchRequest)
+                    activity.project = projectList.first
                 }
-            }
-
-            let projectFetchRequest: NSFetchRequest<Project> = Project.fetchRequest()
-            let projectList = try! CoreDataStackManager.mainContext.fetch(projectFetchRequest)
-            let activityFetchRequest: NSFetchRequest<Activity> = Activity.fetchRequest()
-            let activityList = try! CoreDataStackManager.mainContext.fetch(activityFetchRequest)
-
-            for project in projectList {
-                project.ckRecordID = nil
-            }
-            for activity in activityList {
-                activity.ckRecordID = nil
             }
             
             CoreDataStackManager.saveMainContext()

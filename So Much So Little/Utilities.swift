@@ -8,14 +8,6 @@
 
 import Reachability
 
-extension NSObject {
-    
-    static var className: String {
-        return description().components(separatedBy: ".")[1]
-    }
-
-}
-
 func checkNetworkConnection(_ hostname: String?, completionHandler: (_ success: Bool, _ error: NSError?) -> Void) {
     
     var reachability: Reachability?
