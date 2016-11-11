@@ -43,7 +43,15 @@ extension CloudKitClient {
                 print(error!)
                 return
             }
-            ckProjectList = results!
+            
+            for project in results! {
+                let newProject = CKRecord(recordType: project.recordType, recordID: project.recordID)
+
+                for key in project.allKeys() {
+                    newProject[key] = project[key]
+                }
+                ckProjectList.append(newProject)
+            }
         }
         
         group.enter()
@@ -55,7 +63,16 @@ extension CloudKitClient {
                 print(error!)
                 return
             }
-            ckActivityList = results!
+            
+            for activity in results! {
+                let newActivity = CKRecord(recordType: activity.recordType, recordID: activity.recordID)
+                
+                for key in activity.allKeys() {
+                    newActivity[key] = activity[key]
+                }
+                
+                ckActivityList.append(newActivity)
+            }
         }
         
         group.notify(queue: .main) {

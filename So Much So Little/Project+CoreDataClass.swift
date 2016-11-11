@@ -1,3 +1,4 @@
+
 //
 //  Project+CoreDataClass.swift
 //  So Much So Little
@@ -115,7 +116,11 @@ public class Project: NSManagedObject {
             projectCKRecord[Keys.Name] = name as NSString?
             
             CloudKitClient.privateDatabase.save(projectCKRecord) { (ckRecord, error) in
-                print("project uploaded to cloudkit")
+                guard error == nil else {
+                    print(error!)
+                    return
+                }
+                print("Project: uploaded to cloudkit")
             }
         }
     }

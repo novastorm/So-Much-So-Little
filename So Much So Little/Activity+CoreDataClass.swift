@@ -188,6 +188,10 @@ public class Activity: NSManagedObject {
         return timeboxes.count 
     }
     
+    /**
+     Save CloudKit object
+     */
+    
     public override func didSave() {
         if isDeleted {
             print("Delete Activity [\(self.name)] didSave")
@@ -195,6 +199,39 @@ public class Activity: NSManagedObject {
         }
         if managedObjectContext == CoreDataStackManager.mainContext {
             
+            var activityCKRecord: CKRecord
+            
+            if ckRecordID == nil {
+                print("Activity: Create Cloud Kit record")
+                activityCKRecord = CKRecord(recordType: CloudKitClient.RecordType.Activity.rawValue)
+            }
+            else {
+                print("Activity: Update Cloud Kit record")
+                activityCKRecord = CKRecord.decodeCKRecordSystemFields(from: ckRecordID!)
+            }
+            
+            activityCKRecord[Keys.Completed] = completed as NSNumber
+            activityCKRecord[Keys.CompletedDate] = completedDate as NSDate?
+            activityCKRecord[Keys.DeferredTo] = deferredTo as NSString?
+            activityCKRecord[Keys.DeferredToResponseDueDate] = deferredToResponseDueDate as NSDate?
+            activityCKRecord[Keys.DisplayOrder] = displayOrder as NSNumber
+            activityCKRecord[Keys.DueDate] = dueDate as NSDate?
+            activityCKRecord[Keys.EstimatedTimeboxes] = estimatedTimeboxes as NSNumber
+            activityCKRecord[Keys.Info] = info as NSString?
+            activityCKRecord[Keys.Kind] = kind.rawValue as NSNumber
+            activityCKRecord[Keys.Name] = name as NSString?
+            activityCKRecord[Keys.ScheduledEnd] = scheduledEnd as NSDate?
+            activityCKRecord[Keys.ScheduledStart] = scheduledStart as NSDate?
+            activityCKRecord[Keys.Today] = today as NSNumber
+            activityCKRecord[Keys.TodayDisplayOrder] = todayDisplayOrder as NSNumber
+            
+            CloudKitClient.privateDatabase.save(activityCKRecord) { (ckRecord, error) in
+                guard error == nil else {
+                    print(error!)
+                    return
+                }
+                print("Activity: Uploaded to cloudkit")
+            }
         }
     }
 }
