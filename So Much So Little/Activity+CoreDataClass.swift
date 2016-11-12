@@ -165,6 +165,7 @@ public class Activity: NSManagedObject {
     convenience init(context: NSManagedObjectContext, ckRecord: CKRecord) {
         let data: [AnyHashable: Any] = [
             Keys.EncodedCKRecord: ckRecord.encodedCKRecordSystemFields,
+            
             Keys.Completed: ckRecord[Keys.Completed] as Any,
             Keys.CompletedDate: ckRecord[Keys.CompletedDate] as Any,
             Keys.DeferredTo: ckRecord[Keys.DeferredTo] as Any,
@@ -238,6 +239,49 @@ public class Activity: NSManagedObject {
                 }
                 print("Activity: Uploaded to cloudkit")
             }
+        }
+    }
+    
+    func storeRecord() {
+        
+        var activityCKRecord: CKRecord
+        
+        if encodedCKRecord == nil {
+            print("Activity: Create Cloud Kit record")
+            activityCKRecord = CKRecord(recordType: CloudKitClient.RecordType.Activity.rawValue)
+        }
+        else {
+            print("Activity: Update Cloud Kit record")
+            activityCKRecord = CKRecord.decodeCKRecordSystemFields(from: encodedCKRecord!)
+        }
+        
+        activityCKRecord[Keys.Completed] = completed as NSNumber
+        activityCKRecord[Keys.CompletedDate] = completedDate as NSDate?
+        activityCKRecord[Keys.DeferredTo] = deferredTo as NSString?
+        activityCKRecord[Keys.DeferredToResponseDueDate] = deferredToResponseDueDate as NSDate?
+        activityCKRecord[Keys.DisplayOrder] = displayOrder as NSNumber
+        activityCKRecord[Keys.DueDate] = dueDate as NSDate?
+        activityCKRecord[Keys.EstimatedTimeboxes] = estimatedTimeboxes as NSNumber
+        activityCKRecord[Keys.Info] = info as NSString?
+        activityCKRecord[Keys.Kind] = kind.rawValue as NSNumber
+        activityCKRecord[Keys.Name] = name as NSString?
+        activityCKRecord[Keys.ScheduledEnd] = scheduledEnd as NSDate?
+        activityCKRecord[Keys.ScheduledStart] = scheduledStart as NSDate?
+        activityCKRecord[Keys.Today] = today as NSNumber
+        activityCKRecord[Keys.TodayDisplayOrder] = todayDisplayOrder as NSNumber
+        
+        if let project = project {
+            let ckRecord = CKRecord.decodeCKRecordSystemFields(from: project.encodedCKRecord!)
+            activityCKRecord[Keys.Project] = CKReference(record: ckRecord, action: .none)
+        }
+        
+        
+        CloudKitClient.privateDatabase.save(activityCKRecord) { (ckRecord, error) in
+            guard error == nil else {
+                print(error!)
+                return
+            }
+            print("Activity: Uploaded to cloudkit")
         }
     }
 }

@@ -76,27 +76,23 @@ extension CloudKitClient {
         }
         
         group.notify(queue: .main) {
-            for ckProject in ckProjectList {
-                _ = Project(context: CoreDataStackManager.mainContext, ckRecord: ckProject)
-            }
             
-            for ckActivity in ckActivityList {
-                let activity = Activity(context: CoreDataStackManager.mainContext, ckRecord: ckActivity)
-                if let projectRef = ckActivity[Activity.Keys.Project] as? CKReference {
-                    
-                    let ckProject = ckProjectList.filter({ (ckRecord) -> Bool in
-                        return ckRecord.recordID == projectRef.recordID
-                    }).first!
-                    
-                    let fetchRequest = Project.fetchRequest() as NSFetchRequest
-                    fetchRequest.predicate = NSPredicate(format: "encodedCKRecord = %@", ckProject.encodedCKRecordSystemFields as NSData)
-                    
-                    let projectList = try! CoreDataStackManager.mainContext.fetch(fetchRequest)
-                    activity.project = projectList.first
+            let modifyRecordsOperation = CKModifyRecordsOperation()
+            modifyRecordsOperation.database = privateDatabase
+            modifyRecordsOperation.recordsToSave = ckActivityList + ckProjectList
+            
+            modifyRecordsOperation.perRecordCompletionBlock = { (ckRecord, error) in
+                guard error == nil else {
+                    print(error!)
+                    return
                 }
+                print("Store record")
+            }
+            modifyRecordsOperation.modifyRecordsCompletionBlock = { (savedRecordList, deletedRecordIDList, error ) in
+                print("Import initial public records to private ckDatabase.")
             }
             
-            CoreDataStackManager.saveMainContext()
+            modifyRecordsOperation.start()
         }
     }
     
