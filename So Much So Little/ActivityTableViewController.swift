@@ -63,6 +63,7 @@ class ActivityTableViewController: UITableViewController {
         super.viewDidAppear(animated)
         tabBarController?.title = "Activity"
         tabBarController?.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(createActivity))
+        try! fetchedResultsController.performFetch()
         tableView.reloadData()
     }
     

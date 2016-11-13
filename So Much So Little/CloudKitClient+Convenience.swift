@@ -12,12 +12,12 @@ extension CloudKitClient {
     
     // MARK: - Index method
     
-    static func getActivityList(_ completionHandler: @escaping (_ activityList: [CKRecord]?, _ error: Error?) -> Void) {
+    static func getActivityList(from database: CKDatabase = privateDatabase, completionHandler: @escaping (_ activityList: [CKRecord]?, _ error: Error?) -> Void) {
         
         let predicate = NSPredicate(value: true)
         let query = CKQuery(recordType: RecordType.Activity.rawValue, predicate: predicate)
         
-        privateDatabase.perform(query, inZoneWith: nil) { (results, error) in
+        database.perform(query, inZoneWith: nil) { (results, error) in
             
             guard error == nil else {
                 completionHandler(nil, error)
@@ -28,28 +28,12 @@ extension CloudKitClient {
         }
     }
 
-    static func getPublicActivityList(_ completionHandler: @escaping (_ activityList: [CKRecord]?, _ error: Error?) -> Void) {
-        
-        let predicate = NSPredicate(value: true)
-        let query = CKQuery(recordType: RecordType.Activity.rawValue, predicate: predicate)
-        
-        publicDatabase.perform(query, inZoneWith: nil) { (results, error) in
-            
-            guard error == nil else {
-                completionHandler(nil, error)
-                return
-            }
-            
-            completionHandler(results, nil)
-        }
-    }
-
-    static func getProjectList(_ completionHandler: @escaping (_ projectList: [CKRecord]?, _ error: Error?) -> Void) {
+    static func getProjectList(from database: CKDatabase = privateDatabase, _ completionHandler: @escaping (_ projectList: [CKRecord]?, _ error: Error?) -> Void) {
         
         let predicate = NSPredicate(value: true)
         let query = CKQuery(recordType: RecordType.Project.rawValue, predicate: predicate)
         
-        privateDatabase.perform(query, inZoneWith: nil) { (results, error) in
+        database.perform(query, inZoneWith: nil) { (results, error) in
             
             guard error == nil else {
                 completionHandler(nil, error)
@@ -60,21 +44,21 @@ extension CloudKitClient {
         }
     }
     
-    static func getPublicProjectList(_ completionHandler: @escaping (_ projectList: [CKRecord]?, _ error: Error?) -> Void) {
-        
-        let predicate = NSPredicate(value: true)
-        let query = CKQuery(recordType: RecordType.Project.rawValue, predicate: predicate)
-        
-        publicDatabase.perform(query, inZoneWith: nil) { (results, error) in
-            
-            guard error == nil else {
-                completionHandler(nil, error)
-                return
-            }
-            
-            completionHandler(results, nil)
-        }
-    }
+//    static func getPublicProjectList(_ completionHandler: @escaping (_ projectList: [CKRecord]?, _ error: Error?) -> Void) {
+//        
+//        let predicate = NSPredicate(value: true)
+//        let query = CKQuery(recordType: RecordType.Project.rawValue, predicate: predicate)
+//        
+//        publicDatabase.perform(query, inZoneWith: nil) { (results, error) in
+//            
+//            guard error == nil else {
+//                completionHandler(nil, error)
+//                return
+//            }
+//            
+//            completionHandler(results, nil)
+//        }
+//    }
 
     
     // MARK: - Show method

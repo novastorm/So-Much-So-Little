@@ -16,8 +16,9 @@ class StubTest: UIViewController {
         
         try! CoreDataStackManager.sharedInstance.dropAllData()
 
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
         UserDefaults.standard.set(false, forKey: AppDelegate.UserDefaultKeys.HasLaunchedBefore)
+
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
         appDelegate.checkIfFirstLaunch()
     }
     
