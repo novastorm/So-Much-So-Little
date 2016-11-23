@@ -29,11 +29,13 @@ class ProjectDetailFormViewController: FormViewController {
 //        HasParentProject,
 //        HasSubproject,
         
-        Activities
+        Activities,
 //        Milestones,
 //        Parent,
 //        Subprojects,
 //        Roles
+        
+        Delete
     }
     
     // MARK: - Core Data convenience methods
@@ -79,52 +81,67 @@ class ProjectDetailFormViewController: FormViewController {
         form.inlineRowHideOptions = InlineRowHideOptions.AnotherInlineRowIsShown.union(.FirstResponderChanges)
         
         form
+        
+        /******************************************************************/
+        
         +++ Section()
-            <<< TextRow(FormInput.Name.rawValue) { (row) in
-                row.placeholder = Project.defaultName
-                temporaryContext.performAndWait {
-                    row.value = self.project.name
+        
+        /******************************************************************/
+        
+        <<< TextRow(FormInput.Name.rawValue) { (row) in
+            row.placeholder = Project.defaultName
+            temporaryContext.performAndWait {
+                row.value = self.project.name
+            }
+        }
+        <<< SwitchRow(FormInput.Completed.rawValue) { (row) in
+            row.title = "Completed"
+            temporaryContext.performAndWait {
+                row.value = self.project.completed
+            }
+        }
+        <<< DateInlineRow(FormInput.DueDate.rawValue) { (row) in
+            row.title = "Due Date"
+            temporaryContext.performAndWait {
+                row.value = self.project.dueDate
+            }
+        }
+        <<< TextAreaRow(FormInput.Info.rawValue) { (row) in
+            row.placeholder = "Description"
+            temporaryContext.performAndWait {
+                row.value = self.project.info
+            }
+        }
+        <<< MultipleSelectorRow<Activity>(FormInput.Activities.rawValue) { (row) in
+            print("Add Activity Cell")
+            row.title = "Actvities"
+        }.cellSetup{ (cell, row) in
+            print("Activity cellSetup")
+        }.cellUpdate { (cell, row) in
+            print("Activity cellUpdate")
+        }.onCellSelection { (cell, row) in
+            print("Activity onCellSelection")
+            try! self.activityFRC.performFetch()
+            row.options = self.activityFRC.fetchedObjects!
+        }.onChange { (row) in
+            print("Activity onChange")
+        }.onPresent { (from, to) in
+            print("Activity onPresent")
+            to.selectableRowCellSetup = { (cell, row) in
+                if let activity = row.selectableValue {
+                    row.title = activity.name
                 }
             }
-            <<< SwitchRow(FormInput.Completed.rawValue) { (row) in
-                row.title = "Completed"
-                temporaryContext.performAndWait {
-                    row.value = self.project.completed
-                }
+        }
+            
+        <<< ButtonRow(FormInput.Delete.rawValue) { (row) in
+            temporaryContext.performAndWait {
+                row.hidden = Condition(booleanLiteral: self.project.objectID.isTemporaryID)
+                row.title = "Delete"
             }
-            <<< DateInlineRow(FormInput.DueDate.rawValue) { (row) in
-                row.title = "Due Date"
-                temporaryContext.performAndWait {
-                    row.value = self.project.dueDate
-                }
-            }
-            <<< TextAreaRow(FormInput.Info.rawValue) { (row) in
-                row.placeholder = "Description"
-                temporaryContext.performAndWait {
-                    row.value = self.project.info
-                }
-            }
-            <<< MultipleSelectorRow<Activity>(FormInput.Activities.rawValue) { (row) in
-                print("Add Activity Cell")
-                row.title = "Actvities"
-            }.cellSetup{ (cell, row) in
-                print("Activity cellSetup")
-            }.cellUpdate { (cell, row) in
-                print("Activity cellUpdate")
-            }.onCellSelection { (cell, row) in
-                print("Activity onCellSelection")
-                try! self.activityFRC.performFetch()
-                row.options = self.activityFRC.fetchedObjects!
-            }.onChange { (row) in
-                print("Activity onChange")
-            }.onPresent { (from, to) in
-                print("Activity onPresent")
-                to.selectableRowCellSetup = { (cell, row) in
-                    if let activity = row.selectableValue {
-                        row.title = activity.name
-                    }
-                }
-            }
+        }.onCellSelection { (cell, row) in
+            print("Delete button pressed")
+        }
     }
     
     
