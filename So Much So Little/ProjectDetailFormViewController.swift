@@ -133,7 +133,6 @@ class ProjectDetailFormViewController: FormViewController {
                 }
             }
         }
-            
         <<< ButtonRow(FormInput.Delete.rawValue) { (row) in
             temporaryContext.performAndWait {
                 row.hidden = Condition(booleanLiteral: self.project.objectID.isTemporaryID)

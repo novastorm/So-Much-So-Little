@@ -158,7 +158,7 @@ class ActivityTests: XCTestCase {
         let name = alphaData[Activity.Keys.Name] as! String
         XCTAssertEqual(alpha.name, name, "Activity name should be \"\(name)\"")
 
-        let estimatedTimeboxes = alphaData[Activity.Keys.EstimatedTimeboxes] as? Activity.EstimatedTimeboxesType
+        let estimatedTimeboxes = alphaData[Activity.Keys.EstimatedTimeboxes] as! Activity.EstimatedTimeboxesType
         XCTAssertEqual(alpha.estimatedTimeboxes, estimatedTimeboxes, "Activity estimatedTimeboxes should be \(estimatedTimeboxes)")
         
         // update acitivity details

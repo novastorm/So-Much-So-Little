@@ -12,7 +12,8 @@ class CoreDataStackManager {
     
     static let modelName = "So_Much_So_Little"
     
-    static let sharedInstance = CoreDataStack(modelName: modelName)!
+    static let sharedInstance: CoreDataStack = CoreDataStack(modelName: modelName)!
+    
     fileprivate init() {}
     
     static var mainContext: NSManagedObjectContext {

@@ -224,6 +224,7 @@ class ActivityDetailFormViewController: FormViewController {
             temporaryContext.performAndWait {
                 row.hidden = Condition(booleanLiteral: !self.activity.completed)
                 row.title = "Completed"
+                row.disabled = true
                 if let completedDate = self.activity.completedDate {
                     print(completedDate)
                 }

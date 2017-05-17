@@ -58,13 +58,13 @@ class CoreDataStack {
         persistingContext.persistentStoreCoordinator = coordinator
         
         mainContext = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
-        mainContext.parent = persistingContext
         mainContext.name = "Main"
+        mainContext.parent = persistingContext
         
         // Create a background context child of main context
         backgroundContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
-        backgroundContext.parent = mainContext
         backgroundContext.name = "Background"
+        backgroundContext.parent = mainContext
         
         
         // Add a SQLite store located in the documents folder
