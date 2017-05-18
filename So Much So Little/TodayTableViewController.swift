@@ -116,7 +116,7 @@ class TodayTableViewController: UITableViewController {
             center.y = location.y
             snapshot.center = center
             
-            guard let indexPath = indexPath , indexPath != moveIndexPathSource else { break }
+            guard let indexPath = indexPath, indexPath != moveIndexPathSource else { break }
             
             tableView.moveRow(at: moveIndexPathSource, to: indexPath)
             
@@ -285,7 +285,7 @@ extension TodayTableViewController: NSFetchedResultsControllerDelegate {
         let activityList = fetchedResultsController.fetchedObjects!
         
         for (i, record) in activityList.enumerated() {
-            let i = i as NSNumber
+            let i = Activity.TodayDisplayOrderType(i)
             if record.todayDisplayOrder != i {
                 record.todayDisplayOrder = i
             }

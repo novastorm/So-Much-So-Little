@@ -2,28 +2,29 @@
 //  Project+CoreDataProperties.swift
 //  So Much So Little
 //
-//  Created by Adland Lee on 10/16/16.
-//  Copyright © 2016 Adland Lee. All rights reserved.
+//  Created by Adland Lee on 5/18/17.
+//  Copyright © 2017 Adland Lee. All rights reserved.
 //
 
+import Foundation
 import CoreData
+
 
 extension Project {
 
     @nonobjc public class func fetchRequest() -> NSFetchRequest<Project> {
-        return NSFetchRequest<Project>(entityName: "Project");
+        return NSFetchRequest<Project>(entityName: "Project")
     }
 
-    @NSManaged public var active: Bool
-    @NSManaged public var encodedCKRecord: Data?
-    @NSManaged public var completed: Bool
-    @NSManaged public var completedDate: Date?
-    @NSManaged public var displayOrder: NSNumber
-    @NSManaged public var dueDate: Date?
-    @NSManaged public var info: String?
-    @NSManaged public var name: String
-    
-    @NSManaged public var activities: Set<Activity>
+    @NSManaged public var active: ActiveType
+    @NSManaged public var completed: CompletedType
+    @NSManaged public var completedDate: CompletedDateType?
+    @NSManaged public var displayOrder: DisplayOrderType
+    @NSManaged public var dueDate: DueDateType?
+    @NSManaged public var encodedCKRecord: EncodedCKRecordType?
+    @NSManaged public var info: InfoType?
+    @NSManaged public var name: NameType
+    @NSManaged public var activities: ActivitiesType
 
 }
 
@@ -37,9 +38,9 @@ extension Project {
     @NSManaged public func removeFromActivities(_ value: Activity)
 
     @objc(addActivities:)
-    @NSManaged public func addToActivities(_ values: NSSet)
+    @NSManaged public func addToActivities(_ values: ActivitiesType)
 
     @objc(removeActivities:)
-    @NSManaged public func removeFromActivities(_ values: NSSet)
+    @NSManaged public func removeFromActivities(_ values: ActivitiesType)
 
 }

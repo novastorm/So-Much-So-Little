@@ -97,13 +97,13 @@ class ProjectDetailFormViewController: FormViewController {
         <<< SwitchRow(FormInput.Completed.rawValue) { (row) in
             row.title = "Completed"
             temporaryContext.performAndWait {
-                row.value = self.project.completed
+                row.value = self.project.completed 
             }
         }
         <<< DateInlineRow(FormInput.DueDate.rawValue) { (row) in
             row.title = "Due Date"
             temporaryContext.performAndWait {
-                row.value = self.project.dueDate
+                row.value = self.project.dueDate as Date?
             }
         }
         <<< TextAreaRow(FormInput.Info.rawValue) { (row) in

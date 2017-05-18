@@ -13,7 +13,12 @@ import CoreData
 public class Activity: NSManagedObject {
     
     @objc // <- required for Core Data type compatibility
-    public enum Kind: Int32, CustomStringConvertible {
+    public enum Kind: Int16, CustomStringConvertible {
+
+        private enum Name: String {
+            case Flexible, Deferred, Reference, Scheduled
+        }
+        
         case flexible
         case deferred
         case reference
@@ -21,13 +26,13 @@ public class Activity: NSManagedObject {
         
         static func fromString(_ string: String) -> Kind? {
             switch string {
-            case "Flexible":
+            case Name.Flexible.rawValue:
                 return .flexible
-            case "Deferred":
+            case Name.Deferred.rawValue:
                 return .deferred
-            case "Reference":
+            case Name.Reference.rawValue:
                 return .reference
-            case "Scheduled":
+            case Name.Scheduled.rawValue:
                 return .scheduled
             default:
                 return nil
@@ -36,10 +41,10 @@ public class Activity: NSManagedObject {
         
         public var description: String {
             switch self {
-            case .flexible: return "Flexible"
-            case .deferred: return "Deferred"
-            case .reference: return "Reference"
-            case .scheduled: return "Scheduled"
+            case .flexible: return Name.Flexible.rawValue
+            case .deferred: return Name.Deferred.rawValue
+            case .reference: return Name.Reference.rawValue
+            case .scheduled: return Name.Scheduled.rawValue
             }
         }
     }
@@ -65,26 +70,26 @@ public class Activity: NSManagedObject {
         static let Timeboxes = "timeboxes"
     }
     
-    typealias EncodedCKRecordType = Data
-    typealias CompletedType = Bool
-    typealias CompletedDateType = Date
-    typealias DeferredToType = String
-    typealias DeferredToResponseDueDateType = Date
-    typealias DisplayOrderType = NSNumber
-    typealias DueDateType = Date
-    typealias EstimatedTimeboxesType = NSNumber
-    typealias InfoType = String
-    //    typealias Kind = Kind
-    typealias ScheduledEndType = Date
-    typealias ScheduledStartType = Date
-    typealias NameType = String
-    typealias TodayType = Bool
-    typealias TodayDisplayOrderType = NSNumber
+    public typealias EncodedCKRecordType = NSData
+    public typealias CompletedType = Bool
+    public typealias CompletedDateType = NSDate
+    public typealias DeferredToType = String
+    public typealias DeferredToResponseDueDateType = NSDate
+    public typealias DisplayOrderType = Int16
+    public typealias DueDateType = NSDate
+    public typealias EstimatedTimeboxesType = Int16
+    public typealias InfoType = String
+    public typealias ScheduledEndType = NSDate
+    public typealias ScheduledStartType = NSDate
+    public typealias NameType = String
+    public typealias TodayType = Bool
+    public typealias TodayDisplayOrderType = Int16
     
-    typealias ProjectType = Project
-    typealias TimeBoxesType = Set<Timebox>
+    public typealias ProjectType = Project
+    public typealias TimeBoxesType = Set<Timebox>
     
     static let defaultName = "New Activity"
+    
     
     /**
      Create an instance with given `name` or defaultName if `name` contains only whitespace.
@@ -108,7 +113,7 @@ public class Activity: NSManagedObject {
         }
         
         self.name = name
-        kind = .flexible
+        self.kind = .flexible
     }
 
     /**
@@ -193,7 +198,7 @@ public class Activity: NSManagedObject {
      Save CloudKit object
      */
     
-    public override func didSave() {
+    override public func didSave() {
         if isDeleted {
             print("Delete Activity [\(self.name)] didSave")
             return
@@ -208,26 +213,26 @@ public class Activity: NSManagedObject {
             }
             else {
                 print("Activity: Update Cloud Kit record")
-                activityCKRecord = CKRecord.decodeCKRecordSystemFields(from: encodedCKRecord!)
+                activityCKRecord = CKRecord.decodeCKRecordSystemFields(from: encodedCKRecord! as Data)
             }
             
             activityCKRecord[Keys.Completed] = completed as NSNumber
-            activityCKRecord[Keys.CompletedDate] = completedDate as NSDate?
+            activityCKRecord[Keys.CompletedDate] = completedDate
             activityCKRecord[Keys.DeferredTo] = deferredTo as NSString?
-            activityCKRecord[Keys.DeferredToResponseDueDate] = deferredToResponseDueDate as NSDate?
+            activityCKRecord[Keys.DeferredToResponseDueDate] = deferredToResponseDueDate
             activityCKRecord[Keys.DisplayOrder] = displayOrder as NSNumber
-            activityCKRecord[Keys.DueDate] = dueDate as NSDate?
+            activityCKRecord[Keys.DueDate] = dueDate
             activityCKRecord[Keys.EstimatedTimeboxes] = estimatedTimeboxes as NSNumber
             activityCKRecord[Keys.Info] = info as NSString?
             activityCKRecord[Keys.Kind] = kind.rawValue as NSNumber
-            activityCKRecord[Keys.Name] = name as NSString?
-            activityCKRecord[Keys.ScheduledEnd] = scheduledEnd as NSDate?
-            activityCKRecord[Keys.ScheduledStart] = scheduledStart as NSDate?
+            activityCKRecord[Keys.Name] = name as NSString
+            activityCKRecord[Keys.ScheduledEnd] = scheduledEnd
+            activityCKRecord[Keys.ScheduledStart] = scheduledStart
             activityCKRecord[Keys.Today] = today as NSNumber
             activityCKRecord[Keys.TodayDisplayOrder] = todayDisplayOrder as NSNumber
             
             if let project = project {
-                let ckRecord = CKRecord.decodeCKRecordSystemFields(from: project.encodedCKRecord!)
+                let ckRecord = CKRecord.decodeCKRecordSystemFields(from: project.encodedCKRecord! as Data)
                 activityCKRecord[Keys.Project] = CKReference(record: ckRecord, action: .none)
             }
             
@@ -252,26 +257,26 @@ public class Activity: NSManagedObject {
         }
         else {
             print("Activity: Update Cloud Kit record")
-            activityCKRecord = CKRecord.decodeCKRecordSystemFields(from: encodedCKRecord!)
+            activityCKRecord = CKRecord.decodeCKRecordSystemFields(from: encodedCKRecord! as Data)
         }
         
         activityCKRecord[Keys.Completed] = completed as NSNumber
-        activityCKRecord[Keys.CompletedDate] = completedDate as NSDate?
+        activityCKRecord[Keys.CompletedDate] = completedDate
         activityCKRecord[Keys.DeferredTo] = deferredTo as NSString?
-        activityCKRecord[Keys.DeferredToResponseDueDate] = deferredToResponseDueDate as NSDate?
+        activityCKRecord[Keys.DeferredToResponseDueDate] = deferredToResponseDueDate
         activityCKRecord[Keys.DisplayOrder] = displayOrder as NSNumber
-        activityCKRecord[Keys.DueDate] = dueDate as NSDate?
+        activityCKRecord[Keys.DueDate] = dueDate
         activityCKRecord[Keys.EstimatedTimeboxes] = estimatedTimeboxes as NSNumber
         activityCKRecord[Keys.Info] = info as NSString?
         activityCKRecord[Keys.Kind] = kind.rawValue as NSNumber
-        activityCKRecord[Keys.Name] = name as NSString?
-        activityCKRecord[Keys.ScheduledEnd] = scheduledEnd as NSDate?
-        activityCKRecord[Keys.ScheduledStart] = scheduledStart as NSDate?
+        activityCKRecord[Keys.Name] = name as NSString
+        activityCKRecord[Keys.ScheduledEnd] = scheduledEnd
+        activityCKRecord[Keys.ScheduledStart] = scheduledStart
         activityCKRecord[Keys.Today] = today as NSNumber
         activityCKRecord[Keys.TodayDisplayOrder] = todayDisplayOrder as NSNumber
         
         if let project = project {
-            let ckRecord = CKRecord.decodeCKRecordSystemFields(from: project.encodedCKRecord!)
+            let ckRecord = CKRecord.decodeCKRecordSystemFields(from: project.encodedCKRecord! as Data)
             activityCKRecord[Keys.Project] = CKReference(record: ckRecord, action: .none)
         }
         

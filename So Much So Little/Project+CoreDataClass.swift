@@ -1,14 +1,14 @@
-
 //
-//  Project+CoreDataClass.swift
+//  Project+Extensions.swift
 //  So Much So Little
 //
-//  Created by Adland Lee on 10/14/16.
-//  Copyright © 2016 Adland Lee. All rights reserved.
+//  Created by Adland Lee on 5/17/17.
+//  Copyright © 2017 Adland Lee. All rights reserved.
 //
 
 import CloudKit
 import CoreData
+import Foundation
 
 
 public class Project: NSManagedObject {
@@ -26,16 +26,16 @@ public class Project: NSManagedObject {
         static let Activities = "activities"
     }
     
-    typealias ActiveType = Bool
-    typealias EncodedCKRecordType = Data
-    typealias CompletedType = Bool
-    typealias CompletedDateType = Date
-    typealias DisplayOrderType = NSNumber
-    typealias DueDateType = Date
-    typealias InfoType = String
-    typealias NameType = String
+    public typealias ActiveType = Bool
+    public typealias EncodedCKRecordType = NSData
+    public typealias CompletedType = Bool
+    public typealias CompletedDateType = NSDate
+    public typealias DisplayOrderType = Int16
+    public typealias DueDateType = NSDate
+    public typealias InfoType = String
+    public typealias NameType = String
     
-    typealias ActivitiesType = Set<Activity>
+    public typealias ActivitiesType = Set<Activity>
     
     static let defaultName = "New Project"
     
@@ -56,7 +56,7 @@ public class Project: NSManagedObject {
     convenience init(context: NSManagedObjectContext) {
         self.init(context: context, name: type(of: self).defaultName)
     }
-
+    
     convenience init(context: NSManagedObjectContext, data: [AnyHashable:Any]) {
         let name = data[Keys.Name] as? NameType ?? ""
         self.init(context: context, name: name)
@@ -85,7 +85,7 @@ public class Project: NSManagedObject {
         self.init(context: context, data: data)
     }
     
-    public override func didSave() {
+    override public func didSave() {
         if isDeleted {
             print("Delete Project [\(self.name)] didSave")
             return
@@ -104,19 +104,19 @@ public class Project: NSManagedObject {
             }
             else {
                 print("Project: Update Cloud Kit record")
-                projectCKRecord = CKRecord.decodeCKRecordSystemFields(from: encodedCKRecord!)
+                projectCKRecord = CKRecord.decodeCKRecordSystemFields(from: encodedCKRecord! as Data)
             }
             
             projectCKRecord[Keys.Active] = active as NSNumber
             projectCKRecord[Keys.Completed] = completed as NSNumber
-            projectCKRecord[Keys.CompletedDate] = completedDate as NSDate?
-            projectCKRecord[Keys.DisplayOrder] = displayOrder
-            projectCKRecord[Keys.DueDate] = dueDate as NSDate?
+            projectCKRecord[Keys.CompletedDate] = completedDate
+            projectCKRecord[Keys.DisplayOrder] = displayOrder as NSNumber
+            projectCKRecord[Keys.DueDate] = dueDate
             projectCKRecord[Keys.Info] = info as NSString?
-            projectCKRecord[Keys.Name] = name as NSString?
+            projectCKRecord[Keys.Name] = name as NSString
             
             let activityRefList = activities.map({ (activity) -> CKReference in
-                let ckRecord = CKRecord.decodeCKRecordSystemFields(from: activity.encodedCKRecord!)
+                let ckRecord = CKRecord.decodeCKRecordSystemFields(from: activity.encodedCKRecord! as Data)
                 return CKReference(record: ckRecord, action: CKReferenceAction.none)
             })
             

@@ -145,7 +145,7 @@ extension ProjectTableViewController: NSFetchedResultsControllerDelegate {
         let projectList = fetchedResultsController.fetchedObjects!
         
         for (i, record) in projectList.enumerated() {
-            let i = i as NSNumber
+            let i = Project.DisplayOrderType(i)
             if record.displayOrder != i {
                 record.displayOrder = i
             }

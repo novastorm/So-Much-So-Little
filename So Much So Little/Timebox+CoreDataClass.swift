@@ -22,12 +22,12 @@ public class Timebox: NSManagedObject {
         static let Activity = "activity"
     }
     
-    typealias EncodedCKRecord = Data
-    typealias CompletedType = Bool
-    typealias ExternalInterruptionsType = NSNumber
-    typealias InternalInterruptionsType = NSNumber
-    typealias StartType = Date
-    typealias StopType = Date
+    public typealias EncodedCKRecordType = Data
+    public typealias CompletedType = Bool
+    public typealias ExternalInterruptionsType = Int16
+    public typealias InternalInterruptionsType = Int16
+    public typealias StartType = Date
+    public typealias StopType = Date
     
     typealias ActivityType = Activity
     
@@ -38,7 +38,7 @@ public class Timebox: NSManagedObject {
         self.init(entity: entity, insertInto: context)
     }
 
-    public override func didSave() {
+    override public func didSave() {
         print("Timebox didSave")
     }
 }

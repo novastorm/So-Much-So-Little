@@ -295,7 +295,7 @@ extension ActivityTableViewController: NSFetchedResultsControllerDelegate {
         
         let activityList = fetchedResultsController.fetchedObjects!
         for (i, record) in activityList.enumerated() {
-            let i = i as NSNumber
+            let i = Activity.DisplayOrderType(i)
             if record.displayOrder != i {
                 record.displayOrder = i
             }
