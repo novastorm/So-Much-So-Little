@@ -2,7 +2,7 @@
 //  Activity+CoreDataProperties.swift
 //  So Much So Little
 //
-//  Created by Adland Lee on 5/18/17.
+//  Created by Adland Lee on 5/19/17.
 //  Copyright © 2017 Adland Lee. All rights reserved.
 //
 
@@ -16,21 +16,21 @@ extension Activity {
         return NSFetchRequest<Activity>(entityName: "Activity")
     }
 
-    @NSManaged public var completed: CompletedType
-    @NSManaged public var completedDate: CompletedDateType?
-    @NSManaged public var deferredTo: DeferredToType?
-    @NSManaged public var deferredToResponseDueDate: DeferredToResponseDueDateType?
-    @NSManaged public var displayOrder: DisplayOrderType
-    @NSManaged public var dueDate: DueDateType?
-    @NSManaged public var encodedCKRecord: EncodedCKRecordType?
-    @NSManaged public var estimatedTimeboxes: EstimatedTimeboxesType
-    @NSManaged public var info: InfoType?
+    @NSManaged public var completed: Bool
+    @NSManaged public var completedDate: Date?
+    @NSManaged public var deferredTo: String?
+    @NSManaged public var deferredToResponseDueDate: Date?
+    @NSManaged public var displayOrder: Int16
+    @NSManaged public var dueDate: Date?
+    @NSManaged public var encodedCKRecord: Data?
+    @NSManaged public var estimatedTimeboxes: Int16
+    @NSManaged public var info: String?
     @NSManaged public var kind: Kind
-    @NSManaged public var name: NameType
-    @NSManaged public var scheduledEnd: ScheduledEndType?
-    @NSManaged public var scheduledStart: ScheduledStartType?
-    @NSManaged public var today: TodayType
-    @NSManaged public var todayDisplayOrder: TodayDisplayOrderType
+    @NSManaged public var name: String
+    @NSManaged public var scheduledEnd: Date?
+    @NSManaged public var scheduledStart: Date?
+    @NSManaged public var today: Bool
+    @NSManaged public var todayDisplayOrder: Int16
     @NSManaged public var project: Project?
     @NSManaged public var timeboxes: TimeBoxesType
 

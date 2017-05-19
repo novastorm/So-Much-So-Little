@@ -27,11 +27,11 @@ public class Project: NSManagedObject {
     }
     
     public typealias ActiveType = Bool
-    public typealias EncodedCKRecordType = NSData
+    public typealias EncodedCKRecordType = Data
     public typealias CompletedType = Bool
-    public typealias CompletedDateType = NSDate
+    public typealias CompletedDateType = Date
     public typealias DisplayOrderType = Int16
-    public typealias DueDateType = NSDate
+    public typealias DueDateType = Date
     public typealias InfoType = String
     public typealias NameType = String
     
@@ -109,9 +109,9 @@ public class Project: NSManagedObject {
             
             projectCKRecord[Keys.Active] = active as NSNumber
             projectCKRecord[Keys.Completed] = completed as NSNumber
-            projectCKRecord[Keys.CompletedDate] = completedDate
+            projectCKRecord[Keys.CompletedDate] = completedDate as NSDate?
             projectCKRecord[Keys.DisplayOrder] = displayOrder as NSNumber
-            projectCKRecord[Keys.DueDate] = dueDate
+            projectCKRecord[Keys.DueDate] = dueDate as NSDate?
             projectCKRecord[Keys.Info] = info as NSString?
             projectCKRecord[Keys.Name] = name as NSString
             

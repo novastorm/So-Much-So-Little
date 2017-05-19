@@ -70,17 +70,17 @@ public class Activity: NSManagedObject {
         static let Timeboxes = "timeboxes"
     }
     
-    public typealias EncodedCKRecordType = NSData
+    public typealias EncodedCKRecordType = Data
     public typealias CompletedType = Bool
-    public typealias CompletedDateType = NSDate
+    public typealias CompletedDateType = Date
     public typealias DeferredToType = String
-    public typealias DeferredToResponseDueDateType = NSDate
+    public typealias DeferredToResponseDueDateType = Date
     public typealias DisplayOrderType = Int16
-    public typealias DueDateType = NSDate
+    public typealias DueDateType = Date
     public typealias EstimatedTimeboxesType = Int16
     public typealias InfoType = String
-    public typealias ScheduledEndType = NSDate
-    public typealias ScheduledStartType = NSDate
+    public typealias ScheduledEndType = Date
+    public typealias ScheduledStartType = Date
     public typealias NameType = String
     public typealias TodayType = Bool
     public typealias TodayDisplayOrderType = Int16
@@ -191,7 +191,7 @@ public class Activity: NSManagedObject {
     }
 
     var actualTimeboxes: Int {
-        return timeboxes.count 
+        return timeboxes.count
     }
     
     /**
@@ -217,17 +217,17 @@ public class Activity: NSManagedObject {
             }
             
             activityCKRecord[Keys.Completed] = completed as NSNumber
-            activityCKRecord[Keys.CompletedDate] = completedDate
+            activityCKRecord[Keys.CompletedDate] = completedDate as NSDate?
             activityCKRecord[Keys.DeferredTo] = deferredTo as NSString?
-            activityCKRecord[Keys.DeferredToResponseDueDate] = deferredToResponseDueDate
+            activityCKRecord[Keys.DeferredToResponseDueDate] = deferredToResponseDueDate as NSDate?
             activityCKRecord[Keys.DisplayOrder] = displayOrder as NSNumber
-            activityCKRecord[Keys.DueDate] = dueDate
+            activityCKRecord[Keys.DueDate] = dueDate as NSDate?
             activityCKRecord[Keys.EstimatedTimeboxes] = estimatedTimeboxes as NSNumber
             activityCKRecord[Keys.Info] = info as NSString?
             activityCKRecord[Keys.Kind] = kind.rawValue as NSNumber
             activityCKRecord[Keys.Name] = name as NSString
-            activityCKRecord[Keys.ScheduledEnd] = scheduledEnd
-            activityCKRecord[Keys.ScheduledStart] = scheduledStart
+            activityCKRecord[Keys.ScheduledEnd] = scheduledEnd as NSDate?
+            activityCKRecord[Keys.ScheduledStart] = scheduledStart as NSDate?
             activityCKRecord[Keys.Today] = today as NSNumber
             activityCKRecord[Keys.TodayDisplayOrder] = todayDisplayOrder as NSNumber
             
@@ -261,17 +261,17 @@ public class Activity: NSManagedObject {
         }
         
         activityCKRecord[Keys.Completed] = completed as NSNumber
-        activityCKRecord[Keys.CompletedDate] = completedDate
+        activityCKRecord[Keys.CompletedDate] = completedDate as NSDate?
         activityCKRecord[Keys.DeferredTo] = deferredTo as NSString?
-        activityCKRecord[Keys.DeferredToResponseDueDate] = deferredToResponseDueDate
+        activityCKRecord[Keys.DeferredToResponseDueDate] = deferredToResponseDueDate as NSDate?
         activityCKRecord[Keys.DisplayOrder] = displayOrder as NSNumber
-        activityCKRecord[Keys.DueDate] = dueDate
+        activityCKRecord[Keys.DueDate] = dueDate as NSDate?
         activityCKRecord[Keys.EstimatedTimeboxes] = estimatedTimeboxes as NSNumber
         activityCKRecord[Keys.Info] = info as NSString?
         activityCKRecord[Keys.Kind] = kind.rawValue as NSNumber
         activityCKRecord[Keys.Name] = name as NSString
-        activityCKRecord[Keys.ScheduledEnd] = scheduledEnd
-        activityCKRecord[Keys.ScheduledStart] = scheduledStart
+        activityCKRecord[Keys.ScheduledEnd] = scheduledEnd as NSDate?
+        activityCKRecord[Keys.ScheduledStart] = scheduledStart as NSDate?
         activityCKRecord[Keys.Today] = today as NSNumber
         activityCKRecord[Keys.TodayDisplayOrder] = todayDisplayOrder as NSNumber
         

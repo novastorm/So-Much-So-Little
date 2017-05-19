@@ -2,7 +2,7 @@
 //  Timebox+CoreDataProperties.swift
 //  So Much So Little
 //
-//  Created by Adland Lee on 5/18/17.
+//  Created by Adland Lee on 5/19/17.
 //  Copyright © 2017 Adland Lee. All rights reserved.
 //
 
@@ -16,12 +16,12 @@ extension Timebox {
         return NSFetchRequest<Timebox>(entityName: "Timebox")
     }
 
-    @NSManaged public var completed: CompletedType
-    @NSManaged public var encodedCKRecord: EncodedCKRecordType?
-    @NSManaged public var externalInterruptions: ExternalInterruptionsType
-    @NSManaged public var internalInterruptions: InternalInterruptionsType
-    @NSManaged public var start: StartType?
-    @NSManaged public var stop: StopType?
+    @NSManaged public var completed: Bool
+    @NSManaged public var encodedCKRecord: Data?
+    @NSManaged public var externalInterruptions: Int16
+    @NSManaged public var internalInterruptions: Int16
+    @NSManaged public var start: Date?
+    @NSManaged public var stop: Date?
     @NSManaged public var activity: Activity?
 
 }

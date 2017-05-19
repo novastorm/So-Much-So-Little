@@ -2,7 +2,7 @@
 //  Project+CoreDataProperties.swift
 //  So Much So Little
 //
-//  Created by Adland Lee on 5/18/17.
+//  Created by Adland Lee on 5/19/17.
 //  Copyright © 2017 Adland Lee. All rights reserved.
 //
 
@@ -16,16 +16,15 @@ extension Project {
         return NSFetchRequest<Project>(entityName: "Project")
     }
 
-    @NSManaged public var active: ActiveType
-    @NSManaged public var completed: CompletedType
-    @NSManaged public var completedDate: CompletedDateType?
-    @NSManaged public var displayOrder: DisplayOrderType
-    @NSManaged public var dueDate: DueDateType?
-    @NSManaged public var encodedCKRecord: EncodedCKRecordType?
-    @NSManaged public var info: InfoType?
-    @NSManaged public var name: NameType
+    @NSManaged public var active: Bool
+    @NSManaged public var completed: Bool
+    @NSManaged public var completedDate: Date?
+    @NSManaged public var displayOrder: Int16
+    @NSManaged public var dueDate: Date?
+    @NSManaged public var encodedCKRecord: Data?
+    @NSManaged public var info: String?
+    @NSManaged public var name: String
     @NSManaged public var activities: ActivitiesType
-
 }
 
 // MARK: Generated accessors for activities
