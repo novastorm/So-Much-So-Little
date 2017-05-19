@@ -17,6 +17,7 @@ class TimerViewController: UIViewController {
     enum Preset: Int {
         case long = 1500 // 25 * 60
         case short = 300 // 5 * 60
+        case zero = 0
     }
     
     var activity: Activity?
@@ -115,6 +116,7 @@ class TimerViewController: UIViewController {
         
         let stopAction = UIAlertAction(title: "Stop", style: .destructive) { _ in
             self.stopTimer()
+            self.resetTimer(to: .zero)
             self.showStartButton()
         }
         let resumeAction = UIAlertAction(title: "Resume Task", style: .cancel)
@@ -162,7 +164,7 @@ class TimerViewController: UIViewController {
         let seconds10 = seconds / 10
         let seconds01 = seconds % 10
         
-        time10Label.text = minutes10 > 0 ? "\(minutes10)" : ""
+        time10Label.text = minutes10 > 0 ? "\(minutes10)" : "0"
         time01Label.text = "\(minutes01)"
         time10sLabel.text = "\(seconds10)"
         time01sLabel.text = "\(seconds01)"
