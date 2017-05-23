@@ -25,6 +25,7 @@ extension Activity {
     @NSManaged public var encodedCKRecord: Data?
     @NSManaged public var estimatedTimeboxes: Int16
     @NSManaged public var info: String?
+    @NSManaged public var isSynced: Bool
     @NSManaged public var kind: Kind
     @NSManaged public var name: String
     @NSManaged public var scheduledEnd: Date?

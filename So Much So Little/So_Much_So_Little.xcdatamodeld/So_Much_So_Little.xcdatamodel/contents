@@ -10,7 +10,8 @@
         <attribute name="encodedCKRecord" optional="YES" attributeType="Transformable" customClassName=".Data" syncable="YES"/>
         <attribute name="estimatedTimeboxes" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="info" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="kind" attributeType="Integer 16" valueTransformerName="" defaultValueString="0" usesScalarValueType="YES" customClassName=".Kind" syncable="YES"/>
+        <attribute name="isSynced" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="kind" attributeType="Integer 16" valueTransformerName="Activity.KindValueTransformer" defaultValueString="0" usesScalarValueType="YES" customClassName=".Kind" syncable="YES"/>
         <attribute name="name" attributeType="String" indexed="YES" syncable="YES"/>
         <attribute name="scheduledEnd" optional="YES" attributeType="Transformable" customClassName=".Date" syncable="YES"/>
         <attribute name="scheduledStart" optional="YES" attributeType="Transformable" customClassName=".Date" syncable="YES"/>
@@ -27,6 +28,7 @@
         <attribute name="dueDate" optional="YES" attributeType="Transformable" customClassName=".Date" syncable="YES"/>
         <attribute name="encodedCKRecord" optional="YES" attributeType="Binary" syncable="YES"/>
         <attribute name="info" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="isSynced" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="name" attributeType="String" indexed="YES" syncable="YES"/>
         <relationship name="activities" toMany="YES" deletionRule="Cascade" destinationEntity="Activity" inverseName="project" inverseEntity="Activity" syncable="YES"/>
     </entity>
@@ -35,13 +37,14 @@
         <attribute name="encodedCKRecord" optional="YES" attributeType="Transformable" customClassName=".Data" syncable="YES"/>
         <attribute name="externalInterruptions" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="internalInterruptions" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="isSynced" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="start" attributeType="Transformable" customClassName=".Date" syncable="YES"/>
         <attribute name="stop" optional="YES" attributeType="Transformable" customClassName=".Date" syncable="YES"/>
-        <relationship name="activity" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Activity" inverseName="timeboxes" inverseEntity="Activity" syncable="YES"/>
+        <relationship name="activity" maxCount="1" deletionRule="Nullify" destinationEntity="Activity" inverseName="timeboxes" inverseEntity="Activity" syncable="YES"/>
     </entity>
     <elements>
-        <element name="Activity" positionX="-567" positionY="-72" width="128" height="300"/>
-        <element name="Project" positionX="-270" positionY="-189" width="128" height="180"/>
-        <element name="Timebox" positionX="-18" positionY="135" width="128" height="150"/>
+        <element name="Activity" positionX="-567" positionY="-72" width="128" height="315"/>
+        <element name="Project" positionX="-270" positionY="-189" width="128" height="195"/>
+        <element name="Timebox" positionX="-18" positionY="135" width="128" height="165"/>
     </elements>
 </model>

@@ -59,6 +59,7 @@ public class Activity: NSManagedObject {
         static let DueDate = "dueDate"
         static let EstimatedTimeboxes = "estimatedTimeboxes"
         static let Info = "info"
+        static let IsSynced = "isSynced"
         static let Kind = "kind"
         static let ScheduledEnd = "scheduledEnd"
         static let ScheduledStart = "scheduledStart"
@@ -79,6 +80,7 @@ public class Activity: NSManagedObject {
     public typealias DueDateType = Date
     public typealias EstimatedTimeboxesType = Int16
     public typealias InfoType = String
+    public typealias IsSyncedType = Bool
     public typealias ScheduledEndType = Date
     public typealias ScheduledStartType = Date
     public typealias NameType = String
@@ -149,6 +151,7 @@ public class Activity: NSManagedObject {
         dueDate = data[Keys.DueDate] as? DueDateType
         estimatedTimeboxes = data[Keys.EstimatedTimeboxes] as? EstimatedTimeboxesType ?? 0
         info = data[Keys.Info] as? InfoType
+        isSynced = data[Keys.IsSynced] as? IsSyncedType ?? false
         kind = data[Keys.Kind] as? Kind ?? .flexible
         scheduledEnd = data[Keys.ScheduledEnd] as? ScheduledEndType
         scheduledStart = data[Keys.ScheduledStart] as? ScheduledStartType
@@ -244,49 +247,9 @@ public class Activity: NSManagedObject {
                 }
                 print("Activity: Uploaded to cloudkit")
             }
+            
+            
         }
     }
     
-    func storeRecord() {
-        
-        var activityCKRecord: CKRecord
-        
-        if encodedCKRecord == nil {
-            print("Activity: Create Cloud Kit record")
-            activityCKRecord = CKRecord(recordType: CloudKitClient.RecordType.Activity.rawValue)
-        }
-        else {
-            print("Activity: Update Cloud Kit record")
-            activityCKRecord = CKRecord.decodeCKRecordSystemFields(from: encodedCKRecord! as Data)
-        }
-        
-        activityCKRecord[Keys.Completed] = completed as NSNumber
-        activityCKRecord[Keys.CompletedDate] = completedDate as NSDate?
-        activityCKRecord[Keys.DeferredTo] = deferredTo as NSString?
-        activityCKRecord[Keys.DeferredToResponseDueDate] = deferredToResponseDueDate as NSDate?
-        activityCKRecord[Keys.DisplayOrder] = displayOrder as NSNumber
-        activityCKRecord[Keys.DueDate] = dueDate as NSDate?
-        activityCKRecord[Keys.EstimatedTimeboxes] = estimatedTimeboxes as NSNumber
-        activityCKRecord[Keys.Info] = info as NSString?
-        activityCKRecord[Keys.Kind] = kind.rawValue as NSNumber
-        activityCKRecord[Keys.Name] = name as NSString
-        activityCKRecord[Keys.ScheduledEnd] = scheduledEnd as NSDate?
-        activityCKRecord[Keys.ScheduledStart] = scheduledStart as NSDate?
-        activityCKRecord[Keys.Today] = today as NSNumber
-        activityCKRecord[Keys.TodayDisplayOrder] = todayDisplayOrder as NSNumber
-        
-        if let project = project {
-            let ckRecord = CKRecord.decodeCKRecordSystemFields(from: project.encodedCKRecord! as Data)
-            activityCKRecord[Keys.Project] = CKReference(record: ckRecord, action: .none)
-        }
-        
-        
-        CloudKitClient.privateDatabase.save(activityCKRecord) { (ckRecord, error) in
-            guard error == nil else {
-                print(error!)
-                return
-            }
-            print("Activity: Uploaded to cloudkit")
-        }
-    }
 }

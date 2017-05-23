@@ -23,6 +23,7 @@ extension Project {
     @NSManaged public var dueDate: Date?
     @NSManaged public var encodedCKRecord: Data?
     @NSManaged public var info: String?
+    @NSManaged public var isSynced: Bool
     @NSManaged public var name: String
     @NSManaged public var activities: ActivitiesType
 }

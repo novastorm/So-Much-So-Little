@@ -20,6 +20,7 @@ extension Timebox {
     @NSManaged public var encodedCKRecord: Data?
     @NSManaged public var externalInterruptions: Int16
     @NSManaged public var internalInterruptions: Int16
+    @NSManaged public var isSynced: Bool
     @NSManaged public var start: Date?
     @NSManaged public var stop: Date?
     @NSManaged public var activity: Activity?

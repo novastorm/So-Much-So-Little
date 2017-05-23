@@ -21,6 +21,7 @@ public class Project: NSManagedObject {
         static let DisplayOrder = "displayOrder"
         static let DueDate = "dueDate"
         static let Info = "info"
+        static let IsSynced = "isSynced"
         static let Name = "name"
         
         static let Activities = "activities"

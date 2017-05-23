@@ -16,6 +16,7 @@ public class Timebox: NSManagedObject {
         static let Completed = "completed"
         static let ExternalInterruptions = "externalInterruptions"
         static let InternalInterruptions = "internalInterruptions"
+        static let IsSynced = "isSynced"
         static let Start = "start"
         static let Stop = "stop"
         
