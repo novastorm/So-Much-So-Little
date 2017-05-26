@@ -43,8 +43,8 @@ public class Activity: NSManagedObject {
             ckRecord[Keys.TodayDisplayOrder] = todayDisplayOrder as NSNumber
             
             if let project = project {
-                let ckRecord = CKRecord.decodeCKRecordSystemFields(from: project.encodedCKRecord! as Data)
-                ckRecord[Keys.Project] = CKReference(record: ckRecord, action: .none)
+                let ckRecordRef = CKRecord.decodeCKRecordSystemFields(from: project.encodedCKRecord! as Data)
+                ckRecord[Keys.Project] = CKReference(record: ckRecordRef, action: .none)
             }
             
             return ckRecord

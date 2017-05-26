@@ -39,8 +39,8 @@ public class Project: NSManagedObject {
         ckRecord[Keys.Name] = name as NSString
         
         let activityRefList: [CKReference] = activities.map({ (activity) -> CKReference in
-            let ckRecord = CKRecord.decodeCKRecordSystemFields(from: activity.encodedCKRecord! as Data)
-            return CKReference(record: ckRecord, action: CKReferenceAction.none)
+            let ckRecordRef = CKRecord.decodeCKRecordSystemFields(from: activity.encodedCKRecord! as Data)
+            return CKReference(record: ckRecordRef, action: .none)
         })
         
         ckRecord[Keys.Activities] = activityRefList as NSArray
