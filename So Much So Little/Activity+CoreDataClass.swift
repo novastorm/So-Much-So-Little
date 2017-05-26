@@ -20,6 +20,7 @@ public class Activity: NSManagedObject {
             if encodedCKRecord == nil {
                 print("Activity: Create Cloud Kit record")
                 ckRecord = CKRecord(recordType: CloudKitClient.RecordType.Activity.rawValue)
+                setPrimitiveValue(ckRecord.encodedCKRecordSystemFields, forKey: Keys.EncodedCKRecord)
             }
             else {
                 print("Activity: Update Cloud Kit record")
@@ -240,25 +241,28 @@ public class Activity: NSManagedObject {
      */
     
     override public func didSave() {
+        
         if isDeleted {
             print("Delete Activity [\(self.name)] didSave")
             return
         }
+        
         if managedObjectContext == CoreDataStackManager.mainContext {
             print("Activity [\(self.name)] didSave")
             
             let activityCKRecord: CKRecord = self.cloudKitRecord
             
-            CloudKitClient.privateDatabase.save(activityCKRecord) { (ckRecord, error) in
+            CloudKitClient.storeRecord(activityCKRecord) { (ckRecord, error) in
                 guard error == nil else {
                     print(error!)
                     return
                 }
-                print("Activity: Uploaded to cloudkit")
+                
+                self.managedObjectContext?.perform {
+                    self.setPrimitiveValue(ckRecord!.encodedCKRecordSystemFields, forKey: Keys.EncodedCKRecord)
+                }
+                
             }
-            
-            
         }
-    }
-    
+    }    
 }

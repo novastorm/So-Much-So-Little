@@ -23,12 +23,13 @@ public class Project: NSManagedObject {
         if encodedCKRecord == nil {
             print("Project: Creating Cloud Kit record")
             ckRecord = CKRecord(recordType: CloudKitClient.RecordType.Project.rawValue)
+            setPrimitiveValue(ckRecord.encodedCKRecordSystemFields, forKey: Keys.EncodedCKRecord)
         }
         else {
             print("Project: Update Cloud Kit record")
             ckRecord = CKRecord.decodeCKRecordSystemFields(from: encodedCKRecord! as Data)
         }
-        
+
         ckRecord[Keys.Active] = active as NSNumber
         ckRecord[Keys.Completed] = completed as NSNumber
         ckRecord[Keys.CompletedDate] = completedDate as NSDate?
@@ -37,12 +38,12 @@ public class Project: NSManagedObject {
         ckRecord[Keys.Info] = info as NSString?
         ckRecord[Keys.Name] = name as NSString
         
-        let activityRefList = activities.map({ (activity) -> CKReference in
+        let activityRefList: [CKReference] = activities.map({ (activity) -> CKReference in
             let ckRecord = CKRecord.decodeCKRecordSystemFields(from: activity.encodedCKRecord! as Data)
             return CKReference(record: ckRecord, action: CKReferenceAction.none)
         })
         
-        ckRecord[Keys.Activities] = activityRefList as CKRecordValue?
+        ckRecord[Keys.Activities] = activityRefList as NSArray
         
         return ckRecord
     }
@@ -121,21 +122,27 @@ public class Project: NSManagedObject {
     }
     
     override public func didSave() {
+ 
         if isDeleted {
             print("Delete Project [\(self.name)] didSave")
             return
         }
+
         if managedObjectContext == CoreDataStackManager.mainContext {
             print("Project [\(self.name)] didSave")
             
             let projectCKRecord = self.cloudKitRecord
             
-            CloudKitClient.privateDatabase.save(projectCKRecord) { (ckRecord, error) in
+            CloudKitClient.storeRecord(projectCKRecord) { (ckRecord, error) in
                 guard error == nil else {
                     print(error!)
                     return
                 }
-                print("Project: uploaded to cloudkit")
+                
+                self.managedObjectContext?.perform {
+                    self.setPrimitiveValue(ckRecord!.encodedCKRecordSystemFields, forKey: Keys.EncodedCKRecord)
+                }
+
             }
         }
     }
