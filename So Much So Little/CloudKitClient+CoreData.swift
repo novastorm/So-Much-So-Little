@@ -35,7 +35,7 @@ extension CloudKitClient {
         var ckActivityList = [CKRecord]()
         
         group.enter()
-        CloudKitClient.getProjectList(from: publicDatabase) { (results, error) in
+        CloudKitClient.getProjectList(using: publicDatabase) { (results, error) in
             defer {
                 group.leave()
             }
@@ -45,6 +45,7 @@ extension CloudKitClient {
             }
             
             for project in results! {
+                // FIXME: refactor to save a coredata object
                 let newProject = CKRecord(recordType: project.recordType, recordID: project.recordID)
                 
                 for key in project.allKeys() {
@@ -55,7 +56,7 @@ extension CloudKitClient {
         }
         
         group.enter()
-        CloudKitClient.getActivityList(from: publicDatabase) { (results, error) in
+        CloudKitClient.getActivityList(using: publicDatabase) { (results, error) in
             defer {
                 group.leave()
             }
@@ -65,6 +66,7 @@ extension CloudKitClient {
             }
             
             for activity in results! {
+                // FIXME: refactor to save a coredata object
                 let newActivity = CKRecord(recordType: activity.recordType, recordID: activity.recordID)
                 
                 for key in activity.allKeys() {
@@ -76,49 +78,29 @@ extension CloudKitClient {
         }
         
         group.notify(queue: .main) {
-            
-            let modifyRecordsOperation = CKModifyRecordsOperation()
-            modifyRecordsOperation.database = privateDatabase
-            modifyRecordsOperation.recordsToSave = ckActivityList + ckProjectList
-            
-            modifyRecordsOperation.perRecordCompletionBlock = { (ckRecord, error) in
-                guard error == nil else {
-                    print(error!)
-                    return
-                }
-                print("Store record")
+            for ckProject in ckProjectList {
+                print("Import: Project")
+                _ = Project(context: CoreDataStackManager.mainContext, ckRecord: ckProject)
             }
-            modifyRecordsOperation.modifyRecordsCompletionBlock = { (savedRecordList, deletedRecordIDList, error ) in
-                print("Import initial public records to private ckDatabase.")
-                //                importRecords()
-                performUIUpdatesOnMain {
-                    for ckProject in ckProjectList {
-                        print("Import: Project")
-                        _ = Project(context: CoreDataStackManager.mainContext, ckRecord: ckProject)
-                    }
+            
+            for ckActivity in ckActivityList {
+                print("Import: Activity")
+                let activity = Activity(context: CoreDataStackManager.mainContext, ckRecord: ckActivity)
+                if let projectRef = ckActivity[Activity.Keys.Project] as? CKReference {
                     
-                    for ckActivity in ckActivityList {
-                        print("Import: Activity")
-                        let activity = Activity(context: CoreDataStackManager.mainContext, ckRecord: ckActivity)
-                        if let projectRef = ckActivity[Activity.Keys.Project] as? CKReference {
-                            
-                            let ckProject = ckProjectList.filter({ (ckRecord) -> Bool in
-                                return ckRecord.recordID == projectRef.recordID
-                            }).first!
-                            
-                            let fetchRequest = Project.fetchRequest() as NSFetchRequest
-                            fetchRequest.predicate = NSPredicate(format: "encodedCKRecord = %@", ckProject.encodedCKRecordSystemFields as NSData)
-                            
-                            let projectList = try! CoreDataStackManager.mainContext.fetch(fetchRequest)
-                            activity.project = projectList.first
-                        }
-                    }
+                    let ckProject = ckProjectList.filter({ (ckRecord) -> Bool in
+                        return ckRecord.recordID == projectRef.recordID
+                    }).first!
                     
-                    CoreDataStackManager.saveMainContext()
+                    let fetchRequest = Project.fetchRequest() as NSFetchRequest
+                    fetchRequest.predicate = NSPredicate(format: "encodedCKRecord = %@", ckProject.encodedCKRecordSystemFields as NSData)
+                    
+                    let projectList = try! CoreDataStackManager.mainContext.fetch(fetchRequest)
+                    activity.project = projectList.first
                 }
             }
             
-            modifyRecordsOperation.start()
+            CoreDataStackManager.saveMainContext()
         }
     }
     
@@ -183,11 +165,40 @@ extension CloudKitClient {
         }
     }
     
-    static func pullProjectList() {
+    /**
+     Import Cloud Kit Project records into Core Data database
+     
+     - ToDo: test to do
+     */
+    static func importProjectList() {
+        let group = DispatchGroup()
         
+        var ckProjectList = [CKRecord]()
+        
+        group.enter()
+        CloudKitClient.getProjectList { (results, error) in
+            defer {
+                group.leave()
+            }
+            guard error == nil else {
+                print(error!)
+                return
+            }
+            
+            ckProjectList = results!
+        }
+        
+        group.notify(queue: .main)  {
+            for ckProject in ckProjectList {
+                // TODO: Check for existing record
+                _ = Project(context: CoreDataStackManager.mainContext, ckRecord: ckProject)
+            }
+            
+            CoreDataStackManager.saveMainContext()
+        }
     }
     
-    static func pullActivityList() {
+    static func importActivityList() {
         
     }
     
@@ -195,11 +206,11 @@ extension CloudKitClient {
         
     }
     
-    static func pushProjectList() {
+    static func exportProjectList() {
         
     }
     
-    static func pushActivityList() {
+    static func exportActivityList() {
         
     }
 }

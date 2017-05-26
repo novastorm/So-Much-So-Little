@@ -12,6 +12,44 @@ import CoreData
 
 public class Activity: NSManagedObject {
     
+    var cloudKitRecord: CKRecord {
+        get {
+            
+            var ckRecord: CKRecord
+            
+            if encodedCKRecord == nil {
+                print("Activity: Create Cloud Kit record")
+                ckRecord = CKRecord(recordType: CloudKitClient.RecordType.Activity.rawValue)
+            }
+            else {
+                print("Activity: Update Cloud Kit record")
+                ckRecord = CKRecord.decodeCKRecordSystemFields(from: encodedCKRecord! as Data)
+            }
+            
+            ckRecord[Keys.Completed] = completed as NSNumber
+            ckRecord[Keys.CompletedDate] = completedDate as NSDate?
+            ckRecord[Keys.DeferredTo] = deferredTo as NSString?
+            ckRecord[Keys.DeferredToResponseDueDate] = deferredToResponseDueDate as NSDate?
+            ckRecord[Keys.DisplayOrder] = displayOrder as NSNumber
+            ckRecord[Keys.DueDate] = dueDate as NSDate?
+            ckRecord[Keys.EstimatedTimeboxes] = estimatedTimeboxes as NSNumber
+            ckRecord[Keys.Info] = info as NSString?
+            ckRecord[Keys.Kind] = kind.rawValue as NSNumber
+            ckRecord[Keys.Name] = name as NSString
+            ckRecord[Keys.ScheduledEnd] = scheduledEnd as NSDate?
+            ckRecord[Keys.ScheduledStart] = scheduledStart as NSDate?
+            ckRecord[Keys.Today] = today as NSNumber
+            ckRecord[Keys.TodayDisplayOrder] = todayDisplayOrder as NSNumber
+            
+            if let project = project {
+                let ckRecord = CKRecord.decodeCKRecordSystemFields(from: project.encodedCKRecord! as Data)
+                ckRecord[Keys.Project] = CKReference(record: ckRecord, action: .none)
+            }
+            
+            return ckRecord
+        }
+    }
+    
     @objc // <- required for Core Data type compatibility
     public enum Kind: Int16, CustomStringConvertible {
 
@@ -207,38 +245,9 @@ public class Activity: NSManagedObject {
             return
         }
         if managedObjectContext == CoreDataStackManager.mainContext {
+            print("Activity [\(self.name)] didSave")
             
-            var activityCKRecord: CKRecord
-            
-            if encodedCKRecord == nil {
-                print("Activity: Create Cloud Kit record")
-                activityCKRecord = CKRecord(recordType: CloudKitClient.RecordType.Activity.rawValue)
-            }
-            else {
-                print("Activity: Update Cloud Kit record")
-                activityCKRecord = CKRecord.decodeCKRecordSystemFields(from: encodedCKRecord! as Data)
-            }
-            
-            activityCKRecord[Keys.Completed] = completed as NSNumber
-            activityCKRecord[Keys.CompletedDate] = completedDate as NSDate?
-            activityCKRecord[Keys.DeferredTo] = deferredTo as NSString?
-            activityCKRecord[Keys.DeferredToResponseDueDate] = deferredToResponseDueDate as NSDate?
-            activityCKRecord[Keys.DisplayOrder] = displayOrder as NSNumber
-            activityCKRecord[Keys.DueDate] = dueDate as NSDate?
-            activityCKRecord[Keys.EstimatedTimeboxes] = estimatedTimeboxes as NSNumber
-            activityCKRecord[Keys.Info] = info as NSString?
-            activityCKRecord[Keys.Kind] = kind.rawValue as NSNumber
-            activityCKRecord[Keys.Name] = name as NSString
-            activityCKRecord[Keys.ScheduledEnd] = scheduledEnd as NSDate?
-            activityCKRecord[Keys.ScheduledStart] = scheduledStart as NSDate?
-            activityCKRecord[Keys.Today] = today as NSNumber
-            activityCKRecord[Keys.TodayDisplayOrder] = todayDisplayOrder as NSNumber
-            
-            if let project = project {
-                let ckRecord = CKRecord.decodeCKRecordSystemFields(from: project.encodedCKRecord! as Data)
-                activityCKRecord[Keys.Project] = CKReference(record: ckRecord, action: .none)
-            }
-            
+            let activityCKRecord: CKRecord = self.cloudKitRecord
             
             CloudKitClient.privateDatabase.save(activityCKRecord) { (ckRecord, error) in
                 guard error == nil else {

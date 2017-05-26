@@ -13,6 +13,40 @@ import Foundation
 
 public class Project: NSManagedObject {
     
+    var cloudKitRecord: CKRecord {
+        
+        // if ckrecordid does not exist create record
+        // else fetch record and update
+        
+        var ckRecord: CKRecord
+        
+        if encodedCKRecord == nil {
+            print("Project: Creating Cloud Kit record")
+            ckRecord = CKRecord(recordType: CloudKitClient.RecordType.Project.rawValue)
+        }
+        else {
+            print("Project: Update Cloud Kit record")
+            ckRecord = CKRecord.decodeCKRecordSystemFields(from: encodedCKRecord! as Data)
+        }
+        
+        ckRecord[Keys.Active] = active as NSNumber
+        ckRecord[Keys.Completed] = completed as NSNumber
+        ckRecord[Keys.CompletedDate] = completedDate as NSDate?
+        ckRecord[Keys.DisplayOrder] = displayOrder as NSNumber
+        ckRecord[Keys.DueDate] = dueDate as NSDate?
+        ckRecord[Keys.Info] = info as NSString?
+        ckRecord[Keys.Name] = name as NSString
+        
+        let activityRefList = activities.map({ (activity) -> CKReference in
+            let ckRecord = CKRecord.decodeCKRecordSystemFields(from: activity.encodedCKRecord! as Data)
+            return CKReference(record: ckRecord, action: CKReferenceAction.none)
+        })
+        
+        ckRecord[Keys.Activities] = activityRefList as CKRecordValue?
+        
+        return ckRecord
+    }
+    
     struct Keys {
         static let Active = "active"
         static let Completed = "completed"
@@ -94,34 +128,7 @@ public class Project: NSManagedObject {
         if managedObjectContext == CoreDataStackManager.mainContext {
             print("Project [\(self.name)] didSave")
             
-            // if ckrecordid does not exist create record
-            // else fetch record and update
-            
-            var projectCKRecord: CKRecord
-            
-            if encodedCKRecord == nil {
-                print("Project: Creating Cloud Kit record")
-                projectCKRecord = CKRecord(recordType: CloudKitClient.RecordType.Project.rawValue)
-            }
-            else {
-                print("Project: Update Cloud Kit record")
-                projectCKRecord = CKRecord.decodeCKRecordSystemFields(from: encodedCKRecord! as Data)
-            }
-            
-            projectCKRecord[Keys.Active] = active as NSNumber
-            projectCKRecord[Keys.Completed] = completed as NSNumber
-            projectCKRecord[Keys.CompletedDate] = completedDate as NSDate?
-            projectCKRecord[Keys.DisplayOrder] = displayOrder as NSNumber
-            projectCKRecord[Keys.DueDate] = dueDate as NSDate?
-            projectCKRecord[Keys.Info] = info as NSString?
-            projectCKRecord[Keys.Name] = name as NSString
-            
-            let activityRefList = activities.map({ (activity) -> CKReference in
-                let ckRecord = CKRecord.decodeCKRecordSystemFields(from: activity.encodedCKRecord! as Data)
-                return CKReference(record: ckRecord, action: CKReferenceAction.none)
-            })
-            
-            projectCKRecord[Keys.Activities] = activityRefList as CKRecordValue?
+            let projectCKRecord = self.cloudKitRecord
             
             CloudKitClient.privateDatabase.save(projectCKRecord) { (ckRecord, error) in
                 guard error == nil else {
