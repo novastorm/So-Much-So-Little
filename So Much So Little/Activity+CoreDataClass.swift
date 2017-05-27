@@ -12,45 +12,6 @@ import CoreData
 
 public class Activity: NSManagedObject {
     
-    var cloudKitRecord: CKRecord {
-        get {
-            
-            var ckRecord: CKRecord
-            
-            if encodedCKRecord == nil {
-                print("Activity: Create Cloud Kit record")
-                ckRecord = CKRecord(recordType: CloudKitClient.RecordType.Activity.rawValue)
-                setPrimitiveValue(ckRecord.encodedCKRecordSystemFields, forKey: Keys.EncodedCKRecord)
-            }
-            else {
-                print("Activity: Update Cloud Kit record")
-                ckRecord = CKRecord.decodeCKRecordSystemFields(from: encodedCKRecord! as Data)
-            }
-            
-            ckRecord[Keys.Completed] = completed as NSNumber
-            ckRecord[Keys.CompletedDate] = completedDate as NSDate?
-            ckRecord[Keys.DeferredTo] = deferredTo as NSString?
-            ckRecord[Keys.DeferredToResponseDueDate] = deferredToResponseDueDate as NSDate?
-            ckRecord[Keys.DisplayOrder] = displayOrder as NSNumber
-            ckRecord[Keys.DueDate] = dueDate as NSDate?
-            ckRecord[Keys.EstimatedTimeboxes] = estimatedTimeboxes as NSNumber
-            ckRecord[Keys.Info] = info as NSString?
-            ckRecord[Keys.Kind] = kind.rawValue as NSNumber
-            ckRecord[Keys.Name] = name as NSString
-            ckRecord[Keys.ScheduledEnd] = scheduledEnd as NSDate?
-            ckRecord[Keys.ScheduledStart] = scheduledStart as NSDate?
-            ckRecord[Keys.Today] = today as NSNumber
-            ckRecord[Keys.TodayDisplayOrder] = todayDisplayOrder as NSNumber
-            
-            if let project = project {
-                let ckRecordRef = CKRecord.decodeCKRecordSystemFields(from: project.encodedCKRecord! as Data)
-                ckRecord[Keys.Project] = CKReference(record: ckRecordRef, action: .none)
-            }
-            
-            return ckRecord
-        }
-    }
-    
     @objc // <- required for Core Data type compatibility
     public enum Kind: Int16, CustomStringConvertible {
 
@@ -89,13 +50,14 @@ public class Activity: NSManagedObject {
     }
     
     struct Keys {
-        static let EncodedCKRecord = "encodedCKRecord"
+        static let CKRecordIdName = "ckRecordIdName"
         static let Completed = "completed"
         static let CompletedDate = "completedDate"
         static let DeferredTo = "deferredTo"
         static let DeferredToResponseDueDate = "deferredToResponseDueDate"
         static let DisplayOrder = "displayOrder"
         static let DueDate = "dueDate"
+        static let EncodedCKRecord = "encodedCKRecord"
         static let EstimatedTimeboxes = "estimatedTimeboxes"
         static let Info = "info"
         static let IsSynced = "isSynced"
@@ -110,13 +72,15 @@ public class Activity: NSManagedObject {
         static let Timeboxes = "timeboxes"
     }
     
-    public typealias EncodedCKRecordType = Data
+    
+    public typealias CKRecordIdNameType = String
     public typealias CompletedType = Bool
     public typealias CompletedDateType = Date
     public typealias DeferredToType = String
     public typealias DeferredToResponseDueDateType = Date
     public typealias DisplayOrderType = Int16
     public typealias DueDateType = Date
+    public typealias EncodedCKRecordType = Data
     public typealias EstimatedTimeboxesType = Int16
     public typealias InfoType = String
     public typealias IsSyncedType = Bool
@@ -131,6 +95,46 @@ public class Activity: NSManagedObject {
     
     static let defaultName = "New Activity"
     
+    
+    var cloudKitRecord: CKRecord {
+        get {
+            
+            var ckRecord: CKRecord
+            
+            if encodedCKRecord == nil {
+                print("Activity: Create Cloud Kit record")
+                ckRecord = CKRecord(recordType: CloudKitClient.RecordType.Activity.rawValue)
+                setPrimitiveValue(ckRecord.encodedCKRecordSystemFields, forKey: Keys.EncodedCKRecord)
+                setPrimitiveValue(ckRecord.recordID.recordName, forKey: Keys.CKRecordIdName)
+            }
+            else {
+                print("Activity: Update Cloud Kit record")
+                ckRecord = CKRecord.decodeCKRecordSystemFields(from: encodedCKRecord! as Data)
+            }
+            
+            ckRecord[Keys.Completed] = completed as NSNumber
+            ckRecord[Keys.CompletedDate] = completedDate as NSDate?
+            ckRecord[Keys.DeferredTo] = deferredTo as NSString?
+            ckRecord[Keys.DeferredToResponseDueDate] = deferredToResponseDueDate as NSDate?
+            ckRecord[Keys.DisplayOrder] = displayOrder as NSNumber
+            ckRecord[Keys.DueDate] = dueDate as NSDate?
+            ckRecord[Keys.EstimatedTimeboxes] = estimatedTimeboxes as NSNumber
+            ckRecord[Keys.Info] = info as NSString?
+            ckRecord[Keys.Kind] = kind.rawValue as NSNumber
+            ckRecord[Keys.Name] = name as NSString
+            ckRecord[Keys.ScheduledEnd] = scheduledEnd as NSDate?
+            ckRecord[Keys.ScheduledStart] = scheduledStart as NSDate?
+            ckRecord[Keys.Today] = today as NSNumber
+            ckRecord[Keys.TodayDisplayOrder] = todayDisplayOrder as NSNumber
+            
+            if let project = project {
+                let ckRecordRef = CKRecord.decodeCKRecordSystemFields(from: project.encodedCKRecord! as Data)
+                ckRecord[Keys.Project] = CKReference(record: ckRecordRef, action: .none)
+            }
+            
+            return ckRecord
+        }
+    }
     
     /**
      Create an instance with given `name` or defaultName if `name` contains only whitespace.
@@ -181,13 +185,14 @@ public class Activity: NSManagedObject {
         let name = data[Keys.Name] as? NameType ?? ""
         self.init(context: context, name: name)
         
-        encodedCKRecord = data[Keys.EncodedCKRecord] as? EncodedCKRecordType
+        ckRecordIdName = data[Keys.CKRecordIdName] as? CKRecordIdNameType
         completed = data[Keys.Completed] as? CompletedType ?? false
         completedDate = data[Keys.CompletedDate] as? CompletedDateType
         deferredTo = data[Keys.DeferredTo] as? DeferredToType
         deferredToResponseDueDate = data[Keys.DeferredToResponseDueDate] as? DeferredToResponseDueDateType
         displayOrder = data[Keys.DisplayOrder] as? DisplayOrderType ?? 0
         dueDate = data[Keys.DueDate] as? DueDateType
+        encodedCKRecord = data[Keys.EncodedCKRecord] as? EncodedCKRecordType
         estimatedTimeboxes = data[Keys.EstimatedTimeboxes] as? EstimatedTimeboxesType ?? 0
         info = data[Keys.Info] as? InfoType
         isSynced = data[Keys.IsSynced] as? IsSyncedType ?? false
@@ -211,14 +216,15 @@ public class Activity: NSManagedObject {
     
     convenience init(context: NSManagedObjectContext, ckRecord: CKRecord) {
         let data: [AnyHashable: Any] = [
-            Keys.EncodedCKRecord: ckRecord.encodedCKRecordSystemFields,
             
+            Keys.CKRecordIdName: ckRecord.recordID.recordName,
             Keys.Completed: ckRecord[Keys.Completed] as Any,
             Keys.CompletedDate: ckRecord[Keys.CompletedDate] as Any,
             Keys.DeferredTo: ckRecord[Keys.DeferredTo] as Any,
             Keys.DeferredToResponseDueDate: ckRecord[Keys.DeferredToResponseDueDate] as Any,
             Keys.DisplayOrder: ckRecord[Keys.DisplayOrder] as Any,
             Keys.DueDate: ckRecord[Keys.DueDate] as Any,
+            Keys.EncodedCKRecord: ckRecord.encodedCKRecordSystemFields,
             Keys.EstimatedTimeboxes: ckRecord[Keys.EstimatedTimeboxes] as Any,
             Keys.Info: ckRecord[Keys.Info] as Any,
             Keys.Kind: ckRecord[Keys.Kind] as Any,

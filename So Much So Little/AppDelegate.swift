@@ -25,6 +25,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         checkIfFirstLaunch()
         CoreDataStackManager.autoSave(60)
+        CloudKitClient.importRecords()
         return true
     }
 
@@ -60,8 +61,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func checkIfFirstLaunch() {
         if !UserDefaults.standard.bool(forKey: UserDefaultKeys.HasLaunchedBefore) {
             UserDefaults.standard.set(true, forKey: UserDefaultKeys.HasLaunchedBefore)
-            // TODO: Populate initial records
-            CloudKitClient.importDefaultRecords()
         }
     }
 }

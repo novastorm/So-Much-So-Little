@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="12141" systemVersion="16F73" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Activity" representedClassName=".Activity" syncable="YES">
+        <attribute name="ckRecordIdName" attributeType="String" indexed="YES" syncable="YES"/>
         <attribute name="completed" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" customClassName=".CompletedType" indexed="YES" syncable="YES"/>
         <attribute name="completedDate" optional="YES" attributeType="Transformable" customClassName=".Date" syncable="YES"/>
         <attribute name="deferredTo" optional="YES" attributeType="String" syncable="YES"/>
@@ -18,10 +19,16 @@
         <attribute name="today" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="todayDisplayOrder" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
         <relationship name="project" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Project" inverseName="activities" inverseEntity="Project" syncable="YES"/>
-        <relationship name="timeboxes" toMany="YES" deletionRule="Cascade" destinationEntity="Timebox" inverseName="activity" inverseEntity="Timebox" syncable="YES"/>
+        <relationship name="timeboxes" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Timebox" inverseName="activity" inverseEntity="Timebox" syncable="YES"/>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="ckRecordIdName"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
     </entity>
     <entity name="Project" representedClassName=".Project" syncable="YES">
         <attribute name="active" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="ckRecordIdName" attributeType="String" indexed="YES" syncable="YES"/>
         <attribute name="completed" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="completedDate" optional="YES" attributeType="Transformable" customClassName=".Date" syncable="YES"/>
         <attribute name="displayOrder" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
@@ -31,8 +38,14 @@
         <attribute name="isSynced" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="name" attributeType="String" indexed="YES" syncable="YES"/>
         <relationship name="activities" toMany="YES" deletionRule="Cascade" destinationEntity="Activity" inverseName="project" inverseEntity="Activity" syncable="YES"/>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="ckRecordIdName"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
     </entity>
     <entity name="Timebox" representedClassName=".Timebox" syncable="YES">
+        <attribute name="ckRecordIdName" attributeType="String" indexed="YES" syncable="YES"/>
         <attribute name="completed" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="encodedCKRecord" optional="YES" attributeType="Transformable" customClassName=".Data" syncable="YES"/>
         <attribute name="externalInterruptions" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
@@ -40,11 +53,16 @@
         <attribute name="isSynced" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
         <attribute name="start" attributeType="Transformable" customClassName=".Date" syncable="YES"/>
         <attribute name="stop" optional="YES" attributeType="Transformable" customClassName=".Date" syncable="YES"/>
-        <relationship name="activity" maxCount="1" deletionRule="Nullify" destinationEntity="Activity" inverseName="timeboxes" inverseEntity="Activity" syncable="YES"/>
+        <relationship name="activity" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Activity" inverseName="timeboxes" inverseEntity="Activity" syncable="YES"/>
+        <uniquenessConstraints>
+            <uniquenessConstraint>
+                <constraint value="ckRecordIdName"/>
+            </uniquenessConstraint>
+        </uniquenessConstraints>
     </entity>
     <elements>
-        <element name="Activity" positionX="-567" positionY="-72" width="128" height="315"/>
-        <element name="Project" positionX="-270" positionY="-189" width="128" height="195"/>
-        <element name="Timebox" positionX="-18" positionY="135" width="128" height="165"/>
+        <element name="Activity" positionX="-567" positionY="-72" width="128" height="330"/>
+        <element name="Project" positionX="-270" positionY="-189" width="128" height="210"/>
+        <element name="Timebox" positionX="-18" positionY="135" width="128" height="180"/>
     </elements>
 </model>
