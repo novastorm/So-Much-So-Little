@@ -192,14 +192,23 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		3E7BDB851DB5803F006E526A /* Clients */ = {
+		3E5048D71EE8A5EA0006DD1A /* CloudKit */ = {
 			isa = PBXGroup;
 			children = (
+				3E95C1C51DD540C000465222 /* CKRecord+Extension.swift */,
 				3E7BDB861DB58071006E526A /* CloudKitClient.swift */,
 				3E7BDB881DB5C417006E526A /* CloudKitClient+Convenience.swift */,
 				3E5685E01ED5527500B3D056 /* CloudKitClient+Activity.swift */,
 				3E5685E21ED553A500B3D056 /* CloudKitClient+Project.swift */,
 				3E3E41B51DBE568E00FCE6DE /* CloudKitClient+CoreData.swift */,
+			);
+			name = CloudKit;
+			sourceTree = "<group>";
+		};
+		3E7BDB851DB5803F006E526A /* Clients */ = {
+			isa = PBXGroup;
+			children = (
+				3E5048D71EE8A5EA0006DD1A /* CloudKit */,
 			);
 			name = Clients;
 			sourceTree = "<group>";
@@ -270,7 +279,6 @@
 				3E0977821D12064100A7F2C4 /* GCDUtilities.swift */,
 				3ED6DF5C1D2B03530064E440 /* Resources */,
 				3E95C1C31DD5409400465222 /* NSObject+Extension.swift */,
-				3E95C1C51DD540C000465222 /* CKRecord+Extension.swift */,
 			);
 			path = "So Much So Little";
 			sourceTree = "<group>";
