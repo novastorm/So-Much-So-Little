@@ -138,26 +138,55 @@ extension CloudKitClient {
         }
         
         group.notify(queue: .main) {
+            
             print("Import: notify")
             for ckProject in ckProjectList {
                 print("Import: Project")
-                _ = Project(context: CoreDataStackManager.mainContext, ckRecord: ckProject)
+                let fetchRequest = Project.fetchRequest() as NSFetchRequest<Project>
+                fetchRequest.predicate = NSPredicate(format: "ckRecordIdName = %@", ckProject.recordID.recordName)
+                fetchRequest.sortDescriptors = []
+                
+                do {
+                    let fetchedResults = try CoreDataStackManager.mainContext.fetch(fetchRequest)
+                    print(fetchedResults)
+                    if fetchedResults.count == 0 {
+                        let project = Project(context: CoreDataStackManager.mainContext, ckRecord: ckProject)
+                        print(project)
+                    }
+                }
+                catch {
+                    print(error)
+                }
             }
             
             for ckActivity in ckActivityList {
                 print("Import: Activity")
-                let activity = Activity(context: CoreDataStackManager.mainContext, ckRecord: ckActivity)
-                if let projectRef = ckActivity[Activity.Keys.Project] as? CKReference {
-                    
-                    let ckProject = ckProjectList.filter({ (ckRecord) -> Bool in
-                        return ckRecord.recordID == projectRef.recordID
-                    }).first!
-                    
-                    let fetchRequest = Project.fetchRequest() as NSFetchRequest
-                    fetchRequest.predicate = NSPredicate(format: "encodedCKRecord = %@", ckProject.encodedCKRecordSystemFields as NSData)
-                    
-                    let projectList = try! CoreDataStackManager.mainContext.fetch(fetchRequest)
-                    activity.project = projectList.first
+
+                let fetchRequest = Activity.fetchRequest() as NSFetchRequest<Activity>
+                fetchRequest.predicate = NSPredicate(format: "ckRecordIdName = %@", ckActivity.recordID.recordName)
+                fetchRequest.sortDescriptors = []
+                
+                do {
+                    let fetchedResults = try CoreDataStackManager.mainContext.fetch(fetchRequest)
+                    print(fetchedResults)
+                    if fetchedResults.count == 0 {
+                        let activity = Activity(context: CoreDataStackManager.mainContext, ckRecord: ckActivity)
+                        if let projectRef = ckActivity[Activity.Keys.Project] as? CKReference {
+                            
+                            let ckProject = ckProjectList.filter({ (ckRecord) -> Bool in
+                                return ckRecord.recordID == projectRef.recordID
+                            }).first!
+                            
+                            let fetchRequest = Project.fetchRequest() as NSFetchRequest
+                            fetchRequest.predicate = NSPredicate(format: "encodedCKRecord = %@", ckProject.encodedCKRecordSystemFields as NSData)
+                            
+                            let projectList = try! CoreDataStackManager.mainContext.fetch(fetchRequest)
+                            activity.project = projectList.first
+                        }
+                    }
+                }
+                catch {
+                    print(error)
                 }
             }
             

@@ -26,6 +26,7 @@
 		3E41D0F91D8DCA62002EAD8A /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E41D0F81D8DCA62002EAD8A /* CloudKit.framework */; };
 		3E5685E11ED5527500B3D056 /* CloudKitClient+Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5685E01ED5527500B3D056 /* CloudKitClient+Activity.swift */; };
 		3E5685E31ED553A500B3D056 /* CloudKitClient+Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5685E21ED553A500B3D056 /* CloudKitClient+Project.swift */; };
+		3E5685F11EDCEA0C00B3D056 /* ManagedObject+CloudKitProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5685F01EDCEA0C00B3D056 /* ManagedObject+CloudKitProtocol.swift */; };
 		3E746D121DA58BD200ABD25E /* ActivityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EE741311D1090DC00064BF6 /* ActivityTests.swift */; };
 		3E7AB57F1D31839B002F6C2D /* ActivityDetailFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7AB57E1D31839B002F6C2D /* ActivityDetailFormViewController.swift */; };
 		3E7AB5831D318A45002F6C2D /* Eureka.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3ED6DF591D2B03070064E440 /* Eureka.framework */; };
@@ -96,6 +97,7 @@
 		3E41D0F81D8DCA62002EAD8A /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
 		3E5685E01ED5527500B3D056 /* CloudKitClient+Activity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CloudKitClient+Activity.swift"; sourceTree = "<group>"; };
 		3E5685E21ED553A500B3D056 /* CloudKitClient+Project.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CloudKitClient+Project.swift"; sourceTree = "<group>"; };
+		3E5685F01EDCEA0C00B3D056 /* ManagedObject+CloudKitProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ManagedObject+CloudKitProtocol.swift"; sourceTree = "<group>"; };
 		3E7AB57E1D31839B002F6C2D /* ActivityDetailFormViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityDetailFormViewController.swift; sourceTree = "<group>"; };
 		3E7AB5871D333343002F6C2D /* TimeboxControlRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeboxControlRow.swift; sourceTree = "<group>"; };
 		3E7AB58B1D333B25002F6C2D /* TimeboxControlCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TimeboxControlCell.xib; sourceTree = "<group>"; };
@@ -175,6 +177,7 @@
 		3E09777D1D11FC8200A7F2C4 /* Core Data */ = {
 			isa = PBXGroup;
 			children = (
+				3E5685F01EDCEA0C00B3D056 /* ManagedObject+CloudKitProtocol.swift */,
 				3E09777E1D11FC9200A7F2C4 /* CoreDataStack.swift */,
 				3E0977A91D1A3D1A00A7F2C4 /* CoreDataStackManager.swift */,
 			);
@@ -189,14 +192,23 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		3E7BDB851DB5803F006E526A /* Clients */ = {
+		3E5048D71EE8A5EA0006DD1A /* CloudKit */ = {
 			isa = PBXGroup;
 			children = (
+				3E95C1C51DD540C000465222 /* CKRecord+Extension.swift */,
 				3E7BDB861DB58071006E526A /* CloudKitClient.swift */,
 				3E7BDB881DB5C417006E526A /* CloudKitClient+Convenience.swift */,
 				3E5685E01ED5527500B3D056 /* CloudKitClient+Activity.swift */,
 				3E5685E21ED553A500B3D056 /* CloudKitClient+Project.swift */,
 				3E3E41B51DBE568E00FCE6DE /* CloudKitClient+CoreData.swift */,
+			);
+			name = CloudKit;
+			sourceTree = "<group>";
+		};
+		3E7BDB851DB5803F006E526A /* Clients */ = {
+			isa = PBXGroup;
+			children = (
+				3E5048D71EE8A5EA0006DD1A /* CloudKit */,
 			);
 			name = Clients;
 			sourceTree = "<group>";
@@ -267,7 +279,6 @@
 				3E0977821D12064100A7F2C4 /* GCDUtilities.swift */,
 				3ED6DF5C1D2B03530064E440 /* Resources */,
 				3E95C1C31DD5409400465222 /* NSObject+Extension.swift */,
-				3E95C1C51DD540C000465222 /* CKRecord+Extension.swift */,
 			);
 			path = "So Much So Little";
 			sourceTree = "<group>";
@@ -428,6 +439,7 @@
 				3E0977A61D18FA7B00A7F2C4 /* Timebox+CoreDataProperties.swift in Sources */,
 				3E7AB57F1D31839B002F6C2D /* ActivityDetailFormViewController.swift in Sources */,
 				3E0977AA1D1A3D1A00A7F2C4 /* CoreDataStackManager.swift in Sources */,
+				3E5685F11EDCEA0C00B3D056 /* ManagedObject+CloudKitProtocol.swift in Sources */,
 				3E7BDB7F1DB0B9F9006E526A /* Timebox+CoreDataClass.swift in Sources */,
 				3E5685E11ED5527500B3D056 /* CloudKitClient+Activity.swift in Sources */,
 				3EE7411A1D1090DC00064BF6 /* AppDelegate.swift in Sources */,

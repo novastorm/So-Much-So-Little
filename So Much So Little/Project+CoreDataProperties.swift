@@ -17,6 +17,7 @@ extension Project {
     }
 
     @NSManaged public var active: Bool
+    @NSManaged public var ckRecordIdName: String?
     @NSManaged public var completed: Bool
     @NSManaged public var completedDate: Date?
     @NSManaged public var displayOrder: Int16

@@ -229,17 +229,23 @@ extension CoreDataStack {
             }
             
             // now we save in the background
+            
             self.savePersistingContext()
         }
     }
     
     func savePersistingContext() {
-        persistingContext.perform {
-            do {
-                try self.persistingContext.save()
-            }
-            catch {
-                fatalError("Error while saving persisting context: \(error)")
+
+        self.persistingContext.perform {
+
+            CloudKitClient.storeRecords(context: self.persistingContext) { (success, error) in
+
+                do {
+                    try self.persistingContext.save()
+                }
+                catch {
+                    fatalError("Error while saving persisting context: \(error)")
+                }
             }
         }
     }
