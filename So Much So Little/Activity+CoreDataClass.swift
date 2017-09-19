@@ -147,7 +147,8 @@ final public class Activity: NSManagedObject, CloudKitManagedObject {
             estimatedTimeboxes = newValue[Keys.EstimatedTimeboxes] as? EstimatedTimeboxesType ?? 0
             info = newValue[Keys.Info] as? InfoType
             isSynced = newValue[Keys.IsSynced] as? IsSyncedType ?? false
-            kind = newValue[Keys.Kind] as? Kind ?? .flexible
+//            kind = newValue[Keys.Kind] as? Kind ?? .flexible
+            kind = Kind.init(rawValue: newValue[Keys.Kind] as! Int16) ?? .flexible
             name = newValue[Keys.Name] as? NameType ?? Activity.defaultName
             scheduledEnd = newValue[Keys.ScheduledEnd] as? ScheduledEndType
             scheduledStart = newValue[Keys.ScheduledStart] as? ScheduledStartType
