@@ -71,7 +71,7 @@ class ProjectTableViewController: UITableViewController {
     
     // MARK: - Actions
     
-    func createProject() {
+    @objc func createProject() {
         performSegue(withIdentifier: "CreateProjectDetail", sender: self)
     }
 }

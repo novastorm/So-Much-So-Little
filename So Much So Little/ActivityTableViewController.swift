@@ -81,7 +81,7 @@ class ActivityTableViewController: UITableViewController {
     
     // MARK: - Actions
     
-    func longPressGestureRecognized(_ sender: AnyObject) {
+    @objc func longPressGestureRecognized(_ sender: AnyObject) {
         
         // retrieve longPress details and target indexPath
         let longPress = sender as! UILongPressGestureRecognizer
@@ -155,7 +155,7 @@ class ActivityTableViewController: UITableViewController {
         }
     }
     
-    func createActivity() {
+    @objc func createActivity() {
         performSegue(withIdentifier: "CreateActivityDetail", sender: self)
     }
 }

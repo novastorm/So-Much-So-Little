@@ -145,7 +145,7 @@ class TimerViewController: UIViewController {
         updateTimeLabel()
     }
     
-    func decrementTime() {
+    @objc func decrementTime() {
         secondsCount -= 1
         
         updateTimeLabel()

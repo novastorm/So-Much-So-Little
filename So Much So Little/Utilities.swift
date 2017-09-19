@@ -14,7 +14,7 @@ func checkNetworkConnection(_ hostname: String?, completionHandler: (_ success: 
     
     reachability = (hostname == nil) ? Reachability() : Reachability(hostname: hostname!)
     
-    guard let reachable = reachability?.isReachable , reachable else {
+    guard reachability?.connection != .none else {
         // Debug without network
         if (UIApplication.shared.delegate as! AppDelegate).debugWithoutNetwork {
             completionHandler(true, nil)

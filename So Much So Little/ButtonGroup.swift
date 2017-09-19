@@ -42,7 +42,7 @@ class ButtonGroup: NSObject {
         }
     }
     
-    func didTouchUpInside(_ button: UIButton) {
+    @objc func didTouchUpInside(_ button: UIButton) {
         for button in buttonList {
             button.backgroundColor = defaultBackgroundColor
             button.setTitleColor(defaultTitleColor, for: UIControlState())

@@ -18,7 +18,7 @@ class TimeboxControl: UIView {
     let timeboxCount = 7
     
     var timeboxButtons = [UIButton]()
-    dynamic var estimatedTimeboxes = 0 {
+    @objc dynamic var estimatedTimeboxes = 0 {
         didSet {
             setNeedsLayout()
         }
@@ -86,7 +86,7 @@ class TimeboxControl: UIView {
     
     // MARK: Button Action
     
-    func timeboxButtonTapped(_ button: UIButton) {
+    @objc func timeboxButtonTapped(_ button: UIButton) {
         estimatedTimeboxes = timeboxButtons.index(of: button)! + 1
         
         updateButtonSelectionStates()

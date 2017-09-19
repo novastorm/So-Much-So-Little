@@ -153,7 +153,7 @@ class ProjectTests: XCTestCase {
         let name = projectAlphaData[Project.Keys.Name] as! Project.NameType
         XCTAssertEqual(projectAlpha.name, name, "Project name should be \"\(name)\"")
         let info = projectAlphaData[Project.Keys.Info] as? Project.InfoType
-        XCTAssertEqual(projectAlpha.info, info, "Project info should be \(info)")
+        XCTAssertEqual(projectAlpha.info, info, "Project info should be \(String(describing:info))")
         
         // MARK: Create additional projects
         let projectBravoData = mockProjectList["bravo"]!
