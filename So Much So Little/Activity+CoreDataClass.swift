@@ -16,7 +16,10 @@ final public class Activity: NSManagedObject, CloudKitManagedObject {
     public enum Kind: Int16, CustomStringConvertible {
 
         private enum Name: String {
-            case Flexible, Deferred, Reference, Scheduled
+            case flexible
+            case deferred
+            case reference
+            case scheduled
         }
         
         case flexible
@@ -26,13 +29,13 @@ final public class Activity: NSManagedObject, CloudKitManagedObject {
         
         static func fromString(_ string: String) -> Kind? {
             switch string {
-            case Name.Flexible.rawValue:
+            case Name.flexible.rawValue:
                 return .flexible
-            case Name.Deferred.rawValue:
+            case Name.deferred.rawValue:
                 return .deferred
-            case Name.Reference.rawValue:
+            case Name.reference.rawValue:
                 return .reference
-            case Name.Scheduled.rawValue:
+            case Name.scheduled.rawValue:
                 return .scheduled
             default:
                 return nil
@@ -41,10 +44,10 @@ final public class Activity: NSManagedObject, CloudKitManagedObject {
         
         public var description: String {
             switch self {
-            case .flexible: return Name.Flexible.rawValue
-            case .deferred: return Name.Deferred.rawValue
-            case .reference: return Name.Reference.rawValue
-            case .scheduled: return Name.Scheduled.rawValue
+            case .flexible: return Name.flexible.rawValue
+            case .deferred: return Name.deferred.rawValue
+            case .reference: return Name.reference.rawValue
+            case .scheduled: return Name.scheduled.rawValue
             }
         }
     }

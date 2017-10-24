@@ -12,9 +12,10 @@ import CoreData
 typealias BatchTask=(_ workerContext: NSManagedObjectContext) -> ()
 
 // MARK:  - Notifications
-enum CoreDataStackNotifications : String{
-    case ImportingTaskDidFinish = "ImportingTaskDidFinish"
+extension Notification.Name {
+    static let CoreDataStackImportingTaskDidFinishNotification = Notification.Name("CoreDataStackImportingTaskDidFinish")
 }
+
 // MARK:  - Main
 class CoreDataStack {
     
@@ -26,8 +27,6 @@ class CoreDataStack {
     fileprivate let persistingContext : NSManagedObjectContext
     fileprivate let backgroundContext : NSManagedObjectContext
     let mainContext : NSManagedObjectContext
-    
-    static let ImportingTaskDidFinishNotification = Notification.Name(CoreDataStackNotifications.ImportingTaskDidFinish.rawValue)
     
     
     // MARK:  - Initializers
@@ -84,7 +83,7 @@ class CoreDataStack {
             print("unable to add store at \(dbURL)")
         }
         
-        NotificationCenter.default.addObserver(self, selector: #selector(saveMainContext), name: NSNotification.Name(rawValue: CoreDataStackNotifications.ImportingTaskDidFinish.rawValue), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(saveMainContext), name: .CoreDataStackImportingTaskDidFinishNotification, object: nil)
     }
     
     // MARK:  - Utils
@@ -199,7 +198,7 @@ extension CoreDataStack {
             }
             
             let notificationCenter = NotificationCenter.default
-            let notification = Notification(name: Notification.Name(rawValue: CoreDataStackNotifications.ImportingTaskDidFinish.rawValue),
+            let notification = Notification(name: .CoreDataStackImportingTaskDidFinishNotification,
                 object: nil)
             notificationCenter.post(notification)
         }

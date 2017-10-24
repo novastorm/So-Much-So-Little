@@ -149,21 +149,21 @@ class ActivityDetailFormViewController: FormViewController {
         
         <<< SegmentedRow<String>(FormInput.Kind.rawValue) { (type) in
             type.options = [
-                String(describing: Activity.Kind.reference),
-                String(describing: Activity.Kind.scheduled),
-                String(describing: Activity.Kind.flexible),
-                String(describing: Activity.Kind.deferred)
+                String(describing: Activity.Kind.reference).capitalized,
+                String(describing: Activity.Kind.scheduled).capitalized,
+                String(describing: Activity.Kind.flexible).capitalized,
+                String(describing: Activity.Kind.deferred).capitalized
             ]
             temporaryContext.performAndWait {
                 print(String(describing: self.activity.kind))
-                type.value = String(describing: self.activity.kind)
+                type.value = String(describing: self.activity.kind).capitalized
             }
         }
         
         // Schedule Section Fields
         
         <<< DateTimeInlineRow(FormInput.ScheduledStart.rawValue) { (row) in
-            row.hidden = Condition.predicate(NSPredicate(format: String(format: "$%@ != '%@'", FormInput.Kind.rawValue, String(describing: Activity.Kind.scheduled))))
+            row.hidden = Condition.predicate(NSPredicate(format: String(format: "$%@ != '%@'", FormInput.Kind.rawValue, String(describing: Activity.Kind.scheduled).capitalized)))
             row.title = "Start"
             row.value = Date()
             temporaryContext.performAndWait {
@@ -174,7 +174,7 @@ class ActivityDetailFormViewController: FormViewController {
         }
         
         <<< DateTimeInlineRow(FormInput.ScheduledEnd.rawValue) { (row) in
-            row.hidden = Condition.predicate(NSPredicate(format: String(format: "$%@ != '%@'", FormInput.Kind.rawValue, String(describing: Activity.Kind.scheduled))))
+            row.hidden = Condition.predicate(NSPredicate(format: String(format: "$%@ != '%@'", FormInput.Kind.rawValue, String(describing: Activity.Kind.scheduled).capitalized)))
             row.title = "End"
             row.value = Date()
             temporaryContext.performAndWait {
@@ -188,7 +188,7 @@ class ActivityDetailFormViewController: FormViewController {
         // Flexible Section Fields
         
         <<< DateInlineRow(FormInput.DueDate.rawValue) { (row) in
-            row.hidden = Condition.predicate(NSPredicate(format: String(format: "$%@ != '%@'", FormInput.Kind.rawValue, String(describing: Activity.Kind.flexible))))
+            row.hidden = Condition.predicate(NSPredicate(format: String(format: "$%@ != '%@'", FormInput.Kind.rawValue, String(describing: Activity.Kind.flexible).capitalized)))
             row.title = "Due Date"
             temporaryContext.performAndWait {
                 if let dueDate = self.activity.dueDate {
@@ -201,7 +201,7 @@ class ActivityDetailFormViewController: FormViewController {
         // Deferred Section Fields
         
         <<< TextRow(FormInput.DeferredTo.rawValue) { (row) in
-            row.hidden = Condition.predicate(NSPredicate(format: String(format: "$%@ != '%@'", FormInput.Kind.rawValue, String(describing: Activity.Kind.deferred))))
+            row.hidden = Condition.predicate(NSPredicate(format: String(format: "$%@ != '%@'", FormInput.Kind.rawValue, String(describing: Activity.Kind.deferred).capitalized)))
             row.title = "Deferred To:"
             temporaryContext.performAndWait {
                 if let deferredTo = self.activity.deferredTo {
@@ -276,7 +276,7 @@ class ActivityDetailFormViewController: FormViewController {
             self.activity.dueDate = formValues[FormInput.DueDate.rawValue] as? Activity.DueDateType
             self.activity.estimatedTimeboxes = formValues[FormInput.EstimatedTimeboxes.rawValue] as? Activity.EstimatedTimeboxesType ?? 0
             self.activity.info = formValues[FormInput.Info.rawValue] as? Activity.InfoType
-            self.activity.kind = Activity.Kind.fromString(formValues[FormInput.Kind.rawValue] as! String)!
+            self.activity.kind = Activity.Kind.fromString((formValues[FormInput.Kind.rawValue] as! String).lowercased())!
             self.activity.scheduledEnd = formValues[FormInput.ScheduledEnd.rawValue] as? Activity.ScheduledEndType
             self.activity.scheduledStart = formValues[FormInput.ScheduledStart.rawValue] as? Activity.ScheduledStartType
             self.activity.name = formValues[FormInput.Name.rawValue] as! Activity.NameType
