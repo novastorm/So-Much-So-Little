@@ -18,7 +18,7 @@ open class TimeboxControlCell: Cell<Int>, CellType {
     @IBOutlet weak var timeboxControl: TimeboxControl!
     
     open override func setup() {
-        print ("\(type(of: self).className) setup")
+        print ("\(type(of: self).typeName) setup")
         
         super.setup()
         #if swift(>=3.0)
@@ -30,7 +30,7 @@ open class TimeboxControlCell: Cell<Int>, CellType {
     }
     
     open override func update() {
-        print ("\(type(of: self).className) update")
+        print ("\(type(of: self).typeName) update")
         super.update()
     }
     

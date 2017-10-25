@@ -105,7 +105,7 @@ final public class Project: NSManagedObject, CloudKitManagedObject {
      */
     convenience init(context: NSManagedObjectContext, name: String) {
         
-        let className = type(of: self).className
+        let className = type(of: self).typeName
         let entity = NSEntityDescription.entity(forEntityName: className, in: context)!
         
         self.init(entity: entity, insertInto: context)

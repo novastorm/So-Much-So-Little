@@ -14,8 +14,13 @@ extension CloudKitClient {
     
     static func storeRecords(using database: CKDatabase = privateDatabase, context: NSManagedObjectContext, completionHandler: @escaping(_ success: Bool, _ error: Error?) -> Void) {
         
-        let modifiedObjects = context.insertedObjects.union(context.updatedObjects)
-        let deletedObjects = context.deletedObjects
+        var modifiedObjects = Set<NSManagedObject>()
+        var deletedObjects = Set<NSManagedObject>()
+
+        context.perform {
+            modifiedObjects = context.insertedObjects.union(context.updatedObjects)
+            deletedObjects = context.deletedObjects
+        }
         
         let modifyRecordsOperation = CKModifyRecordsOperation()
         modifyRecordsOperation.database = database
@@ -24,7 +29,7 @@ extension CloudKitClient {
             guard let record = record as? CloudKitManagedObject else {
                 return nil
             }
-
+            
             return record.cloudKitRecord
         }
         
@@ -50,7 +55,7 @@ extension CloudKitClient {
                     result = record.ckRecordIdName == ckRecord.recordID.recordName
                 }
                 return result
-            } as! CloudKitManagedObject
+                } as! CloudKitManagedObject
             
             context.performAndWait {
                 record.encodedCKRecord = ckRecord.encodedCKRecordSystemFields
@@ -67,7 +72,7 @@ extension CloudKitClient {
             }
             print("Store records complete")
         }
-
+        
         modifyRecordsOperation.start()
         
         completionHandler(true, nil)

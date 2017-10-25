@@ -39,7 +39,7 @@
 		3E7BDB891DB5C417006E526A /* CloudKitClient+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7BDB881DB5C417006E526A /* CloudKitClient+Convenience.swift */; };
 		3E7D99C31D21C1BD008FA84B /* TimeboxControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7D99C21D21C1BD008FA84B /* TimeboxControl.swift */; };
 		3E825F101D9C493100ABACCE /* TimerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E825F0F1D9C493100ABACCE /* TimerViewController.swift */; };
-		3E95C1C41DD5409400465222 /* NSObject+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E95C1C31DD5409400465222 /* NSObject+Extension.swift */; };
+		3E95C1C41DD5409400465222 /* TypeNameExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E95C1C31DD5409400465222 /* TypeNameExtensions.swift */; };
 		3E95C1C61DD540C000465222 /* CKRecord+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E95C1C51DD540C000465222 /* CKRecord+Extension.swift */; };
 		3ED6DF521D2731F10064E440 /* DateTextFieldDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED6DF511D2731F10064E440 /* DateTextFieldDelegate.swift */; };
 		3ED6DF541D2AEF350064E440 /* ButtonGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED6DF531D2AEF350064E440 /* ButtonGroup.swift */; };
@@ -108,7 +108,7 @@
 		3E7D99C21D21C1BD008FA84B /* TimeboxControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeboxControl.swift; sourceTree = "<group>"; };
 		3E7D99C41D21DE70008FA84B /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		3E825F0F1D9C493100ABACCE /* TimerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerViewController.swift; sourceTree = "<group>"; };
-		3E95C1C31DD5409400465222 /* NSObject+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSObject+Extension.swift"; sourceTree = "<group>"; };
+		3E95C1C31DD5409400465222 /* TypeNameExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TypeNameExtensions.swift; sourceTree = "<group>"; };
 		3E95C1C51DD540C000465222 /* CKRecord+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CKRecord+Extension.swift"; sourceTree = "<group>"; };
 		3ED6DF511D2731F10064E440 /* DateTextFieldDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateTextFieldDelegate.swift; sourceTree = "<group>"; };
 		3ED6DF531D2AEF350064E440 /* ButtonGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonGroup.swift; sourceTree = "<group>"; };
@@ -278,7 +278,7 @@
 				3E0977801D12015800A7F2C4 /* Utilities.swift */,
 				3E0977821D12064100A7F2C4 /* GCDUtilities.swift */,
 				3ED6DF5C1D2B03530064E440 /* Resources */,
-				3E95C1C31DD5409400465222 /* NSObject+Extension.swift */,
+				3E95C1C31DD5409400465222 /* TypeNameExtensions.swift */,
 			);
 			path = "So Much So Little";
 			sourceTree = "<group>";
@@ -430,7 +430,7 @@
 				3E7D99C31D21C1BD008FA84B /* TimeboxControl.swift in Sources */,
 				3ED6DF601D2B0D050064E440 /* ViewGroup.swift in Sources */,
 				3E7BDB871DB58071006E526A /* CloudKitClient.swift in Sources */,
-				3E95C1C41DD5409400465222 /* NSObject+Extension.swift in Sources */,
+				3E95C1C41DD5409400465222 /* TypeNameExtensions.swift in Sources */,
 				3E7BDB811DB0B9F9006E526A /* Activity+CoreDataClass.swift in Sources */,
 				3E3E41B61DBE568E00FCE6DE /* CloudKitClient+CoreData.swift in Sources */,
 				3EE7411C1D1090DC00064BF6 /* TodayTableViewController.swift in Sources */,
