@@ -21,5 +21,4 @@ extension NSObject: TypeName {
     class var typeName: String {
         return String(describing: self)
     }
-    
 }
