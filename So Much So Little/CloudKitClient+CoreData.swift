@@ -6,6 +6,7 @@
 //  Copyright © 2016 Adland Lee. All rights reserved.
 //
 
+import UIKit
 import CloudKit
 import CoreData
 
@@ -14,8 +15,12 @@ extension CloudKitClient {
     
     // MARK: - Core Data convenience methods
     
-    var mainContext: NSManagedObjectContext {
-        return CoreDataStackManager.mainContext
+    static var coreDataStack: CoreDataStack {
+        return AppDelegate.coreDataStack
+    }
+    
+    static var mainContext: NSManagedObjectContext {
+        return coreDataStack.mainContext
     }
     
     // MARK: - Sync methods
@@ -80,12 +85,12 @@ extension CloudKitClient {
         group.notify(queue: .main) {
             for ckProject in ckProjectList {
                 print("Import: Project")
-                _ = Project(context: CoreDataStackManager.mainContext, ckRecord: ckProject)
+                _ = Project(context: self.coreDataStack.mainContext, ckRecord: ckProject)
             }
             
             for ckActivity in ckActivityList {
                 print("Import: Activity")
-                let activity = Activity(context: CoreDataStackManager.mainContext, ckRecord: ckActivity)
+                let activity = Activity(context: self.mainContext, ckRecord: ckActivity)
                 if let projectRef = ckActivity[Activity.Keys.Project] as? CKReference {
                     
                     let ckProject = ckProjectList.filter({ (ckRecord) -> Bool in
@@ -95,12 +100,12 @@ extension CloudKitClient {
                     let fetchRequest: NSFetchRequest<Project> = Project.fetchRequest()
                     fetchRequest.predicate = NSPredicate(format: "encodedCKRecord = %@", ckProject.encodedCKRecordSystemFields as NSData)
                     
-                    let projectList: [Project] = try! CoreDataStackManager.mainContext.fetch(fetchRequest)
+                    let projectList: [Project] = try! self.mainContext.fetch(fetchRequest)
                     activity.project = projectList.first
                 }
             }
             
-            CoreDataStackManager.saveMainContext()
+            self.coreDataStack.saveMainContext()
         }
     }
     
@@ -146,7 +151,7 @@ extension CloudKitClient {
                 fetchProjectRequest.predicate = NSPredicate(format: "ckRecordIdName = %@", ckProject.recordID.recordName)
                 fetchProjectRequest.sortDescriptors = []
                 
-                let fetchedProjectResults = try! CoreDataStackManager.mainContext.fetch(fetchProjectRequest)
+                let fetchedProjectResults = try! self.mainContext.fetch(fetchProjectRequest)
                 print(fetchedProjectResults)
 
                 switch fetchedProjectResults.count {
@@ -154,7 +159,7 @@ extension CloudKitClient {
                     let project = fetchedProjectResults.first!
                     project.encodedCKRecord = ckProject.encodedCKRecordSystemFields
                 case 0:
-                    let project = Project(context: CoreDataStackManager.mainContext, ckRecord: ckProject)
+                    let project = Project(context: self.mainContext, ckRecord: ckProject)
                     print(project)
                 default:
                     fatalError("Unknown state fetching local projects")
@@ -168,7 +173,7 @@ extension CloudKitClient {
                 fetchActivityRequest.predicate = NSPredicate(format: "ckRecordIdName = %@", ckActivity.recordID.recordName)
                 fetchActivityRequest.sortDescriptors = []
                 
-                let fetchedActivityResults = try! CoreDataStackManager.mainContext.fetch(fetchActivityRequest)
+                let fetchedActivityResults = try! self.mainContext.fetch(fetchActivityRequest)
                 print(fetchedActivityResults)
 
                 switch fetchedActivityResults.count {
@@ -176,7 +181,7 @@ extension CloudKitClient {
                     let activity = fetchedActivityResults.first!
                     activity.encodedCKRecord = ckActivity.encodedCKRecordSystemFields
                 case 0:
-                    let activity = Activity(context: CoreDataStackManager.mainContext, ckRecord: ckActivity)
+                    let activity = Activity(context: self.mainContext, ckRecord: ckActivity)
                     if let projectRef = ckActivity[Activity.Keys.Project] as? CKReference {
                         
                         let ckProject = ckProjectList.filter({ (ckRecord) -> Bool in
@@ -186,7 +191,7 @@ extension CloudKitClient {
                         let fetchProjectRequest: NSFetchRequest<Project> = Project.fetchRequest() as NSFetchRequest
                         fetchProjectRequest.predicate = NSPredicate(format: "encodedCKRecord = %@", ckProject.encodedCKRecordSystemFields as NSData)
                         
-                        let fetchedProjectResults = try! CoreDataStackManager.mainContext.fetch(fetchProjectRequest)
+                        let fetchedProjectResults = try! self.mainContext.fetch(fetchProjectRequest)
                         activity.project = fetchedProjectResults.first
                     }
                 default:
@@ -194,7 +199,7 @@ extension CloudKitClient {
                 }
             }
             
-            CoreDataStackManager.saveMainContext()
+            self.coreDataStack.saveMainContext()
         }
     }
     
@@ -224,10 +229,10 @@ extension CloudKitClient {
         group.notify(queue: .main)  {
             for ckProject in ckProjectList {
                 // TODO: Check for existing record
-                _ = Project(context: CoreDataStackManager.mainContext, ckRecord: ckProject)
+                _ = Project(context: self.mainContext, ckRecord: ckProject)
             }
             
-            CoreDataStackManager.saveMainContext()
+            self.coreDataStack.saveMainContext()
         }
     }
     

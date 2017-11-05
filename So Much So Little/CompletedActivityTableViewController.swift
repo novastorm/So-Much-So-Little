@@ -44,7 +44,7 @@ class CompletedActivityTableViewController: UITableViewController {
         fetchRequest.predicate = NSPredicate(format: "(completed == YES) AND (kind != \(Activity.Kind.reference.rawValue))")
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: Activity.Keys.CompletedDate, ascending: true)]
         
-        let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.sharedContext, sectionNameKeyPath: nil, cacheName: nil)
+        let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.mainContext, sectionNameKeyPath: nil, cacheName: nil)
         
         return fetchedResultsController
     }()
@@ -54,7 +54,7 @@ class CompletedActivityTableViewController: UITableViewController {
         fetchRequest.predicate = NSPredicate(format: "completed == YES")
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: Project.Keys.CompletedDate, ascending: true)]
         
-        let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.sharedContext, sectionNameKeyPath: nil, cacheName: nil)
+        let fetchedResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.mainContext, sectionNameKeyPath: nil, cacheName: nil)
         
         return fetchedResultsController
     }()
@@ -62,14 +62,16 @@ class CompletedActivityTableViewController: UITableViewController {
     // lazy var activityFRC
     // lazy var projectFRC
     
-    var sharedContext: NSManagedObjectContext {
-        return CoreDataStackManager.mainContext
+    var coreDataStack: CoreDataStack {
+        return AppDelegate.coreDataStack
+    }
+
+    var mainContext: NSManagedObjectContext {
+        return coreDataStack.mainContext
     }
     
     func saveSharedContext() {
-        performUIUpdatesOnMain {
-            CoreDataStackManager.saveMainContext()
-        }
+        coreDataStack.saveMainContext()
     }
     
     

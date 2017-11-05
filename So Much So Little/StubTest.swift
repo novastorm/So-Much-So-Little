@@ -14,7 +14,7 @@ class StubTest: UIViewController {
     @IBAction func callFirstLaunch(_ sender: AnyObject) {
         print("callFirstLaunch")
         
-        try! CoreDataStackManager.sharedInstance.dropAllData()
+        try! AppDelegate.coreDataStack.dropAllData()
 
         UserDefaults.standard.set(false, forKey: AppDelegate.UserDefaultKeys.HasLaunchedBefore)
 

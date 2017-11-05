@@ -35,16 +35,20 @@ class TimerViewController: UIViewController {
     
     // MARK: - Core Data convenience methods
     
-    var sharedContext: NSManagedObjectContext {
-        return CoreDataStackManager.mainContext
+    var coreDataStack: CoreDataStack {
+        return AppDelegate.coreDataStack
+    }
+
+    var mainContext: NSManagedObjectContext {
+        return coreDataStack.mainContext
     }
     
     lazy var temporaryContext: NSManagedObjectContext = {
-        return CoreDataStackManager.getTemporaryContext(withName: "TempActivityNote")
+        return coreDataStack.getTemporaryContext(withName: "TempActivityNote")
     }()
     
     func saveTemporaryContext() {
-        CoreDataStackManager.saveTemporaryContext(temporaryContext)
+        coreDataStack.saveTemporaryContext(temporaryContext)
     }
 
     

@@ -32,14 +32,16 @@ class ActivityTableViewController: UITableViewController {
         return fetchedResultsController
     }()
     
+    var coreDataStack: CoreDataStack {
+        return AppDelegate.coreDataStack
+    }
+
     var mainContext: NSManagedObjectContext {
-        return CoreDataStackManager.mainContext
+        return coreDataStack.mainContext
     }
     
     func saveMainContext() {
-        performUIUpdatesOnMain {
-            CoreDataStackManager.saveMainContext()
-        }
+        coreDataStack.saveMainContext()
     }
     
     

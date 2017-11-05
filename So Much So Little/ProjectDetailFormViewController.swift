@@ -40,16 +40,20 @@ class ProjectDetailFormViewController: FormViewController {
     
     // MARK: - Core Data convenience methods
     
-    var sharedContext: NSManagedObjectContext {
-        return CoreDataStackManager.mainContext
+    var coreDataStack: CoreDataStack {
+        return AppDelegate.coreDataStack
+    }
+
+    var mainContext: NSManagedObjectContext {
+        return coreDataStack.mainContext
     }
     
     lazy var temporaryContext: NSManagedObjectContext = {
-        return CoreDataStackManager.getTemporaryContext(withName: "TempProject")
+        return coreDataStack.getTemporaryContext(withName: "TempProject")
     }()
     
     func saveTemporaryContext() {
-        CoreDataStackManager.saveTemporaryContext(temporaryContext)
+        coreDataStack.saveTemporaryContext(temporaryContext)
     }
     
     lazy var activityFRC: NSFetchedResultsController<Activity> = {
@@ -58,7 +62,7 @@ class ProjectDetailFormViewController: FormViewController {
         fetchRequest.sortDescriptors = [
             NSSortDescriptor(key: Activity.Keys.Completed, ascending: true)
         ]
-        let frc = NSFetchedResultsController<Activity>(fetchRequest: fetchRequest, managedObjectContext: self.sharedContext, sectionNameKeyPath: nil, cacheName: nil)
+        let frc = NSFetchedResultsController<Activity>(fetchRequest: fetchRequest, managedObjectContext: self.mainContext, sectionNameKeyPath: nil, cacheName: nil)
         
         return frc
     }()

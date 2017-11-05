@@ -95,7 +95,7 @@ class CoreDataStack {
 // MARK: - Temporary Context {
 extension CoreDataStack {
     
-    func getTemporaryContext(withName name: String) -> NSManagedObjectContext {
+    func getTemporaryContext(withName name: String = "Temporary") -> NSManagedObjectContext {
         let tempContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
         tempContext.name = name
         tempContext.parent = mainContext
@@ -104,7 +104,7 @@ extension CoreDataStack {
     }
     
     // must call within context
-    func saveTempContext(_ context: NSManagedObjectContext) {
+    func saveTemporaryContext(_ context: NSManagedObjectContext) {
         context.perform {
             guard context.hasChanges else {
                 return

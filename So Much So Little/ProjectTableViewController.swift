@@ -22,19 +22,21 @@ class ProjectTableViewController: UITableViewController {
         fetchRequest.predicate = NSPredicate(format: "completed != YES")
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: Project.Keys.DisplayOrder, ascending: true)]
         
-        let fetchResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.sharedContext, sectionNameKeyPath: nil, cacheName: nil)
+        let fetchResultsController = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.mainContext, sectionNameKeyPath: nil, cacheName: nil)
         
         return fetchResultsController
     }()
     
-    var sharedContext: NSManagedObjectContext {
-        return CoreDataStackManager.mainContext
+    var coreDataStack: CoreDataStack {
+        return AppDelegate.coreDataStack
     }
     
-    func saveSharedContext() {
-        performUIUpdatesOnMain {
-            CoreDataStackManager.saveMainContext()
-        }
+    var mainContext: NSManagedObjectContext {
+        return coreDataStack.mainContext
+    }
+    
+    func saveMainContext() {
+        coreDataStack.saveMainContext()
     }
     
     
@@ -151,6 +153,6 @@ extension ProjectTableViewController: NSFetchedResultsControllerDelegate {
             }
         }
 
-        saveSharedContext()
+        saveMainContext()
     }
 }

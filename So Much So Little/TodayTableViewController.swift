@@ -24,8 +24,12 @@ class TodayTableViewController: UITableViewController {
     var snapshot: UIView!
     var moveIndexPathSource: IndexPath!
     
-    var sharedContext: NSManagedObjectContext {
-        return CoreDataStackManager.mainContext
+    var coreDataStack: CoreDataStack {
+        return AppDelegate.coreDataStack
+    }
+    
+    var mainContext: NSManagedObjectContext {
+        return self.coreDataStack.mainContext
     }
     
     lazy var fetchedResultsController: NSFetchedResultsController<Activity> = {
@@ -33,14 +37,14 @@ class TodayTableViewController: UITableViewController {
         fetchRequest.predicate = NSPredicate(format: "(today == YES) AND (completed != YES) AND (kind != \(Activity.Kind.reference.rawValue))")
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: Activity.Keys.TodayDisplayOrder, ascending: true)]
         
-        let fetchedResultsController =  NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.sharedContext, sectionNameKeyPath: nil, cacheName: nil)
+        let fetchedResultsController =  NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: mainContext, sectionNameKeyPath: nil, cacheName: nil)
         
         return fetchedResultsController
     }()
     
     func saveSharedContext() {
         performUIUpdatesOnMain {
-            CoreDataStackManager.saveMainContext()
+            self.coreDataStack.saveMainContext()
         }
     }
     

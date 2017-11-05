@@ -10,11 +10,11 @@ import Reachability
 
 func checkNetworkConnection(_ hostname: String?, completionHandler: (_ success: Bool, _ error: NSError?) -> Void) {
     
-    var reachability: Reachability?
+    var reachability: Reachability!
     
-    reachability = (hostname == nil) ? Reachability() : Reachability(hostname: hostname!)
+    reachability = (hostname == nil) ? Reachability()! : Reachability(hostname: hostname!)!
     
-    guard reachability?.connection != .none else {
+    guard reachability.connection != .none else {
         // Debug without network
         if (UIApplication.shared.delegate as! AppDelegate).debugWithoutNetwork {
             completionHandler(true, nil)

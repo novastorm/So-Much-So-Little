@@ -47,22 +47,26 @@ class ActivityDetailFormViewController: FormViewController {
     
     // MARK: - Core Data convenience methods
     
-    var sharedContext: NSManagedObjectContext {
-        return CoreDataStackManager.mainContext
+    var coreDataStack: CoreDataStack {
+        return AppDelegate.coreDataStack
+    }
+    
+    var mainContext: NSManagedObjectContext {
+        return coreDataStack.mainContext
     }
 
     lazy var temporaryContext: NSManagedObjectContext = {
-        return CoreDataStackManager.getTemporaryContext(withName: "TempActivity")
+        return coreDataStack.getTemporaryContext(withName: "TempActivity")
     }()
     
     func saveTemporaryContext() {
-        CoreDataStackManager.saveTemporaryContext(temporaryContext)
+        coreDataStack.saveTemporaryContext(temporaryContext)
     }
     
     lazy var projectFRC: NSFetchedResultsController<Project> = {
         let fetchRequest = Project.fetchRequest() as NSFetchRequest<Project>
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: Project.Keys.Name, ascending: true)]
-        let frc = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: self.sharedContext, sectionNameKeyPath: nil, cacheName: nil)
+        let frc = NSFetchedResultsController(fetchRequest: fetchRequest, managedObjectContext: mainContext, sectionNameKeyPath: nil, cacheName: nil)
         
         return frc
     }()
@@ -119,7 +123,7 @@ class ActivityDetailFormViewController: FormViewController {
             // get project from temporary context into main context for display
             temporaryContext.performAndWait {
                 if let project = self.activity.project {
-                    let projectInContext = self.sharedContext.object(with: project.objectID) as! Project
+                    let projectInContext = self.mainContext.object(with: project.objectID) as! Project
                     row.value = projectInContext
                 }
             }
