@@ -24,8 +24,8 @@ class TimerViewController: UIViewController {
     var timer: Timer?
     var secondsCount: Int = 0
     
-    @IBOutlet weak var time10Label: UILabel!
-    @IBOutlet weak var time01Label: UILabel!
+    @IBOutlet weak var time10mLabel: UILabel!
+    @IBOutlet weak var time01mLabel: UILabel!
     @IBOutlet weak var time10sLabel: UILabel!
     @IBOutlet weak var time01sLabel: UILabel!
     @IBOutlet weak var nameLabel: UILabel!
@@ -36,7 +36,8 @@ class TimerViewController: UIViewController {
     // MARK: - Core Data convenience methods
     
     var coreDataStack: CoreDataStack {
-        return AppDelegate.coreDataStack
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        return appDelegate.coreDataStack
     }
 
     var mainContext: NSManagedObjectContext {
@@ -168,8 +169,8 @@ class TimerViewController: UIViewController {
         let seconds10 = seconds / 10
         let seconds01 = seconds % 10
         
-        time10Label.text = minutes10 > 0 ? "\(minutes10)" : "0"
-        time01Label.text = "\(minutes01)"
+        time10mLabel.text = "\(minutes10)"
+        time01mLabel.text = "\(minutes01)"
         time10sLabel.text = "\(seconds10)"
         time01sLabel.text = "\(seconds01)"
     }

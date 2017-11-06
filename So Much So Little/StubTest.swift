@@ -14,11 +14,12 @@ class StubTest: UIViewController {
     @IBAction func callFirstLaunch(_ sender: AnyObject) {
         print("callFirstLaunch")
         
-        try! AppDelegate.coreDataStack.dropAllData()
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        
+        try! appDelegate.coreDataStack.dropAllData()
 
         UserDefaults.standard.set(false, forKey: AppDelegate.UserDefaultKeys.HasLaunchedBefore)
 
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
         appDelegate.checkIfFirstLaunch()
     }
     

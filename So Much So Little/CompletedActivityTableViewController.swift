@@ -63,7 +63,8 @@ class CompletedActivityTableViewController: UITableViewController {
     // lazy var projectFRC
     
     var coreDataStack: CoreDataStack {
-        return AppDelegate.coreDataStack
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        return appDelegate.coreDataStack
     }
 
     var mainContext: NSManagedObjectContext {

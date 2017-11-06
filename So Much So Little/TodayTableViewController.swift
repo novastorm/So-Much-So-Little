@@ -25,11 +25,12 @@ class TodayTableViewController: UITableViewController {
     var moveIndexPathSource: IndexPath!
     
     var coreDataStack: CoreDataStack {
-        return AppDelegate.coreDataStack
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        return appDelegate.coreDataStack
     }
     
     var mainContext: NSManagedObjectContext {
-        return self.coreDataStack.mainContext
+        return coreDataStack.mainContext
     }
     
     lazy var fetchedResultsController: NSFetchedResultsController<Activity> = {

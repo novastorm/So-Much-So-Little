@@ -48,7 +48,8 @@ class ActivityDetailFormViewController: FormViewController {
     // MARK: - Core Data convenience methods
     
     var coreDataStack: CoreDataStack {
-        return AppDelegate.coreDataStack
+        let appDelegate = UIApplication.shared.delegate as! AppDelegate
+        return appDelegate.coreDataStack
     }
     
     var mainContext: NSManagedObjectContext {
