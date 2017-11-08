@@ -12,6 +12,7 @@ import UIKit
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var coreDataStack: CoreDataStack!
+    var connectionMonitor: ConnectionMonitor!
 
     var debugWithoutNetwork: Bool = false
 
@@ -27,6 +28,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let modelName = "So_Much_So_Little"
         coreDataStack = CoreDataStack(modelName: modelName)!
+        connectionMonitor = ConnectionMonitor(hostname: "8.8.8.8")
 
         checkIfFirstLaunch()
         coreDataStack.autoSave(60)

@@ -26,6 +26,7 @@
 		3E5685E11ED5527500B3D056 /* CloudKitClient+Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5685E01ED5527500B3D056 /* CloudKitClient+Activity.swift */; };
 		3E5685E31ED553A500B3D056 /* CloudKitClient+Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5685E21ED553A500B3D056 /* CloudKitClient+Project.swift */; };
 		3E5685F11EDCEA0C00B3D056 /* ManagedObject+CloudKitProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5685F01EDCEA0C00B3D056 /* ManagedObject+CloudKitProtocol.swift */; };
+		3E6C708A1FB17791008EE124 /* ConnectionMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C70891FB17791008EE124 /* ConnectionMonitor.swift */; };
 		3E746D121DA58BD200ABD25E /* ActivityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EE741311D1090DC00064BF6 /* ActivityTests.swift */; };
 		3E7AB57F1D31839B002F6C2D /* ActivityDetailFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7AB57E1D31839B002F6C2D /* ActivityDetailFormViewController.swift */; };
 		3E7AB5831D318A45002F6C2D /* Eureka.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3ED6DF591D2B03070064E440 /* Eureka.framework */; };
@@ -96,6 +97,7 @@
 		3E5685E01ED5527500B3D056 /* CloudKitClient+Activity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CloudKitClient+Activity.swift"; sourceTree = "<group>"; };
 		3E5685E21ED553A500B3D056 /* CloudKitClient+Project.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CloudKitClient+Project.swift"; sourceTree = "<group>"; };
 		3E5685F01EDCEA0C00B3D056 /* ManagedObject+CloudKitProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ManagedObject+CloudKitProtocol.swift"; sourceTree = "<group>"; };
+		3E6C70891FB17791008EE124 /* ConnectionMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionMonitor.swift; sourceTree = "<group>"; };
 		3E7AB57E1D31839B002F6C2D /* ActivityDetailFormViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityDetailFormViewController.swift; sourceTree = "<group>"; };
 		3E7AB5871D333343002F6C2D /* TimeboxControlRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeboxControlRow.swift; sourceTree = "<group>"; };
 		3E7AB58B1D333B25002F6C2D /* TimeboxControlCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = TimeboxControlCell.xib; sourceTree = "<group>"; };
@@ -273,6 +275,7 @@
 				3E41D0F31D8DC3B2002EAD8A /* So_Much_So_Little.xcdatamodeld */,
 				3EE741281D1090DC00064BF6 /* Info.plist */,
 				3E0977801D12015800A7F2C4 /* Utilities.swift */,
+				3E6C70891FB17791008EE124 /* ConnectionMonitor.swift */,
 				3E0977821D12064100A7F2C4 /* GCDUtilities.swift */,
 				3ED6DF5C1D2B03530064E440 /* Resources */,
 				3E95C1C31DD5409400465222 /* TypeNameExtensions.swift */,
@@ -433,6 +436,7 @@
 				3EE7411C1D1090DC00064BF6 /* TodayTableViewController.swift in Sources */,
 				3E0977831D12064100A7F2C4 /* GCDUtilities.swift in Sources */,
 				3E0977921D18CE3A00A7F2C4 /* SettingsTableViewController.swift in Sources */,
+				3E6C708A1FB17791008EE124 /* ConnectionMonitor.swift in Sources */,
 				3E0977A61D18FA7B00A7F2C4 /* Timebox+CoreDataProperties.swift in Sources */,
 				3E7AB57F1D31839B002F6C2D /* ActivityDetailFormViewController.swift in Sources */,
 				3E5685F11EDCEA0C00B3D056 /* ManagedObject+CloudKitProtocol.swift in Sources */,
