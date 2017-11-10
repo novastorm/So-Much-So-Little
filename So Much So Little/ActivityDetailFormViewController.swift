@@ -48,8 +48,7 @@ class ActivityDetailFormViewController: FormViewController {
     // MARK: - Core Data convenience methods
     
     var coreDataStack: CoreDataStack {
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        return appDelegate.coreDataStack
+        return CoreDataStackManager.shared
     }
     
     var mainContext: NSManagedObjectContext {
@@ -61,6 +60,7 @@ class ActivityDetailFormViewController: FormViewController {
     }()
     
     func saveTemporaryContext() {
+        
         coreDataStack.saveTemporaryContext(temporaryContext)
     }
     
@@ -286,7 +286,6 @@ class ActivityDetailFormViewController: FormViewController {
             self.activity.scheduledStart = formValues[FormInput.ScheduledStart.rawValue] as? Activity.ScheduledStartType
             self.activity.name = formValues[FormInput.Name.rawValue] as! Activity.NameType
             self.activity.today = formValues[FormInput.Today.rawValue] as? Activity.TodayType ?? false
-            
             
             self.saveTemporaryContext()
         }

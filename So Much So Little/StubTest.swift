@@ -11,12 +11,18 @@ import UIKit
 
 class StubTest: UIViewController {
     
+    var appDelegate: AppDelegate {
+        return UIApplication.shared.delegate as! AppDelegate
+    }
+    
+    var coreDataStack: CoreDataStack {
+        return CoreDataStackManager.shared
+    }
+    
     @IBAction func callFirstLaunch(_ sender: AnyObject) {
         print("callFirstLaunch")
         
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        
-        try! appDelegate.coreDataStack.dropAllData()
+        try! coreDataStack.dropAllData()
 
         UserDefaults.standard.set(false, forKey: AppDelegate.UserDefaultKeys.HasLaunchedBefore)
 

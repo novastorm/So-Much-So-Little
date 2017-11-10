@@ -16,8 +16,7 @@ extension CloudKitClient {
     // MARK: - Core Data convenience methods
     
     static var coreDataStack: CoreDataStack {
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        return appDelegate.coreDataStack
+        return CoreDataStackManager.shared
     }
     
     static var mainContext: NSManagedObjectContext {

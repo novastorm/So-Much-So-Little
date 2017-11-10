@@ -33,8 +33,7 @@ class ActivityTableViewController: UITableViewController {
     }()
     
     var coreDataStack: CoreDataStack {
-        let appDelegate = UIApplication.shared.delegate as! AppDelegate
-        return appDelegate.coreDataStack
+        return CoreDataStackManager.shared
     }
 
     var mainContext: NSManagedObjectContext {
