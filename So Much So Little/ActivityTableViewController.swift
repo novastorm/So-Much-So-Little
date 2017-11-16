@@ -59,6 +59,7 @@ class ActivityTableViewController: UITableViewController {
         let longPress = UILongPressGestureRecognizer(target: self, action: #selector(longPressGestureRecognized(_:)))
         
         tableView.addGestureRecognizer(longPress)
+        refreshControl?.addTarget(self, action: #selector(refreshActivityIndexFromRemote(_:)), for: .valueChanged)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -159,6 +160,12 @@ class ActivityTableViewController: UITableViewController {
     
     @objc func createActivity() {
         performSegue(withIdentifier: "CreateActivityDetail", sender: self)
+    }
+    
+    @objc
+    private func refreshActivityIndexFromRemote(_ sender: Any) {
+        print("\(#function)")
+        refreshControl?.endRefreshing()
     }
 }
 
