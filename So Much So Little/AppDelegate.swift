@@ -25,7 +25,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
-        connectionMonitor = ConnectionMonitor(hostname: "8.8.8.8")
+        connectionMonitor = ConnectionMonitor.init(hostname: "8.8.8.8")
 
         checkIfFirstLaunch()
         CoreDataStackManager.shared.autoSave(60)

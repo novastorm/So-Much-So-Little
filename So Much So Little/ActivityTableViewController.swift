@@ -164,8 +164,11 @@ class ActivityTableViewController: UITableViewController {
     
     @objc
     private func refreshActivityIndexFromRemote(_ sender: Any) {
-        print("\(#function)")
-        refreshControl?.endRefreshing()
+        performUIUpdatesOnMain {
+            print("\(#function)")
+            self.tableView.reloadData()
+            self.refreshControl?.endRefreshing()
+        }
     }
 }
 
