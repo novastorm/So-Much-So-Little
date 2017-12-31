@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="WIe-Q1-owG">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13771" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="WIe-Q1-owG">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13772"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -72,7 +72,7 @@
         <!--Activity Timer-->
         <scene sceneID="c2z-WK-GHw">
             <objects>
-                <viewController id="Jey-R4-xw8" customClass="TimerViewController" customModule="So_Much_So_Little" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ActivityTime" id="Jey-R4-xw8" customClass="TimerViewController" customModule="So_Much_So_Little" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="2qJ-fe-SFi"/>
                         <viewControllerLayoutGuide type="bottom" id="pGC-Nd-L8G"/>
@@ -82,7 +82,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" alignment="top" baselineRelativeArrangement="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LDh-Nr-5uf">
-                                <rect key="frame" x="90" y="115" width="195" height="86"/>
+                                <rect key="frame" x="90" y="71" width="195" height="86"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="none" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3BY-lt-XNQ" userLabel="Time 10">
                                         <rect key="frame" x="0.0" y="0.0" width="44" height="86"/>
@@ -144,7 +144,7 @@
                                 </subviews>
                             </stackView>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsVerticalScrollIndicator="NO" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ol3-HD-sWB">
-                                <rect key="frame" x="16" y="282" width="343" height="128"/>
+                                <rect key="frame" x="16" y="238" width="343" height="128"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="128" id="oRE-k3-drW"/>
@@ -153,7 +153,7 @@
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="U5M-ZV-Rcz" userLabel="Start/Interrupt">
-                                <rect key="frame" x="157.5" y="444" width="60" height="30"/>
+                                <rect key="frame" x="157.5" y="400" width="60" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="60" id="h42-cK-qY6"/>
                                 </constraints>
@@ -165,12 +165,9 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vz6-MS-2cl">
                                 <rect key="frame" x="156" y="617" width="63" height="30"/>
                                 <state key="normal" title="Activities"/>
-                                <connections>
-                                    <segue destination="PhA-1q-RbD" kind="show" identifier="ShowActivityTab" id="hTK-aX-Nxo"/>
-                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Generic" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CVh-Kw-CXq">
-                                <rect key="frame" x="16" y="253" width="343" height="21"/>
+                                <rect key="frame" x="16" y="209" width="343" height="21"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="21" id="7NC-KV-gJT"/>
                                 </constraints>
@@ -206,7 +203,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lpb-dT-wfI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-855.20000000000005" y="1107.7961019490256"/>
+            <point key="canvasLocation" x="-870" y="1824"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="M0B-wS-g7L">
@@ -224,7 +221,6 @@
                         <segue destination="Ueo-0G-NJy" kind="relationship" relationship="viewControllers" id="XjF-up-3Ly"/>
                         <segue destination="FaB-wC-3lj" kind="relationship" relationship="viewControllers" id="uz5-a4-tsp"/>
                         <segue destination="G0c-co-57l" kind="relationship" relationship="viewControllers" id="Zxh-To-Vek"/>
-                        <segue destination="L2O-ph-Wuq" kind="relationship" relationship="viewControllers" id="eu1-o8-B2L"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oPf-ys-JxG" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -276,6 +272,7 @@
                     <tabBarItem key="tabBarItem" title="Activity" id="1rc-fc-8ym"/>
                     <navigationItem key="navigationItem" title="Activity" id="kvl-Lb-5Px"/>
                     <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="LIC-IS-qX3">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </refreshControl>
                     <connections>
@@ -414,7 +411,7 @@
         <!--Settings-->
         <scene sceneID="qRm-jd-aqq">
             <objects>
-                <tableViewController title="Settings" id="L2O-ph-Wuq" customClass="SettingsTableViewController" customModule="So_Much_So_Little" customModuleProvider="target" sceneMemberID="viewController">
+                <tableViewController storyboardIdentifier="Settings" title="Settings" id="L2O-ph-Wuq" customClass="SettingsTableViewController" customModule="So_Much_So_Little" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" id="ukW-Bd-aab">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -528,78 +525,12 @@
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
-                        <segue destination="Jey-R4-xw8" kind="relationship" relationship="rootViewController" id="uRI-ea-F11"/>
+                        <segue destination="PhA-1q-RbD" kind="relationship" relationship="rootViewController" id="fyu-n1-yQN"/>
                     </connections>
                 </navigationController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vut-LP-KiY" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-1796" y="1108"/>
-        </scene>
-        <!--Stub Test-->
-        <scene sceneID="ipv-eQ-IXg">
-            <objects>
-                <viewController id="ZYg-yK-MZW" customClass="StubTest" customModule="So_Much_So_Little" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="9YQ-eq-OZ7"/>
-                        <viewControllerLayoutGuide type="bottom" id="V2b-Z0-sG2"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="JVy-Ag-RWy">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="6Fb-dT-VgO">
-                                <rect key="frame" x="16" y="20" width="343" height="647"/>
-                                <subviews>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mZ5-zs-BiJ">
-                                        <rect key="frame" x="0.0" y="0.0" width="343" height="129.5"/>
-                                        <state key="normal" title="resetData"/>
-                                        <connections>
-                                            <action selector="callFirstLaunch:" destination="ZYg-yK-MZW" eventType="touchUpInside" id="Wys-IV-KCi"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gSA-nA-RlX">
-                                        <rect key="frame" x="0.0" y="129.5" width="343" height="129.5"/>
-                                        <state key="normal" title="ActivityList"/>
-                                        <connections>
-                                            <action selector="getActivityList:" destination="ZYg-yK-MZW" eventType="touchUpInside" id="bLK-Gt-bXK"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jDx-pw-kbT">
-                                        <rect key="frame" x="0.0" y="259" width="343" height="129"/>
-                                        <state key="normal" title="ShowActivity"/>
-                                        <connections>
-                                            <action selector="showActivity:" destination="ZYg-yK-MZW" eventType="touchUpInside" id="wRg-bK-2ZS"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pee-nX-EaW">
-                                        <rect key="frame" x="0.0" y="388" width="343" height="129.5"/>
-                                        <state key="normal" title="StoreActivity"/>
-                                        <connections>
-                                            <action selector="storeActivity:" destination="ZYg-yK-MZW" eventType="touchUpInside" id="53Q-h4-Rz4"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Th3-r3-fiB">
-                                        <rect key="frame" x="0.0" y="517.5" width="343" height="129.5"/>
-                                        <state key="normal" title="MainApp"/>
-                                        <connections>
-                                            <segue destination="WIe-Q1-owG" kind="show" id="K0t-PS-mve"/>
-                                        </connections>
-                                    </button>
-                                </subviews>
-                            </stackView>
-                        </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                        <constraints>
-                            <constraint firstItem="6Fb-dT-VgO" firstAttribute="top" secondItem="9YQ-eq-OZ7" secondAttribute="bottom" id="Qmq-wA-dLj"/>
-                            <constraint firstItem="V2b-Z0-sG2" firstAttribute="top" secondItem="6Fb-dT-VgO" secondAttribute="bottom" id="R77-Br-YkC"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="6Fb-dT-VgO" secondAttribute="trailing" id="WZs-fq-raO"/>
-                            <constraint firstItem="6Fb-dT-VgO" firstAttribute="leading" secondItem="JVy-Ag-RWy" secondAttribute="leadingMargin" id="h9s-oF-Ft8"/>
-                        </constraints>
-                    </view>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="oCS-yL-EeV" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-1796" y="1824"/>
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
