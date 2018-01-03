@@ -11,9 +11,9 @@ import UIKit
 
 class ActivityTableViewController: UITableViewController {
     
-    var insertedIndexPaths = [IndexPath]()
-    var deletedIndexPaths = [IndexPath]()
-    var updatedIndexPaths = [IndexPath]()
+    var insertedIndexPaths: [IndexPath]!
+    var deletedIndexPaths: [IndexPath]!
+    var updatedIndexPaths: [IndexPath]!
     
     var snapshot: UIView!
     var moveIndexPathSource: IndexPath!
@@ -70,6 +70,9 @@ class ActivityTableViewController: UITableViewController {
         tableView.reloadData()
     }
     
+    
+    // MARK: - Segue
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "ShowActivityDetail" {
             guard let indexPath = tableView.indexPathForSelectedRow else {
@@ -82,7 +85,7 @@ class ActivityTableViewController: UITableViewController {
     }
     
     
-    // MARK: - Actions
+    // MARK: - Helpers
     
     @objc func longPressGestureRecognized(_ sender: AnyObject) {
         
@@ -124,13 +127,15 @@ class ActivityTableViewController: UITableViewController {
                 }
             )
         case .changed:
+            // move snapshot
             var center = snapshot.center
-            var activityList = fetchedResultsController.fetchedObjects!
             center.y = location.y
             snapshot.center = center
             
-            guard let indexPath = indexPath , indexPath != moveIndexPathSource else { break }
-            
+            guard let indexPath = indexPath, indexPath != moveIndexPathSource else { break }
+
+            var activityList = fetchedResultsController.fetchedObjects!
+
             tableView.moveRow(at: moveIndexPathSource, to: indexPath)
             
             let src = moveIndexPathSource.row
@@ -138,7 +143,7 @@ class ActivityTableViewController: UITableViewController {
             (activityList[dst].displayOrder, activityList[src].displayOrder) = (activityList[src].displayOrder, activityList[dst].displayOrder)
             
             moveIndexPathSource = indexPath
-        default:
+        case .ended:
             let cell = tableView.cellForRow(at: moveIndexPathSource)!
             cell.isHidden = false
             cell.alpha = 0.0
@@ -150,20 +155,40 @@ class ActivityTableViewController: UITableViewController {
                     self.snapshot.alpha = 0.0
                     
                     cell.alpha = 1.0
-                }, completion: { (finished) in
+                },
+                completion: { (finished) in
                     self.moveIndexPathSource = nil
                     self.snapshot.removeFromSuperview()
                     self.snapshot = nil
-            })
+                })
+//            saveMainContext()
+        default:
+            break
         }
     }
     
+    func customSnapshotFromView(_ inputView: UIView) -> UIView {
+        UIGraphicsBeginImageContextWithOptions(inputView.bounds.size, false, 0)
+        inputView.layer.render(in: UIGraphicsGetCurrentContext()!)
+        
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        let snapshot = UIImageView(image: image)
+        snapshot.layer.masksToBounds = false
+        snapshot.layer.cornerRadius = 0.0
+        snapshot.layer.shadowOffset = CGSize(width: -5.0, height: 0.0)
+        snapshot.layer.shadowRadius = 5.0
+        snapshot.layer.shadowOpacity = 0.4
+        
+        return snapshot
+    }
+
     @objc func createActivity() {
         performSegue(withIdentifier: "CreateActivityDetail", sender: self)
     }
     
-    @objc
-    private func refreshActivityIndexFromRemote(_ sender: Any) {
+    @objc private func refreshActivityIndexFromRemote(_ sender: Any) {
         performUIUpdatesOnMain {
             print("\(#function)")
             self.tableView.reloadData()
@@ -262,10 +287,6 @@ extension ActivityTableViewController {
         
         return [todayOption, completedOption]
     }
-    
-    override func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        print("move row")
-    }
 }
 
 
@@ -306,6 +327,7 @@ extension ActivityTableViewController: NSFetchedResultsControllerDelegate {
         tableView.endUpdates()
         
         let activityList = fetchedResultsController.fetchedObjects!
+        
         for (i, record) in activityList.enumerated() {
             let i = Activity.DisplayOrderType(i)
             if record.displayOrder != i {
@@ -313,28 +335,6 @@ extension ActivityTableViewController: NSFetchedResultsControllerDelegate {
             }
         }
 
-        saveMainContext()
-    }
-}
-
-
-// MARK: - Helpers
-
-extension ActivityTableViewController {
-    func customSnapshotFromView(_ inputView: UIView) -> UIView {
-        UIGraphicsBeginImageContextWithOptions(inputView.bounds.size, false, 0)
-        inputView.layer.render(in: UIGraphicsGetCurrentContext()!)
-        
-        let image = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        
-        let snapshot = UIImageView(image: image)
-        snapshot.layer.masksToBounds = false
-        snapshot.layer.cornerRadius = 0.0
-        snapshot.layer.shadowOffset = CGSize(width: -5.0, height: 0.0)
-        snapshot.layer.shadowRadius = 5.0
-        snapshot.layer.shadowOpacity = 0.4
-        
-        return snapshot
+//        saveMainContext()
     }
 }

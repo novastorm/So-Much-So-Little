@@ -199,7 +199,7 @@ extension CloudKitClient {
                 }
             }
             
-            self.coreDataStack.saveMainContext()
+//            self.coreDataStack.saveMainContext()
         }
     }
     

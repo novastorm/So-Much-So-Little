@@ -29,7 +29,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
         checkIfFirstLaunch()
         CoreDataStackManager.shared.autoSave(60)
-//        CloudKitClient.importRecords()
+        CloudKitClient.importRecords()
         return true
     }
 

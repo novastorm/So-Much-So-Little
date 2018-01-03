@@ -15,10 +15,15 @@ class ProjectTableViewController: UITableViewController {
     var deletedIndexPaths: [IndexPath]!
     var updatedIndexPaths: [IndexPath]!
     
+    var snapshot: UIView!
+    var moveIndexPathSource: IndexPath!
+    
+    
     // MARK: - Core Data Utilities
     
     lazy var fetchedResultsController: NSFetchedResultsController<Project> = {
         let fetchRequest = Project.fetchRequest() as NSFetchRequest<Project>
+        // get Project that are not complete
         fetchRequest.predicate = NSPredicate(format: "completed != YES")
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: Project.Keys.DisplayOrder, ascending: true)]
         
@@ -50,12 +55,18 @@ class ProjectTableViewController: UITableViewController {
         fetchedResultsController.delegate = self
         
         try! fetchedResultsController.performFetch()
+        
+        let longPress = UILongPressGestureRecognizer(target: self, action: #selector(longPresssGestureRecognizer(_:)))
+        
+        tableView.addGestureRecognizer(longPress)
+        refreshControl?.addTarget(self, action: #selector(refreshProjectIndexFromRemote(_:)), for: .valueChanged)
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         tabBarController?.navigationItem.title = "Project"
         tabBarController?.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(createProject))
+        try! fetchedResultsController.performFetch()
         tableView.reloadData()
     }
     
@@ -69,12 +80,116 @@ class ProjectTableViewController: UITableViewController {
             destinationVC.project = fetchedResultsController.object(at: indexPath)
         }
     }
+
     
+    // MARK: - Helpers
     
-    // MARK: - Actions
+    @objc func longPresssGestureRecognizer(_ sender: AnyObject) {
+        
+        // retrieve longPress details and target indexPath
+        let longPress = sender as! UILongPressGestureRecognizer
+        let state = longPress.state
+        
+        let location = longPress.location(in: tableView)
+        let indexPath = tableView.indexPathForRow(at: location)
+        
+        // generate snapshot of target row
+        
+        switch state {
+        case .began:
+            if indexPath == nil { break }
+            
+            moveIndexPathSource = indexPath
+            
+            let cell = tableView.cellForRow(at: moveIndexPathSource)!
+            
+            snapshot = customSnapshotFromView(cell)
+            
+            var center = cell.center
+            snapshot.center = center
+            snapshot.alpha = 0.0
+            tableView.addSubview(snapshot)
+            
+            UIView.animate(
+                withDuration: 0.25,
+                animations: {
+                    center.y = location.y
+                    self.snapshot.center = center
+                    self.snapshot.alpha = 0.75
+                    
+                    cell.alpha = 0.0
+                },
+                completion: { (finished) in
+                    cell.isHidden = true
+                }
+            )
+        case .changed:
+            // move snapshot
+            var center = snapshot.center
+            center.y = location.y
+            snapshot.center = center
+            
+            guard let indexPath = indexPath, indexPath != moveIndexPathSource else { break }
+
+            var projectList = fetchedResultsController.fetchedObjects!
+
+            tableView.moveRow(at: moveIndexPathSource, to: indexPath)
+            
+            let src = moveIndexPathSource.row
+            let dst = (indexPath as NSIndexPath).row
+            (projectList[dst].displayOrder, projectList[src].displayOrder) = (projectList[src].displayOrder, projectList[dst].displayOrder)
+            
+            moveIndexPathSource = indexPath
+        case.ended:
+            let cell = tableView.cellForRow(at: moveIndexPathSource)!
+            cell.isHidden = false
+            cell.alpha = 0.0
+            
+            UIView.animate(
+                withDuration: 0.25,
+                animations: {
+                    self.snapshot.center = cell.center
+                    self.snapshot.alpha = 0.0
+                    
+                    cell.alpha = 1.0
+                },
+                completion: { (finished) in
+                    self.moveIndexPathSource = nil
+                    self.snapshot.removeFromSuperview()
+                    self.snapshot = nil
+                })
+        default:
+            break
+        }
+    }
+    
+    func customSnapshotFromView(_ inputView: UIView) -> UIView {
+        UIGraphicsBeginImageContextWithOptions(inputView.bounds.size, false, 0)
+        inputView.layer.render(in: UIGraphicsGetCurrentContext()!)
+        
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        let snapshot = UIImageView(image: image)
+        snapshot.layer.masksToBounds = false
+        snapshot.layer.cornerRadius = 0.0
+        snapshot.layer.shadowOffset = CGSize(width: -5.0, height: 0.0)
+        snapshot.layer.shadowRadius = 5.0
+        snapshot.layer.shadowOpacity = 0.4
+        
+        return snapshot
+    }
     
     @objc func createProject() {
         performSegue(withIdentifier: "CreateProjectDetail", sender: self)
+    }
+    
+    @objc private func refreshProjectIndexFromRemote(_ sender: Any) {
+        performUIUpdatesOnMain {
+            print("\(#function)")
+            self.tableView.reloadData()
+            self.refreshControl?.endRefreshing()
+        }
     }
 }
 
@@ -106,12 +221,10 @@ extension ProjectTableViewController {
 }
 
 
-// MARK: - Table View Delegate
-
-
 // MARK: - Fetched Results Controller Delegate
 
 extension ProjectTableViewController: NSFetchedResultsControllerDelegate {
+    
     func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         
         insertedIndexPaths = [IndexPath]()
@@ -153,6 +266,6 @@ extension ProjectTableViewController: NSFetchedResultsControllerDelegate {
             }
         }
 
-        saveMainContext()
+//        saveMainContext()
     }
 }

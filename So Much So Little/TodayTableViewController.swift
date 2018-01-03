@@ -24,16 +24,12 @@ class TodayTableViewController: UITableViewController {
     var snapshot: UIView!
     var moveIndexPathSource: IndexPath!
     
-    var coreDataStack: CoreDataStack {
-        return CoreDataStackManager.shared
-    }
     
-    var mainContext: NSManagedObjectContext {
-        return coreDataStack.mainContext
-    }
+    // MARK: - Core Data Utilities
     
     lazy var fetchedResultsController: NSFetchedResultsController<Activity> = {
         let fetchRequest = Activity.fetchRequest() as NSFetchRequest<Activity>
+        
         fetchRequest.predicate = NSPredicate(format: "(today == YES) AND (completed != YES) AND (kind != \(Activity.Kind.reference.rawValue))")
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: Activity.Keys.TodayDisplayOrder, ascending: true)]
         
@@ -42,11 +38,18 @@ class TodayTableViewController: UITableViewController {
         return fetchedResultsController
     }()
     
-    func saveSharedContext() {
-        performUIUpdatesOnMain {
-            self.coreDataStack.saveMainContext()
-        }
+    var coreDataStack: CoreDataStack {
+        return CoreDataStackManager.shared
     }
+    
+    var mainContext: NSManagedObjectContext {
+        return coreDataStack.mainContext
+    }
+
+    func saveSharedContext() {
+        coreDataStack.saveMainContext()
+    }
+    
     
     // MARK: - View Lifecycle
     
@@ -68,13 +71,28 @@ class TodayTableViewController: UITableViewController {
         super.viewDidAppear(animated)
         tabBarController?.title = "Today"
         tabBarController?.navigationItem.rightBarButtonItem = nil
+        try! fetchedResultsController.performFetch()
         tableView.reloadData()
     }
     
     
-    // MARK: - Actions
+    // MARK: - Segue
     
-    @IBAction func longPressGestureRecognized(_ sender: AnyObject) {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "ShowTodayActivityDetail" {
+            guard let indexPath = tableView.indexPathForSelectedRow else {
+                return
+            }
+            let destinationVC = segue.destination as! ActivityDetailFormViewController
+            
+            destinationVC.activity = fetchedResultsController.object(at: indexPath)
+        }
+    }
+
+    
+    // MARK: - Helpers
+    
+    @objc func longPressGestureRecognized(_ sender: AnyObject) {
         
         // retrieve longPress details and target indexPath
         let longPress = sender as! UILongPressGestureRecognizer
@@ -114,13 +132,14 @@ class TodayTableViewController: UITableViewController {
                 }
             )
         case .changed:
+            // move snapshot
             var center = snapshot.center
-            var activityList = fetchedResultsController.fetchedObjects!
-
             center.y = location.y
             snapshot.center = center
             
             guard let indexPath = indexPath, indexPath != moveIndexPathSource else { break }
+            
+            var activityList = fetchedResultsController.fetchedObjects!
             
             tableView.moveRow(at: moveIndexPathSource, to: indexPath)
             
@@ -129,7 +148,7 @@ class TodayTableViewController: UITableViewController {
             (activityList[dst].displayOrder, activityList[src].displayOrder) = (activityList[src].displayOrder, activityList[dst].displayOrder)
 
             moveIndexPathSource = indexPath
-        default:
+        case .ended:
             let cell = tableView.cellForRow(at: moveIndexPathSource)!
             cell.isHidden = false
             cell.alpha = 0.0
@@ -141,26 +160,33 @@ class TodayTableViewController: UITableViewController {
                     self.snapshot.alpha = 0.0
                     
                     cell.alpha = 1.0
-                }, completion: { (finished) in
+                },
+                completion: { (finished) in
                     self.moveIndexPathSource = nil
                     self.snapshot.removeFromSuperview()
                     self.snapshot = nil
-            })
+                })
+//            saveMainContext()
+        default:
+            break
         }
     }
     
-    
-    // MARK: - Segue
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "ShowTodayActivityDetail" {
-            guard let indexPath = tableView.indexPathForSelectedRow else {
-                return
-            }
-            let destinationVC = segue.destination as! ActivityDetailFormViewController
-            
-            destinationVC.activity = fetchedResultsController.object(at: indexPath)
-        }
+    func customSnapshotFromView(_ inputView: UIView) -> UIView {
+        UIGraphicsBeginImageContextWithOptions(inputView.bounds.size, false, 0)
+        inputView.layer.render(in: UIGraphicsGetCurrentContext()!)
+        
+        let image = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        let snapshot = UIImageView(image: image)
+        snapshot.layer.masksToBounds = false
+        snapshot.layer.cornerRadius = 0.0
+        snapshot.layer.shadowOffset = CGSize(width: -5.0, height: 0.0)
+        snapshot.layer.shadowRadius = 5.0
+        snapshot.layer.shadowOpacity = 0.4
+        
+        return snapshot
     }
 }
 
@@ -295,28 +321,6 @@ extension TodayTableViewController: NSFetchedResultsControllerDelegate {
             }
         }
         
-        saveSharedContext()
-    }
-}
-
-
-// MARK: - Helpers
-
-extension TodayTableViewController {
-    func customSnapshotFromView(_ inputView: UIView) -> UIView {
-        UIGraphicsBeginImageContextWithOptions(inputView.bounds.size, false, 0)
-        inputView.layer.render(in: UIGraphicsGetCurrentContext()!)
-        
-        let image = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        
-        let snapshot = UIImageView(image: image)
-        snapshot.layer.masksToBounds = false
-        snapshot.layer.cornerRadius = 0.0
-        snapshot.layer.shadowOffset = CGSize(width: -5.0, height: 0.0)
-        snapshot.layer.shadowRadius = 5.0
-        snapshot.layer.shadowOpacity = 0.4
-        
-        return snapshot
+//        saveSharedContext()
     }
 }
