@@ -145,7 +145,7 @@ class TodayTableViewController: UITableViewController {
             
             let src = moveIndexPathSource.row
             let dst = (indexPath as NSIndexPath).row
-            (activityList[dst].displayOrder, activityList[src].displayOrder) = (activityList[src].displayOrder, activityList[dst].displayOrder)
+            (activityList[dst].todayDisplayOrder, activityList[src].todayDisplayOrder) = (activityList[src].todayDisplayOrder, activityList[dst].todayDisplayOrder)
 
             moveIndexPathSource = indexPath
         case .ended:
@@ -195,7 +195,7 @@ class TodayTableViewController: UITableViewController {
 
 extension TodayTableViewController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let sectionInfo =  fetchedResultsController.sections![section]
+        let sectionInfo = fetchedResultsController.sections![section]
         return sectionInfo.numberOfObjects
     }
     
