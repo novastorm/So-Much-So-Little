@@ -275,31 +275,51 @@ final public class Activity: NSManagedObject, CloudKitManagedObject {
     
     /**
      Save CloudKit object
+     
+     save core data record then update cloud kit object.
      */
     
-//    override public func didSave() {
-//        
-//        if isDeleted {
-//            print("Delete Activity [\(self.name)] didSave")
-//            return
-//        }
-//        
-//        if managedObjectContext == CoreDataStackManager.mainContext {
-//            print("Activity [\(self.name)] didSave")
-//            
-//            let activityCKRecord: CKRecord = self.cloudKitRecord
-//            
-//            CloudKitClient.storeRecord(activityCKRecord) { (ckRecord, error) in
-//                guard error == nil else {
-//                    print("Activity storeReord", error!)
-//                    return
-//                }
-//                
-//                self.managedObjectContext?.perform {
-//                    self.setPrimitiveValue(ckRecord!.encodedCKRecordSystemFields, forKey: Keys.EncodedCKRecord)
-//                }
-//                
-//            }
-//        }
-//    }    
+    override public func didSave() {
+        
+        if isDeleted {
+            print("Delete \(type(of:self)) [\(self.name)] \(#function)")
+            return
+        }
+        
+        if managedObjectContext == CoreDataStackManager.shared.mainContext {
+//            print("\(type(of:self)) [\(self.name)] \(#function)")
+            
+            let localCKRecord: CKRecord = self.cloudKitRecord
+            
+            CloudKitClient.getActivity(ckRecordIdName!) { (remoteCKRecord, error) in
+                guard error == nil else {
+                    print("Error retrieving \(type(of:self))", error!)
+                    return
+                }
+
+                let remoteCKRecord = remoteCKRecord!
+//                print("\(type(of:self)) localCKRecord", localCKRecord)
+//                print("\(type(of:self)) remoteCKRecord ", remoteCKRecord)
+                
+                for key in remoteCKRecord.allKeys() {
+                    remoteCKRecord.setObject(localCKRecord.object(forKey: key), forKey: key)
+                }
+                
+//                print("\(type(of:self)) remoteCKRecord ", remoteCKRecord)
+
+                CloudKitClient.storeActivity(remoteCKRecord) { (ckRecord, error) in
+                    guard error == nil else {
+                        print("\(type(of:self)) storeReord", error!)
+                        return
+                    }
+                    
+//                    print("ckRecord \(String(describing: ckRecord?.recordChangeTag))")
+                    
+                    self.managedObjectContext?.perform {
+                        self.setPrimitiveValue(ckRecord!.encodedCKRecordSystemFields, forKey: Keys.EncodedCKRecord)
+                    }
+                }
+            }
+        }
+    }
 }

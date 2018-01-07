@@ -105,11 +105,11 @@ extension CoreDataStack {
     
     // must call within context
     func saveTemporaryContext(_ context: NSManagedObjectContext) {
+        guard context.hasChanges else {
+            return
+        }
+        
         context.perform {
-            guard context.hasChanges else {
-                return
-            }
-            
             do {
                 try context.save()
             }
@@ -216,11 +216,12 @@ extension CoreDataStack {
         // when it ends so we can call the next save (on the persisting
         // context). This last one might take some time and is done
         // in a background queue
-        mainContext.performAndWait {
-            print("\(type(of: self)) \(#function) performAndWait")
+
+        performUIUpdatesOnMain {
             guard self.mainContext.hasChanges else {
                 return
             }
+            print("\(type(of: self)) \(#function) save")
             do {
                 try self.mainContext.save()
             }

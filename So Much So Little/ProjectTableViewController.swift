@@ -158,6 +158,7 @@ class ProjectTableViewController: UITableViewController {
                     self.snapshot.removeFromSuperview()
                     self.snapshot = nil
                 })
+                saveMainContext()
         default:
             break
         }

@@ -46,7 +46,7 @@ class TodayTableViewController: UITableViewController {
         return coreDataStack.mainContext
     }
 
-    func saveSharedContext() {
+    func saveMainContext() {
         coreDataStack.saveMainContext()
     }
     
@@ -166,7 +166,7 @@ class TodayTableViewController: UITableViewController {
                     self.snapshot.removeFromSuperview()
                     self.snapshot = nil
                 })
-//            saveMainContext()
+                saveMainContext()
         default:
             break
         }
@@ -240,7 +240,7 @@ extension TodayTableViewController {
                 activity.today = false
                 activity.todayDisplayOrder = 0
                 activity.displayOrder = 0
-                self.saveSharedContext()
+                self.saveMainContext()
             }
         }
         else {
@@ -248,7 +248,7 @@ extension TodayTableViewController {
                 print("\((activityIndexPath as NSIndexPath).row): Today tapped")
                 activity.today = true
                 activity.todayDisplayOrder = 0
-                self.saveSharedContext()
+                self.saveMainContext()
             }
         }
         
@@ -257,7 +257,7 @@ extension TodayTableViewController {
                 print("\((completedIndexPath as NSIndexPath).row): Reactivate tapped")
                 activity.completed = false
                 activity.displayOrder = 0
-                self.saveSharedContext()
+                self.saveMainContext()
             }
         }
         else {
@@ -267,7 +267,7 @@ extension TodayTableViewController {
                 activity.displayOrder = 0
                 activity.today = false
                 activity.todayDisplayOrder = 0
-                self.saveSharedContext()
+                self.saveMainContext()
             }
         }
         
@@ -321,6 +321,6 @@ extension TodayTableViewController: NSFetchedResultsControllerDelegate {
             }
         }
         
-//        saveSharedContext()
+//        saveMainContext()
     }
 }

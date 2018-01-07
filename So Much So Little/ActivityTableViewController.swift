@@ -161,7 +161,7 @@ class ActivityTableViewController: UITableViewController {
                     self.snapshot.removeFromSuperview()
                     self.snapshot = nil
                 })
-//            saveMainContext()
+            saveMainContext()
         default:
             break
         }

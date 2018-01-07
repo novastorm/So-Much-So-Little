@@ -194,12 +194,13 @@ extension CloudKitClient {
                         let fetchedProjectResults = try! self.mainContext.fetch(fetchProjectRequest)
                         activity.project = fetchedProjectResults.first
                     }
+                    print(activity)
                 default:
                     fatalError("Unknown state fetching local activities.")
                 }
             }
             
-//            self.coreDataStack.saveMainContext()
+            self.coreDataStack.saveMainContext()
         }
     }
     
