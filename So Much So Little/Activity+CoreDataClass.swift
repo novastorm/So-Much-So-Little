@@ -279,10 +279,18 @@ final public class Activity: NSManagedObject, CloudKitManagedObject {
      save core data record then update cloud kit object.
      */
     
+    
     override public func didSave() {
         
         if isDeleted {
             print("Delete \(type(of:self)) [\(self.name)] \(#function)")
+            CloudKitClient.destroyActivity(self.cloudKitRecord) { (ckRecordID, error) in
+                guard error == nil else {
+                    print("Error deleting \(type(of:self))", error!)
+                    return
+                }
+                print("Delete \(type(of: self)) \(String(describing: ckRecordID))")
+            }
             return
         }
         
@@ -294,6 +302,19 @@ final public class Activity: NSManagedObject, CloudKitManagedObject {
             CloudKitClient.getActivity(ckRecordIdName!) { (remoteCKRecord, error) in
                 guard error == nil else {
                     print("Error retrieving \(type(of:self))", error!)
+
+                    CloudKitClient.storeActivity(localCKRecord) { (ckRecord, error) in
+                        guard error == nil else {
+                            print("\(type(of:self)) storeReord", error!)
+                            return
+                        }
+                        
+                        //                    print("ckRecord \(String(describing: ckRecord?.recordChangeTag))")
+                        
+                        self.managedObjectContext?.perform {
+                            self.setPrimitiveValue(ckRecord!.encodedCKRecordSystemFields, forKey: Keys.EncodedCKRecord)
+                        }
+                    }
                     return
                 }
 

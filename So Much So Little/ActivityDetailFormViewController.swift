@@ -243,6 +243,7 @@ class ActivityDetailFormViewController: FormViewController {
             }
         }.onCellSelection { (cell, row) in
             print("Delete button pressed")
+            self.deleteActivity()
         }
     
     }
@@ -290,6 +291,14 @@ class ActivityDetailFormViewController: FormViewController {
             self.saveTemporaryContext()
         }
         
+    }
+    
+    func deleteActivity() {
+        temporaryContext.perform {
+            self.temporaryContext.delete(self.activity)
+            self.saveTemporaryContext()
+        }
+        self.navigationController?.popViewController(animated: true)
     }
     
     func flagForToday(_ flag: Bool = true) {

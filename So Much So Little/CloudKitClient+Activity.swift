@@ -69,9 +69,24 @@ extension CloudKitClient {
     }
     
     
-//    // MARK: - Destroy method
-//    
-//    static func deleteActivity(_ recordIdString: String, completionHandler: @escaping (_ activity: CKRecord?, _ error: Error?) -> Void) {
-//        
-//    }
+    // MARK: - Destroy method
+    
+    static func destroyActivity(_ activity: CKRecord, using database: CKDatabase = privateDatabase, completionHandler: @escaping(_ activity: CKRecordID?, _ error: Error?) -> Void) {
+        let modifyRecordsOperation = CKModifyRecordsOperation()
+        modifyRecordsOperation.database = database
+        modifyRecordsOperation.recordIDsToDelete = [activity.recordID]
+        
+        modifyRecordsOperation.perRecordCompletionBlock = { (ckRecord, error) in
+            guard error == nil else {
+                print(error!)
+                return
+            }
+            print("Destroy Activity record")
+        }
+        
+        modifyRecordsOperation.modifyRecordsCompletionBlock = { (savedRecordList, deletedRecordIDList, error ) in
+            completionHandler(deletedRecordIDList?.first, error)
+        }
+        modifyRecordsOperation.start()
+    }
 }

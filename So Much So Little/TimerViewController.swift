@@ -107,9 +107,10 @@ class TimerViewController: UIViewController {
         
         let createActivityAction = UIAlertAction(title: "Note and Resume Task", style: .default) { _ in
             if let field = alertController.textFields?[0] {
+                let infoText = field.text
                 self.temporaryContext.perform {
                     let newActivity = Activity(context: self.temporaryContext)
-                    newActivity.info = field.text
+                    newActivity.info = infoText
                     self.saveTemporaryContext()
                 }
             }
