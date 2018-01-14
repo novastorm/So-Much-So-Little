@@ -67,6 +67,7 @@ class ActivityTableViewController: UITableViewController {
         tabBarController?.title = "Activity"
         tabBarController?.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(createActivity))
         try! fetchedResultsController.performFetch()
+        
         tableView.reloadData()
     }
     
@@ -189,6 +190,7 @@ class ActivityTableViewController: UITableViewController {
     }
     
     @objc private func refreshActivityIndexFromRemote(_ sender: Any) {
+        try! self.fetchedResultsController.performFetch()
         performUIUpdatesOnMain {
             print("\(#function)")
             self.tableView.reloadData()

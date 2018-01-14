@@ -144,6 +144,7 @@ class ProjectDetailFormViewController: FormViewController {
             }
         }.onCellSelection { (cell, row) in
             print("Delete button pressed")
+            self.deleteProject()
         }
     }
     
@@ -170,5 +171,13 @@ class ProjectDetailFormViewController: FormViewController {
 
             self.saveTemporaryContext()
         }
+    }
+    
+    func deleteProject() {
+        temporaryContext.perform {
+            self.temporaryContext.delete(self.project)
+            self.saveTemporaryContext()
+        }
+        self.navigationController?.popViewController(animated: true)
     }
 }

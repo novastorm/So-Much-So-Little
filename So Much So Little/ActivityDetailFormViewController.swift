@@ -60,7 +60,6 @@ class ActivityDetailFormViewController: FormViewController {
     }()
     
     func saveTemporaryContext() {
-        
         coreDataStack.saveTemporaryContext(temporaryContext)
     }
     
@@ -289,6 +288,11 @@ class ActivityDetailFormViewController: FormViewController {
             self.activity.today = formValues[FormInput.Today.rawValue] as? Activity.TodayType ?? false
             
             self.saveTemporaryContext()
+            
+            try! self.temporaryContext.obtainPermanentIDs(for: [self.activity])
+            performUIUpdatesOnMain {
+                self.tableView.reloadData()
+            }
         }
         
     }

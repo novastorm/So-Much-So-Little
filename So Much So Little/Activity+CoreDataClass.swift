@@ -282,22 +282,28 @@ final public class Activity: NSManagedObject, CloudKitManagedObject {
     
     override public func didSave() {
         
-        if isDeleted {
-            print("Delete \(type(of:self)) [\(self.name)] \(#function)")
-            CloudKitClient.destroyActivity(self.cloudKitRecord) { (ckRecordID, error) in
-                guard error == nil else {
-                    print("Error deleting \(type(of:self))", error!)
-                    return
-                }
-                print("Delete \(type(of: self)) \(String(describing: ckRecordID))")
-            }
-            return
-        }
-        
         if managedObjectContext == CoreDataStackManager.shared.mainContext {
 //            print("\(type(of:self)) [\(self.name)] \(#function)")
             
+            if isDeleted {
+                print("Delete \(type(of:self)) [\(self.name)] \(#function)")
+                CloudKitClient.destroyActivity(self.cloudKitRecord) { (ckRecordID, error) in
+                    guard error == nil else {
+                        print("Error deleting \(type(of:self))", error!)
+                        return
+                    }
+                    print("Delete \(type(of: self)) \(String(describing: ckRecordID))")
+                }
+                return
+            }
+
             let localCKRecord: CKRecord = self.cloudKitRecord
+            do {
+                try managedObjectContext?.obtainPermanentIDs(for: [self])
+            }
+            catch {
+                print(error)
+            }
             
             CloudKitClient.getActivity(ckRecordIdName!) { (remoteCKRecord, error) in
                 guard error == nil else {
@@ -309,18 +315,15 @@ final public class Activity: NSManagedObject, CloudKitManagedObject {
                             return
                         }
                         
-                        //                    print("ckRecord \(String(describing: ckRecord?.recordChangeTag))")
-                        
                         self.managedObjectContext?.perform {
                             self.setPrimitiveValue(ckRecord!.encodedCKRecordSystemFields, forKey: Keys.EncodedCKRecord)
                         }
                     }
+                    
                     return
                 }
 
                 let remoteCKRecord = remoteCKRecord!
-//                print("\(type(of:self)) localCKRecord", localCKRecord)
-//                print("\(type(of:self)) remoteCKRecord ", remoteCKRecord)
                 
                 for key in remoteCKRecord.allKeys() {
                     remoteCKRecord.setObject(localCKRecord.object(forKey: key), forKey: key)
