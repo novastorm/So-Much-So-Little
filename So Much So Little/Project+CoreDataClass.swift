@@ -17,7 +17,6 @@ struct ProjectOptions {
     var displayOrder: Project.DisplayOrderType
     var dueDate: Project.DueDateType?
     var info: Project.InfoType?
-    var isSynced: Project.IsSynced
     var name: Project.NameType
     
     init(
@@ -27,7 +26,6 @@ struct ProjectOptions {
         displayOrder: Project.DisplayOrderType = 0,
         dueDate: Project.DueDateType? = nil,
         info: Project.InfoType? = nil,
-        isSynced: Project.IsSynced = false,
         name: Project.NameType = Project.defaultName
         ) {
         self.active = active
@@ -36,7 +34,6 @@ struct ProjectOptions {
         self.displayOrder = displayOrder
         self.dueDate = dueDate
         self.info = info
-        self.isSynced = isSynced
         self.name = name
     }
 }
@@ -79,9 +76,17 @@ final public class Project: NSManagedObject, CloudKitManagedObject {
         get {
             let ckRecord = CKRecord.decodeCKRecordSystemFields(from: encodedCKRecord! as Data)
 
-            for key in ckRecord.allKeys() {
-                ckRecord.setValue(value(forKey: key), forKey: key)
-            }
+            ckRecord[Keys.Active] = active as NSNumber
+            ckRecord[Keys.Completed] = completed as NSNumber
+            ckRecord[Keys.CompletedDate] = completedDate as NSDate?
+            ckRecord[Keys.DisplayOrder] = displayOrder as NSNumber
+            ckRecord[Keys.DueDate] = dueDate as NSDate?
+            ckRecord[Keys.Info] = info as NSString?
+            ckRecord[Keys.Name] = name as NSString
+
+//            for key in ckRecord.allKeys() {
+//                ckRecord.setValue(value(forKey: key), forKey: key)
+//            }
             
             let activityRefList: [CKReference] = activities.map({ (activity) -> CKReference in
                 let ckRecordRef = CKRecord.decodeCKRecordSystemFields(from: activity.encodedCKRecord! as Data)
@@ -133,7 +138,6 @@ final public class Project: NSManagedObject, CloudKitManagedObject {
         displayOrder = options.displayOrder
         dueDate = options.dueDate
         info = options.info
-        isSynced = options.isSynced
         name = options.name
         
         name = name.trimmingCharacters(in: .whitespacesAndNewlines)

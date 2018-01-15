@@ -18,7 +18,6 @@ struct ActivityOptions {
     var dueDate: Activity.DueDateType?
     var estimatedTimeboxes: Activity.EstimatedTimeboxesType
     var info: Activity.InfoType?
-    var isSynced: Activity.IsSyncedType
     var kind: Activity.Kind
     var name: Activity.NameType
     var scheduledEnd: Activity.ScheduledEndType?
@@ -35,7 +34,6 @@ struct ActivityOptions {
         dueDate: Activity.DueDateType? = nil,
         estimatedTimeboxes: Activity.EstimatedTimeboxesType = 0,
         info: Activity.InfoType? = nil,
-        isSynced: Activity.IsSyncedType = false,
         kind: Activity.Kind = .flexible,
         name: Activity.NameType = Activity.defaultName,
         scheduledEnd: Activity.ScheduledEndType? = nil,
@@ -51,7 +49,6 @@ struct ActivityOptions {
         self.dueDate = dueDate
         self.estimatedTimeboxes = estimatedTimeboxes
         self.info = info
-        self.isSynced = isSynced
         self.kind = kind
         self.name = name
         self.scheduledEnd = scheduledEnd
@@ -159,9 +156,24 @@ final public class Activity: NSManagedObject, CloudKitManagedObject {
         get {
             let ckRecord = CKRecord.decodeCKRecordSystemFields(from: encodedCKRecord! as Data)
             
-            for key in ckRecord.allKeys() {
-                ckRecord.setValue(value(forKey: key), forKey: key)
-            }
+            ckRecord[Keys.Completed] = completed as NSNumber
+            ckRecord[Keys.CompletedDate] = completedDate as NSDate?
+            ckRecord[Keys.DeferredTo] = deferredTo as NSString?
+            ckRecord[Keys.DeferredToResponseDueDate] = deferredToResponseDueDate as NSDate?
+            ckRecord[Keys.DisplayOrder] = displayOrder as NSNumber
+            ckRecord[Keys.DueDate] = dueDate as NSDate?
+            ckRecord[Keys.EstimatedTimeboxes] = estimatedTimeboxes as NSNumber
+            ckRecord[Keys.Info] = info as NSString?
+            ckRecord[Keys.Kind] = kind.rawValue as NSNumber
+            ckRecord[Keys.Name] = name as NSString
+            ckRecord[Keys.ScheduledEnd] = scheduledEnd as NSDate?
+            ckRecord[Keys.ScheduledStart] = scheduledStart as NSDate?
+            ckRecord[Keys.Today] = today as NSNumber
+            ckRecord[Keys.TodayDisplayOrder] = todayDisplayOrder as NSNumber
+            
+//            for key in ckRecord.allKeys() {
+//                ckRecord.setValue(value(forKey: key), forKey: key)
+//            }
             
             if let project = project {
                 let ckRecordRef = CKRecord.decodeCKRecordSystemFields(from: project.encodedCKRecord! as Data)
@@ -182,7 +194,6 @@ final public class Activity: NSManagedObject, CloudKitManagedObject {
             dueDate = newValue[Keys.DueDate] as? DueDateType
             estimatedTimeboxes = newValue[Keys.EstimatedTimeboxes] as? EstimatedTimeboxesType ?? 0
             info = newValue[Keys.Info] as? InfoType
-            isSynced = newValue[Keys.IsSynced] as? IsSyncedType ?? false
             kind = Kind.init(rawValue: newValue[Keys.Kind] as! Int16) ?? .flexible
             name = newValue[Keys.Name] as? NameType ?? Activity.defaultName
             scheduledEnd = newValue[Keys.ScheduledEnd] as? ScheduledEndType
@@ -221,7 +232,6 @@ final public class Activity: NSManagedObject, CloudKitManagedObject {
         dueDate = options.dueDate
         estimatedTimeboxes = options.estimatedTimeboxes
         info = options.info
-        isSynced = options.isSynced
         kind = options.kind
         name = options.name
         scheduledEnd = options.scheduledEnd
@@ -305,7 +315,7 @@ final public class Activity: NSManagedObject, CloudKitManagedObject {
                 for key in remoteCKRecord.allKeys() {
                     remoteCKRecord.setObject(localCKRecord.object(forKey: key), forKey: key)
                 }
-                
+                remoteCKRecord.setObject(localCKRecord.object(forKey: Activity.Keys.Project), forKey: Activity.Keys.Project)
 //                print("\(type(of:self)) remoteCKRecord ", remoteCKRecord)
 
                 CloudKitClient.storeActivity(remoteCKRecord) { (ckRecord, error) in
