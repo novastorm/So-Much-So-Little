@@ -104,14 +104,15 @@ final public class Activity: NSManagedObject, CloudKitManagedObject {
     }
     
     struct Keys {
+        static let EncodedCKRecord = "encodedCKRecord"
         static let CKRecordIdName = "ckRecordIdName"
+        
         static let Completed = "completed"
         static let CompletedDate = "completedDate"
         static let DeferredTo = "deferredTo"
         static let DeferredToResponseDueDate = "deferredToResponseDueDate"
         static let DisplayOrder = "displayOrder"
         static let DueDate = "dueDate"
-        static let EncodedCKRecord = "encodedCKRecord"
         static let EstimatedTimeboxes = "estimatedTimeboxes"
         static let Info = "info"
         static let IsSynced = "isSynced"
@@ -126,15 +127,15 @@ final public class Activity: NSManagedObject, CloudKitManagedObject {
         static let Timeboxes = "timeboxes"
     }
     
-    
+    public typealias EncodedCKRecordType = Data
     public typealias CKRecordIdNameType = String
+    
     public typealias CompletedType = Bool
     public typealias CompletedDateType = Date
     public typealias DeferredToType = String
     public typealias DeferredToResponseDueDateType = Date
     public typealias DisplayOrderType = Int16
     public typealias DueDateType = Date
-    public typealias EncodedCKRecordType = Data
     public typealias EstimatedTimeboxesType = Int16
     public typealias InfoType = String
     public typealias IsSyncedType = Bool
@@ -149,37 +150,18 @@ final public class Activity: NSManagedObject, CloudKitManagedObject {
     
     static let defaultName = "New Activity"
     
-    
+
+    var actualTimeboxes: Int {
+        return timeboxes.count
+    }
+
     var cloudKitRecord: CKRecord {
         get {
-            
-//            var ckRecord: CKRecord
-//            
-//            if encodedCKRecord == nil {
-//                print("Activity: Create Cloud Kit record")
-//                ckRecord = CKRecord(recordType: CloudKitClient.RecordType.Activity.rawValue)
-//                setPrimitiveValue(ckRecord.encodedCKRecordSystemFields, forKey: Keys.EncodedCKRecord)
-//                setPrimitiveValue(ckRecord.recordID.recordName, forKey: Keys.CKRecordIdName)
-//            }
-//            else {
-//                print("Activity: Update Cloud Kit record")
-//                ckRecord = CKRecord.decodeCKRecordSystemFields(from: encodedCKRecord! as Data)
-//            }
             let ckRecord = CKRecord.decodeCKRecordSystemFields(from: encodedCKRecord! as Data)
-            ckRecord[Keys.Completed] = completed as NSNumber
-            ckRecord[Keys.CompletedDate] = completedDate as NSDate?
-            ckRecord[Keys.DeferredTo] = deferredTo as NSString?
-            ckRecord[Keys.DeferredToResponseDueDate] = deferredToResponseDueDate as NSDate?
-            ckRecord[Keys.DisplayOrder] = displayOrder as NSNumber
-            ckRecord[Keys.DueDate] = dueDate as NSDate?
-            ckRecord[Keys.EstimatedTimeboxes] = estimatedTimeboxes as NSNumber
-            ckRecord[Keys.Info] = info as NSString?
-            ckRecord[Keys.Kind] = kind.rawValue as NSNumber
-            ckRecord[Keys.Name] = name as NSString
-            ckRecord[Keys.ScheduledEnd] = scheduledEnd as NSDate?
-            ckRecord[Keys.ScheduledStart] = scheduledStart as NSDate?
-            ckRecord[Keys.Today] = today as NSNumber
-            ckRecord[Keys.TodayDisplayOrder] = todayDisplayOrder as NSNumber
+            
+            for key in ckRecord.allKeys() {
+                ckRecord.setValue(value(forKey: key), forKey: key)
+            }
             
             if let project = project {
                 let ckRecordRef = CKRecord.decodeCKRecordSystemFields(from: project.encodedCKRecord! as Data)
@@ -201,7 +183,6 @@ final public class Activity: NSManagedObject, CloudKitManagedObject {
             estimatedTimeboxes = newValue[Keys.EstimatedTimeboxes] as? EstimatedTimeboxesType ?? 0
             info = newValue[Keys.Info] as? InfoType
             isSynced = newValue[Keys.IsSynced] as? IsSyncedType ?? false
-//            kind = newValue[Keys.Kind] as? Kind ?? .flexible
             kind = Kind.init(rawValue: newValue[Keys.Kind] as! Int16) ?? .flexible
             name = newValue[Keys.Name] as? NameType ?? Activity.defaultName
             scheduledEnd = newValue[Keys.ScheduledEnd] as? ScheduledEndType
@@ -212,122 +193,13 @@ final public class Activity: NSManagedObject, CloudKitManagedObject {
     }
     
     /**
-     Create an instance with given `name` or defaultName if `name` contains only whitespace.
-     
-     - parameters:
-        - context:
-            The context into which the new instance is inserted.
-        - name:
-            The name property of the instance. Defaults to defaultName if containing only whitespace.
-     */
-//    convenience init(context: NSManagedObjectContext, name: String = Activity.defaultName) {
-//
-//        let className = type(of: self).typeName
-//        let entity = NSEntityDescription.entity(forEntityName: className, in: context)!
-//
-//        self.init(entity: entity, insertInto: context)
-//
-//        var name = name.trimmingCharacters(in: .whitespacesAndNewlines)
-//        if name.isEmpty {
-//            name = type(of: self).defaultName
-//        }
-//
-//        self.name = name
-//        self.kind = .flexible
-//
-//        let ckRecord = CKRecord(recordType: CloudKitClient.RecordType.Activity.rawValue)
-//
-//        self.encodedCKRecord = ckRecord.encodedCKRecordSystemFields
-//        self.ckRecordIdName = ckRecord.recordID.recordName
-//    }
-
-    /**
-     Create an default instance.
-     
-     - parameters:
-         - context:
-            The context into which the new instance is inserted.
-     */
-//    convenience init(context: NSManagedObjectContext) {
-//        self.init(context: context, name: type(of: self).defaultName)
-//    }
-    
-    /**
-     Create an instance from the given `data`.
-     
-     - parameters:
-        - context:
-            The context into which the new instance is inserted.
-        - data:
-            A dictionary of property keys and values.
-     */
-//    convenience init(context: NSManagedObjectContext, data: [AnyHashable:Any]) {
-//        let name = data[Keys.Name] as? NameType ?? ""
-//        self.init(context: context, name: name)
-//
-//        encodedCKRecord = data[Keys.EncodedCKRecord] as? EncodedCKRecordType
-//        ckRecordIdName = data[Keys.CKRecordIdName] as? CKRecordIdNameType
-//
-//        completed = data[Keys.Completed] as? CompletedType ?? false
-//        completedDate = data[Keys.CompletedDate] as? CompletedDateType
-//        deferredTo = data[Keys.DeferredTo] as? DeferredToType
-//        deferredToResponseDueDate = data[Keys.DeferredToResponseDueDate] as? DeferredToResponseDueDateType
-//        displayOrder = data[Keys.DisplayOrder] as? DisplayOrderType ?? 0
-//        dueDate = data[Keys.DueDate] as? DueDateType
-//        estimatedTimeboxes = data[Keys.EstimatedTimeboxes] as? EstimatedTimeboxesType ?? 0
-//        info = data[Keys.Info] as? InfoType
-//        isSynced = data[Keys.IsSynced] as? IsSyncedType ?? false
-//        kind = data[Keys.Kind] as? Kind ?? .flexible
-//        scheduledEnd = data[Keys.ScheduledEnd] as? ScheduledEndType
-//        scheduledStart = data[Keys.ScheduledStart] as? ScheduledStartType
-//        today = data[Keys.Today] as? TodayType ?? false
-//        todayDisplayOrder = data[Keys.TodayDisplayOrder] as? TodayDisplayOrderType ?? 0
-//
-//    }
-    
-    /**
-     Create an instance from the given `ckRecord`.
-     
-     - parameters:
-         - context:
-             The context into which the new instance is inserted.
-         - ckRecord:
-             A Cloud Kit Record.
-     */
-    
-    convenience init(insertInto context: NSManagedObjectContext, with ckRecord: CKRecord) {
-//        let data: [AnyHashable: Any] = [
-//            
-//            Keys.CKRecordIdName: ckRecord.recordID.recordName,
-//            Keys.Completed: ckRecord[Keys.Completed] as Any,
-//            Keys.CompletedDate: ckRecord[Keys.CompletedDate] as Any,
-//            Keys.DeferredTo: ckRecord[Keys.DeferredTo] as Any,
-//            Keys.DeferredToResponseDueDate: ckRecord[Keys.DeferredToResponseDueDate] as Any,
-//            Keys.DisplayOrder: ckRecord[Keys.DisplayOrder] as Any,
-//            Keys.DueDate: ckRecord[Keys.DueDate] as Any,
-//            Keys.EncodedCKRecord: ckRecord.encodedCKRecordSystemFields,
-//            Keys.EstimatedTimeboxes: ckRecord[Keys.EstimatedTimeboxes] as Any,
-//            Keys.Info: ckRecord[Keys.Info] as Any,
-//            Keys.Kind: ckRecord[Keys.Kind] as Any,
-//            Keys.Name: ckRecord[Keys.Name] as Any,
-//            Keys.ScheduledEnd: ckRecord[Keys.ScheduledEnd] as Any,
-//            Keys.ScheduledStart: ckRecord[Keys.ScheduledStart] as Any,
-//            Keys.Today: ckRecord[Keys.Today] as Any,
-//            Keys.TodayDisplayOrder: ckRecord[Keys.TodayDisplayOrder] as Any
-//        ]
-        let name = ckRecord[Keys.Name] as! String
-        self.init(insertInto: context, with: ActivityOptions(name: name))
-        cloudKitRecord = ckRecord
-    }
-    
-    /**
      Create an instance from the given ActivityOptions
      
      - parameters:
          - context:
-             The context into which the new instance is inserted.
+         The context into which the new instance is inserted.
          - options:
-             An ActivityOptions record
+         The ActivityOptions record
      */
     
     convenience init(insertInto context: NSManagedObjectContext, with options: ActivityOptions = ActivityOptions()) {
@@ -356,10 +228,28 @@ final public class Activity: NSManagedObject, CloudKitManagedObject {
         scheduledStart = options.scheduledStart
         today = options.today
         todayDisplayOrder = options.todayDisplayOrder
-    }
 
-    var actualTimeboxes: Int {
-        return timeboxes.count
+        name = name.trimmingCharacters(in: .whitespacesAndNewlines)
+        if name.isEmpty {
+            name = type(of: self).defaultName
+        }
+    }
+    
+    
+    /**
+     Create an instance from the given `ckRecord`.
+     
+     - parameters:
+     - context:
+     The context into which the new instance is inserted.
+     - ckRecord:
+     A Cloud Kit Record.
+     */
+    
+    convenience init(insertInto context: NSManagedObjectContext, with ckRecord: CKRecord) {
+        let name = ckRecord[Keys.Name] as! String
+        self.init(insertInto: context, with: ActivityOptions(name: name))
+        cloudKitRecord = ckRecord
     }
     
     /**
@@ -367,8 +257,6 @@ final public class Activity: NSManagedObject, CloudKitManagedObject {
      
      save core data record then update cloud kit object.
      */
-    
-    
     override public func didSave() {
         
         if managedObjectContext == CoreDataStackManager.shared.mainContext {

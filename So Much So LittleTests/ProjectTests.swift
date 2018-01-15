@@ -44,33 +44,33 @@ class ProjectTests: XCTestCase {
         return fetchRequest
     }
     
-    let mockActivityList: [AnyHashable: [AnyHashable:Any]] = [
-        "alpha": [
-            Activity.Keys.Name: "Activity Alpha"
-        ],
-        "bravo": [
-            Activity.Keys.Name: "Activity Bravo"
-        ],
-        "charlie": [
-            Activity.Keys.Name: "Activity Charlie"
-        ],
-        "delta": [
-            Activity.Keys.Name: "Activity Delta"
-        ]
+    let mockActivityList: [AnyHashable: ActivityOptions] = [
+        "alpha": ActivityOptions(
+            name: "Activity Alpha"
+        ),
+        "bravo": ActivityOptions(
+            name: "Activity Bravo"
+        ),
+        "charlie": ActivityOptions(
+            name: "Activity Charlie"
+        ),
+        "delta": ActivityOptions(
+            name: "Activity Delta"
+        )
     ]
     
-    let mockProjectList: [AnyHashable: [AnyHashable:Any]] = [
-        "alpha": [
-            Project.Keys.Name: "AAAA Project",
-            Project.Keys.Info: "AAAA Project extended tnformation"
-        ],
-        "bravo": [
-            Project.Keys.Name: "BBBB Project",
-            Project.Keys.Completed: true
-        ],
-        "charlie": [
-            Project.Keys.Name: "CCCC Project"
-        ]
+    let mockProjectList: [AnyHashable: ProjectOptions] = [
+        "alpha": ProjectOptions(
+            info: "AAAA Project extended tnformation",
+            name: "AAAA Project"
+        ),
+        "bravo": ProjectOptions(
+            completed: true,
+            name: "BBBB Project"
+        ),
+        "charlie": ProjectOptions(
+            name: "CCCC Project"
+        )
     ]
     
     override func setUp() {
@@ -100,7 +100,7 @@ class ProjectTests: XCTestCase {
     
     func testOneProject() {
         let name = "test project"
-        let project = Project(context: managedObjectContext, name: name)
+        let project = Project(insertInto: managedObjectContext, with: ProjectOptions(name: name))
         try! managedObjectContext.save()
         
         let fetchRequest = getProjectFetchRequest()
@@ -133,7 +133,7 @@ class ProjectTests: XCTestCase {
         
         // MARK: Create project
         let projectAlphaData = mockProjectList["alpha"]!
-        let projectAlpha = Project(context: managedObjectContext, data: projectAlphaData)
+        let projectAlpha = Project(insertInto: managedObjectContext, with: projectAlphaData)
         XCTAssertTrue(projectAlpha.objectID.isTemporaryID, "Project should have a temporary ID")
         try! managedObjectContext.save()
         XCTAssertFalse(projectAlpha.objectID.isTemporaryID, "Project should not have a temporary ID")
@@ -150,14 +150,14 @@ class ProjectTests: XCTestCase {
         // MARK: Compare project details
         XCTAssertEqual(fetchedProject, projectAlpha)
         
-        let name = projectAlphaData[Project.Keys.Name] as! Project.NameType
+        let name = projectAlphaData.name
         XCTAssertEqual(projectAlpha.name, name, "Project name should be \"\(name)\"")
-        let info = projectAlphaData[Project.Keys.Info] as? Project.InfoType
+        let info = projectAlphaData.info
         XCTAssertEqual(projectAlpha.info, info, "Project info should be \(String(describing:info))")
         
         // MARK: Create additional projects
         let projectBravoData = mockProjectList["bravo"]!
-        let projectBravo = Project(context: managedObjectContext, data: projectBravoData)
+        let projectBravo = Project(insertInto: managedObjectContext, with: projectBravoData)
         
         try! managedObjectContext.save()
         try! projectFetchedResultsController.performFetch()
@@ -167,7 +167,7 @@ class ProjectTests: XCTestCase {
         XCTAssertTrue(fetchedProjectList.contains(projectBravo))
         
         let projectCharlieData = mockProjectList["charlie"]!
-        let projectCharlie = Project(context: managedObjectContext, data: projectCharlieData)
+        let projectCharlie = Project(insertInto: managedObjectContext, with: projectCharlieData)
         
         XCTAssertTrue(projectCharlie.objectID.isTemporaryID, "Project Charlie should have temporary ID")
         try! projectFetchedResultsController.performFetch()
@@ -192,9 +192,9 @@ class ProjectTests: XCTestCase {
     
     // MARK: - Test Project Lists
     func testProjectLists() {
-        let projectAlpha = Project(context: managedObjectContext, data: mockProjectList["alpha"]!)
-        let projectBravo = Project(context: managedObjectContext, data: mockProjectList["bravo"]!)
-        let projectCharlie = Project(context: managedObjectContext, data: mockProjectList["charlie"]!)
+        let projectAlpha = Project(insertInto: managedObjectContext, with: mockProjectList["alpha"]!)
+        let projectBravo = Project(insertInto: managedObjectContext, with: mockProjectList["bravo"]!)
+        let projectCharlie = Project(insertInto: managedObjectContext, with: mockProjectList["charlie"]!)
         
         // MARK: test project list
         let projectListFetchRequest = getProjectFetchRequest()

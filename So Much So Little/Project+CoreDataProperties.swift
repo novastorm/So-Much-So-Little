@@ -16,16 +16,18 @@ extension Project {
         return NSFetchRequest<Project>(entityName: "Project")
     }
 
-    @NSManaged public var active: Bool
+    @NSManaged public var encodedCKRecord: Data?
     @NSManaged public var ckRecordIdName: String?
+
+    @NSManaged public var active: Bool
     @NSManaged public var completed: Bool
     @NSManaged public var completedDate: Date?
     @NSManaged public var displayOrder: Int16
     @NSManaged public var dueDate: Date?
-    @NSManaged public var encodedCKRecord: Data?
     @NSManaged public var info: String?
     @NSManaged public var isSynced: Bool
     @NSManaged public var name: String
+
     @NSManaged public var activities: ActivitiesType
 }
 

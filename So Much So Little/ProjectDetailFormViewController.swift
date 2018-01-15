@@ -76,7 +76,7 @@ class ProjectDetailFormViewController: FormViewController {
         
         temporaryContext.performAndWait { 
             if self.project == nil {
-                self.project = Project(context: self.temporaryContext)
+                self.project = Project(insertInto: self.temporaryContext)
             }
             
             self.project = self.temporaryContext.object(with: self.project.objectID) as! Project

@@ -31,30 +31,30 @@ class ActivityTests: XCTestCase {
         return fetchRequest
     }
     
-    let mockActivityList: [AnyHashable:[AnyHashable:Any]] = [
-        "alpha": [
-            Activity.Keys.Name: "Activity Alpha",
-            Activity.Keys.EstimatedTimeboxes: 4,
-            Activity.Keys.Info: "Alpha info",
-        ],
-        "bravo": [
-            Activity.Keys.Name: "Activity Bravo",
-            Activity.Keys.EstimatedTimeboxes: 2,
-            Activity.Keys.Today: true,
-            Activity.Keys.Completed: true
-        ],
-        "charlie": [
-            Activity.Keys.Name: "Activity Charlie",
-        ],
-        "delta": [
-            Activity.Keys.Name: "Activity Delta",
-            Activity.Keys.Completed: true
-        ],
-        "echo": [
-            Activity.Keys.Name: "Activity Echo",
-            Activity.Keys.EstimatedTimeboxes: 4,
-            Activity.Keys.Today: true,
-        ]
+    let mockActivityList: [AnyHashable:ActivityOptions] = [
+        "alpha": ActivityOptions(
+            estimatedTimeboxes: 4,
+            info: "Alpha info",
+            name: "Activity Alpha"
+        ),
+        "bravo": ActivityOptions(
+            completed: true,
+            estimatedTimeboxes: 2,
+            name: "Activity Bravo",
+            today: true
+        ),
+        "charlie": ActivityOptions(
+            name: "Activity Charlie"
+        ),
+        "delta": ActivityOptions(
+            completed: true,
+            name: "Activity Delta"
+        ),
+        "echo": ActivityOptions(
+            estimatedTimeboxes: 4,
+            name: "Activity Echo",
+            today: true
+        )
     ]
     
     override func setUp() {
@@ -138,7 +138,7 @@ class ActivityTests: XCTestCase {
 
         // create an activity
         let alphaData = mockActivityList["alpha"]!
-        let alpha = Activity(context: managedObjectContext, data: alphaData)
+        let alpha = Activity(insertInto: managedObjectContext, with: alphaData)
         XCTAssertTrue(alpha.objectID.isTemporaryID, "Activity should have a temporaryID")
         try! managedObjectContext.save()
         XCTAssertFalse(alpha.objectID.isTemporaryID, "Activity should not have a temporaryID")
@@ -155,10 +155,10 @@ class ActivityTests: XCTestCase {
         // compare activity details
         XCTAssertEqual(fetchedActivity, alpha)
         
-        let name = alphaData[Activity.Keys.Name] as! String
+        let name = alphaData.name
         XCTAssertEqual(alpha.name, name, "Activity name should be \"\(name)\"")
 
-        let estimatedTimeboxes = alphaData[Activity.Keys.EstimatedTimeboxes] as! Activity.EstimatedTimeboxesType
+        let estimatedTimeboxes = alphaData.estimatedTimeboxes
         XCTAssertEqual(alpha.estimatedTimeboxes, estimatedTimeboxes, "Activity estimatedTimeboxes should be \(estimatedTimeboxes)")
         
         // update acitivity details
@@ -174,7 +174,7 @@ class ActivityTests: XCTestCase {
         
         // create another activity
         let bravoData = mockActivityList["bravo"]!
-        let bravo = Activity(context: managedObjectContext, data: bravoData)
+        let bravo = Activity(insertInto: managedObjectContext, with: bravoData)
         try! managedObjectContext.save()
         
         try! fetchedResultsController.performFetch()
@@ -185,7 +185,7 @@ class ActivityTests: XCTestCase {
         XCTAssertTrue(fetchedActivityList.contains(bravo))
 
         let charlieData = mockActivityList["charlie"]!
-        let charlie = Activity(context: managedObjectContext, data: charlieData)
+        let charlie = Activity(insertInto: managedObjectContext, with: charlieData)
 
         XCTAssertTrue(charlie.objectID.isTemporaryID, "Activity Charlie should have temporary ID")
         try! fetchedResultsController.performFetch()
@@ -208,15 +208,15 @@ class ActivityTests: XCTestCase {
     
     func testActivityLists() {
         let alphaData = mockActivityList["alpha"]!
-        let alpha = Activity(context: managedObjectContext, data: alphaData)
+        let alpha = Activity(insertInto: managedObjectContext, with: alphaData)
         let bravoData = mockActivityList["bravo"]!
-        let bravo = Activity(context: managedObjectContext, data: bravoData)
+        let bravo = Activity(insertInto: managedObjectContext, with: bravoData)
         let charlieData = mockActivityList["charlie"]!
-        let charlie = Activity(context: managedObjectContext, data: charlieData)
+        let charlie = Activity(insertInto: managedObjectContext, with: charlieData)
         let deltaData = mockActivityList["delta"]!
-        let delta = Activity(context: managedObjectContext, data: deltaData)
+        let delta = Activity(insertInto: managedObjectContext, with: deltaData)
         let echoData = mockActivityList["echo"]!
-        let echo = Activity(context: managedObjectContext, data: echoData)
+        let echo = Activity(insertInto: managedObjectContext, with: echoData)
         
         // test activity list
         
