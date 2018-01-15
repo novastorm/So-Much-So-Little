@@ -13,7 +13,7 @@ import CoreData
 extension Activity {
 
     @nonobjc public class func fetchRequest() -> NSFetchRequest<Activity> {
-        return NSFetchRequest<Activity>(entityName: "Activity")
+        return NSFetchRequest<Activity>(entityName: typeName)
     }
 
     @NSManaged public var ckRecordIdName: String?

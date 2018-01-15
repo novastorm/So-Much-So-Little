@@ -82,16 +82,16 @@ class ActivityTests: XCTestCase {
     }
     
     func testIncompleteActivityData() {
-        let defaultActivity = Activity(context: managedObjectContext)
+        let defaultActivity = Activity(insertInto: managedObjectContext)
         XCTAssertEqual(defaultActivity.name, Activity.defaultName)
         
-        let blankActivity = Activity(context: managedObjectContext, name: "")
+        let blankActivity = Activity(insertInto: managedObjectContext, with: ActivityOptions(name: ""))
         XCTAssertEqual(blankActivity.name, Activity.defaultName)
     }
     
     func testOneActivity() {
         let name = "test activity"
-        let activity = Activity(context: managedObjectContext, name: name)
+        let activity = Activity.init(insertInto: managedObjectContext, with: ActivityOptions(name: name))
         try! managedObjectContext.save()
         
         let fetchRequest = getActivityFetchRequest()

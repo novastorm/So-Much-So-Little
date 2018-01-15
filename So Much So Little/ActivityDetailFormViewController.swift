@@ -82,7 +82,7 @@ class ActivityDetailFormViewController: FormViewController {
         
         temporaryContext.performAndWait {
             if self.activity == nil {
-                self.activity = Activity(context: self.temporaryContext)
+                self.activity = Activity(insertInto: self.temporaryContext)
             }
 
             self.activity = self.temporaryContext.object(with: self.activity.objectID) as! Activity

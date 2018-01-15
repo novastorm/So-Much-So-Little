@@ -85,12 +85,12 @@ extension CloudKitClient {
         group.notify(queue: .main) {
             for ckProject in ckProjectList {
                 print("Import: Project")
-                _ = Project(context: self.coreDataStack.mainContext, ckRecord: ckProject)
+                _ = Project(insertInto: self.coreDataStack.mainContext, with: ckProject)
             }
             
             for ckActivity in ckActivityList {
                 print("Import: Activity")
-                let activity = Activity(context: self.mainContext, ckRecord: ckActivity)
+                let activity = Activity(insertInto: self.mainContext, with: ckActivity)
                 if let projectRef = ckActivity[Activity.Keys.Project] as? CKReference {
                     
                     let ckProject = ckProjectList.filter({ (ckRecord) -> Bool in
@@ -159,7 +159,7 @@ extension CloudKitClient {
                     let project = fetchedProjectResults.first!
                     project.encodedCKRecord = ckProject.encodedCKRecordSystemFields
                 case 0:
-                    let project = Project(context: self.mainContext, ckRecord: ckProject)
+                    let project = Project(insertInto: self.mainContext, with: ckProject)
                     print(project)
                 default:
                     fatalError("Unknown state fetching local projects")
@@ -181,7 +181,7 @@ extension CloudKitClient {
                     let activity = fetchedActivityResults.first!
                     activity.encodedCKRecord = ckActivity.encodedCKRecordSystemFields
                 case 0:
-                    let activity = Activity(context: self.mainContext, ckRecord: ckActivity)
+                    let activity = Activity(insertInto: self.mainContext, with: ckActivity)
                     if let projectRef = ckActivity[Activity.Keys.Project] as? CKReference {
                         
                         let ckProject = ckProjectList.filter({ (ckRecord) -> Bool in
@@ -230,7 +230,7 @@ extension CloudKitClient {
         group.notify(queue: .main)  {
             for ckProject in ckProjectList {
                 // TODO: Check for existing record
-                _ = Project(context: self.mainContext, ckRecord: ckProject)
+                _ = Project(insertInto: self.mainContext, with: ckProject)
             }
             
             self.coreDataStack.saveMainContext()

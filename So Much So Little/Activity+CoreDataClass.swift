@@ -9,6 +9,57 @@
 import CloudKit
 import CoreData
 
+struct ActivityOptions {
+    var completed: Activity.CompletedType
+    var completedDate: Activity.CompletedDateType?
+    var deferredTo: Activity.DeferredToType?
+    var deferredToResponseDueDate: Activity.DeferredToResponseDueDateType?
+    var displayOrder: Activity.DisplayOrderType
+    var dueDate: Activity.DueDateType?
+    var estimatedTimeboxes: Activity.EstimatedTimeboxesType
+    var info: Activity.InfoType?
+    var isSynced: Activity.IsSyncedType
+    var kind: Activity.Kind
+    var name: Activity.NameType
+    var scheduledEnd: Activity.ScheduledEndType?
+    var scheduledStart: Activity.ScheduledStartType?
+    var today: Activity.TodayType
+    var todayDisplayOrder: Activity.TodayDisplayOrderType
+    
+    init(
+        completed: Activity.CompletedType = false,
+        completedDate: Activity.CompletedDateType? = nil,
+        deferredTo: Activity.DeferredToType? = nil,
+        deferredToResponseDueDate: Activity.DeferredToResponseDueDateType? = nil,
+        displayOrder: Activity.DisplayOrderType = 0,
+        dueDate: Activity.DueDateType? = nil,
+        estimatedTimeboxes: Activity.EstimatedTimeboxesType = 0,
+        info: Activity.InfoType? = nil,
+        isSynced: Activity.IsSyncedType = false,
+        kind: Activity.Kind = .flexible,
+        name: Activity.NameType = Activity.defaultName,
+        scheduledEnd: Activity.ScheduledEndType? = nil,
+        scheduledStart: Activity.ScheduledStartType? = nil,
+        today: Activity.TodayType = false,
+        todayDisplayOrder: Activity.TodayDisplayOrderType = 0
+        ) {
+        self.completed = completed
+        self.completedDate = completedDate
+        self.deferredTo = deferredTo
+        self.deferredToResponseDueDate = deferredToResponseDueDate
+        self.displayOrder = displayOrder
+        self.dueDate = dueDate
+        self.estimatedTimeboxes = estimatedTimeboxes
+        self.info = info
+        self.isSynced = isSynced
+        self.kind = kind
+        self.name = name
+        self.scheduledEnd = scheduledEnd
+        self.scheduledStart = scheduledStart
+        self.today = today
+        self.todayDisplayOrder = todayDisplayOrder
+    }
+}
 
 final public class Activity: NSManagedObject, CloudKitManagedObject {
     
@@ -169,26 +220,26 @@ final public class Activity: NSManagedObject, CloudKitManagedObject {
         - name:
             The name property of the instance. Defaults to defaultName if containing only whitespace.
      */
-    convenience init(context: NSManagedObjectContext, name: String) {
-
-        let className = type(of: self).typeName
-        let entity = NSEntityDescription.entity(forEntityName: className, in: context)!
-        
-        self.init(entity: entity, insertInto: context)
-        
-        var name = name.trimmingCharacters(in: .whitespacesAndNewlines)
-        if name.isEmpty {
-            name = type(of: self).defaultName
-        }
-        
-        self.name = name
-        self.kind = .flexible
-
-        let ckRecord = CKRecord(recordType: CloudKitClient.RecordType.Activity.rawValue)
-        
-        self.encodedCKRecord = ckRecord.encodedCKRecordSystemFields
-        self.ckRecordIdName = ckRecord.recordID.recordName
-    }
+//    convenience init(context: NSManagedObjectContext, name: String = Activity.defaultName) {
+//
+//        let className = type(of: self).typeName
+//        let entity = NSEntityDescription.entity(forEntityName: className, in: context)!
+//
+//        self.init(entity: entity, insertInto: context)
+//
+//        var name = name.trimmingCharacters(in: .whitespacesAndNewlines)
+//        if name.isEmpty {
+//            name = type(of: self).defaultName
+//        }
+//
+//        self.name = name
+//        self.kind = .flexible
+//
+//        let ckRecord = CKRecord(recordType: CloudKitClient.RecordType.Activity.rawValue)
+//
+//        self.encodedCKRecord = ckRecord.encodedCKRecordSystemFields
+//        self.ckRecordIdName = ckRecord.recordID.recordName
+//    }
 
     /**
      Create an default instance.
@@ -197,9 +248,9 @@ final public class Activity: NSManagedObject, CloudKitManagedObject {
          - context:
             The context into which the new instance is inserted.
      */
-    convenience init(context: NSManagedObjectContext) {
-        self.init(context: context, name: type(of: self).defaultName)
-    }
+//    convenience init(context: NSManagedObjectContext) {
+//        self.init(context: context, name: type(of: self).defaultName)
+//    }
     
     /**
      Create an instance from the given `data`.
@@ -210,29 +261,29 @@ final public class Activity: NSManagedObject, CloudKitManagedObject {
         - data:
             A dictionary of property keys and values.
      */
-    convenience init(context: NSManagedObjectContext, data: [AnyHashable:Any]) {
-        let name = data[Keys.Name] as? NameType ?? ""
-        self.init(context: context, name: name)
-        
-        encodedCKRecord = data[Keys.EncodedCKRecord] as? EncodedCKRecordType
-        ckRecordIdName = data[Keys.CKRecordIdName] as? CKRecordIdNameType
-
-        completed = data[Keys.Completed] as? CompletedType ?? false
-        completedDate = data[Keys.CompletedDate] as? CompletedDateType
-        deferredTo = data[Keys.DeferredTo] as? DeferredToType
-        deferredToResponseDueDate = data[Keys.DeferredToResponseDueDate] as? DeferredToResponseDueDateType
-        displayOrder = data[Keys.DisplayOrder] as? DisplayOrderType ?? 0
-        dueDate = data[Keys.DueDate] as? DueDateType
-        estimatedTimeboxes = data[Keys.EstimatedTimeboxes] as? EstimatedTimeboxesType ?? 0
-        info = data[Keys.Info] as? InfoType
-        isSynced = data[Keys.IsSynced] as? IsSyncedType ?? false
-        kind = data[Keys.Kind] as? Kind ?? .flexible
-        scheduledEnd = data[Keys.ScheduledEnd] as? ScheduledEndType
-        scheduledStart = data[Keys.ScheduledStart] as? ScheduledStartType
-        today = data[Keys.Today] as? TodayType ?? false
-        todayDisplayOrder = data[Keys.TodayDisplayOrder] as? TodayDisplayOrderType ?? 0
-        
-    }
+//    convenience init(context: NSManagedObjectContext, data: [AnyHashable:Any]) {
+//        let name = data[Keys.Name] as? NameType ?? ""
+//        self.init(context: context, name: name)
+//
+//        encodedCKRecord = data[Keys.EncodedCKRecord] as? EncodedCKRecordType
+//        ckRecordIdName = data[Keys.CKRecordIdName] as? CKRecordIdNameType
+//
+//        completed = data[Keys.Completed] as? CompletedType ?? false
+//        completedDate = data[Keys.CompletedDate] as? CompletedDateType
+//        deferredTo = data[Keys.DeferredTo] as? DeferredToType
+//        deferredToResponseDueDate = data[Keys.DeferredToResponseDueDate] as? DeferredToResponseDueDateType
+//        displayOrder = data[Keys.DisplayOrder] as? DisplayOrderType ?? 0
+//        dueDate = data[Keys.DueDate] as? DueDateType
+//        estimatedTimeboxes = data[Keys.EstimatedTimeboxes] as? EstimatedTimeboxesType ?? 0
+//        info = data[Keys.Info] as? InfoType
+//        isSynced = data[Keys.IsSynced] as? IsSyncedType ?? false
+//        kind = data[Keys.Kind] as? Kind ?? .flexible
+//        scheduledEnd = data[Keys.ScheduledEnd] as? ScheduledEndType
+//        scheduledStart = data[Keys.ScheduledStart] as? ScheduledStartType
+//        today = data[Keys.Today] as? TodayType ?? false
+//        todayDisplayOrder = data[Keys.TodayDisplayOrder] as? TodayDisplayOrderType ?? 0
+//
+//    }
     
     /**
      Create an instance from the given `ckRecord`.
@@ -244,7 +295,7 @@ final public class Activity: NSManagedObject, CloudKitManagedObject {
              A Cloud Kit Record.
      */
     
-    convenience init(context: NSManagedObjectContext, ckRecord: CKRecord) {
+    convenience init(insertInto context: NSManagedObjectContext, with ckRecord: CKRecord) {
 //        let data: [AnyHashable: Any] = [
 //            
 //            Keys.CKRecordIdName: ckRecord.recordID.recordName,
@@ -265,8 +316,46 @@ final public class Activity: NSManagedObject, CloudKitManagedObject {
 //            Keys.TodayDisplayOrder: ckRecord[Keys.TodayDisplayOrder] as Any
 //        ]
         let name = ckRecord[Keys.Name] as! String
-        self.init(context: context, name: name)
+        self.init(insertInto: context, with: ActivityOptions(name: name))
         cloudKitRecord = ckRecord
+    }
+    
+    /**
+     Create an instance from the given ActivityOptions
+     
+     - parameters:
+         - context:
+             The context into which the new instance is inserted.
+         - options:
+             An ActivityOptions record
+     */
+    
+    convenience init(insertInto context: NSManagedObjectContext, with options: ActivityOptions = ActivityOptions()) {
+        let typeName = type(of: self).typeName
+        let entity = NSEntityDescription.entity(forEntityName: typeName, in: context)!
+        
+        self.init(entity: entity, insertInto: context)
+        
+        let ckRecord = CKRecord(recordType: CloudKitClient.RecordType.Activity.rawValue)
+        
+        encodedCKRecord = ckRecord.encodedCKRecordSystemFields
+        ckRecordIdName = ckRecord.recordID.recordName
+
+        completed = options.completed
+        completedDate = options.completedDate
+        deferredTo = options.deferredTo
+        deferredToResponseDueDate = options.deferredToResponseDueDate
+        displayOrder = options.displayOrder
+        dueDate = options.dueDate
+        estimatedTimeboxes = options.estimatedTimeboxes
+        info = options.info
+        isSynced = options.isSynced
+        kind = options.kind
+        name = options.name
+        scheduledEnd = options.scheduledEnd
+        scheduledStart = options.scheduledStart
+        today = options.today
+        todayDisplayOrder = options.todayDisplayOrder
     }
 
     var actualTimeboxes: Int {

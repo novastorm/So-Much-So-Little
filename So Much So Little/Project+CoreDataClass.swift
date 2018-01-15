@@ -142,7 +142,7 @@ final public class Project: NSManagedObject, CloudKitManagedObject {
         info = data[Keys.Info] as? InfoType
     }
     
-    convenience init(context: NSManagedObjectContext, ckRecord: CKRecord) {
+    convenience init(insertInto context: NSManagedObjectContext, with ckRecord: CKRecord) {
 //        let data: [AnyHashable: Any] = [
 //            Keys.Active: ckRecord[Keys.Active] as Any,
 //            Keys.CKRecordIdName: ckRecord.recordID.recordName,

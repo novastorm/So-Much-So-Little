@@ -17,5 +17,5 @@ protocol CloudKitManagedObject {
     var ckRecordIdName: String? { get set}
     var encodedCKRecord: Data? { get set }
 
-    init(context: NSManagedObjectContext, ckRecord: CKRecord)
+    init(insertInto context: NSManagedObjectContext, with ckRecord: CKRecord)
 }

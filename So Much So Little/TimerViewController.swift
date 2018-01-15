@@ -109,7 +109,7 @@ class TimerViewController: UIViewController {
             if let field = alertController.textFields?[0] {
                 let infoText = field.text
                 self.temporaryContext.perform {
-                    let newActivity = Activity(context: self.temporaryContext)
+                    let newActivity = Activity(insertInto: self.temporaryContext)
                     newActivity.info = infoText
                     self.saveTemporaryContext()
                 }
