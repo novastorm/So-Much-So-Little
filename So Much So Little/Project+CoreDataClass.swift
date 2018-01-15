@@ -206,7 +206,7 @@ final public class Project: NSManagedObject, CloudKitManagedObject {
                 
                 let remoteCKRecord = remoteCKRecord!
                 
-                for key in remoteCKRecord.allKeys() {
+                for key in localCKRecord.allKeys() {
                     remoteCKRecord.setObject(localCKRecord.object(forKey: key), forKey: key)
                 }
                 
