@@ -1,5 +1,5 @@
 # So Much So Little - Usage
-Time management
+Time management system to help organize activities and projects.
 
 ### Activities
 
