@@ -83,6 +83,7 @@ class CompletedActivityTableViewController: UITableViewController {
         navigationItem.hidesBackButton = true
         
         frcActivity.delegate = self
+        frcProject.delegate = self
         
         try! frcActivity.performFetch()
         try! frcProject.performFetch()
@@ -204,49 +205,77 @@ extension CompletedActivityTableViewController {
 //    }
 //    
     override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-        let activity = frcActivity.object(at: indexPath) 
-        
-        var todayOption: UITableViewRowAction!
-        var completedOption: UITableViewRowAction!
-        
-        if activity.today {
-            todayOption = UITableViewRowAction(style: .normal, title: "Postpone") { (action, activityIndexPath) in
-                print("\((activityIndexPath as NSIndexPath).row): Postpone tapped")
-                activity.today = false
-                activity.todayDisplayOrder = 0
-                activity.displayOrder = 0
-                self.saveSharedContext()
+        let section = (indexPath as NSIndexPath).section
+
+        switch ProjectSections(rawValue: section)! {
+        case .activity:
+            let activity = frcActivity.object(at: indexPath)
+            
+            var todayOption: UITableViewRowAction!
+            var completedOption: UITableViewRowAction!
+            
+            if activity.today {
+                todayOption = UITableViewRowAction(style: .normal, title: "Postpone") { (action, activityIndexPath) in
+                    print("\((activityIndexPath as NSIndexPath).row): Postpone tapped")
+                    activity.today = false
+                    activity.todayDisplayOrder = 0
+                    activity.displayOrder = 0
+                    self.saveSharedContext()
+                }
             }
-        }
-        else {
-            todayOption = UITableViewRowAction(style: .normal, title: "Today") { (action, activityIndexPath) in
-                print("\((activityIndexPath as NSIndexPath).row): Today tapped")
-                activity.today = true
-                activity.todayDisplayOrder = 0
-                self.saveSharedContext()
+            else {
+                todayOption = UITableViewRowAction(style: .normal, title: "Today") { (action, activityIndexPath) in
+                    print("\((activityIndexPath as NSIndexPath).row): Today tapped")
+                    activity.today = true
+                    activity.todayDisplayOrder = 0
+                    self.saveSharedContext()
+                }
             }
-        }
-        
-        if activity.completed {
-            completedOption = UITableViewRowAction(style: .normal, title: "Reactivate") { (action, completedIndexPath) in
-                print("\((completedIndexPath as NSIndexPath).row): Reactivate tapped")
-                activity.completed = false
-                activity.displayOrder = 0
-                self.saveSharedContext()
+            
+            if activity.completed {
+                completedOption = UITableViewRowAction(style: .normal, title: "Reactivate") { (action, completedIndexPath) in
+                    print("\((completedIndexPath as NSIndexPath).row): Reactivate tapped")
+                    activity.completed = false
+                    activity.displayOrder = 0
+                    self.saveSharedContext()
+                }
             }
-        }
-        else {
-            completedOption = UITableViewRowAction(style: .normal, title: "Complete") { (action, completedIndexPath) in
-                print("\((completedIndexPath as NSIndexPath).row): Complete tapped")
-                activity.completed = true
-                activity.displayOrder = 0
-                activity.today = false
-                activity.todayDisplayOrder = 0
-                self.saveSharedContext()
+            else {
+                completedOption = UITableViewRowAction(style: .normal, title: "Complete") { (action, completedIndexPath) in
+                    print("\((completedIndexPath as NSIndexPath).row): Complete tapped")
+                    activity.completed = true
+                    activity.displayOrder = 0
+                    activity.today = false
+                    activity.todayDisplayOrder = 0
+                    self.saveSharedContext()
+                }
             }
+            
+            return [todayOption, completedOption]
+            
+        case .project:
+            let project = frcProject.object(at: IndexPath.init(row: indexPath.row, section: 0))
+            
+            var completedOption: UITableViewRowAction!
+            
+            if project.completed {
+                completedOption = UITableViewRowAction(style: .normal, title: "Reactivate") { (action, completedIndexPath) in
+                    print("\((completedIndexPath as NSIndexPath).row): Reactivate tapped")
+                    project.completed = false
+                    project.displayOrder = 0
+                    self.saveSharedContext()
+                }
+            }
+            else {
+                completedOption = UITableViewRowAction(style: .normal, title: "Complete") { (action, completedIndexPath) in
+                    print("\((completedIndexPath as NSIndexPath).row): Complete tapped")
+                    project.completed = true
+                    project.displayOrder = 0
+                    self.saveSharedContext()
+                }
+            }
+            return [completedOption]
         }
-        
-        return [todayOption, completedOption]
     }
 }
 
@@ -266,16 +295,24 @@ extension CompletedActivityTableViewController: NSFetchedResultsControllerDelega
     
     func controller(_ controller: NSFetchedResultsController<NSFetchRequestResult>, didChange anObject: Any, at indexPath: IndexPath?, for type: NSFetchedResultsChangeType, newIndexPath: IndexPath?) {
         
+        var adjustedIndexPath = indexPath
+        var adjustedNewIndexPath = newIndexPath
+        
+        if anObject is Project {
+            adjustedIndexPath?.section = ProjectSections.project.rawValue
+            adjustedNewIndexPath?.section = ProjectSections.project.rawValue
+        }
+        
         switch type {
         case .insert:
-            insertedIndexPaths.append(newIndexPath!)
+            insertedIndexPaths.append(adjustedNewIndexPath!)
         case .delete:
-            deletedIndexPaths.append(indexPath!)
+            deletedIndexPaths.append(adjustedIndexPath!)
         case .move:
-            updatedIndexPaths.append(newIndexPath!)
-            updatedIndexPaths.append(indexPath!)
+            updatedIndexPaths.append(adjustedNewIndexPath!)
+            updatedIndexPaths.append(adjustedIndexPath!)
         case .update:
-            updatedIndexPaths.append(indexPath!)
+            updatedIndexPaths.append(adjustedIndexPath!)
         }
     }
     
