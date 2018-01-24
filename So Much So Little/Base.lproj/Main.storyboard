@@ -297,14 +297,14 @@
                                 <rect key="frame" x="16" y="637" width="343" height="30"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lwK-4t-8zr">
-                                        <rect key="frame" x="0.0" y="0.0" width="167.5" height="30"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="343" height="30"/>
                                         <state key="normal" title="Today"/>
                                         <connections>
                                             <action selector="addToActivitiesToday" destination="029-GX-oH7" eventType="touchUpInside" id="5sq-VD-5Gm"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FJz-5S-xaM">
-                                        <rect key="frame" x="175.5" y="0.0" width="167.5" height="30"/>
+                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FJz-5S-xaM">
+                                        <rect key="frame" x="-16" y="0.0" width="0.0" height="30"/>
                                         <state key="normal" title="Start"/>
                                         <connections>
                                             <action selector="startActivity" destination="029-GX-oH7" eventType="touchUpInside" id="GWf-eD-YOY"/>

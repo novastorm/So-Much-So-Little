@@ -195,7 +195,7 @@ class ActivityTableViewController: UITableViewController {
     @objc private func refreshActivityIndexFromRemote(_ sender: Any) {
         try! self.fetchedResultsController.performFetch()
         performUIUpdatesOnMain {
-            print("\(#function)")
+//            print("\(#function)")
             self.tableView.reloadData()
             self.refreshControl?.endRefreshing()
         }
@@ -245,7 +245,7 @@ extension ActivityTableViewController {
 
         if activity.kind == .reference {
             let referenceOption = UITableViewRowAction(style: .normal, title: "Project") { (action, activityIndexPath) in
-                print("Project tapped")
+//                print("Project tapped")
             }
             return [referenceOption]
         }
@@ -255,7 +255,7 @@ extension ActivityTableViewController {
         
         if activity.today {
             todayOption = UITableViewRowAction(style: .normal, title: "Postpone") { (action, activityIndexPath) in
-                print("\((activityIndexPath as NSIndexPath).row): Postpone tapped")
+//                print("\((activityIndexPath as NSIndexPath).row): Postpone tapped")
                 activity.today = false
                 activity.todayDisplayOrder = 0
                 activity.displayOrder = 0
@@ -264,7 +264,7 @@ extension ActivityTableViewController {
         }
         else {
             todayOption = UITableViewRowAction(style: .normal, title: "Today") { (action, activityIndexPath) in
-                print("\((activityIndexPath as NSIndexPath).row): Today tapped")
+//                print("\((activityIndexPath as NSIndexPath).row): Today tapped")
                 activity.today = true
                 activity.todayDisplayOrder = 0
                 self.saveMainContext()
@@ -273,7 +273,7 @@ extension ActivityTableViewController {
         
         if activity.completed {
             completedOption = UITableViewRowAction(style: .normal, title: "Reactivate") { (action, completedIndexPath) in
-                print("\((completedIndexPath as NSIndexPath).row): Reactivate tapped")
+//                print("\((completedIndexPath as NSIndexPath).row): Reactivate tapped")
                 activity.completed = false
                 activity.displayOrder = 0
                 self.saveMainContext()

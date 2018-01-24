@@ -191,7 +191,7 @@ class ProjectTableViewController: UITableViewController {
     
     @objc private func refreshProjectIndexFromRemote(_ sender: Any) {
         performUIUpdatesOnMain {
-            print("\(#function)")
+//            print("\(#function)")
             self.tableView.reloadData()
             self.refreshControl?.endRefreshing()
         }

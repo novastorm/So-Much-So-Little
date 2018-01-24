@@ -61,16 +61,16 @@ extension CloudKitClient {
                 record.encodedCKRecord = ckRecord.encodedCKRecordSystemFields
             }
             
-            print("Store record")
+//            print("Store record")
         }
         
         modifyRecordsOperation.modifyRecordsCompletionBlock = { (savedRecordList, deletedRecordIDList, error ) in
             guard error == nil else {
-                print("modifyRecordsCompletionBlock", error!)
+//                print("modifyRecordsCompletionBlock", error!)
                 completionHandler(false, error)
                 return
             }
-            print("Store records complete")
+//            print("Store records complete")
         }
         
         modifyRecordsOperation.start()

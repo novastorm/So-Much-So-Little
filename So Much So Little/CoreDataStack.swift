@@ -220,7 +220,7 @@ extension CoreDataStack {
             guard self.mainContext.hasChanges else {
                 return
             }
-            print("\(type(of: self)) \(#function) save")
+//            print("\(type(of: self)) \(#function) save")
             do {
                 try self.mainContext.save()
             }
@@ -237,10 +237,10 @@ extension CoreDataStack {
     }
     
     func savePersistingContext() {
-        print("\(type(of: self)) \(#function)")
+//        print("\(type(of: self)) \(#function)")
 
         self.persistingContext.perform {
-            print("\(type(of: self)) \(#function) perform")
+//            print("\(type(of: self)) \(#function) perform")
 
             CloudKitClient.storeRecords(context: self.persistingContext) { (success, error) in
                 self.persistingContext.perform {

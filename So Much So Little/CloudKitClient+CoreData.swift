@@ -84,12 +84,12 @@ extension CloudKitClient {
         
         group.notify(queue: .main) {
             for ckProject in ckProjectList {
-                print("Import: Project")
+//                print("Import: Project")
                 _ = Project(insertInto: self.coreDataStack.mainContext, with: ckProject)
             }
             
             for ckActivity in ckActivityList {
-                print("Import: Activity")
+//                print("Import: Activity")
                 let activity = Activity(insertInto: self.mainContext, with: ckActivity)
                 if let projectRef = ckActivity[Activity.Keys.Project] as? CKReference {
                     
@@ -110,7 +110,7 @@ extension CloudKitClient {
     }
     
     static func importRecords() {
-        print("Cloud Kit: Import Records")
+//        print("Cloud Kit: Import Records")
         let group = DispatchGroup()
         
         var ckProjectList = [CKRecord]()
@@ -144,15 +144,15 @@ extension CloudKitClient {
         
         group.notify(queue: .main) {
             
-            print("Import: notify")
+//            print("Import: notify")
             for ckProject in ckProjectList {
-                print("Import: Project")
+//                print("Import: Project")
                 let fetchProjectRequest: NSFetchRequest<Project> = Project.fetchRequest()
                 fetchProjectRequest.predicate = NSPredicate(format: "ckRecordIdName = %@", ckProject.recordID.recordName)
                 fetchProjectRequest.sortDescriptors = []
                 
                 let fetchedProjectResults = try! self.mainContext.fetch(fetchProjectRequest)
-                print(fetchedProjectResults)
+//                print(fetchedProjectResults)
 
                 switch fetchedProjectResults.count {
                 case 1:
@@ -167,14 +167,14 @@ extension CloudKitClient {
             }
             
             for ckActivity in ckActivityList {
-                print("Import: Activity")
+//                print("Import: Activity")
 
                 let fetchActivityRequest: NSFetchRequest<Activity> = Activity.fetchRequest()
                 fetchActivityRequest.predicate = NSPredicate(format: "ckRecordIdName = %@", ckActivity.recordID.recordName)
                 fetchActivityRequest.sortDescriptors = []
                 
                 let fetchedActivityResults = try! self.mainContext.fetch(fetchActivityRequest)
-                print(fetchedActivityResults)
+//                print(fetchedActivityResults)
 
                 switch fetchedActivityResults.count {
                 case 1:
@@ -194,7 +194,7 @@ extension CloudKitClient {
                         let fetchedProjectResults = try! self.mainContext.fetch(fetchProjectRequest)
                         activity.project = fetchedProjectResults.first
                     }
-                    print(activity)
+//                    print(activity)
                 default:
                     fatalError("Unknown state fetching local activities.")
                 }

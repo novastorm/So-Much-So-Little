@@ -159,7 +159,7 @@ class ActivityDetailFormViewController: FormViewController {
                 String(describing: Activity.Kind.deferred).capitalized
             ]
             temporaryContext.performAndWait {
-                print(String(describing: self.activity.kind))
+//                print(String(describing: self.activity.kind))
                 type.value = String(describing: self.activity.kind).capitalized
             }
         }
@@ -241,7 +241,7 @@ class ActivityDetailFormViewController: FormViewController {
                 row.title = "Delete"
             }
         }.onCellSelection { (cell, row) in
-            print("Delete button pressed")
+//            print("Delete button pressed")
             self.deleteActivity()
         }
     
@@ -261,6 +261,7 @@ class ActivityDetailFormViewController: FormViewController {
         print("Add to activities today")
         // check for activity changes
         // mark activity for today
+        flagForToday()
     }
     
     @IBAction func startActivity () {
@@ -311,6 +312,7 @@ class ActivityDetailFormViewController: FormViewController {
     func flagForToday(_ flag: Bool = true) {
         self.temporaryContext.performAndWait { 
             self.activity.today = flag
+            self.saveTemporaryContext()
         }
     }
 }

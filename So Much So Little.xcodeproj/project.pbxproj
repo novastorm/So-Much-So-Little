@@ -112,6 +112,7 @@
 		3E825F0F1D9C493100ABACCE /* TimerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerViewController.swift; sourceTree = "<group>"; };
 		3E95C1C31DD5409400465222 /* TypeNameExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TypeNameExtensions.swift; sourceTree = "<group>"; };
 		3E95C1C51DD540C000465222 /* CKRecord+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CKRecord+Extension.swift"; sourceTree = "<group>"; };
+		3E95E4112018086600632770 /* Usage.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Usage.md; sourceTree = "<group>"; };
 		3ED6DF511D2731F10064E440 /* DateTextFieldDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DateTextFieldDelegate.swift; sourceTree = "<group>"; };
 		3ED6DF531D2AEF350064E440 /* ButtonGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonGroup.swift; sourceTree = "<group>"; };
 		3ED6DF551D2B00620064E440 /* Cartfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Cartfile; sourceTree = "<group>"; };
@@ -234,6 +235,7 @@
 		3EE7410D1D1090DC00064BF6 = {
 			isa = PBXGroup;
 			children = (
+				3E95E4112018086600632770 /* Usage.md */,
 				3E7D99C41D21DE70008FA84B /* README.md */,
 				3ED6DF551D2B00620064E440 /* Cartfile */,
 				3ED6DF5E1D2B04450064E440 /* Cartfile.resolved */,

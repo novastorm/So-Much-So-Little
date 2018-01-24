@@ -60,7 +60,7 @@ extension CloudKitClient {
                 print(error!)
                 return
             }
-            print("Store Activity record")
+//            print("Store Activity record")
         }
         modifyRecordsOperation.modifyRecordsCompletionBlock = { (savedRecordList, deletedRecordIDList, error ) in
             completionHandler(savedRecordList?.first, error)
@@ -81,7 +81,7 @@ extension CloudKitClient {
                 print(error!)
                 return
             }
-            print("Destroy Activity record")
+//            print("Destroy Activity record")
         }
         
         modifyRecordsOperation.modifyRecordsCompletionBlock = { (savedRecordList, deletedRecordIDList, error ) in

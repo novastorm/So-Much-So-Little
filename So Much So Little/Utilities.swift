@@ -23,3 +23,14 @@ func showNetworkAlert(_ vc: UIViewController) {
     vc.present(alertController, animated: true, completion: nil)
 }
 
+func showNetworkActivityIndicator() {
+    performUIUpdatesOnMain {
+        UIApplication.shared.isNetworkActivityIndicatorVisible = true
+    }
+}
+
+func hideNetworkActivityIndicator() {
+    performUIUpdatesOnMain {
+        UIApplication.shared.isNetworkActivityIndicatorVisible = false
+    }
+}
