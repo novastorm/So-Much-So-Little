@@ -252,4 +252,8 @@ extension CloudKitClient {
     static func exportActivityList() {
         
     }
+    
+    static func processUnsynchedRecords() {
+        
+    }
 }

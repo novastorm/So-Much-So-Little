@@ -8,7 +8,7 @@
 
 import CloudKit
 import CoreData
-import Foundation
+import UIKit
 
 struct ProjectOptions {
     var active: Project.ActiveType
@@ -168,7 +168,9 @@ final public class Project: NSManagedObject, CloudKitManagedObject {
             
             if isDeleted {
                 print("Delete \(type(of:self)) [\(self.name)] \(#function)")
+                UIApplication.shared.isNetworkActivityIndicatorVisible = true
                 CloudKitClient.destroyProject(self.cloudKitRecord) { (ckRecordID, error) in
+                    UIApplication.shared.isNetworkActivityIndicatorVisible = false
                     guard error == nil else {
                         print("Error deleting \(type(of:self))", error!)
                         return
@@ -186,11 +188,22 @@ final public class Project: NSManagedObject, CloudKitManagedObject {
                 print(error)
             }
             
+            UIApplication.shared.isNetworkActivityIndicatorVisible = true
             CloudKitClient.getProject(ckRecordIdName!) { (remoteCKRecord, error) in
+                UIApplication.shared.isNetworkActivityIndicatorVisible = false
                 guard error == nil else {
                     print("Error retrieving \(type(of:self))", error!)
                     
+                    guard ConnectionMonitor.shared.isConnectedToNetwork() else {
+                        self.managedObjectContext?.perform {
+                            self.setPrimitiveValue(NSNumber.init(value: false), forKey: Keys.IsSynced)
+                        }
+                        return
+                    }
+                    
+                    UIApplication.shared.isNetworkActivityIndicatorVisible = true
                     CloudKitClient.storeProject(localCKRecord) { (ckRecord, error) in
+                        UIApplication.shared.isNetworkActivityIndicatorVisible = false
                         guard error == nil else {
                             print("\(type(of:self)) storeReord", error!)
                             return
@@ -198,6 +211,7 @@ final public class Project: NSManagedObject, CloudKitManagedObject {
 
                         self.managedObjectContext?.perform {
                             self.setPrimitiveValue(ckRecord!.encodedCKRecordSystemFields, forKey: Keys.EncodedCKRecord)
+                            self.setPrimitiveValue(NSNumber.init(value: true), forKey: Keys.IsSynced)
                         }
                     }
                     
@@ -212,7 +226,9 @@ final public class Project: NSManagedObject, CloudKitManagedObject {
                 
 //                print("\(type(of:self)) remoteCKRecord ", remoteCKRecord)
                 
+                UIApplication.shared.isNetworkActivityIndicatorVisible = true
                 CloudKitClient.storeProject(remoteCKRecord) { (ckRecord, error) in
+                    UIApplication.shared.isNetworkActivityIndicatorVisible = false
                     guard error == nil else {
                         print("\(type(of:self)) storeReord", error!)
                         return

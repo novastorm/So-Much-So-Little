@@ -152,7 +152,9 @@ class ProjectDetailFormViewController: FormViewController {
     // MARK: - Actions
     
     @IBAction func save(_ sender: AnyObject) {
-        print("save")
+        if !ConnectionMonitor.shared.isConnectedToNetwork() {
+            showNetworkAlert(self)
+        }
         saveProject()
     }
     

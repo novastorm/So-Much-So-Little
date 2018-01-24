@@ -251,6 +251,9 @@ class ActivityDetailFormViewController: FormViewController {
     // MARK: - Actions
     
     @IBAction func save(_ sender: AnyObject) {
+        if !ConnectionMonitor.shared.isConnectedToNetwork() {
+            showNetworkAlert(self)
+        }
         saveActivity()
     }
     

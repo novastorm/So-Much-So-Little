@@ -128,6 +128,7 @@ class ActivityTableViewController: UITableViewController {
                 }
             )
         case .changed:
+            guard snapshot != nil else { break }
             // move snapshot
             var center = snapshot.center
             center.y = location.y
@@ -145,6 +146,8 @@ class ActivityTableViewController: UITableViewController {
             
             moveIndexPathSource = indexPath
         case .ended:
+            guard moveIndexPathSource != nil else { break }
+            
             let cell = tableView.cellForRow(at: moveIndexPathSource)!
             cell.isHidden = false
             cell.alpha = 0.0

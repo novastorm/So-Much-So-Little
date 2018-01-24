@@ -8,6 +8,7 @@
 
 import CloudKit
 import CoreData
+import UIKit
 
 struct ActivityOptions {
     var completed: Activity.CompletedType
@@ -156,24 +157,28 @@ final public class Activity: NSManagedObject, CloudKitManagedObject {
         get {
             let ckRecord = CKRecord.decodeCKRecordSystemFields(from: encodedCKRecord! as Data)
             
-            ckRecord[Keys.Completed] = completed as NSNumber
-            ckRecord[Keys.CompletedDate] = completedDate as NSDate?
-            ckRecord[Keys.DeferredTo] = deferredTo as NSString?
-            ckRecord[Keys.DeferredToResponseDueDate] = deferredToResponseDueDate as NSDate?
-            ckRecord[Keys.DisplayOrder] = displayOrder as NSNumber
-            ckRecord[Keys.DueDate] = dueDate as NSDate?
-            ckRecord[Keys.EstimatedTimeboxes] = estimatedTimeboxes as NSNumber
-            ckRecord[Keys.Info] = info as NSString?
-            ckRecord[Keys.Kind] = kind.rawValue as NSNumber
-            ckRecord[Keys.Name] = name as NSString
-            ckRecord[Keys.ScheduledEnd] = scheduledEnd as NSDate?
-            ckRecord[Keys.ScheduledStart] = scheduledStart as NSDate?
-            ckRecord[Keys.Today] = today as NSNumber
-            ckRecord[Keys.TodayDisplayOrder] = todayDisplayOrder as NSNumber
+//            ckRecord[Keys.Completed] = completed as NSNumber
+//            ckRecord[Keys.CompletedDate] = completedDate as NSDate?
+//            ckRecord[Keys.DeferredTo] = deferredTo as NSString?
+//            ckRecord[Keys.DeferredToResponseDueDate] = deferredToResponseDueDate as NSDate?
+//            ckRecord[Keys.DisplayOrder] = displayOrder as NSNumber
+//            ckRecord[Keys.DueDate] = dueDate as NSDate?
+//            ckRecord[Keys.EstimatedTimeboxes] = estimatedTimeboxes as NSNumber
+//            ckRecord[Keys.Info] = info as NSString?
+//            ckRecord[Keys.Kind] = kind.rawValue as NSNumber
+//            ckRecord[Keys.Name] = name as NSString
+//            ckRecord[Keys.ScheduledEnd] = scheduledEnd as NSDate?
+//            ckRecord[Keys.ScheduledStart] = scheduledStart as NSDate?
+//            ckRecord[Keys.Today] = today as NSNumber
+//            ckRecord[Keys.TodayDisplayOrder] = todayDisplayOrder as NSNumber
             
 //            for key in ckRecord.allKeys() {
 //                ckRecord.setValue(value(forKey: key), forKey: key)
 //            }
+            
+            for (key, _) in self.entity.attributesByName {
+                ckRecord.setValue(value(forKey: key), forKey: key)
+            }
             
             if let project = project {
                 let ckRecordRef = CKRecord.decodeCKRecordSystemFields(from: project.encodedCKRecord! as Data)
@@ -274,7 +279,11 @@ final public class Activity: NSManagedObject, CloudKitManagedObject {
             
             if isDeleted {
                 print("Delete \(type(of:self)) [\(self.name)] \(#function)")
+                
+                UIApplication.shared.isNetworkActivityIndicatorVisible = true
+                
                 CloudKitClient.destroyActivity(self.cloudKitRecord) { (ckRecordID, error) in
+                    UIApplication.shared.isNetworkActivityIndicatorVisible = false
                     guard error == nil else {
                         print("Error deleting \(type(of:self))", error!)
                         return
@@ -292,11 +301,22 @@ final public class Activity: NSManagedObject, CloudKitManagedObject {
                 print(error)
             }
             
+            UIApplication.shared.isNetworkActivityIndicatorVisible = true
             CloudKitClient.getActivity(ckRecordIdName!) { (remoteCKRecord, error) in
+                UIApplication.shared.isNetworkActivityIndicatorVisible = false
                 guard error == nil else {
                     print("Error retrieving \(type(of:self))", error!)
+                    
+                    guard ConnectionMonitor.shared.isConnectedToNetwork() else {
+                        self.managedObjectContext?.perform {
+                            self.setPrimitiveValue(NSNumber.init(value: false), forKey: Keys.IsSynced)
+                        }
+                        return
+                    }
 
+                    UIApplication.shared.isNetworkActivityIndicatorVisible = true
                     CloudKitClient.storeActivity(localCKRecord) { (ckRecord, error) in
+                        UIApplication.shared.isNetworkActivityIndicatorVisible = false
                         guard error == nil else {
                             print("\(type(of:self)) storeReord", error!)
                             return
@@ -304,6 +324,7 @@ final public class Activity: NSManagedObject, CloudKitManagedObject {
                         
                         self.managedObjectContext?.perform {
                             self.setPrimitiveValue(ckRecord!.encodedCKRecordSystemFields, forKey: Keys.EncodedCKRecord)
+                            self.setPrimitiveValue(NSNumber.init(value: true), forKey: Keys.IsSynced)
                         }
                     }
                     
@@ -318,7 +339,9 @@ final public class Activity: NSManagedObject, CloudKitManagedObject {
                 remoteCKRecord.setObject(localCKRecord.object(forKey: Activity.Keys.Project), forKey: Activity.Keys.Project)
 //                print("\(type(of:self)) remoteCKRecord ", remoteCKRecord)
 
+                UIApplication.shared.isNetworkActivityIndicatorVisible = true
                 CloudKitClient.storeActivity(remoteCKRecord) { (ckRecord, error) in
+                    UIApplication.shared.isNetworkActivityIndicatorVisible = false
                     guard error == nil else {
                         print("\(type(of:self)) storeReord", error!)
                         return

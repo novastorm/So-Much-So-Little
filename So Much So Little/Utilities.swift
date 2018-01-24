@@ -8,26 +8,18 @@
 
 import Reachability
 
-func checkNetworkConnection(_ hostname: String?, completionHandler: (_ success: Bool, _ error: NSError?) -> Void) {
+
+func showNetworkAlert(_ vc: UIViewController) {
+    let networkErrorTitle = "Network unreachable."
+    let networkErrorMessage = "Check network connection"
     
-    var reachability: Reachability!
+    let alertController = UIAlertController(title: networkErrorTitle, message: networkErrorMessage, preferredStyle: .alert)
     
-    reachability = (hostname == nil) ? Reachability()! : Reachability(hostname: hostname!)!
+    let okAction = UIAlertAction(title: "ok", style: .default, handler: nil)
+    alertController.addAction(okAction)
     
-    guard reachability.connection != .none else {
-        // Debug without network
-        if (UIApplication.shared.delegate as! AppDelegate).debugWithoutNetwork {
-            completionHandler(true, nil)
-            return
-        }
-        
-        let userInfo: [String:AnyObject] = [
-            NSLocalizedDescriptionKey: "Network not reachable" as AnyObject
-        ]
-        
-        completionHandler(false, NSError(domain: "checkNetworkConnection", code: 1, userInfo: userInfo))
-        return
-    }
+    alertController.view.layoutIfNeeded()
     
-    completionHandler(true, nil)
+    vc.present(alertController, animated: true, completion: nil)
 }
+

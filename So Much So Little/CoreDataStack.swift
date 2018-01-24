@@ -210,7 +210,6 @@ extension CoreDataStack {
 extension CoreDataStack {
     
     @objc func saveMainContext() {
-        print("\(type(of: self)) \(#function)")
         // We call this synchronously, but it's a very fast
         // operation (it doesn't hit the disk). We need to know
         // when it ends so we can call the next save (on the persisting

@@ -108,7 +108,7 @@
 		3E7BDB861DB58071006E526A /* CloudKitClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CloudKitClient.swift; sourceTree = "<group>"; };
 		3E7BDB881DB5C417006E526A /* CloudKitClient+Convenience.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CloudKitClient+Convenience.swift"; sourceTree = "<group>"; };
 		3E7D99C21D21C1BD008FA84B /* TimeboxControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeboxControl.swift; sourceTree = "<group>"; };
-		3E7D99C41D21DE70008FA84B /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		3E7D99C41D21DE70008FA84B /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.markdown; };
 		3E825F0F1D9C493100ABACCE /* TimerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerViewController.swift; sourceTree = "<group>"; };
 		3E95C1C31DD5409400465222 /* TypeNameExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TypeNameExtensions.swift; sourceTree = "<group>"; };
 		3E95C1C51DD540C000465222 /* CKRecord+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CKRecord+Extension.swift"; sourceTree = "<group>"; };
