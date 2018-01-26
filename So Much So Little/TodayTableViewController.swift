@@ -53,9 +53,17 @@ class TodayTableViewController: UITableViewController {
     
     // MARK: - View Lifecycle
     
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        
+        tabBarItem.setFAIcon(icon: .FATwitter, textColor: .lightGray)
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        tabBarItem.setFAIcon(icon: .FACalendarMinusO, textColor: .lightGray, selectedTextColor: self.view.tintColor )
+
         navigationItem.hidesBackButton = true
         
         fetchedResultsController.delegate = self

@@ -47,9 +47,17 @@ class ProjectTableViewController: UITableViewController {
     
     // MARK: - View Life Cycle
     
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        
+        tabBarItem.setFAIcon(icon: .FAPieChart, textColor: .lightGray)
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
+        tabBarItem.setFAIcon(icon: .FAPieChart, textColor: .lightGray, selectedTextColor: self.view.tintColor )
+
         navigationItem.hidesBackButton = true
         
         fetchedResultsController.delegate = self

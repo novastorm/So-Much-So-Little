@@ -50,13 +50,13 @@ class ActivityTableViewController: UITableViewController {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         
-        tabBarItem.setFAIcon(icon: .FATwitter, textColor: .lightGray)
+        tabBarItem.setFAIcon(icon: .FASignLanguage, textColor: .lightGray)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tabBarItem.setFAIcon(icon: .FATwitter, textColor: .lightGray, selectedTextColor: self.view.tintColor )
+        tabBarItem.setFAIcon(icon: .FASignLanguage, textColor: .lightGray, selectedTextColor: self.view.tintColor )
 
         navigationItem.hidesBackButton = true
         

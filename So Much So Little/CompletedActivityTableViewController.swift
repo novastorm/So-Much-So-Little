@@ -77,9 +77,17 @@ class CompletedActivityTableViewController: UITableViewController {
     
     // MARK: - View Lifecycle
     
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        
+        tabBarItem.setFAIcon(icon: .FACheckSquareO, textColor: .lightGray)
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        tabBarItem.setFAIcon(icon: .FACheckSquareO, textColor: .lightGray, selectedTextColor: self.view.tintColor )
+
         navigationItem.hidesBackButton = true
         
         frcActivity.delegate = self
