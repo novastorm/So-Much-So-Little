@@ -50,13 +50,14 @@ class ActivityTableViewController: UITableViewController {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         
-        tabBarItem.setFAIcon(icon: .FATwitter, size: nil, textColor: .red, backgroundColor: .black, selectedTextColor: .yellow, selectedBackgroundColor: .white)
+        tabBarItem.setFAIcon(icon: .FATwitter, textColor: .lightGray)
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        tabBarItem.setFAIcon(icon: .FATwitter, size: nil, textColor: .red, backgroundColor: .black, selectedTextColor: .yellow, selectedBackgroundColor: .white)
+        tabBarItem.setFAIcon(icon: .FATwitter, textColor: .lightGray, selectedTextColor: self.view.tintColor )
+
         navigationItem.hidesBackButton = true
         
         fetchedResultsController.delegate = self
