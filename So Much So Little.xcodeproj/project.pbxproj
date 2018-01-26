@@ -50,6 +50,9 @@
 		3EE7411F1D1090DC00064BF6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3EE7411D1D1090DC00064BF6 /* Main.storyboard */; };
 		3EE741241D1090DC00064BF6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3EE741231D1090DC00064BF6 /* Assets.xcassets */; };
 		3EE741271D1090DC00064BF6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3EE741251D1090DC00064BF6 /* LaunchScreen.storyboard */; };
+		3EEE4838201B32C800BD2F34 /* FontAwesomeSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EEE4837201B32C800BD2F34 /* FontAwesomeSwift.framework */; };
+		3EEE483A201B34C100BD2F34 /* FontAwesomeSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EEE4839201B34C100BD2F34 /* FontAwesomeSwift.framework */; };
+		3EEE483B201B34C100BD2F34 /* FontAwesomeSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3EEE4839201B34C100BD2F34 /* FontAwesomeSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3EF741161DA72B31008C30CF /* ProjectTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF741151DA72B31008C30CF /* ProjectTests.swift */; };
 /* End PBXBuildFile section */
 
@@ -71,6 +74,7 @@
 			dstSubfolderSpec = 10;
 			files = (
 				3E7AB5841D318A45002F6C2D /* Eureka.framework in Embed Frameworks */,
+				3EEE483B201B34C100BD2F34 /* FontAwesomeSwift.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -129,6 +133,8 @@
 		3EE7412D1D1090DC00064BF6 /* So Much So LittleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "So Much So LittleTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3EE741311D1090DC00064BF6 /* ActivityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityTests.swift; sourceTree = "<group>"; };
 		3EE741331D1090DC00064BF6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3EEE4837201B32C800BD2F34 /* FontAwesomeSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FontAwesomeSwift.framework; path = Carthage/Build/iOS/FontAwesomeSwift.framework; sourceTree = "<group>"; };
+		3EEE4839201B34C100BD2F34 /* FontAwesomeSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FontAwesomeSwift.framework; path = ../Carthage/Build/iOS/FontAwesomeSwift.framework; sourceTree = "<group>"; };
 		3EF741151DA72B31008C30CF /* ProjectTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -137,8 +143,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3EEE4838201B32C800BD2F34 /* FontAwesomeSwift.framework in Frameworks */,
 				3E7AB5831D318A45002F6C2D /* Eureka.framework in Frameworks */,
 				3E41D0F91D8DCA62002EAD8A /* CloudKit.framework in Frameworks */,
+				3EEE483A201B34C100BD2F34 /* FontAwesomeSwift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -190,6 +198,7 @@
 		3E41D0F71D8DCA62002EAD8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3EEE4837201B32C800BD2F34 /* FontAwesomeSwift.framework */,
 				3E41D0F81D8DCA62002EAD8A /* CloudKit.framework */,
 			);
 			name = Frameworks;
@@ -228,6 +237,7 @@
 			isa = PBXGroup;
 			children = (
 				3ED6DF591D2B03070064E440 /* Eureka.framework */,
+				3EEE4839201B34C100BD2F34 /* FontAwesomeSwift.framework */,
 			);
 			name = Resources;
 			sourceTree = "<group>";

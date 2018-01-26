@@ -8,6 +8,7 @@
 
 import CoreData
 import UIKit
+import FontAwesomeSwift
 
 class ActivityTableViewController: UITableViewController {
     
@@ -17,8 +18,7 @@ class ActivityTableViewController: UITableViewController {
     
     var snapshot: UIView!
     var moveIndexPathSource: IndexPath!
-    
-    
+        
     // Mark: - Core Data Utilities
     
     lazy var fetchedResultsController: NSFetchedResultsController<Activity> = {
@@ -47,9 +47,16 @@ class ActivityTableViewController: UITableViewController {
     
     // MARK: - View Lifecycle
     
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        
+        tabBarItem.setFAIcon(icon: .FATwitter, size: nil, textColor: .red, backgroundColor: .black, selectedTextColor: .yellow, selectedBackgroundColor: .white)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
+//        tabBarItem.setFAIcon(icon: .FATwitter, size: nil, textColor: .red, backgroundColor: .black, selectedTextColor: .yellow, selectedBackgroundColor: .white)
         navigationItem.hidesBackButton = true
         
         fetchedResultsController.delegate = self
