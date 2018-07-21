@@ -9,7 +9,20 @@
 import CoreData
 import UIKit
 
+struct TimerViewControllerDependencies {
+    
+    var coreDataStack: CoreDataStack!
+    
+    init(
+        coreDataStack: CoreDataStack = (UIApplication.shared.delegate as! AppDelegate).coreDataStack
+        ) {
+        self.coreDataStack = coreDataStack
+    }
+}
+
 class TimerViewController: UIViewController {
+    
+    let dependencies: TimerViewControllerDependencies!
     
     let DefaultTaskLabel = "Generic"
     
@@ -36,7 +49,7 @@ class TimerViewController: UIViewController {
     // MARK: - Core Data convenience methods
     
     var coreDataStack: CoreDataStack {
-        return CoreDataStackManager.shared
+        return dependencies.coreDataStack
     }
 
     var mainContext: NSManagedObjectContext {
@@ -53,6 +66,28 @@ class TimerViewController: UIViewController {
 
     
     // MARK: - View Life Cycle
+    
+    init?(
+        coder aDecoder: NSCoder?,
+        dependencies: TimerViewControllerDependencies
+        ) {
+        
+        self.dependencies = dependencies
+        
+        if let aDecoder = aDecoder {
+            super.init(coder: aDecoder)
+        }
+        else {
+            super.init()
+        }
+    }
+    
+    required convenience init?(coder aDecoder: NSCoder) {
+        self.init(
+            coder: aDecoder,
+            dependencies: TimerViewControllerDependencies()
+        )
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()

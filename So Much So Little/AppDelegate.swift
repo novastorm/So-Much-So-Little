@@ -19,15 +19,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
+    var coreDataStack: CoreDataStack = CoreDataStack_v1(name: "So_Much_So_Little")!
+    var cloudKitClient: CloudKitClient = CloudKitClient()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
 //        connectionMonitor = ConnectionMonitor.init(hostname: "8.8.8.8")
 
+        coreDataStack.cloudKitClient = cloudKitClient
+        cloudKitClient.coreDataStack = coreDataStack
+        
         checkIfFirstLaunch()
-        CoreDataStackManager.shared.autoSave(60)
-        CloudKitClient.importRecords()
+        coreDataStack.autoSave(60)
+        cloudKitClient.importRecords()
         return true
     }
 
@@ -35,14 +40,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
 
-        CoreDataStackManager.shared.saveMainContext()
+        coreDataStack.saveMainContext()
     }
 
     func applicationDidEnterBackground(_ application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
 
-        CoreDataStackManager.shared.saveMainContext()
+        coreDataStack.saveMainContext()
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {

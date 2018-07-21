@@ -12,7 +12,11 @@ import Foundation
 
 extension CloudKitClient {
     
-    static func storeRecords(using database: CKDatabase = privateDatabase, context: NSManagedObjectContext, completionHandler: @escaping(_ success: Bool, _ error: Error?) -> Void) {
+    func storeRecords(
+        using database: CKDatabase = CKContainer.default().privateCloudDatabase,
+        context: NSManagedObjectContext,
+        completionHandler: @escaping(_ success: Bool, _ error: Error?) -> Void
+        ) {
         
         var modifiedObjects = Set<NSManagedObject>()
         var deletedObjects = Set<NSManagedObject>()
@@ -25,7 +29,7 @@ extension CloudKitClient {
         let modifyRecordsOperation = CKModifyRecordsOperation()
         modifyRecordsOperation.database = database
         
-        modifyRecordsOperation.recordsToSave = modifiedObjects.flatMap { (record) -> CKRecord? in
+        modifyRecordsOperation.recordsToSave = modifiedObjects.compactMap { (record) -> CKRecord? in
             guard let record = record as? CloudKitManagedObject else {
                 return nil
             }
@@ -33,7 +37,7 @@ extension CloudKitClient {
             return record.cloudKitRecord
         }
         
-        modifyRecordsOperation.recordIDsToDelete = deletedObjects.flatMap { (record) -> CKRecordID? in
+        modifyRecordsOperation.recordIDsToDelete = deletedObjects.compactMap { (record) -> CKRecordID? in
             guard let record = record as? CloudKitManagedObject else {
                 return nil
             }
@@ -48,7 +52,7 @@ extension CloudKitClient {
                 return
             }
             
-            let record = modifiedObjects.first() { (record) -> Bool in
+            var record = modifiedObjects.first() { (record) -> Bool in
                 let record = record as! CloudKitManagedObject
                 var result = false
                 context.performAndWait {
@@ -80,7 +84,7 @@ extension CloudKitClient {
     
     // MARK: - Destroy method
     
-    static func deleteRecord(_ recordIdString: String, completionHandler: @escaping (_ activity: CKRecord?, _ error: Error?) -> Void) {
+    func deleteRecord(_ recordIdString: String, completionHandler: @escaping (_ activity: CKRecord?, _ error: Error?) -> Void) {
         
     }
 }

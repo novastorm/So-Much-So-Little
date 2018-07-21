@@ -16,13 +16,17 @@ class StubTest: UIViewController {
     }
     
     var coreDataStack: CoreDataStack {
-        return CoreDataStackManager.shared
+        return appDelegate.coreDataStack
+    }
+    
+    var cloudKitClient: CloudKitClient {
+        return appDelegate.cloudKitClient
     }
     
     @IBAction func callFirstLaunch(_ sender: AnyObject) {
         print("callFirstLaunch")
         
-        try! coreDataStack.dropAllData()
+        try! coreDataStack.clearDatabase()
 
         UserDefaults.standard.set(false, forKey: AppDelegate.UserDefaultKeys.HasLaunchedBefore)
 
@@ -31,7 +35,7 @@ class StubTest: UIViewController {
     
     @IBAction func getActivityList(_ sender: AnyObject) {
         print("getActivityList")
-        CloudKitClient.getActivityList { (results, error) in
+        cloudKitClient.getActivityList { (results, error) in
             
             guard error == nil else {
                 print("error")

@@ -9,7 +9,20 @@
 import CoreData
 import UIKit
 
+struct CompletedActivityTableViewControllerDependencies {
+    
+    var coreDataStack: CoreDataStack!
+    
+    init(
+        coreDataStack: CoreDataStack = (UIApplication.shared.delegate as! AppDelegate).coreDataStack
+        ) {
+        self.coreDataStack = coreDataStack
+    }
+}
+
 class CompletedActivityTableViewController: UITableViewController {
+    
+    let dependencies: CompletedActivityTableViewControllerDependencies!
     
     var insertedIndexPaths: [IndexPath]!
     var deletedIndexPaths: [IndexPath]!
@@ -63,7 +76,7 @@ class CompletedActivityTableViewController: UITableViewController {
     // lazy var projectFRC
     
     var coreDataStack: CoreDataStack {
-        return CoreDataStackManager.shared
+        return dependencies.coreDataStack
     }
 
     var mainContext: NSManagedObjectContext {
@@ -77,10 +90,28 @@ class CompletedActivityTableViewController: UITableViewController {
     
     // MARK: - View Lifecycle
     
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
+    required init?(
+        coder aDecoder: NSCoder?,
+        dependencies: CompletedActivityTableViewControllerDependencies
+        ) {
+        
+        self.dependencies = dependencies
+        
+        if let aDecoder = aDecoder {
+            super.init(coder: aDecoder)
+        }
+        else {
+            super.init()
+        }
         
         tabBarItem.setFAIcon(icon: .FACheckSquareO, textColor: .lightGray)
+    }
+
+    required convenience init?(coder aDecoder: NSCoder?) {
+        self.init(
+            coder: aDecoder,
+            dependencies: CompletedActivityTableViewControllerDependencies()
+        )
     }
 
     override func viewDidLoad() {

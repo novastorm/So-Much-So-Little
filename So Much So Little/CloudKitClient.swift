@@ -7,22 +7,26 @@
 //
 
 import CloudKit
+import UIKit
+
 
 class CloudKitClient {
+    
+    var coreDataStack: CoreDataStack!
     
     public enum RecordType: String {
         case Activity, Project
     }
     
-    static var ubiquityIdentityToken: Any? {
+    var ubiquityIdentityToken: Any? {
         return FileManager.default.ubiquityIdentityToken
     }
 
-    static var publicDatabase: CKDatabase {
+    var publicDatabase: CKDatabase {
         return CKContainer.default().publicCloudDatabase
     }
     
-    static var privateDatabase: CKDatabase {
+    var privateDatabase: CKDatabase {
         return CKContainer.default().privateCloudDatabase
     }
     

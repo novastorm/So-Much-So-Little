@@ -12,7 +12,10 @@ extension CloudKitClient {
     
     // MARK: - Index method
     
-    static func getProjectList(using database: CKDatabase = privateDatabase, _ completionHandler: @escaping (_ projectList: [CKRecord]?, _ error: Error?) -> Void) {
+    func getProjectList(
+        using database: CKDatabase = CKContainer.default().privateCloudDatabase,
+        _ completionHandler: @escaping (_ projectList: [CKRecord]?, _ error: Error?) -> Void
+        ) {
         
         let predicate = NSPredicate(value: true)
         let query = CKQuery(recordType: RecordType.Project.rawValue, predicate: predicate)
@@ -30,7 +33,7 @@ extension CloudKitClient {
     
     // MARK: - Show method
     
-    static func getProject(_ recordIdString: String, completionHandler: @escaping (_ activity: CKRecord?, _ error: Error?) -> Void) {
+    func getProject(_ recordIdString: String, completionHandler: @escaping (_ activity: CKRecord?, _ error: Error?) -> Void) {
     
         let recordId = CKRecordID(recordName: recordIdString)
         
@@ -48,7 +51,11 @@ extension CloudKitClient {
     
     // MARK: - Store and update method
     
-    static func storeProject(_ project: CKRecord, using database: CKDatabase = privateDatabase, completionHandler: @escaping(_ project: CKRecord?, _ error: Error?) -> Void) {
+    func storeProject(
+        _ project: CKRecord,
+        using database: CKDatabase = CKContainer.default().privateCloudDatabase,
+        completionHandler: @escaping(_ project: CKRecord?, _ error: Error?) -> Void
+        ) {
 
         let modifyRecordsOperation = CKModifyRecordsOperation()
         modifyRecordsOperation.database = database
@@ -71,7 +78,11 @@ extension CloudKitClient {
     // MARK: - Destroy method
     
     
-    static func destroyProject(_ project: CKRecord, using database: CKDatabase = privateDatabase, completionHandler: @escaping(_ project: CKRecordID?, _ error: Error?) -> Void) {
+    func destroyProject(
+        _ project: CKRecord,
+        using database: CKDatabase = CKContainer.default().privateCloudDatabase,
+        completionHandler: @escaping(_ project: CKRecordID?, _ error: Error?) -> Void
+        ) {
         
         let modifyRecordsOperation = CKModifyRecordsOperation()
         modifyRecordsOperation.database = database

@@ -15,7 +15,20 @@ class TodayTableViewCell: UITableViewCell {
     @IBOutlet weak var taskLabel: UILabel!
 }
 
+struct TodayTableViewControllerDependencies {
+    
+    var coreDataStack: CoreDataStack!
+    
+    init(
+        coreDataStack: CoreDataStack = (UIApplication.shared.delegate as! AppDelegate).coreDataStack
+        ) {
+        self.coreDataStack = coreDataStack
+    }
+}
+
 class TodayTableViewController: UITableViewController {
+    
+    let dependencies: TodayTableViewControllerDependencies!
     
     var insertedIndexPaths: [IndexPath]!
     var deletedIndexPaths: [IndexPath]!
@@ -39,7 +52,7 @@ class TodayTableViewController: UITableViewController {
     }()
     
     var coreDataStack: CoreDataStack {
-        return CoreDataStackManager.shared
+        return dependencies.coreDataStack
     }
     
     var mainContext: NSManagedObjectContext {
@@ -53,10 +66,22 @@ class TodayTableViewController: UITableViewController {
     
     // MARK: - View Lifecycle
     
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        
+    init?(coder aDecoder: NSCoder?, dependencies: TodayTableViewControllerDependencies) {
+        self.dependencies = dependencies
+        if let aDecoder = aDecoder {
+            super.init(coder: aDecoder)
+        }
+        else {
+            super.init()
+        }
         tabBarItem.setFAIcon(icon: .FATwitter, textColor: .lightGray)
+    }
+    
+    required convenience init?(coder aDecoder: NSCoder) {
+        self.init(
+            coder: aDecoder,
+            dependencies: TodayTableViewControllerDependencies()
+        )
     }
 
     override func viewDidLoad() {

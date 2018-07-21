@@ -59,7 +59,7 @@ struct ActivityOptions {
     }
 }
 
-final public class Activity: NSManagedObject, CloudKitManagedObject {
+final public class Activity: NSManagedObject, CloudKitManagedObject {    
     
     @objc // <- required for Core Data type compatibility
     public enum Kind: Int16, CustomStringConvertible {
@@ -148,6 +148,19 @@ final public class Activity: NSManagedObject, CloudKitManagedObject {
     
     static let defaultName = "New Activity"
     
+    @nonobjc
+    var cloudKitClient: CloudKitClient {
+        var delegate: AppDelegate!
+        if Thread.isMainThread {
+            delegate = UIApplication.shared.delegate as! AppDelegate
+        }
+        else {
+            DispatchQueue.main.sync {
+                delegate = UIApplication.shared.delegate as! AppDelegate
+            }
+        }
+        return delegate.cloudKitClient
+    }
 
     var actualTimeboxes: Int {
         return timeboxes.count
@@ -207,7 +220,7 @@ final public class Activity: NSManagedObject, CloudKitManagedObject {
             todayDisplayOrder = newValue[Keys.TodayDisplayOrder] as? TodayDisplayOrderType ?? 0
         }
     }
-    
+
     /**
      Create an instance from the given ActivityOptions
      
@@ -218,7 +231,11 @@ final public class Activity: NSManagedObject, CloudKitManagedObject {
          The ActivityOptions record
      */
     
-    convenience init(insertInto context: NSManagedObjectContext, with options: ActivityOptions = ActivityOptions()) {
+    convenience init(
+        insertInto context: NSManagedObjectContext,
+        with options: ActivityOptions = ActivityOptions()
+        ) {
+        
         let typeName = type(of: self).typeName
         let entity = NSEntityDescription.entity(forEntityName: typeName, in: context)!
         
@@ -261,7 +278,11 @@ final public class Activity: NSManagedObject, CloudKitManagedObject {
      A Cloud Kit Record.
      */
     
-    convenience init(insertInto context: NSManagedObjectContext, with ckRecord: CKRecord) {
+    convenience init(
+        insertInto context: NSManagedObjectContext,
+        with ckRecord: CKRecord
+        ) {
+        
         let name = ckRecord[Keys.Name] as! String
         self.init(insertInto: context, with: ActivityOptions(name: name))
         cloudKitRecord = ckRecord
@@ -274,86 +295,86 @@ final public class Activity: NSManagedObject, CloudKitManagedObject {
      */
     override public func didSave() {
         
-        if managedObjectContext == CoreDataStackManager.shared.mainContext {
-//            print("\(type(of:self)) [\(self.name)] \(#function)")
-            
-            if isDeleted {
-//                print("Delete \(type(of:self)) [\(self.name)] \(#function)")
-                
-                showNetworkActivityIndicator()
-                
-                CloudKitClient.destroyActivity(self.cloudKitRecord) { (ckRecordID, error) in
-                    hideNetworkActivityIndicator()
-                    guard error == nil else {
-                        print("Error deleting \(type(of:self))", error!)
-                        return
-                    }
-//                    print("Delete \(type(of: self)) \(String(describing: ckRecordID))")
-                }
-                return
-            }
-
-            let localCKRecord: CKRecord = self.cloudKitRecord
-            do {
-                try managedObjectContext?.obtainPermanentIDs(for: [self])
-            }
-            catch {
-                print(error)
-            }
+        guard Thread.isMainThread else { return }
+        
+//        print("\(type(of:self)) [\(self.name)] \(#function)")
+        
+        if isDeleted {
+//            print("Delete \(type(of:self)) [\(self.name)] \(#function)")
             
             showNetworkActivityIndicator()
-            CloudKitClient.getActivity(ckRecordIdName!) { (remoteCKRecord, error) in
+            
+            cloudKitClient.destroyActivity(self.cloudKitRecord) { (ckRecordID, error) in
                 hideNetworkActivityIndicator()
                 guard error == nil else {
-//                    print("Error retrieving \(type(of:self))", error!)
-                    
-                    guard ConnectionMonitor.shared.isConnectedToNetwork() else {
-                        self.managedObjectContext?.perform {
-                            self.setPrimitiveValue(NSNumber.init(value: false), forKey: Keys.IsSynced)
-                        }
-                        return
-                    }
-
-                    showNetworkActivityIndicator()
-                    CloudKitClient.storeActivity(localCKRecord) { (ckRecord, error) in
-                        performUIUpdatesOnMain {
-                            hideNetworkActivityIndicator()
-                        }
-                        guard error == nil else {
-                            print("\(type(of:self)) storeReord", error!)
-                            return
-                        }
-                        
-                        self.managedObjectContext?.perform {
-                            self.setPrimitiveValue(ckRecord!.encodedCKRecordSystemFields, forKey: Keys.EncodedCKRecord)
-                            self.setPrimitiveValue(NSNumber.init(value: true), forKey: Keys.IsSynced)
-                        }
-                    }
-                    
+                    print("Error deleting \(type(of:self))", error!)
                     return
                 }
-
-                let remoteCKRecord = remoteCKRecord!
+//                print("Delete \(type(of: self)) \(String(describing: ckRecordID))")
+            }
+            return
+        }
+        
+        let localCKRecord: CKRecord = self.cloudKitRecord
+        do {
+            try managedObjectContext?.obtainPermanentIDs(for: [self])
+        }
+        catch {
+            print(error)
+        }
+        
+        showNetworkActivityIndicator()
+        cloudKitClient.getActivity(ckRecordIdName!) { (remoteCKRecord, error) in
+            hideNetworkActivityIndicator()
+            guard error == nil else {
+//                print("Error retrieving \(type(of:self))", error!)
                 
-                for key in localCKRecord.allKeys() {
-                    remoteCKRecord.setObject(localCKRecord.object(forKey: key), forKey: key)
+                guard ConnectionMonitor.shared.isConnectedToNetwork() else {
+                    self.managedObjectContext?.perform {
+                        self.setPrimitiveValue(NSNumber.init(value: false), forKey: Keys.IsSynced)
+                    }
+                    return
                 }
-                remoteCKRecord.setObject(localCKRecord.object(forKey: Activity.Keys.Project), forKey: Activity.Keys.Project)
-//                print("\(type(of:self)) remoteCKRecord ", remoteCKRecord)
-
+                
                 showNetworkActivityIndicator()
-                CloudKitClient.storeActivity(remoteCKRecord) { (ckRecord, error) in
-                    hideNetworkActivityIndicator()
+                self.cloudKitClient.storeActivity(localCKRecord) { (ckRecord, error) in
+                    performUIUpdatesOnMain {
+                        hideNetworkActivityIndicator()
+                    }
                     guard error == nil else {
                         print("\(type(of:self)) storeReord", error!)
                         return
                     }
                     
-//                    print("ckRecord \(String(describing: ckRecord?.recordChangeTag))")
-                    
                     self.managedObjectContext?.perform {
                         self.setPrimitiveValue(ckRecord!.encodedCKRecordSystemFields, forKey: Keys.EncodedCKRecord)
+                        self.setPrimitiveValue(NSNumber.init(value: true), forKey: Keys.IsSynced)
                     }
+                }
+                
+                return
+            }
+            
+            let remoteCKRecord = remoteCKRecord!
+            
+            for key in localCKRecord.allKeys() {
+                remoteCKRecord.setObject(localCKRecord.object(forKey: key), forKey: key)
+            }
+            remoteCKRecord.setObject(localCKRecord.object(forKey: Activity.Keys.Project), forKey: Activity.Keys.Project)
+//            print("\(type(of:self)) remoteCKRecord ", remoteCKRecord)
+            
+            showNetworkActivityIndicator()
+            self.cloudKitClient.storeActivity(remoteCKRecord) { (ckRecord, error) in
+                hideNetworkActivityIndicator()
+                guard error == nil else {
+                    print("\(type(of:self)) storeRecord", error!)
+                    return
+                }
+                
+//                print("ckRecord \(String(describing: ckRecord?.recordChangeTag))")
+                
+                self.managedObjectContext?.perform {
+                    self.setPrimitiveValue(ckRecord!.encodedCKRecordSystemFields, forKey: Keys.EncodedCKRecord)
                 }
             }
         }

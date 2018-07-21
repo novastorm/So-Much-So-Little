@@ -13,7 +13,10 @@ extension CloudKitClient {
     // MARK: - Index method
     
     /// Performs a task using `database` that retrieves the Activity objects, and calls a handler upon completion.
-    static func getActivityList(using database: CKDatabase = privateDatabase, completionHandler: @escaping (_ activityList: [CKRecord]?, _ error: Error?) -> Void) {
+    func getActivityList(
+        using database: CKDatabase = CKContainer.default().privateCloudDatabase,
+        completionHandler: @escaping (_ activityList: [CKRecord]?, _ error: Error?) -> Void
+        ) {
         
         let predicate = NSPredicate(value: true)
         let query = CKQuery(recordType: RecordType.Activity.rawValue, predicate: predicate)
@@ -31,7 +34,11 @@ extension CloudKitClient {
     
     // MARK: - Show method
     
-    static func getActivity(_ recordIdString: String, using database: CKDatabase = privateDatabase, completionHandler: @escaping (_ activity: CKRecord?, _ error: Error?) -> Void) {
+    func getActivity(
+        _ recordIdString: String,
+        using database: CKDatabase = CKContainer.default().privateCloudDatabase,
+        completionHandler: @escaping (_ activity: CKRecord?, _ error: Error?) -> Void
+        ) {
     
         let recordId = CKRecordID(recordName: recordIdString)
         
@@ -49,7 +56,11 @@ extension CloudKitClient {
     
     // MARK: - Store and update method
     
-    static func storeActivity(_ activity: CKRecord, using database: CKDatabase = privateDatabase, completionHandler: @escaping(_ activity: CKRecord?, _ error: Error?) -> Void) {
+    func storeActivity(
+        _ activity: CKRecord,
+        using database: CKDatabase = CKContainer.default().privateCloudDatabase,
+        completionHandler: @escaping(_ activity: CKRecord?, _ error: Error?) -> Void
+        ) {
         
         let modifyRecordsOperation = CKModifyRecordsOperation()
         modifyRecordsOperation.database = database
@@ -71,7 +82,12 @@ extension CloudKitClient {
     
     // MARK: - Destroy method
     
-    static func destroyActivity(_ activity: CKRecord, using database: CKDatabase = privateDatabase, completionHandler: @escaping(_ activity: CKRecordID?, _ error: Error?) -> Void) {
+    func destroyActivity(
+        _ activity: CKRecord,
+        using database: CKDatabase = CKContainer.default().privateCloudDatabase,
+        completionHandler: @escaping(_ activity: CKRecordID?, _ error: Error?) -> Void
+        ) {
+        
         let modifyRecordsOperation = CKModifyRecordsOperation()
         modifyRecordsOperation.database = database
         modifyRecordsOperation.recordIDsToDelete = [activity.recordID]

@@ -10,9 +10,22 @@ import CoreData
 import Eureka
 import UIKit
 
+struct ActivityDetailFormViewControllerDependencies {
+    
+    var coreDataStack: CoreDataStack!
+    
+    init(
+        coreDataStack: CoreDataStack = (UIApplication.shared.delegate as! AppDelegate).coreDataStack
+        ) {
+        self.coreDataStack = coreDataStack
+    }
+}
+
 class ActivityDetailFormViewController: FormViewController {
     
     // MARK: - Properties
+
+    let dependencies: ActivityTableViewControllerDependencies!
     
     var activity: Activity!
     
@@ -48,7 +61,7 @@ class ActivityDetailFormViewController: FormViewController {
     // MARK: - Core Data convenience methods
     
     var coreDataStack: CoreDataStack {
-        return CoreDataStackManager.shared
+        return dependencies.coreDataStack
     }
     
     var mainContext: NSManagedObjectContext {
@@ -73,6 +86,23 @@ class ActivityDetailFormViewController: FormViewController {
 
     
     // MARK: - View Life Cycle
+    
+    init?(coder aDecoder: NSCoder?, dependencies: ActivityTableViewControllerDependencies) {
+        self.dependencies = dependencies
+        if let aDecoder = aDecoder {
+            super.init(coder: aDecoder)
+        }
+        else {
+            super.init()
+        }
+    }
+    
+    required convenience init?(coder aDecoder: NSCoder) {
+        self.init(
+            coder: aDecoder,
+            dependencies: ActivityTableViewControllerDependencies()
+            )
+    }
     
     override func viewDidLoad() {
 

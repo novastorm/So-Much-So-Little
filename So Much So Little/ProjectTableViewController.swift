@@ -9,7 +9,20 @@
 import CoreData
 import UIKit
 
+struct ProjectTableViewControllerDependencies {
+    
+    var coreDataStack: CoreDataStack!
+    
+    init(
+        coreDataStack: CoreDataStack = (UIApplication.shared.delegate as! AppDelegate).coreDataStack
+        ) {
+        self.coreDataStack = coreDataStack
+    }
+}
+
 class ProjectTableViewController: UITableViewController {
+    
+    let dependencies: ProjectTableViewControllerDependencies!
     
     var insertedIndexPaths: [IndexPath]!
     var deletedIndexPaths: [IndexPath]!
@@ -33,7 +46,7 @@ class ProjectTableViewController: UITableViewController {
     }()
     
     var coreDataStack: CoreDataStack {
-        return CoreDataStackManager.shared
+        return dependencies.coreDataStack
     }
     
     var mainContext: NSManagedObjectContext {
@@ -47,10 +60,22 @@ class ProjectTableViewController: UITableViewController {
     
     // MARK: - View Life Cycle
     
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        
+    required init?(coder aDecoder: NSCoder?, dependencies: ProjectTableViewControllerDependencies) {
+        self.dependencies = dependencies
+        if let aDecoder = aDecoder {
+            super.init(coder: aDecoder)
+        }
+        else {
+            super.init()
+        }
         tabBarItem.setFAIcon(icon: .FAPieChart, textColor: .lightGray)
+    }
+    
+    required convenience init?(coder aDecoder: NSCoder) {
+        self.init(
+            coder: aDecoder,
+            dependencies: ProjectTableViewControllerDependencies()
+        )
     }
 
     override func viewDidLoad() {

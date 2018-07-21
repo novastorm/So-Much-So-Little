@@ -10,7 +10,20 @@ import CoreData
 import Eureka
 import UIKit
 
+struct ProjectDetailFormViewControllerDependencies {
+    
+    var coreDataStack: CoreDataStack!
+    
+    init(
+        coreDataStack: CoreDataStack = (UIApplication.shared.delegate as! AppDelegate).coreDataStack
+        ) {
+        self.coreDataStack = coreDataStack
+    }
+}
+
 class ProjectDetailFormViewController: FormViewController {
+    
+    let dependencies: ProjectDetailFormViewControllerDependencies!
     
     // MARK: - Properties
     
@@ -41,7 +54,7 @@ class ProjectDetailFormViewController: FormViewController {
     // MARK: - Core Data convenience methods
     
     var coreDataStack: CoreDataStack {
-        return CoreDataStackManager.shared
+        return dependencies.coreDataStack
     }
 
     var mainContext: NSManagedObjectContext {
@@ -69,6 +82,26 @@ class ProjectDetailFormViewController: FormViewController {
     
     
     // MARK: - View Life Cycle
+    
+    init?(
+        coder aDecoder: NSCoder?,
+        dependencies: ProjectDetailFormViewControllerDependencies
+        ) {
+        self.dependencies = dependencies
+        if let aDecoder = aDecoder {
+            super.init(coder: aDecoder)
+        }
+        else {
+            super.init()
+        }
+    }
+    
+    required convenience init?(coder aDecoder: NSCoder) {
+        self.init(
+            coder: aDecoder,
+            dependencies: ProjectDetailFormViewControllerDependencies()
+            )
+    }
     
     override func viewDidLoad() {
         

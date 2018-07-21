@@ -10,7 +10,20 @@ import CoreData
 import UIKit
 import FontAwesomeSwift
 
+struct ActivityTableViewControllerDependencies {
+    
+    var coreDataStack: CoreDataStack!
+    
+    init(
+        coreDataStack: CoreDataStack = (UIApplication.shared.delegate as! AppDelegate).coreDataStack
+        ) {
+        self.coreDataStack = coreDataStack
+    }
+}
+
 class ActivityTableViewController: UITableViewController {
+    
+    let dependencies: ActivityTableViewControllerDependencies!
     
     var insertedIndexPaths: [IndexPath]!
     var deletedIndexPaths: [IndexPath]!
@@ -33,7 +46,7 @@ class ActivityTableViewController: UITableViewController {
     }()
     
     var coreDataStack: CoreDataStack {
-        return CoreDataStackManager.shared
+        return dependencies.coreDataStack
     }
 
     var mainContext: NSManagedObjectContext {
@@ -47,10 +60,22 @@ class ActivityTableViewController: UITableViewController {
     
     // MARK: - View Lifecycle
     
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        
+    init?(coder aDecoder: NSCoder?, dependencies: ActivityTableViewControllerDependencies) {
+        self.dependencies = dependencies
+        if let aDecoder = aDecoder {
+            super.init(coder: aDecoder)
+        }
+        else {
+            super.init()
+        }
         tabBarItem.setFAIcon(icon: .FASignLanguage, textColor: .lightGray)
+    }
+    
+    required convenience init?(coder aDecoder: NSCoder) {
+        self.init(
+            coder: aDecoder,
+            dependencies: ActivityTableViewControllerDependencies()
+        )
     }
     
     override func viewDidLoad() {
@@ -61,6 +86,7 @@ class ActivityTableViewController: UITableViewController {
         navigationItem.hidesBackButton = true
         
         fetchedResultsController.delegate = self
+
         
         try! fetchedResultsController.performFetch()
         
@@ -214,6 +240,9 @@ class ActivityTableViewController: UITableViewController {
 // MARK: - Table View Data Source
 
 extension ActivityTableViewController {
+    
+//    weak var fetchedResultsController
+    
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let sectionInfo = fetchedResultsController.sections![section]
         return sectionInfo.numberOfObjects
@@ -306,6 +335,8 @@ extension ActivityTableViewController {
 // MARK: - Fetched Results Controller Delegate
 
 extension ActivityTableViewController: NSFetchedResultsControllerDelegate {
+    
+//    weak var fetchedResultsController
     
     func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         

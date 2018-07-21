@@ -72,6 +72,20 @@ final public class Project: NSManagedObject, CloudKitManagedObject {
     
     static let defaultName = "New Project"
     
+    @nonobjc
+    var cloudKitClient: CloudKitClient {
+        var delegate: AppDelegate!
+        if Thread.isMainThread {
+            delegate = UIApplication.shared.delegate as! AppDelegate
+        }
+        else {
+            DispatchQueue.main.sync {
+                delegate = UIApplication.shared.delegate as! AppDelegate
+            }
+        }
+        return delegate.cloudKitClient
+    }
+
     var cloudKitRecord: CKRecord {
         get {
             let ckRecord = CKRecord.decodeCKRecordSystemFields(from: encodedCKRecord! as Data)
@@ -163,64 +177,41 @@ final public class Project: NSManagedObject, CloudKitManagedObject {
     
     public override func didSave() {
 
-        if managedObjectContext == CoreDataStackManager.shared.mainContext {
-            
-            if isDeleted {
-                showNetworkActivityIndicator()
-                CloudKitClient.destroyProject(self.cloudKitRecord) { (ckRecordID, error) in
-                    hideNetworkActivityIndicator()
-                    guard error == nil else {
-                        print("Error deleting \(type(of:self))", error!)
-                        return
-                    }
-                }
-                return
-            }
-            
-            let localCKRecord: CKRecord = self.cloudKitRecord
-            do {
-                try managedObjectContext?.obtainPermanentIDs(for: [self])
-            }
-            catch {
-                print(error)
-            }
-            
+        guard Thread.isMainThread else { return }
+
+        if isDeleted {
             showNetworkActivityIndicator()
-            CloudKitClient.getProject(ckRecordIdName!) { (remoteCKRecord, error) in
+            cloudKitClient.destroyProject(self.cloudKitRecord) { (ckRecordID, error) in
                 hideNetworkActivityIndicator()
                 guard error == nil else {
-                    guard ConnectionMonitor.shared.isConnectedToNetwork() else {
-                        self.managedObjectContext?.perform {
-                            self.setPrimitiveValue(NSNumber.init(value: false), forKey: Keys.IsSynced)
-                        }
-                        return
+                    print("Error deleting \(type(of:self))", error!)
+                    return
+                }
+            }
+            return
+        }
+        
+        let localCKRecord: CKRecord = self.cloudKitRecord
+        do {
+            try managedObjectContext?.obtainPermanentIDs(for: [self])
+        }
+        catch {
+            print(error)
+        }
+        
+        showNetworkActivityIndicator()
+        cloudKitClient.getProject(ckRecordIdName!) { (remoteCKRecord, error) in
+            hideNetworkActivityIndicator()
+            guard error == nil else {
+                guard ConnectionMonitor.shared.isConnectedToNetwork() else {
+                    self.managedObjectContext?.perform {
+                        self.setPrimitiveValue(NSNumber.init(value: false), forKey: Keys.IsSynced)
                     }
-                    
-                    showNetworkActivityIndicator()
-                    CloudKitClient.storeProject(localCKRecord) { (ckRecord, error) in
-                        hideNetworkActivityIndicator()
-                        guard error == nil else {
-                            print("\(type(of:self)) storeReord", error!)
-                            return
-                        }
-
-                        self.managedObjectContext?.perform {
-                            self.setPrimitiveValue(ckRecord!.encodedCKRecordSystemFields, forKey: Keys.EncodedCKRecord)
-                            self.setPrimitiveValue(NSNumber.init(value: true), forKey: Keys.IsSynced)
-                        }
-                    }
-                    
                     return
                 }
                 
-                let remoteCKRecord = remoteCKRecord!
-                
-                for key in localCKRecord.allKeys() {
-                    remoteCKRecord.setObject(localCKRecord.object(forKey: key), forKey: key)
-                }
-                
                 showNetworkActivityIndicator()
-                CloudKitClient.storeProject(remoteCKRecord) { (ckRecord, error) in
+                self.cloudKitClient.storeProject(localCKRecord) { (ckRecord, error) in
                     hideNetworkActivityIndicator()
                     guard error == nil else {
                         print("\(type(of:self)) storeReord", error!)
@@ -229,7 +220,29 @@ final public class Project: NSManagedObject, CloudKitManagedObject {
                     
                     self.managedObjectContext?.perform {
                         self.setPrimitiveValue(ckRecord!.encodedCKRecordSystemFields, forKey: Keys.EncodedCKRecord)
+                        self.setPrimitiveValue(NSNumber.init(value: true), forKey: Keys.IsSynced)
                     }
+                }
+                
+                return
+            }
+            
+            let remoteCKRecord = remoteCKRecord!
+            
+            for key in localCKRecord.allKeys() {
+                remoteCKRecord.setObject(localCKRecord.object(forKey: key), forKey: key)
+            }
+            
+            showNetworkActivityIndicator()
+            self.cloudKitClient.storeProject(remoteCKRecord) { (ckRecord, error) in
+                hideNetworkActivityIndicator()
+                guard error == nil else {
+                    print("\(type(of:self)) storeReord", error!)
+                    return
+                }
+                
+                self.managedObjectContext?.perform {
+                    self.setPrimitiveValue(ckRecord!.encodedCKRecordSystemFields, forKey: Keys.EncodedCKRecord)
                 }
             }
         }

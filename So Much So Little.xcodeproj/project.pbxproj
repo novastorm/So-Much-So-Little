@@ -16,7 +16,6 @@
 		3E0977961D18CEE200A7F2C4 /* ProjectTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0977951D18CEE200A7F2C4 /* ProjectTableViewController.swift */; };
 		3E0977A51D18FA7B00A7F2C4 /* Activity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E09779D1D18FA7B00A7F2C4 /* Activity+CoreDataProperties.swift */; };
 		3E0977A61D18FA7B00A7F2C4 /* Timebox+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E09779E1D18FA7B00A7F2C4 /* Timebox+CoreDataProperties.swift */; };
-		3E0C79551FB5955100D1F3FA /* CoreDataStackManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0C79541FB5955100D1F3FA /* CoreDataStackManager.swift */; };
 		3E31123A1D5D970100E691AC /* ProjectDetailFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3112391D5D970100E691AC /* ProjectDetailFormViewController.swift */; };
 		3E32A1631ECD0CBC00A9F572 /* Project+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E32A1611ECD0CBC00A9F572 /* Project+CoreDataProperties.swift */; };
 		3E32A1651ECD0DEA00A9F572 /* Project+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E32A1641ECD0DEA00A9F572 /* Project+CoreDataClass.swift */; };
@@ -24,7 +23,6 @@
 		3E3E41B61DBE568E00FCE6DE /* CloudKitClient+CoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3E41B51DBE568E00FCE6DE /* CloudKitClient+CoreData.swift */; };
 		3E41D0F51D8DC3B2002EAD8A /* So_Much_So_Little.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3E41D0F31D8DC3B2002EAD8A /* So_Much_So_Little.xcdatamodeld */; };
 		3E41D0F91D8DCA62002EAD8A /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E41D0F81D8DCA62002EAD8A /* CloudKit.framework */; };
-		3E5685E11ED5527500B3D056 /* CloudKitClient+Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5685E01ED5527500B3D056 /* CloudKitClient+Activity.swift */; };
 		3E5685E31ED553A500B3D056 /* CloudKitClient+Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5685E21ED553A500B3D056 /* CloudKitClient+Project.swift */; };
 		3E5685F11EDCEA0C00B3D056 /* ManagedObject+CloudKitProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5685F01EDCEA0C00B3D056 /* ManagedObject+CloudKitProtocol.swift */; };
 		3E6C708A1FB17791008EE124 /* ConnectionMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C70891FB17791008EE124 /* ConnectionMonitor.swift */; };
@@ -50,8 +48,9 @@
 		3EE7411F1D1090DC00064BF6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3EE7411D1D1090DC00064BF6 /* Main.storyboard */; };
 		3EE741241D1090DC00064BF6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3EE741231D1090DC00064BF6 /* Assets.xcassets */; };
 		3EE741271D1090DC00064BF6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3EE741251D1090DC00064BF6 /* LaunchScreen.storyboard */; };
+		3EEBB64A2101A174007C0218 /* CoreDataStack_v1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EEBB6492101A174007C0218 /* CoreDataStack_v1.swift */; };
+		3EEBB64B2101BA2B007C0218 /* CloudKitClient+Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5685E01ED5527500B3D056 /* CloudKitClient+Activity.swift */; };
 		3EEE4838201B32C800BD2F34 /* FontAwesomeSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EEE4837201B32C800BD2F34 /* FontAwesomeSwift.framework */; };
-		3EEE483A201B34C100BD2F34 /* FontAwesomeSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EEE4839201B34C100BD2F34 /* FontAwesomeSwift.framework */; };
 		3EEE483B201B34C100BD2F34 /* FontAwesomeSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3EEE4839201B34C100BD2F34 /* FontAwesomeSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3EF741161DA72B31008C30CF /* ProjectTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF741151DA72B31008C30CF /* ProjectTests.swift */; };
 /* End PBXBuildFile section */
@@ -91,7 +90,6 @@
 		3E0977951D18CEE200A7F2C4 /* ProjectTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectTableViewController.swift; sourceTree = "<group>"; };
 		3E09779D1D18FA7B00A7F2C4 /* Activity+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Activity+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		3E09779E1D18FA7B00A7F2C4 /* Timebox+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Timebox+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		3E0C79541FB5955100D1F3FA /* CoreDataStackManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStackManager.swift; sourceTree = "<group>"; };
 		3E3112391D5D970100E691AC /* ProjectDetailFormViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectDetailFormViewController.swift; sourceTree = "<group>"; };
 		3E32A1611ECD0CBC00A9F572 /* Project+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Project+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		3E32A1641ECD0DEA00A9F572 /* Project+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Project+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -133,6 +131,8 @@
 		3EE7412D1D1090DC00064BF6 /* So Much So LittleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "So Much So LittleTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3EE741311D1090DC00064BF6 /* ActivityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityTests.swift; sourceTree = "<group>"; };
 		3EE741331D1090DC00064BF6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3EEBB64721019F3B007C0218 /* ActivityDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityDataSource.swift; sourceTree = "<group>"; };
+		3EEBB6492101A174007C0218 /* CoreDataStack_v1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStack_v1.swift; sourceTree = "<group>"; };
 		3EEE4837201B32C800BD2F34 /* FontAwesomeSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FontAwesomeSwift.framework; path = Carthage/Build/iOS/FontAwesomeSwift.framework; sourceTree = "<group>"; };
 		3EEE4839201B34C100BD2F34 /* FontAwesomeSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FontAwesomeSwift.framework; path = ../Carthage/Build/iOS/FontAwesomeSwift.framework; sourceTree = "<group>"; };
 		3EF741151DA72B31008C30CF /* ProjectTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectTests.swift; sourceTree = "<group>"; };
@@ -146,7 +146,6 @@
 				3EEE4838201B32C800BD2F34 /* FontAwesomeSwift.framework in Frameworks */,
 				3E7AB5831D318A45002F6C2D /* Eureka.framework in Frameworks */,
 				3E41D0F91D8DCA62002EAD8A /* CloudKit.framework in Frameworks */,
-				3EEE483A201B34C100BD2F34 /* FontAwesomeSwift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -188,9 +187,9 @@
 		3E09777D1D11FC8200A7F2C4 /* Core Data */ = {
 			isa = PBXGroup;
 			children = (
-				3E0C79541FB5955100D1F3FA /* CoreDataStackManager.swift */,
 				3E5685F01EDCEA0C00B3D056 /* ManagedObject+CloudKitProtocol.swift */,
 				3E09777E1D11FC9200A7F2C4 /* CoreDataStack.swift */,
+				3EEBB6492101A174007C0218 /* CoreDataStack_v1.swift */,
 			);
 			name = "Core Data";
 			sourceTree = "<group>";
@@ -278,6 +277,7 @@
 				3EE7411D1D1090DC00064BF6 /* Main.storyboard */,
 				3E3E41B31DBA9C4400FCE6DE /* StubTest.swift */,
 				3E825F0F1D9C493100ABACCE /* TimerViewController.swift */,
+				3EEBB64721019F3B007C0218 /* ActivityDataSource.swift */,
 				3E0977931D18CEA000A7F2C4 /* ActivityTableViewController.swift */,
 				3E7AB57E1D31839B002F6C2D /* ActivityDetailFormViewController.swift */,
 				3E0977951D18CEE200A7F2C4 /* ProjectTableViewController.swift */,
@@ -355,7 +355,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0730;
-				LastUpgradeCheck = 0900;
+				LastUpgradeCheck = 0940;
 				ORGANIZATIONNAME = "Adland Lee";
 				TargetAttributes = {
 					3EE741151D1090DC00064BF6 = {
@@ -444,7 +444,6 @@
 				3ED6DF521D2731F10064E440 /* DateTextFieldDelegate.swift in Sources */,
 				3E7D99C31D21C1BD008FA84B /* TimeboxControl.swift in Sources */,
 				3ED6DF601D2B0D050064E440 /* ViewGroup.swift in Sources */,
-				3E0C79551FB5955100D1F3FA /* CoreDataStackManager.swift in Sources */,
 				3E7BDB871DB58071006E526A /* CloudKitClient.swift in Sources */,
 				3E95C1C41DD5409400465222 /* TypeNameExtensions.swift in Sources */,
 				3E7BDB811DB0B9F9006E526A /* Activity+CoreDataClass.swift in Sources */,
@@ -457,9 +456,9 @@
 				3E7AB57F1D31839B002F6C2D /* ActivityDetailFormViewController.swift in Sources */,
 				3E5685F11EDCEA0C00B3D056 /* ManagedObject+CloudKitProtocol.swift in Sources */,
 				3E7BDB7F1DB0B9F9006E526A /* Timebox+CoreDataClass.swift in Sources */,
-				3E5685E11ED5527500B3D056 /* CloudKitClient+Activity.swift in Sources */,
 				3EE7411A1D1090DC00064BF6 /* AppDelegate.swift in Sources */,
 				3E0977961D18CEE200A7F2C4 /* ProjectTableViewController.swift in Sources */,
+				3EEBB64A2101A174007C0218 /* CoreDataStack_v1.swift in Sources */,
 				3E32A1651ECD0DEA00A9F572 /* Project+CoreDataClass.swift in Sources */,
 				3E7AB5881D333343002F6C2D /* TimeboxControlRow.swift in Sources */,
 				3E3E41B41DBA9C4400FCE6DE /* StubTest.swift in Sources */,
@@ -473,6 +472,7 @@
 				3E5685E31ED553A500B3D056 /* CloudKitClient+Project.swift in Sources */,
 				3E0977901D18CDD300A7F2C4 /* CompletedActivityTableViewController.swift in Sources */,
 				3E825F101D9C493100ABACCE /* TimerViewController.swift in Sources */,
+				3EEBB64B2101BA2B007C0218 /* CloudKitClient+Activity.swift in Sources */,
 				3E09777F1D11FC9200A7F2C4 /* CoreDataStack.swift in Sources */,
 				3E0977A51D18FA7B00A7F2C4 /* Activity+CoreDataProperties.swift in Sources */,
 				3ED6DF541D2AEF350064E440 /* ButtonGroup.swift in Sources */,
@@ -531,12 +531,14 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -588,12 +590,14 @@
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;

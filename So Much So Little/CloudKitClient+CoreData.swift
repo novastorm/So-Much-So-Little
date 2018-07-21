@@ -15,17 +15,17 @@ extension CloudKitClient {
     
     // MARK: - Core Data convenience methods
     
-    static var coreDataStack: CoreDataStack {
-        return CoreDataStackManager.shared
-    }
+//    static var coreDataStack: CoreDataStack {
+//        return dependencies.coreDataStack
+//    }
     
-    static var mainContext: NSManagedObjectContext {
+    var mainContext: NSManagedObjectContext {
         return coreDataStack.mainContext
     }
     
     // MARK: - Sync methods
     
-    static func importDefaultRecords() {
+    func importDefaultRecords() {
         
         guard ubiquityIdentityToken != nil else {
             print("Log into iCloud for remote sync")
@@ -40,7 +40,7 @@ extension CloudKitClient {
         var ckActivityList = [CKRecord]()
         
         group.enter()
-        CloudKitClient.getProjectList(using: publicDatabase) { (results, error) in
+        getProjectList(using: publicDatabase) { (results, error) in
             defer {
                 group.leave()
             }
@@ -61,7 +61,7 @@ extension CloudKitClient {
         }
         
         group.enter()
-        CloudKitClient.getActivityList(using: publicDatabase) { (results, error) in
+        getActivityList(using: publicDatabase) { (results, error) in
             defer {
                 group.leave()
             }
@@ -109,7 +109,7 @@ extension CloudKitClient {
         }
     }
     
-    static func importRecords() {
+    func importRecords() {
 //        print("Cloud Kit: Import Records")
         let group = DispatchGroup()
         
@@ -117,7 +117,7 @@ extension CloudKitClient {
         var ckActivityList = [CKRecord]()
         
         group.enter()
-        CloudKitClient.getProjectList { (results, error) in
+        getProjectList { (results, error) in
             defer {
                 group.leave()
             }
@@ -130,7 +130,7 @@ extension CloudKitClient {
         }
         
         group.enter()
-        CloudKitClient.getActivityList { (results, error) in
+        getActivityList { (results, error) in
             defer {
                 group.leave()
             }
@@ -209,13 +209,13 @@ extension CloudKitClient {
      
      - ToDo: test to do
      */
-    static func importProjectList() {
+    func importProjectList() {
         let group = DispatchGroup()
         
         var ckProjectList = [CKRecord]()
         
         group.enter()
-        CloudKitClient.getProjectList { (results, error) in
+        getProjectList { (results, error) in
             defer {
                 group.leave()
             }
@@ -237,23 +237,23 @@ extension CloudKitClient {
         }
     }
     
-    static func importActivityList() {
+    func importActivityList() {
         
     }
     
-    static func exportRecords() {
+    func exportRecords() {
         
     }
     
-    static func exportProjectList() {
+    func exportProjectList() {
         
     }
     
-    static func exportActivityList() {
+    func exportActivityList() {
         
     }
     
-    static func processUnsynchedRecords() {
+    func processUnsynchedRecords() {
         
     }
 }
