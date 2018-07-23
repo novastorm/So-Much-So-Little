@@ -18,4 +18,6 @@ protocol ActivityDataSource: UITableViewDataSource {
     func performFetch() throws
     
     func object(at indexPath: IndexPath) -> Activity
+    
+    func saveMainContext()
 }

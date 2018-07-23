@@ -25,7 +25,7 @@ class ActivityDetailFormViewController: FormViewController {
     
     // MARK: - Properties
 
-    let dependencies: ActivityTableViewControllerDependencies!
+    let dependencies: ActivityDetailFormViewControllerDependencies!
     
     var activity: Activity!
     
@@ -87,7 +87,7 @@ class ActivityDetailFormViewController: FormViewController {
     
     // MARK: - View Life Cycle
     
-    init?(coder aDecoder: NSCoder?, dependencies: ActivityTableViewControllerDependencies) {
+    init?(coder aDecoder: NSCoder?, dependencies: ActivityDetailFormViewControllerDependencies) {
         self.dependencies = dependencies
         if let aDecoder = aDecoder {
             super.init(coder: aDecoder)
@@ -100,7 +100,7 @@ class ActivityDetailFormViewController: FormViewController {
     required convenience init?(coder aDecoder: NSCoder) {
         self.init(
             coder: aDecoder,
-            dependencies: ActivityTableViewControllerDependencies()
+            dependencies: ActivityDetailFormViewControllerDependencies()
             )
     }
     

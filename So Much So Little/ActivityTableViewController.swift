@@ -10,20 +10,8 @@ import CoreData
 import UIKit
 import FontAwesomeSwift
 
-struct ActivityTableViewControllerDependencies {
-    
-    var coreDataStack: CoreDataStack!
-    
-    init(
-        coreDataStack: CoreDataStack = (UIApplication.shared.delegate as! AppDelegate).coreDataStack
-        ) {
-        self.coreDataStack = coreDataStack
-    }
-}
-
 class ActivityTableViewController: UITableViewController {
     
-    let dependencies: ActivityTableViewControllerDependencies!
     var activityDataSource: ActivityDataSource!
     
     var insertedIndexPaths: [IndexPath]!
@@ -35,37 +23,16 @@ class ActivityTableViewController: UITableViewController {
         
     // Mark: - Core Data Utilities
     
-    var coreDataStack: CoreDataStack {
-        return dependencies.coreDataStack
-    }
-
-    var mainContext: NSManagedObjectContext {
-        return coreDataStack.mainContext
-    }
-    
     func saveMainContext() {
-        coreDataStack.saveMainContext()
+        activityDataSource.saveMainContext()
     }
     
     
     // MARK: - View Lifecycle
     
-    init?(coder aDecoder: NSCoder?, dependencies: ActivityTableViewControllerDependencies) {
-        self.dependencies = dependencies
-        if let aDecoder = aDecoder {
-            super.init(coder: aDecoder)
-        }
-        else {
-            super.init()
-        }
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
         tabBarItem.setFAIcon(icon: .FASignLanguage, textColor: .lightGray)
-    }
-    
-    required convenience init?(coder aDecoder: NSCoder) {
-        self.init(
-            coder: aDecoder,
-            dependencies: ActivityTableViewControllerDependencies()
-        )
     }
     
     override func viewDidLoad() {
@@ -77,7 +44,7 @@ class ActivityTableViewController: UITableViewController {
         
         // Data item is required to contain dataSource
         // because tableview.dataSource is a weak reference
-        activityDataSource = ActivityDataSource_v1(managedObjectContext: dependencies.coreDataStack.mainContext)
+        activityDataSource = ActivityDataSource_v1()
         activityDataSource.delegate = self
 
         let tableView = view as! UITableView

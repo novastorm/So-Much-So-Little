@@ -8,8 +8,8 @@
 
 import XCTest
 import CoreData
-@testable import So_Much_So_Little
 
+@testable import So_Much_So_Little
 
 class ActivityTests: XCTestCase {
     

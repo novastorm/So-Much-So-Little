@@ -11,36 +11,33 @@ import UIKit
 
 class ActivityDataSource_v1: NSObject, ActivityDataSource {
 
-    var fetchedObjects: [Activity]? {
-        return fetchedResultsController.fetchedObjects
+    // MARK: - Properties
+    
+    var coreDataStack: CoreDataStack {
+        return (UIApplication.shared.delegate as! AppDelegate).coreDataStack
     }
-    
-    var delegate: NSFetchedResultsControllerDelegate? {
-        get {
-            return fetchedResultsController.delegate
-        }
-        set {
-            fetchedResultsController.delegate = newValue
-        }
-    }
-    
-    let mainContext: NSManagedObjectContext!
-    
-    init(managedObjectContext context: NSManagedObjectContext) {
-        mainContext = context
-    }
-    
+
     lazy var fetchedResultsController: NSFetchedResultsController<Activity> = {
         let fetchRequest = Activity.fetchRequest() as NSFetchRequest<Activity>
         // get Activity that are not complete or (reference with no project).
         fetchRequest.predicate = NSPredicate(format: "(completed != YES) OR ((project == NULL) AND (kind == \(Activity.Kind.reference.rawValue)))")
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: Activity.Keys.DisplayOrder, ascending: true)]
         
-        let fetchedResultsController = NSFetchedResultsController<Activity>(fetchRequest: fetchRequest, managedObjectContext: self.mainContext, sectionNameKeyPath: nil, cacheName: nil)
+        let fetchedResultsController = NSFetchedResultsController<Activity>(fetchRequest: fetchRequest, managedObjectContext: coreDataStack.mainContext, sectionNameKeyPath: nil, cacheName: nil)
         
         return fetchedResultsController
     }()
+    
+//    let mainContext: NSManagedObjectContext!
 
+    // MARK: - Initializers
+    
+//    init(managedObjectContext context: NSManagedObjectContext) {
+//        mainContext = context
+//    }
+
+    // MARK: - Table View Data Source Delegates
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         let sectionInfo = fetchedResultsController.sections![section]
         return sectionInfo.numberOfObjects
@@ -55,6 +52,8 @@ class ActivityDataSource_v1: NSObject, ActivityDataSource {
         return cell
     }
     
+    // MARK: - Helpers
+    
     func configureActivityCell(_ cell: UITableViewCell, atIndexPath indexPath: IndexPath) {
         let activity = fetchedResultsController.object(at: indexPath)
         let displayOrder = activity.displayOrder
@@ -66,11 +65,30 @@ class ActivityDataSource_v1: NSObject, ActivityDataSource {
         cell.detailTextLabel!.text = "\(actualTimeboxes)/\(estimatedTimeboxes)"
     }
     
+    // MARK: - Adaptors
+
+    var fetchedObjects: [Activity]? {
+        return fetchedResultsController.fetchedObjects
+    }
+    
+    var delegate: NSFetchedResultsControllerDelegate? {
+        get {
+            return fetchedResultsController.delegate
+        }
+        set {
+            fetchedResultsController.delegate = newValue
+        }
+    }
+
     func performFetch() throws {
         try fetchedResultsController.performFetch()
     }
     
     func object(at indexPath: IndexPath) -> Activity {
         return fetchedResultsController.object(at: indexPath)
+    }
+    
+    func saveMainContext() {
+        coreDataStack.saveMainContext()
     }
 }

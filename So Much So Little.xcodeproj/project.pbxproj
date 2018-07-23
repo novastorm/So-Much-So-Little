@@ -26,7 +26,6 @@
 		3E5685E31ED553A500B3D056 /* CloudKitClient+Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5685E21ED553A500B3D056 /* CloudKitClient+Project.swift */; };
 		3E5685F11EDCEA0C00B3D056 /* ManagedObject+CloudKitProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5685F01EDCEA0C00B3D056 /* ManagedObject+CloudKitProtocol.swift */; };
 		3E6C708A1FB17791008EE124 /* ConnectionMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C70891FB17791008EE124 /* ConnectionMonitor.swift */; };
-		3E746D121DA58BD200ABD25E /* ActivityTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EE741311D1090DC00064BF6 /* ActivityTests.swift */; };
 		3E7AB57F1D31839B002F6C2D /* ActivityDetailFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7AB57E1D31839B002F6C2D /* ActivityDetailFormViewController.swift */; };
 		3E7AB5831D318A45002F6C2D /* Eureka.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3ED6DF591D2B03070064E440 /* Eureka.framework */; };
 		3E7AB5841D318A45002F6C2D /* Eureka.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3ED6DF591D2B03070064E440 /* Eureka.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -54,7 +53,8 @@
 		3EEE483B201B34C100BD2F34 /* FontAwesomeSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3EEE4839201B34C100BD2F34 /* FontAwesomeSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3EF6F5972105834500BC15BC /* ActivityDataSource_v1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF6F5962105834500BC15BC /* ActivityDataSource_v1.swift */; };
 		3EF6F5982105837B00BC15BC /* ActivityDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EEBB64721019F3B007C0218 /* ActivityDataSource.swift */; };
-		3EF741161DA72B31008C30CF /* ProjectTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF741151DA72B31008C30CF /* ProjectTests.swift */; };
+		3EF6F59A2105A8CE00BC15BC /* ActivityDataSourceMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF6F5992105A8CE00BC15BC /* ActivityDataSourceMock.swift */; };
+		3EF6F59C2105BA4A00BC15BC /* ActivityTableViewControllerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF6F59B2105BA4A00BC15BC /* ActivityTableViewControllerTest.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -138,6 +138,8 @@
 		3EEE4837201B32C800BD2F34 /* FontAwesomeSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FontAwesomeSwift.framework; path = Carthage/Build/iOS/FontAwesomeSwift.framework; sourceTree = "<group>"; };
 		3EEE4839201B34C100BD2F34 /* FontAwesomeSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FontAwesomeSwift.framework; path = ../Carthage/Build/iOS/FontAwesomeSwift.framework; sourceTree = "<group>"; };
 		3EF6F5962105834500BC15BC /* ActivityDataSource_v1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityDataSource_v1.swift; sourceTree = "<group>"; };
+		3EF6F5992105A8CE00BC15BC /* ActivityDataSourceMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityDataSourceMock.swift; sourceTree = "<group>"; };
+		3EF6F59B2105BA4A00BC15BC /* ActivityTableViewControllerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityTableViewControllerTest.swift; sourceTree = "<group>"; };
 		3EF741151DA72B31008C30CF /* ProjectTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -306,8 +308,10 @@
 			isa = PBXGroup;
 			children = (
 				3EE741331D1090DC00064BF6 /* Info.plist */,
+				3EF6F5992105A8CE00BC15BC /* ActivityDataSourceMock.swift */,
 				3EE741311D1090DC00064BF6 /* ActivityTests.swift */,
 				3EF741151DA72B31008C30CF /* ProjectTests.swift */,
+				3EF6F59B2105BA4A00BC15BC /* ActivityTableViewControllerTest.swift */,
 			);
 			path = "So Much So LittleTests";
 			sourceTree = "<group>";
@@ -489,8 +493,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3E746D121DA58BD200ABD25E /* ActivityTests.swift in Sources */,
-				3EF741161DA72B31008C30CF /* ProjectTests.swift in Sources */,
+				3EF6F59C2105BA4A00BC15BC /* ActivityTableViewControllerTest.swift in Sources */,
+				3EF6F59A2105A8CE00BC15BC /* ActivityDataSourceMock.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
