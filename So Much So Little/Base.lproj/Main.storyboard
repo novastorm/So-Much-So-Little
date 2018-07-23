@@ -263,7 +263,6 @@
                             </tableViewCell>
                         </prototypes>
                         <connections>
-                            <outlet property="dataSource" destination="FaB-wC-3lj" id="Ui3-JF-89l"/>
                             <outlet property="delegate" destination="FaB-wC-3lj" id="CAZ-LF-Y56"/>
                         </connections>
                     </tableView>
@@ -533,6 +532,6 @@
     </scenes>
     <inferredMetricsTieBreakers>
         <segue reference="bjR-LH-v2i"/>
-        <segue reference="UwW-HC-zeT"/>
+        <segue reference="A0u-qm-1Sh"/>
     </inferredMetricsTieBreakers>
 </document>

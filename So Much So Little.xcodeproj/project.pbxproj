@@ -52,6 +52,8 @@
 		3EEBB64B2101BA2B007C0218 /* CloudKitClient+Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5685E01ED5527500B3D056 /* CloudKitClient+Activity.swift */; };
 		3EEE4838201B32C800BD2F34 /* FontAwesomeSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EEE4837201B32C800BD2F34 /* FontAwesomeSwift.framework */; };
 		3EEE483B201B34C100BD2F34 /* FontAwesomeSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3EEE4839201B34C100BD2F34 /* FontAwesomeSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		3EF6F5972105834500BC15BC /* ActivityDataSource_v1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF6F5962105834500BC15BC /* ActivityDataSource_v1.swift */; };
+		3EF6F5982105837B00BC15BC /* ActivityDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EEBB64721019F3B007C0218 /* ActivityDataSource.swift */; };
 		3EF741161DA72B31008C30CF /* ProjectTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF741151DA72B31008C30CF /* ProjectTests.swift */; };
 /* End PBXBuildFile section */
 
@@ -135,6 +137,7 @@
 		3EEBB6492101A174007C0218 /* CoreDataStack_v1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStack_v1.swift; sourceTree = "<group>"; };
 		3EEE4837201B32C800BD2F34 /* FontAwesomeSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FontAwesomeSwift.framework; path = Carthage/Build/iOS/FontAwesomeSwift.framework; sourceTree = "<group>"; };
 		3EEE4839201B34C100BD2F34 /* FontAwesomeSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FontAwesomeSwift.framework; path = ../Carthage/Build/iOS/FontAwesomeSwift.framework; sourceTree = "<group>"; };
+		3EF6F5962105834500BC15BC /* ActivityDataSource_v1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityDataSource_v1.swift; sourceTree = "<group>"; };
 		3EF741151DA72B31008C30CF /* ProjectTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -278,6 +281,7 @@
 				3E3E41B31DBA9C4400FCE6DE /* StubTest.swift */,
 				3E825F0F1D9C493100ABACCE /* TimerViewController.swift */,
 				3EEBB64721019F3B007C0218 /* ActivityDataSource.swift */,
+				3EF6F5962105834500BC15BC /* ActivityDataSource_v1.swift */,
 				3E0977931D18CEA000A7F2C4 /* ActivityTableViewController.swift */,
 				3E7AB57E1D31839B002F6C2D /* ActivityDetailFormViewController.swift */,
 				3E0977951D18CEE200A7F2C4 /* ProjectTableViewController.swift */,
@@ -465,6 +469,8 @@
 				3E31123A1D5D970100E691AC /* ProjectDetailFormViewController.swift in Sources */,
 				3E0977941D18CEA000A7F2C4 /* ActivityTableViewController.swift in Sources */,
 				3E41D0F51D8DC3B2002EAD8A /* So_Much_So_Little.xcdatamodeld in Sources */,
+				3EF6F5982105837B00BC15BC /* ActivityDataSource.swift in Sources */,
+				3EF6F5972105834500BC15BC /* ActivityDataSource_v1.swift in Sources */,
 				3E7BDB891DB5C417006E526A /* CloudKitClient+Convenience.swift in Sources */,
 				3E95C1C61DD540C000465222 /* CKRecord+Extension.swift in Sources */,
 				3E0977811D12015800A7F2C4 /* Utilities.swift in Sources */,

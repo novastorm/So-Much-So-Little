@@ -9,6 +9,13 @@
 import CoreData
 import UIKit
 
-//class ActivityDataSource: UITableViewDataSource {
-//    
-//}
+protocol ActivityDataSource: UITableViewDataSource {
+    
+    var fetchedObjects: [Activity]? { get }
+    
+    var delegate: NSFetchedResultsControllerDelegate? { get set }
+
+    func performFetch() throws
+    
+    func object(at indexPath: IndexPath) -> Activity
+}
