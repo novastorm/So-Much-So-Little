@@ -12,6 +12,10 @@ import FontAwesomeSwift
 
 class ActivityTableViewController: UITableViewController {
     
+    var coreDataStack: CoreDataStack!
+
+    // Data item activityDataSource is required to contain dataSource
+    // because tableview.dataSource is a weak reference
     var activityDataSource: ActivityDataSource!
     
     var insertedIndexPaths: [IndexPath]!
@@ -20,11 +24,12 @@ class ActivityTableViewController: UITableViewController {
     
     var snapshot: UIView!
     var moveIndexPathSource: IndexPath!
-        
+    
+    
     // Mark: - Core Data Utilities
     
     func saveMainContext() {
-        activityDataSource.saveMainContext()
+        coreDataStack.saveMainContext()
     }
     
     
@@ -32,7 +37,11 @@ class ActivityTableViewController: UITableViewController {
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+        
         tabBarItem.setFAIcon(icon: .FASignLanguage, textColor: .lightGray)
+        coreDataStack = (UIApplication.shared.delegate as! AppDelegate).coreDataStack
+        activityDataSource = ActivityDataSource_v1()
+        activityDataSource.context = coreDataStack.mainContext
     }
     
     override func viewDidLoad() {
@@ -42,12 +51,8 @@ class ActivityTableViewController: UITableViewController {
 
         navigationItem.hidesBackButton = true
         
-        // Data item is required to contain dataSource
-        // because tableview.dataSource is a weak reference
-        activityDataSource = ActivityDataSource_v1()
-        activityDataSource.delegate = self
+        activityDataSource.fetchedResultsControllerDelegate = self
 
-        let tableView = view as! UITableView
         tableView.dataSource = activityDataSource
 
         try! activityDataSource.performFetch()
@@ -59,8 +64,8 @@ class ActivityTableViewController: UITableViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-
         super.viewDidAppear(animated)
+
         tabBarController?.title = "Activity"
         tabBarController?.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(createActivity))
         try! activityDataSource.performFetch()
@@ -265,8 +270,6 @@ extension ActivityTableViewController {
 // MARK: - Fetched Results Controller Delegate
 
 extension ActivityTableViewController: NSFetchedResultsControllerDelegate {
-    
-//    weak var fetchedResultsController
     
     func controllerWillChangeContent(_ controller: NSFetchedResultsController<NSFetchRequestResult>) {
         

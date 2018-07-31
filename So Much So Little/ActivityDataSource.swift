@@ -9,15 +9,17 @@
 import CoreData
 import UIKit
 
+@objc
 protocol ActivityDataSource: UITableViewDataSource {
+
+    @objc
+    var context: NSManagedObjectContext! { get set }
     
+    var fetchedResultsControllerDelegate: NSFetchedResultsControllerDelegate? { get set }
+
     var fetchedObjects: [Activity]? { get }
     
-    var delegate: NSFetchedResultsControllerDelegate? { get set }
+    func object(at indexPath: IndexPath) -> Activity
 
     func performFetch() throws
-    
-    func object(at indexPath: IndexPath) -> Activity
-    
-    func saveMainContext()
 }

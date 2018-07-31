@@ -9,6 +9,7 @@
 import CoreData
 import UIKit
 
+@objc
 protocol CoreDataStack {
 
     typealias BatchTask=(_ workerContext: NSManagedObjectContext) -> ()

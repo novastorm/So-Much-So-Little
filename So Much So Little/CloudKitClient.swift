@@ -9,10 +9,10 @@
 import CloudKit
 import UIKit
 
-
-class CloudKitClient {
+@objc
+class CloudKitClient: NSObject {
     
-    var coreDataStack: CoreDataStack!
+//    var coreDataStack: CoreDataStack!
     
     public enum RecordType: String {
         case Activity, Project

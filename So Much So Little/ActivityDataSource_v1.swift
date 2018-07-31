@@ -13,9 +13,7 @@ class ActivityDataSource_v1: NSObject, ActivityDataSource {
 
     // MARK: - Properties
     
-    var coreDataStack: CoreDataStack {
-        return (UIApplication.shared.delegate as! AppDelegate).coreDataStack
-    }
+    var context: NSManagedObjectContext!
 
     lazy var fetchedResultsController: NSFetchedResultsController<Activity> = {
         let fetchRequest = Activity.fetchRequest() as NSFetchRequest<Activity>
@@ -23,7 +21,7 @@ class ActivityDataSource_v1: NSObject, ActivityDataSource {
         fetchRequest.predicate = NSPredicate(format: "(completed != YES) OR ((project == NULL) AND (kind == \(Activity.Kind.reference.rawValue)))")
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: Activity.Keys.DisplayOrder, ascending: true)]
         
-        let fetchedResultsController = NSFetchedResultsController<Activity>(fetchRequest: fetchRequest, managedObjectContext: coreDataStack.mainContext, sectionNameKeyPath: nil, cacheName: nil)
+        let fetchedResultsController = NSFetchedResultsController<Activity>(fetchRequest: fetchRequest, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
         
         return fetchedResultsController
     }()
@@ -71,7 +69,7 @@ class ActivityDataSource_v1: NSObject, ActivityDataSource {
         return fetchedResultsController.fetchedObjects
     }
     
-    var delegate: NSFetchedResultsControllerDelegate? {
+    var fetchedResultsControllerDelegate: NSFetchedResultsControllerDelegate? {
         get {
             return fetchedResultsController.delegate
         }
@@ -86,9 +84,5 @@ class ActivityDataSource_v1: NSObject, ActivityDataSource {
     
     func object(at indexPath: IndexPath) -> Activity {
         return fetchedResultsController.object(at: indexPath)
-    }
-    
-    func saveMainContext() {
-        coreDataStack.saveMainContext()
     }
 }
