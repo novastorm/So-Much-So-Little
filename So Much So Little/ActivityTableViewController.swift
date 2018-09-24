@@ -40,8 +40,9 @@ class ActivityTableViewController: UITableViewController {
         
         tabBarItem.setFAIcon(icon: .FASignLanguage, textColor: .lightGray)
         coreDataStack = (UIApplication.shared.delegate as! AppDelegate).coreDataStack
-        activityDataSource = ActivityDataSource_v1()
-        activityDataSource.context = coreDataStack.mainContext
+        activityDataSource = ActivityDataSource_v1(managedObjectContext: coreDataStack.mainContext)
+        activityDataSource.fetchedResultsControllerDelegate = self
+
     }
     
     override func viewDidLoad() {
@@ -51,10 +52,6 @@ class ActivityTableViewController: UITableViewController {
 
         navigationItem.hidesBackButton = true
         
-        activityDataSource.fetchedResultsControllerDelegate = self
-
-        tableView.dataSource = activityDataSource
-
         try! activityDataSource.performFetch()
         
         let longPress = UILongPressGestureRecognizer(target: self, action: #selector(longPressGestureRecognized(_:)))
@@ -313,5 +310,37 @@ extension ActivityTableViewController: NSFetchedResultsControllerDelegate {
         }
 
 //        saveMainContext()
+    }
+}
+
+
+// MARK: - Table View Data Source
+extension ActivityTableViewController {
+
+    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        let sectionInfo = activityDataSource.sections![section]
+        return sectionInfo.numberOfObjects
+    }
+    
+    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let identifier = "ActivityCell"
+        let cell = tableView.dequeueReusableCell(withIdentifier: identifier)!
+        
+        configureActivityCell(cell, atIndexPath: indexPath)
+        
+        return cell
+    }
+    
+    // MARK: - Helpers
+    
+    func configureActivityCell(_ cell: UITableViewCell, atIndexPath indexPath: IndexPath) {
+        let activity = activityDataSource.object(at: indexPath)
+        let displayOrder = activity.displayOrder
+        let name = activity.name
+        let actualTimeboxes = activity.actualTimeboxes
+        let estimatedTimeboxes = activity.estimatedTimeboxes
+        
+        cell.textLabel!.text = "\(displayOrder): \(name)"
+        cell.detailTextLabel!.text = "\(actualTimeboxes)/\(estimatedTimeboxes)"
     }
 }

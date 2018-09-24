@@ -10,13 +10,11 @@ import CoreData
 import UIKit
 
 @objc
-protocol ActivityDataSource: UITableViewDataSource {
-
-    @objc
-    var context: NSManagedObjectContext! { get set }
+protocol ActivityDataSource {
     
     var fetchedResultsControllerDelegate: NSFetchedResultsControllerDelegate? { get set }
 
+    var sections: [NSFetchedResultsSectionInfo]? { get }
     var fetchedObjects: [Activity]? { get }
     
     func object(at indexPath: IndexPath) -> Activity

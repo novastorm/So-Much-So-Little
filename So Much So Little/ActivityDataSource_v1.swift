@@ -30,40 +30,16 @@ class ActivityDataSource_v1: NSObject, ActivityDataSource {
 
     // MARK: - Initializers
     
-//    init(managedObjectContext context: NSManagedObjectContext) {
-//        mainContext = context
-//    }
+    init(managedObjectContext context: NSManagedObjectContext) {
+        self.context = context
+    }
 
-    // MARK: - Table View Data Source Delegates
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let sectionInfo = fetchedResultsController.sections![section]
-        return sectionInfo.numberOfObjects
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let identifier = "ActivityCell"
-        let cell = tableView.dequeueReusableCell(withIdentifier: identifier)!
-        
-        configureActivityCell(cell, atIndexPath: indexPath)
-        
-        return cell
-    }
-    
-    // MARK: - Helpers
-    
-    func configureActivityCell(_ cell: UITableViewCell, atIndexPath indexPath: IndexPath) {
-        let activity = fetchedResultsController.object(at: indexPath)
-        let displayOrder = activity.displayOrder
-        let name = activity.name
-        let actualTimeboxes = activity.actualTimeboxes
-        let estimatedTimeboxes = activity.estimatedTimeboxes
-        
-        cell.textLabel!.text = "\(displayOrder): \(name)"
-        cell.detailTextLabel!.text = "\(actualTimeboxes)/\(estimatedTimeboxes)"
-    }
     
     // MARK: - Adaptors
+    
+    var sections: [NSFetchedResultsSectionInfo]? {
+        return fetchedResultsController.sections
+    }
 
     var fetchedObjects: [Activity]? {
         return fetchedResultsController.fetchedObjects

@@ -221,10 +221,20 @@
 			name = CloudKit;
 			sourceTree = "<group>";
 		};
+		3E5AFDD021598FE6009E4384 /* DataSources */ = {
+			isa = PBXGroup;
+			children = (
+				3EEBB64721019F3B007C0218 /* ActivityDataSource.swift */,
+				3EF6F5962105834500BC15BC /* ActivityDataSource_v1.swift */,
+			);
+			name = DataSources;
+			sourceTree = "<group>";
+		};
 		3E7BDB851DB5803F006E526A /* Clients */ = {
 			isa = PBXGroup;
 			children = (
 				3E5048D71EE8A5EA0006DD1A /* CloudKit */,
+				3E09777D1D11FC8200A7F2C4 /* Core Data */,
 			);
 			name = Clients;
 			sourceTree = "<group>";
@@ -272,18 +282,16 @@
 		3EE741181D1090DC00064BF6 /* So Much So Little */ = {
 			isa = PBXGroup;
 			children = (
+				3E5AFDD021598FE6009E4384 /* DataSources */,
 				3E41D0F61D8DCA4B002EAD8A /* So Much So Little.entitlements */,
 				3E7BDB851DB5803F006E526A /* Clients */,
 				3ED6DF501D2731DB0064E440 /* Delegates */,
-				3E09777D1D11FC8200A7F2C4 /* Core Data */,
 				3E09777C1D11E15C00A7F2C4 /* Views */,
 				3E09777B1D11E15400A7F2C4 /* Models */,
 				3EE741191D1090DC00064BF6 /* AppDelegate.swift */,
 				3EE7411D1D1090DC00064BF6 /* Main.storyboard */,
 				3E3E41B31DBA9C4400FCE6DE /* StubTest.swift */,
 				3E825F0F1D9C493100ABACCE /* TimerViewController.swift */,
-				3EEBB64721019F3B007C0218 /* ActivityDataSource.swift */,
-				3EF6F5962105834500BC15BC /* ActivityDataSource_v1.swift */,
 				3E0977931D18CEA000A7F2C4 /* ActivityTableViewController.swift */,
 				3E7AB57E1D31839B002F6C2D /* ActivityDetailFormViewController.swift */,
 				3E0977951D18CEE200A7F2C4 /* ProjectTableViewController.swift */,
