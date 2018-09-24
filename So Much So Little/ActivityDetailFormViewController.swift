@@ -115,7 +115,7 @@ class ActivityDetailFormViewController: FormViewController {
                 self.activity = Activity(insertInto: self.temporaryContext)
             }
 
-            self.activity = self.temporaryContext.object(with: self.activity.objectID) as! Activity
+            self.activity = self.temporaryContext.object(with: self.activity.objectID) as? Activity
         }
         
         

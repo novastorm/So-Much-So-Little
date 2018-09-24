@@ -152,11 +152,11 @@ final public class Activity: NSManagedObject, CloudKitManagedObject {
     var cloudKitClient: CloudKitClient {
         var delegate: AppDelegate!
         if Thread.isMainThread {
-            delegate = UIApplication.shared.delegate as! AppDelegate
+            delegate = UIApplication.shared.delegate as? AppDelegate
         }
         else {
             DispatchQueue.main.sync {
-                delegate = UIApplication.shared.delegate as! AppDelegate
+                delegate = UIApplication.shared.delegate as? AppDelegate
             }
         }
         return delegate.cloudKitClient

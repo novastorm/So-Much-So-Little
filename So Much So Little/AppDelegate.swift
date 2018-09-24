@@ -95,8 +95,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 let project = fetchedProjectResults.first!
                 project.encodedCKRecord = ckProject.encodedCKRecordSystemFields
             case 0:
-                let project = Project(insertInto: mainContext, with: ckProject)
-//                print(project)
+                Project(insertInto: mainContext, with: ckProject)
             default:
                 fatalError("Unknown state fetching local projects")
             }

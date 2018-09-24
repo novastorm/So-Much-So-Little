@@ -76,11 +76,11 @@ final public class Project: NSManagedObject, CloudKitManagedObject {
     var cloudKitClient: CloudKitClient {
         var delegate: AppDelegate!
         if Thread.isMainThread {
-            delegate = UIApplication.shared.delegate as! AppDelegate
+            delegate = UIApplication.shared.delegate as? AppDelegate
         }
         else {
             DispatchQueue.main.sync {
-                delegate = UIApplication.shared.delegate as! AppDelegate
+                delegate = UIApplication.shared.delegate as? AppDelegate
             }
         }
         return delegate.cloudKitClient
@@ -134,6 +134,7 @@ final public class Project: NSManagedObject, CloudKitManagedObject {
          - options:
          The ProjectOptions record
      */
+    @discardableResult
     convenience init(insertInto context: NSManagedObjectContext, with options: ProjectOptions = ProjectOptions()) {
         
         let typename = type(of: self).typeName
@@ -169,6 +170,7 @@ final public class Project: NSManagedObject, CloudKitManagedObject {
         - ckRecord:
             A Cloud Kit Record.
      */
+    @discardableResult
     convenience init(insertInto context: NSManagedObjectContext, with ckRecord: CKRecord) {
         let name = ckRecord[Keys.Name] as! String
         self.init(insertInto: context, with: ProjectOptions(name: name))
