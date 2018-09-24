@@ -29,7 +29,7 @@ class ButtonGroup: NSObject {
         buttonList = buttons
         self.unSelectable = unSelectable
         defaultBackgroundColor = buttons[0].backgroundColor
-        defaultTitleColor = buttons[0].titleColor(for: UIControlState())
+        defaultTitleColor = buttons[0].titleColor(for: UIControl.State())
         
         super.init()
 
@@ -45,12 +45,12 @@ class ButtonGroup: NSObject {
     @objc func didTouchUpInside(_ button: UIButton) {
         for button in buttonList {
             button.backgroundColor = defaultBackgroundColor
-            button.setTitleColor(defaultTitleColor, for: UIControlState())
+            button.setTitleColor(defaultTitleColor, for: UIControl.State())
         }
         
         if selectedButton == nil || unSelectable || selectedButton != button {
             button.backgroundColor = selectedBackgroundColor
-            button.setTitleColor(selectedTitleColor, for: UIControlState())
+            button.setTitleColor(selectedTitleColor, for: UIControl.State())
             selectedButton = button
         }
         else {

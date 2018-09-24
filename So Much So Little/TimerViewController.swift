@@ -101,7 +101,7 @@ class TimerViewController: UIViewController {
         if segue.identifier == "ShowActivityTab" {
             print("ShowActivityTab")
             let tabBar = segue.destination as! UITabBarController
-            let activityTabIndex = tabBar.childViewControllers.index(where: {$0.title == "Activity List"})!
+            let activityTabIndex = tabBar.children.index(where: {$0.title == "Activity List"})!
             tabBar.selectedIndex = activityTabIndex
         }
     }

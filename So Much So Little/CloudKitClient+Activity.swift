@@ -40,7 +40,7 @@ extension CloudKitClient {
         completionHandler: @escaping (_ activity: CKRecord?, _ error: Error?) -> Void
         ) {
     
-        let recordId = CKRecordID(recordName: recordIdString)
+        let recordId = CKRecord.ID(recordName: recordIdString)
         
         privateDatabase.fetch(withRecordID: recordId) { (record, error) in
             
@@ -85,7 +85,7 @@ extension CloudKitClient {
     func destroyActivity(
         _ activity: CKRecord,
         using database: CKDatabase = CKContainer.default().privateCloudDatabase,
-        completionHandler: @escaping(_ activity: CKRecordID?, _ error: Error?) -> Void
+        completionHandler: @escaping(_ activity: CKRecord.ID?, _ error: Error?) -> Void
         ) {
         
         let modifyRecordsOperation = CKModifyRecordsOperation()

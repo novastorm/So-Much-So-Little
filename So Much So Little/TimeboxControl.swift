@@ -41,7 +41,7 @@ class TimeboxControl: UIView {
         for _ in 0 ..< timeboxCount {
             let button = UIButton()
             
-            button.setImage(type(of: self).defaultTimeboxImage, for: UIControlState())
+            button.setImage(type(of: self).defaultTimeboxImage, for: UIControl.State())
             button.setImage(type(of: self).estimatedTimeboxImage, for: .selected)
             button.setImage(type(of: self).estimatedTimeboxImage, for: [.selected, .highlighted])
             

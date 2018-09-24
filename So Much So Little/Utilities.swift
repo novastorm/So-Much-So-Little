@@ -6,8 +6,8 @@
 //  Copyright © 2016 Adland Lee. All rights reserved.
 //
 
+import UIKit
 import Reachability
-
 
 func showNetworkAlert(_ vc: UIViewController) {
     let networkErrorTitle = "Network unreachable."

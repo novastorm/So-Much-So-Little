@@ -195,7 +195,7 @@ final public class Activity: NSManagedObject, CloudKitManagedObject {
             
             if let project = project {
                 let ckRecordRef = CKRecord.decodeCKRecordSystemFields(from: project.encodedCKRecord! as Data)
-                ckRecord[Keys.Project] = CKReference(record: ckRecordRef, action: .none)
+                ckRecord[Keys.Project] = CKRecord.Reference(record: ckRecordRef, action: .none)
             }
             
             return ckRecord

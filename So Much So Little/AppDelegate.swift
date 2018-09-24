@@ -24,7 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var coreDataStack: CoreDataStack = CoreDataStack_v1(name: "So_Much_So_Little")!
     var cloudKitClient: CloudKitClient = CloudKitClient()
 
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
 //        connectionMonitor = ConnectionMonitor.init(hostname: "8.8.8.8")
@@ -118,7 +118,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 activity.encodedCKRecord = ckActivity.encodedCKRecordSystemFields
             case 0:
                 let activity = Activity(insertInto: mainContext, with: ckActivity)
-                if let projectRef = ckActivity[Activity.Keys.Project] as? CKReference {
+                if let projectRef = ckActivity[Activity.Keys.Project] as? CKRecord.Reference {
                     
                     let ckProject = ckProjectList.filter({ (ckRecord) -> Bool in
                         return ckRecord.recordID == projectRef.recordID

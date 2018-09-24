@@ -102,9 +102,9 @@ final public class Project: NSManagedObject, CloudKitManagedObject {
 //                ckRecord.setValue(value(forKey: key), forKey: key)
 //            }
             
-            let activityRefList: [CKReference] = activities.map({ (activity) -> CKReference in
+            let activityRefList: [CKRecord.Reference] = activities.map({ (activity) -> CKRecord.Reference in
                 let ckRecordRef = CKRecord.decodeCKRecordSystemFields(from: activity.encodedCKRecord! as Data)
-                return CKReference(record: ckRecordRef, action: .none)
+                return CKRecord.Reference(record: ckRecordRef, action: .none)
             })
             
             ckRecord[Keys.Activities] = activityRefList as NSArray

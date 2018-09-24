@@ -37,7 +37,7 @@ extension CloudKitClient {
             return record.cloudKitRecord
         }
         
-        modifyRecordsOperation.recordIDsToDelete = deletedObjects.compactMap { (record) -> CKRecordID? in
+        modifyRecordsOperation.recordIDsToDelete = deletedObjects.compactMap { (record) -> CKRecord.ID? in
             guard let record = record as? CloudKitManagedObject else {
                 return nil
             }
