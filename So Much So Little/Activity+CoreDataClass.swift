@@ -10,7 +10,7 @@ import CloudKit
 import CoreData
 import UIKit
 
-struct ActivityOptions {
+struct ActivityOptions: Codable {
     var completed: Activity.CompletedType
     var completedDate: Activity.CompletedDateType?
     var deferredTo: Activity.DeferredToType?
@@ -26,6 +26,24 @@ struct ActivityOptions {
     var today: Activity.TodayType
     var todayDisplayOrder: Activity.TodayDisplayOrderType
     
+    enum CodingKeys: String, CodingKey {
+        case
+        completed,
+        completedDate,
+        deferredTo,
+        deferredToResponseDueDate,
+        displayOrder,
+        dueDate,
+        estimatedTimeboxes,
+        info,
+        kind,
+        name,
+        scheduledEnd,
+        scheduledStart,
+        today,
+        todayDisplayOrder
+    }
+
     init(
         completed: Activity.CompletedType = false,
         completedDate: Activity.CompletedDateType? = nil,
@@ -57,12 +75,60 @@ struct ActivityOptions {
         self.today = today
         self.todayDisplayOrder = todayDisplayOrder
     }
+    
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        
+        try container.encode(completed, forKey: .completed)
+        try container.encode(completedDate, forKey: .completedDate)
+        try container.encode(deferredTo, forKey: .deferredTo)
+        try container.encode(deferredToResponseDueDate, forKey: .deferredToResponseDueDate)
+        try container.encode(displayOrder, forKey: .displayOrder)
+        try container.encode(dueDate, forKey: .dueDate)
+        try container.encode(estimatedTimeboxes, forKey: .estimatedTimeboxes)
+        try container.encode(info, forKey: .info)
+        try container.encode(kind, forKey: .kind)
+        try container.encode(name, forKey: .name)
+        try container.encode(scheduledStart, forKey: .scheduledStart)
+        try container.encode(scheduledEnd, forKey: .scheduledEnd)
+        try container.encode(today, forKey: .today)
+        try container.encode(todayDisplayOrder, forKey: .todayDisplayOrder)
+    }
+    
+    init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        
+        name = try container.decode(Activity.NameType.self, forKey: .name)
+        info = try? container.decode(Activity.InfoType.self, forKey: .info)
+        estimatedTimeboxes = try container.decode(Activity.EstimatedTimeboxesType.self, forKey: .estimatedTimeboxes)
+        displayOrder = try container.decode(Activity.DisplayOrderType.self, forKey: .displayOrder)
+        
+        today = try container.decode(Activity.TodayType.self, forKey: .today)
+        todayDisplayOrder = try container.decode(Activity.TodayDisplayOrderType.self, forKey: .todayDisplayOrder)
+        
+        completed = try container.decode(Activity.CompletedType.self, forKey: .completed)
+        completedDate = try? container.decode(Activity.CompletedDateType.self, forKey: .completedDate)
+        
+        kind = try container.decode(Activity.Kind.self, forKey: .kind)
+        switch kind {
+        case .deferred:
+            deferredTo = try container.decode(Activity.DeferredToType.self, forKey: .deferredTo)
+            deferredToResponseDueDate = try container.decode(Activity.DeferredToResponseDueDateType.self, forKey: .deferredToResponseDueDate)
+        case .reference:
+            break
+        case .scheduled:
+            scheduledStart = try? container.decode(Activity.ScheduledStartType.self, forKey: .scheduledStart)
+            scheduledEnd = try? container.decode(Activity.ScheduledEndType.self, forKey: .scheduledEnd)
+        case .flexible:
+            dueDate = try? container.decode(Activity.DueDateType.self, forKey: .dueDate)
+        }
+    }
 }
 
 final public class Activity: NSManagedObject, CloudKitManagedObject {    
     
     @objc // <- required for Core Data type compatibility
-    public enum Kind: Int16, CustomStringConvertible {
+    public enum Kind: Int16, CustomStringConvertible, Codable {
 
         private enum Name: String {
             case flexible
