@@ -37,7 +37,7 @@ class ActivityTableViewControllerTest: XCTestCase {
         super.tearDown()
     }
     
-    func testExample() {
+    func testSection0() {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
         let tableView = viewController.tableView!

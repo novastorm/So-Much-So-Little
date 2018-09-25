@@ -137,7 +137,7 @@
 		3EE741261D1090DC00064BF6 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		3EE741281D1090DC00064BF6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3EE7412D1D1090DC00064BF6 /* So Much So LittleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "So Much So LittleTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		3EE741311D1090DC00064BF6 /* ActivityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityTests.swift; sourceTree = "<group>"; };
+		3EE741311D1090DC00064BF6 /* CoreDataActivityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataActivityTests.swift; sourceTree = "<group>"; };
 		3EE741331D1090DC00064BF6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3EEBB64721019F3B007C0218 /* ActivityDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityDataSource.swift; sourceTree = "<group>"; };
 		3EEBB6492101A174007C0218 /* CoreDataStack_v1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStack_v1.swift; sourceTree = "<group>"; };
@@ -245,20 +245,6 @@
 			path = Mocks;
 			sourceTree = "<group>";
 		};
-		3E5AFDD8215A049B009E4384 /* UnitTest */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = UnitTest;
-			sourceTree = "<group>";
-		};
-		3E5AFDD9215A04A9009E4384 /* IntegrationTests */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = IntegrationTests;
-			sourceTree = "<group>";
-		};
 		3E7BDB851DB5803F006E526A /* Clients */ = {
 			isa = PBXGroup;
 			children = (
@@ -346,11 +332,9 @@
 			children = (
 				3EE741331D1090DC00064BF6 /* Info.plist */,
 				3E5AFDD7215A047C009E4384 /* Mocks */,
-				3E5AFDD8215A049B009E4384 /* UnitTest */,
-				3E5AFDD9215A04A9009E4384 /* IntegrationTests */,
-				3E5AFDD32159F458009E4384 /* ActivityDataSourceTests.swift */,
-				3EE741311D1090DC00064BF6 /* ActivityTests.swift */,
 				3E5AFDD12159DA9D009E4384 /* ActivityOptionTests.swift */,
+				3EE741311D1090DC00064BF6 /* CoreDataActivityTests.swift */,
+				3E5AFDD32159F458009E4384 /* ActivityDataSourceTests.swift */,
 				3EF741151DA72B31008C30CF /* ProjectTests.swift */,
 				3EF6F59B2105BA4A00BC15BC /* ActivityTableViewControllerTest.swift */,
 			);

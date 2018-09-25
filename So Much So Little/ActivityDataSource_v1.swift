@@ -13,7 +13,12 @@ class ActivityDataSource_v1: NSObject, ActivityDataSource {
 
     // MARK: - Properties
     
-    var context: NSManagedObjectContext!
+    var coreDataStack: CoreDataStack!
+    var cloudKitClient: CloudKitClient!
+    
+    var context: NSManagedObjectContext {
+        return coreDataStack.mainContext
+    }
 
     lazy var fetchedResultsController: NSFetchedResultsController<Activity> = {
         let fetchRequest = Activity.fetchRequest() as NSFetchRequest<Activity>
@@ -29,19 +34,19 @@ class ActivityDataSource_v1: NSObject, ActivityDataSource {
     
     // MARK: - Initializers
     
-    init(managedObjectContext context: NSManagedObjectContext) {
-        self.context = context
+    init(
+        coreDataStack: CoreDataStack = (UIApplication.shared.delegate as! AppDelegate).coreDataStack,
+        cloudKitClient: CloudKitClient = (UIApplication.shared.delegate as! AppDelegate).cloudKitClient
+    ) {
+        self.coreDataStack = coreDataStack
+        self.cloudKitClient = cloudKitClient
     }
 
     
-    // MARK: - Adaptors
-    
-    var sections: [NSFetchedResultsSectionInfo]? {
-        return fetchedResultsController.sections
-    }
+    // MARK: - Methods
 
-    var fetchedObjects: [Activity]? {
-        return fetchedResultsController.fetchedObjects
+    func performFetch() throws {
+        try fetchedResultsController.performFetch()
     }
     
     var fetchedResultsControllerDelegate: NSFetchedResultsControllerDelegate? {
@@ -53,11 +58,31 @@ class ActivityDataSource_v1: NSObject, ActivityDataSource {
         }
     }
 
-    func performFetch() throws {
-        try fetchedResultsController.performFetch()
+    var sections: [NSFetchedResultsSectionInfo]? {
+        return fetchedResultsController.sections
+    }
+
+    var fetchedObjects: [Activity]? {
+        return fetchedResultsController.fetchedObjects
     }
     
     func object(at indexPath: IndexPath) -> Activity {
         return fetchedResultsController.object(at: indexPath)
+    }
+    
+    func create(with options: ActivityOptions) -> Activity {
+        let activity = Activity(insertInto: context, with: options)
+        // save
+        return activity
+    }
+    
+    func update(activity: Activity) {
+        // update
+        // save
+    }
+    
+    func delete(activity: Activity) {
+        // delete
+        // save
     }
 }

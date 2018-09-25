@@ -1,5 +1,5 @@
 //
-//  ActivityTests.swift
+//  CoreDataActivityTests.swift
 //  So Much So Little Tests
 //
 //  Created by Adland Lee on 6/14/16.
@@ -11,10 +11,9 @@ import CoreData
 
 @testable import So_Much_So_Little
 
-class ActivityTests: XCTestCase {
+class CoreDataActivityTests: XCTestCase {
 
     var persistentContainer: NSPersistentContainer!
-
     var managedObjectContext: NSManagedObjectContext {
         return persistentContainer.viewContext
     }

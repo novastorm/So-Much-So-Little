@@ -9,7 +9,6 @@
 import CoreData
 import UIKit
 
-@objc
 protocol ActivityDataSource {
 
     func performFetch() throws
@@ -25,9 +24,11 @@ protocol ActivityDataSource {
     func object(at indexPath: IndexPath) -> Activity
     
     // Create
-//    func create(with options: ActivityOptions) -> Activity
+    func create(with options: ActivityOptions) -> Activity
     
     // Update
+    func update(activity: Activity)
     
     // Delete
+    func delete(activity: Activity)
 }

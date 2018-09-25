@@ -297,6 +297,7 @@ final public class Activity: NSManagedObject, CloudKitManagedObject {
          The ActivityOptions record
      */
     
+    @discardableResult
     convenience init(
         insertInto context: NSManagedObjectContext,
         with options: ActivityOptions = ActivityOptions()
@@ -344,6 +345,7 @@ final public class Activity: NSManagedObject, CloudKitManagedObject {
      A Cloud Kit Record.
      */
     
+    @discardableResult
     convenience init(
         insertInto context: NSManagedObjectContext,
         with ckRecord: CKRecord

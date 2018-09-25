@@ -40,7 +40,7 @@ class ActivityTableViewController: UITableViewController {
         
         tabBarItem.setFAIcon(icon: .FASignLanguage, textColor: .lightGray)
         coreDataStack = (UIApplication.shared.delegate as! AppDelegate).coreDataStack
-        activityDataSource = ActivityDataSource_v1(managedObjectContext: coreDataStack.mainContext)
+        activityDataSource = ActivityDataSource_v1()
         activityDataSource.fetchedResultsControllerDelegate = self
 
     }
