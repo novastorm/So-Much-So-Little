@@ -1,5 +1,5 @@
 //
-//  ActivityTests.swift
+//  ActivityDataSourceTests.swift
 //  So Much So Little Tests
 //
 //  Created by Adland Lee on 6/14/16.
@@ -11,13 +11,12 @@ import CoreData
 
 @testable import So_Much_So_Little
 
-class ActivityTests: XCTestCase {
-
-    var persistentContainer: NSPersistentContainer!
-
-    var managedObjectContext: NSManagedObjectContext {
-        return persistentContainer.viewContext
-    }
+class ActivityDataSourceTests: XCTestCase {
+    
+    var storeCoordinator: NSPersistentStoreCoordinator!
+    var managedObjectContext: NSManagedObjectContext!
+    var managedObjectModel: NSManagedObjectModel!
+    var persistentStore: NSPersistentStore!
     
     func getFetchedResultsController(_ fetchRequest: NSFetchRequest<Activity>) -> NSFetchedResultsController<Activity> {
         let fetchedResultsController = NSFetchedResultsController<Activity>(fetchRequest: fetchRequest, managedObjectContext: self.managedObjectContext, sectionNameKeyPath: nil, cacheName: nil)
@@ -32,7 +31,7 @@ class ActivityTests: XCTestCase {
         return fetchRequest
     }
     
-    let mockActivityData: [AnyHashable:ActivityOptions] = [
+    let mockActivityList: [AnyHashable:ActivityOptions] = [
         "alpha": ActivityOptions(
             estimatedTimeboxes: 4,
             info: "Alpha info",
@@ -61,12 +60,23 @@ class ActivityTests: XCTestCase {
     override func setUp() {
         super.setUp()
         
-        persistentContainer = PersistentContainerMock.createInMemoryPersistentContainer()
+        managedObjectModel = NSManagedObjectModel.mergedModel(from: nil)
+        storeCoordinator = NSPersistentStoreCoordinator(managedObjectModel: managedObjectModel)
+        do {
+            persistentStore = try storeCoordinator.addPersistentStore(ofType: NSInMemoryStoreType, configurationName: nil, at: nil, options: nil)
+        }
+        catch {
+            print(error)
+            abort()
+        }
+        
+        managedObjectContext = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
+        managedObjectContext.persistentStoreCoordinator = storeCoordinator
     }
     
     override func tearDown() {
-        
-        persistentContainer = nil
+        managedObjectContext = nil
+        try! storeCoordinator.remove(persistentStore)
         
         super.tearDown()
     }
@@ -127,7 +137,7 @@ class ActivityTests: XCTestCase {
         }
 
         // create an activity
-        let alphaData = mockActivityData["alpha"]!
+        let alphaData = mockActivityList["alpha"]!
         let alpha = Activity(insertInto: managedObjectContext, with: alphaData)
         XCTAssertTrue(alpha.objectID.isTemporaryID, "Activity should have a temporaryID")
         try! managedObjectContext.save()
@@ -163,7 +173,7 @@ class ActivityTests: XCTestCase {
         
         
         // create another activity
-        let bravoData = mockActivityData["bravo"]!
+        let bravoData = mockActivityList["bravo"]!
         let bravo = Activity(insertInto: managedObjectContext, with: bravoData)
         try! managedObjectContext.save()
         
@@ -174,7 +184,7 @@ class ActivityTests: XCTestCase {
         XCTAssertTrue(fetchedActivityList.contains(alpha))
         XCTAssertTrue(fetchedActivityList.contains(bravo))
 
-        let charlieData = mockActivityData["charlie"]!
+        let charlieData = mockActivityList["charlie"]!
         let charlie = Activity(insertInto: managedObjectContext, with: charlieData)
 
         XCTAssertTrue(charlie.objectID.isTemporaryID, "Activity Charlie should have temporary ID")
@@ -197,15 +207,15 @@ class ActivityTests: XCTestCase {
     }
     
     func testActivityLists() {
-        let alphaData = mockActivityData["alpha"]!
+        let alphaData = mockActivityList["alpha"]!
         let alpha = Activity(insertInto: managedObjectContext, with: alphaData)
-        let bravoData = mockActivityData["bravo"]!
+        let bravoData = mockActivityList["bravo"]!
         let bravo = Activity(insertInto: managedObjectContext, with: bravoData)
-        let charlieData = mockActivityData["charlie"]!
+        let charlieData = mockActivityList["charlie"]!
         let charlie = Activity(insertInto: managedObjectContext, with: charlieData)
-        let deltaData = mockActivityData["delta"]!
+        let deltaData = mockActivityList["delta"]!
         let delta = Activity(insertInto: managedObjectContext, with: deltaData)
-        let echoData = mockActivityData["echo"]!
+        let echoData = mockActivityList["echo"]!
         let echo = Activity(insertInto: managedObjectContext, with: echoData)
         
         // test activity list

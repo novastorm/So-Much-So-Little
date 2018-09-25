@@ -14,28 +14,25 @@ import UIKit
 @objc
 class ActivityDataSourceMock: NSObject, ActivityDataSource {
     
-    lazy var persistentContainer: NSPersistentContainer = {
-        let container = NSPersistentContainer(name: "So_Much_So_Little")
-        let description = NSPersistentStoreDescription()
-        description.configuration = "Default"
-        description.type = NSInMemoryStoreType
+    private class SectionInfo: NSFetchedResultsSectionInfo {
+        var name: String
+        var indexTitle: String?
+        var numberOfObjects: Int
+        var objects: [Any]?
         
-        container.persistentStoreDescriptions = [description]
-        
-        container.loadPersistentStores(completionHandler: { (persistentStoreDescription, error) in
-            // empty
-        })
-        
-        return container
-    }()
-    
-    lazy var context: NSManagedObjectContext = {
-        return persistentContainer.viewContext
-    }()
-    
-    lazy var activityObjects: [Int:[Activity]]! = {
+        init(name: String, indexTitle: String? = nil, numberOfObjects: Int, objects: [Any]? = nil) {
+            self.name = name
+            self.indexTitle = indexTitle
+            self.numberOfObjects = numberOfObjects
+            self.objects = objects
+        }
+    }
+
+    var context: NSManagedObjectContext!
+
+    lazy var activityData: [[Activity]]! = {
         return [
-            0: [
+            [
                 Activity(
                     insertInto: context,
                     with: ActivityOptions(
@@ -77,42 +74,34 @@ class ActivityDataSourceMock: NSObject, ActivityDataSource {
             ]
         ]
     }()
+
+    var performFetchWasCalled = false
     
-    func saveMainContext() {
-        // code
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // code
-        return (activityObjects[section]?.count)!
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
-    }
-    
-    
-    var fetchedObjects: [Activity]? {
-        get {
-             return activityObjects[0]
-        }
-    }
-    
-    var fetchedResultsControllerDelegate: NSFetchedResultsControllerDelegate? {
-        get {
-            return nil
-        }
-        set {
-            print ("Set Activity NSFetchedResultsControllerDelegate")
-        }
-        
+    init(managedObjectContext context: NSManagedObjectContext) {
+        self.context = context
     }
 
     func performFetch() throws {
-        // code
+        performFetchWasCalled = true
+    }
+
+    var fetchedResultsControllerDelegate: NSFetchedResultsControllerDelegate?
+
+    var sections: [NSFetchedResultsSectionInfo]? {
+        return activityData.map({
+            SectionInfo(
+                name: "",
+                indexTitle: nil,
+                numberOfObjects: $0.count,
+                objects: $0)
+        })
+    }
+
+    var fetchedObjects: [Activity]? {
+        return activityData.flatMap { $0 }
     }
     
     func object(at indexPath: IndexPath) -> Activity {
-        return Activity()
+        return activityData[indexPath.section][indexPath.item]
     }
 }

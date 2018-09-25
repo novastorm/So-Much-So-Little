@@ -25,6 +25,9 @@
 		3E41D0F91D8DCA62002EAD8A /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E41D0F81D8DCA62002EAD8A /* CloudKit.framework */; };
 		3E5685E31ED553A500B3D056 /* CloudKitClient+Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5685E21ED553A500B3D056 /* CloudKitClient+Project.swift */; };
 		3E5685F11EDCEA0C00B3D056 /* ManagedObject+CloudKitProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5685F01EDCEA0C00B3D056 /* ManagedObject+CloudKitProtocol.swift */; };
+		3E5AFDD22159DA9D009E4384 /* ActivityOptionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5AFDD12159DA9D009E4384 /* ActivityOptionTests.swift */; };
+		3E5AFDD42159F458009E4384 /* ActivityDataSourceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5AFDD32159F458009E4384 /* ActivityDataSourceTests.swift */; };
+		3E5AFDD62159FDBF009E4384 /* PersistentContainerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5AFDD52159FDBF009E4384 /* PersistentContainerMock.swift */; };
 		3E6C708A1FB17791008EE124 /* ConnectionMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C70891FB17791008EE124 /* ConnectionMonitor.swift */; };
 		3E7AB57F1D31839B002F6C2D /* ActivityDetailFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7AB57E1D31839B002F6C2D /* ActivityDetailFormViewController.swift */; };
 		3E7AB5831D318A45002F6C2D /* Eureka.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3ED6DF591D2B03070064E440 /* Eureka.framework */; };
@@ -103,6 +106,9 @@
 		3E5685E01ED5527500B3D056 /* CloudKitClient+Activity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CloudKitClient+Activity.swift"; sourceTree = "<group>"; };
 		3E5685E21ED553A500B3D056 /* CloudKitClient+Project.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CloudKitClient+Project.swift"; sourceTree = "<group>"; };
 		3E5685F01EDCEA0C00B3D056 /* ManagedObject+CloudKitProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ManagedObject+CloudKitProtocol.swift"; sourceTree = "<group>"; };
+		3E5AFDD12159DA9D009E4384 /* ActivityOptionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityOptionTests.swift; sourceTree = "<group>"; };
+		3E5AFDD32159F458009E4384 /* ActivityDataSourceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityDataSourceTests.swift; sourceTree = "<group>"; };
+		3E5AFDD52159FDBF009E4384 /* PersistentContainerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistentContainerMock.swift; sourceTree = "<group>"; };
 		3E6C70891FB17791008EE124 /* ConnectionMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionMonitor.swift; sourceTree = "<group>"; };
 		3E7AB57E1D31839B002F6C2D /* ActivityDetailFormViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityDetailFormViewController.swift; sourceTree = "<group>"; };
 		3E7AB5871D333343002F6C2D /* TimeboxControlRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeboxControlRow.swift; sourceTree = "<group>"; };
@@ -230,6 +236,29 @@
 			name = DataSources;
 			sourceTree = "<group>";
 		};
+		3E5AFDD7215A047C009E4384 /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				3EF6F5992105A8CE00BC15BC /* ActivityDataSourceMock.swift */,
+				3E5AFDD52159FDBF009E4384 /* PersistentContainerMock.swift */,
+			);
+			path = Mocks;
+			sourceTree = "<group>";
+		};
+		3E5AFDD8215A049B009E4384 /* UnitTest */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = UnitTest;
+			sourceTree = "<group>";
+		};
+		3E5AFDD9215A04A9009E4384 /* IntegrationTests */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = IntegrationTests;
+			sourceTree = "<group>";
+		};
 		3E7BDB851DB5803F006E526A /* Clients */ = {
 			isa = PBXGroup;
 			children = (
@@ -316,8 +345,12 @@
 			isa = PBXGroup;
 			children = (
 				3EE741331D1090DC00064BF6 /* Info.plist */,
-				3EF6F5992105A8CE00BC15BC /* ActivityDataSourceMock.swift */,
+				3E5AFDD7215A047C009E4384 /* Mocks */,
+				3E5AFDD8215A049B009E4384 /* UnitTest */,
+				3E5AFDD9215A04A9009E4384 /* IntegrationTests */,
+				3E5AFDD32159F458009E4384 /* ActivityDataSourceTests.swift */,
 				3EE741311D1090DC00064BF6 /* ActivityTests.swift */,
+				3E5AFDD12159DA9D009E4384 /* ActivityOptionTests.swift */,
 				3EF741151DA72B31008C30CF /* ProjectTests.swift */,
 				3EF6F59B2105BA4A00BC15BC /* ActivityTableViewControllerTest.swift */,
 			);
@@ -501,8 +534,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3E5AFDD22159DA9D009E4384 /* ActivityOptionTests.swift in Sources */,
 				3EF6F59C2105BA4A00BC15BC /* ActivityTableViewControllerTest.swift in Sources */,
 				3EF6F59A2105A8CE00BC15BC /* ActivityDataSourceMock.swift in Sources */,
+				3E5AFDD42159F458009E4384 /* ActivityDataSourceTests.swift in Sources */,
+				3E5AFDD62159FDBF009E4384 /* PersistentContainerMock.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

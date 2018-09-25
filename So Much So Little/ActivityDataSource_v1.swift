@@ -26,8 +26,7 @@ class ActivityDataSource_v1: NSObject, ActivityDataSource {
         return fetchedResultsController
     }()
     
-//    let mainContext: NSManagedObjectContext!
-
+    
     // MARK: - Initializers
     
     init(managedObjectContext context: NSManagedObjectContext) {

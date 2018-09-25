@@ -11,13 +11,23 @@ import UIKit
 
 @objc
 protocol ActivityDataSource {
-    
+
+    func performFetch() throws
+
     var fetchedResultsControllerDelegate: NSFetchedResultsControllerDelegate? { get set }
 
     var sections: [NSFetchedResultsSectionInfo]? { get }
+    
+    // Index
     var fetchedObjects: [Activity]? { get }
     
+    // Show
     func object(at indexPath: IndexPath) -> Activity
-
-    func performFetch() throws
+    
+    // Create
+//    func create(with options: ActivityOptions) -> Activity
+    
+    // Update
+    
+    // Delete
 }

@@ -7,21 +7,29 @@
 //
 
 import XCTest
+import CoreData
 
 @testable import So_Much_So_Little
 
 class ActivityTableViewControllerTest: XCTestCase {
     
     var viewController: ActivityTableViewController!
+    var persistentContainer: NSPersistentContainer!
+    var managedObjectContext: NSManagedObjectContext {
+        return persistentContainer.viewContext
+    }
+    var activityDataSource: ActivityDataSourceMock!
     
     override func setUp() {
         super.setUp()
-//        viewController = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: ActivityTableViewController.typeName) as! ActivityTableViewController
 
         let coder = NSKeyedUnarchiver(forReadingWith: Data())
         viewController = ActivityTableViewController(coder: coder)
         coder.finishDecoding()
-        viewController.activityDataSource = ActivityDataSourceMock()
+        persistentContainer = PersistentContainerMock.createInMemoryPersistentContainer()
+        
+        activityDataSource = ActivityDataSourceMock(managedObjectContext: managedObjectContext)
+        viewController.activityDataSource = activityDataSource
     }
     
     override func tearDown() {
@@ -33,9 +41,10 @@ class ActivityTableViewControllerTest: XCTestCase {
         // This is an example of a functional test case.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
         let tableView = viewController.tableView!
-        let result = viewController.tableView(tableView, numberOfRowsInSection: 0)
-        XCTAssertEqual(result, 0, "Number of rows in section 0 was not 0")
-        XCTAssertNotEqual(result, 1, "Number of rows in section 0 was not 1")
+        let section = 0
+        let result = viewController.tableView(tableView, numberOfRowsInSection: section)
+        let targetCount = activityDataSource.activityData[section].count
+        XCTAssertEqual(result, targetCount, "Number of rows in section \(section) was not \(targetCount)")
     }
     
     func testPerformanceExample() {
