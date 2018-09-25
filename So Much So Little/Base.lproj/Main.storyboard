@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="PhA-1q-RbD">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="Jey-R4-xw8">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -61,7 +61,13 @@
                             <outlet property="delegate" destination="Ueo-0G-NJy" id="Mbr-mH-Pbu"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Today" id="tCV-0B-fjE"/>
+                    <navigationItem key="navigationItem" title="Today" id="tCV-0B-fjE">
+                        <barButtonItem key="leftBarButtonItem" title="Timer" id="F9n-uI-W9t">
+                            <connections>
+                                <action selector="showTimer:" destination="Ueo-0G-NJy" id="idh-3m-FiM"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vNc-tB-Jke" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
@@ -70,7 +76,7 @@
         <!--Activity Timer-->
         <scene sceneID="c2z-WK-GHw">
             <objects>
-                <viewController storyboardIdentifier="ActivityTime" id="Jey-R4-xw8" customClass="TimerViewController" customModule="So_Much_So_Little" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ActivityTimer" id="Jey-R4-xw8" customClass="TimerViewController" customModule="So_Much_So_Little" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="2qJ-fe-SFi"/>
                         <viewControllerLayoutGuide type="bottom" id="pGC-Nd-L8G"/>
@@ -161,6 +167,9 @@
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Vz6-MS-2cl">
                                 <rect key="frame" x="156" y="617" width="63" height="30"/>
                                 <state key="normal" title="Activities"/>
+                                <connections>
+                                    <action selector="showActivityView:" destination="Jey-R4-xw8" eventType="touchUpInside" id="Dzu-NL-BKQ"/>
+                                </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Generic" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CVh-Kw-CXq">
                                 <rect key="frame" x="16" y="209" width="343" height="21"/>
@@ -199,12 +208,12 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="lpb-dT-wfI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-889" y="1785"/>
+            <point key="canvasLocation" x="-246" y="1836"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="M0B-wS-g7L">
             <objects>
-                <tabBarController id="PhA-1q-RbD" sceneMemberID="viewController">
+                <tabBarController storyboardIdentifier="Main" id="PhA-1q-RbD" sceneMemberID="viewController">
                     <toolbarItems/>
                     <navigationItem key="navigationItem" id="OHH-iH-yxE"/>
                     <tabBar key="tabBar" contentMode="scaleToFill" id="Bix-aS-HnT">
@@ -221,7 +230,7 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oPf-ys-JxG" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="126" y="1108"/>
+            <point key="canvasLocation" x="793" y="1837"/>
         </scene>
         <!--Activity-->
         <scene sceneID="3Ga-IY-g6d">
@@ -264,7 +273,13 @@
                             <outlet property="delegate" destination="FaB-wC-3lj" id="CAZ-LF-Y56"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Activity" id="kvl-Lb-5Px"/>
+                    <navigationItem key="navigationItem" title="Activity" id="kvl-Lb-5Px">
+                        <barButtonItem key="leftBarButtonItem" title="Timer" id="jSM-1s-fgk">
+                            <connections>
+                                <action selector="showTimer:" destination="FaB-wC-3lj" id="wRF-nf-YHn"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <refreshControl key="refreshControl" opaque="NO" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" id="LIC-IS-qX3">
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -338,7 +353,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2JI-aS-2rb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4692" y="2322.1889055472266"/>
+            <point key="canvasLocation" x="4692" y="1837"/>
         </scene>
         <!--Project-->
         <scene sceneID="8Vc-OH-xJn">
@@ -366,7 +381,13 @@
                             <outlet property="delegate" destination="bx4-RW-aS3" id="gg1-Uf-E6I"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Project" id="4JZ-RK-Vsb"/>
+                    <navigationItem key="navigationItem" title="Project" id="4JZ-RK-Vsb">
+                        <barButtonItem key="leftBarButtonItem" title="Timer" id="XDb-re-ziB">
+                            <connections>
+                                <action selector="showTimer:" destination="bx4-RW-aS3" id="VxI-ZB-UGf"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <segue destination="6pH-iX-TZ1" kind="show" identifier="CreateProjectDetail" id="bjR-LH-v2i"/>
                     </connections>
@@ -399,7 +420,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1qk-vv-kRm" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4692" y="3733.5832083958026"/>
+            <point key="canvasLocation" x="4692" y="3338"/>
         </scene>
         <!--Settings-->
         <scene sceneID="qRm-jd-aqq">
@@ -500,7 +521,13 @@
                             <outlet property="delegate" destination="G0c-co-57l" id="TLQ-01-ZmO"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" title="Completed" id="7Vb-6p-XNF"/>
+                    <navigationItem key="navigationItem" title="Completed" id="7Vb-6p-XNF">
+                        <barButtonItem key="leftBarButtonItem" title="Timer" id="2gf-sS-vXh">
+                            <connections>
+                                <action selector="showTimer:" destination="G0c-co-57l" id="hEo-mc-n4k"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="9mj-rq-nR3" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

@@ -13,6 +13,12 @@ import CoreData
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
+    enum Views: String {
+        case
+        ActivityTimer,
+        Main
+    }
+    
 //    var connectionMonitor: ConnectionMonitor!
 
     struct UserDefaultKeys {

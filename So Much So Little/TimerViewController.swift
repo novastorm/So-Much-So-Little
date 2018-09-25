@@ -22,6 +22,7 @@ struct TimerViewControllerDependencies {
 
 class TimerViewController: UIViewController {
     
+    
     let dependencies: TimerViewControllerDependencies!
     
     let DefaultTaskLabel = "Generic"
@@ -108,7 +109,12 @@ class TimerViewController: UIViewController {
     
 
     // MARK: - Actions
-    
+
+    @IBAction func showActivityView(_ sender: UIButton) {
+        let destinationVC = storyboard!.instantiateViewController(withIdentifier: AppDelegate.Views.Main.rawValue)
+        present(destinationVC, animated: true, completion: nil)
+    }
+
     @IBAction func startActivityTimer(_ sender: AnyObject) {
         print("startActivityTimer")
         resetTimer(to: Preset.long)

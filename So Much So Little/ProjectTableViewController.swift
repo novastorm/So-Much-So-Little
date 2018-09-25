@@ -113,6 +113,13 @@ class ProjectTableViewController: UITableViewController {
             destinationVC.project = fetchedResultsController.object(at: indexPath)
         }
     }
+    
+    
+    // MARK: - Actions
+    
+    @IBAction func showTimer(_ sender: Any) {
+        tabBarController?.dismiss(animated: true, completion: nil)
+    }
 
     
     // MARK: - Helpers
