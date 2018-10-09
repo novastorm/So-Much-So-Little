@@ -76,11 +76,11 @@ final public class Project: NSManagedObject, CloudKitManagedObject {
     var cloudKitClient: CloudKitClient {
         var delegate: AppDelegate!
         if Thread.isMainThread {
-            delegate = UIApplication.shared.delegate as! AppDelegate
+            delegate = UIApplication.shared.delegate as? AppDelegate
         }
         else {
             DispatchQueue.main.sync {
-                delegate = UIApplication.shared.delegate as! AppDelegate
+                delegate = UIApplication.shared.delegate as? AppDelegate
             }
         }
         return delegate.cloudKitClient
@@ -102,9 +102,9 @@ final public class Project: NSManagedObject, CloudKitManagedObject {
 //                ckRecord.setValue(value(forKey: key), forKey: key)
 //            }
             
-            let activityRefList: [CKReference] = activities.map({ (activity) -> CKReference in
+            let activityRefList: [CKRecord.Reference] = activities.map({ (activity) -> CKRecord.Reference in
                 let ckRecordRef = CKRecord.decodeCKRecordSystemFields(from: activity.encodedCKRecord! as Data)
-                return CKReference(record: ckRecordRef, action: .none)
+                return CKRecord.Reference(record: ckRecordRef, action: .none)
             })
             
             ckRecord[Keys.Activities] = activityRefList as NSArray
@@ -134,6 +134,7 @@ final public class Project: NSManagedObject, CloudKitManagedObject {
          - options:
          The ProjectOptions record
      */
+    @discardableResult
     convenience init(insertInto context: NSManagedObjectContext, with options: ProjectOptions = ProjectOptions()) {
         
         let typename = type(of: self).typeName
@@ -169,6 +170,7 @@ final public class Project: NSManagedObject, CloudKitManagedObject {
         - ckRecord:
             A Cloud Kit Record.
      */
+    @discardableResult
     convenience init(insertInto context: NSManagedObjectContext, with ckRecord: CKRecord) {
         let name = ckRecord[Keys.Name] as! String
         self.init(insertInto: context, with: ProjectOptions(name: name))
@@ -181,7 +183,7 @@ final public class Project: NSManagedObject, CloudKitManagedObject {
 
         if isDeleted {
             showNetworkActivityIndicator()
-            cloudKitClient.destroyProject(self.cloudKitRecord) { (ckRecordID, error) in
+            cloudKitClient.destroyRecord(self.cloudKitRecord) { (ckRecordID, error) in
                 hideNetworkActivityIndicator()
                 guard error == nil else {
                     print("Error deleting \(type(of:self))", error!)
@@ -200,7 +202,7 @@ final public class Project: NSManagedObject, CloudKitManagedObject {
         }
         
         showNetworkActivityIndicator()
-        cloudKitClient.getProject(ckRecordIdName!) { (remoteCKRecord, error) in
+        cloudKitClient.getRecord(byId: CKRecord.ID(recordName: ckRecordIdName!)) { (remoteCKRecord, error) in
             hideNetworkActivityIndicator()
             guard error == nil else {
                 guard ConnectionMonitor.shared.isConnectedToNetwork() else {
@@ -211,7 +213,7 @@ final public class Project: NSManagedObject, CloudKitManagedObject {
                 }
                 
                 showNetworkActivityIndicator()
-                self.cloudKitClient.storeProject(localCKRecord) { (ckRecord, error) in
+                self.cloudKitClient.storeRecord(localCKRecord) { (ckRecord, error) in
                     hideNetworkActivityIndicator()
                     guard error == nil else {
                         print("\(type(of:self)) storeReord", error!)
@@ -234,7 +236,7 @@ final public class Project: NSManagedObject, CloudKitManagedObject {
             }
             
             showNetworkActivityIndicator()
-            self.cloudKitClient.storeProject(remoteCKRecord) { (ckRecord, error) in
+            self.cloudKitClient.storeRecord(remoteCKRecord) { (ckRecord, error) in
                 hideNetworkActivityIndicator()
                 guard error == nil else {
                     print("\(type(of:self)) storeReord", error!)

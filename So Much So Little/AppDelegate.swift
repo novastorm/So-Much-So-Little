@@ -7,9 +7,17 @@
 //
 
 import UIKit
+import CloudKit
+import CoreData
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
+    
+    enum Views: String {
+        case
+        ActivityTimer,
+        Main
+    }
     
 //    var connectionMonitor: ConnectionMonitor!
 
@@ -22,17 +30,19 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var coreDataStack: CoreDataStack = CoreDataStack_v1(name: "So_Much_So_Little")!
     var cloudKitClient: CloudKitClient = CloudKitClient()
 
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         
 //        connectionMonitor = ConnectionMonitor.init(hostname: "8.8.8.8")
 
-        coreDataStack.cloudKitClient = cloudKitClient
-        cloudKitClient.coreDataStack = coreDataStack
+//        coreDataStack.cloudKitClient = cloudKitClient
+//        cloudKitClient.coreDataStack = coreDataStack
         
         checkIfFirstLaunch()
         coreDataStack.autoSave(60)
-        cloudKitClient.importRecords()
+        
+        let projectActivityDataSource = ProjectActivityCloudKitClient()
+        projectActivityDataSource.importRecords(completionHandler: processImportedCKRecords(_:_:))
         return true
     }
 
@@ -69,6 +79,82 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if !UserDefaults.standard.bool(forKey: UserDefaultKeys.HasLaunchedBefore) {
             UserDefaults.standard.set(true, forKey: UserDefaultKeys.HasLaunchedBefore)
         }
+    }
+    
+    func processImportedCKRecords(_ results: [String:[CKRecord]]?, _ error: Error?) {
+        
+        guard error == nil else {
+            print("Error retrieving from Cloud Kit")
+            return
+        }
+        
+        guard
+            let ckProjectList = results?["ckProjectList"],
+            let ckActivityList = results?["ckActivityList"]
+        else {
+            print("Error parsing cloud kit import results")
+            return
+        }
+        
+        let mainContext = coreDataStack.mainContext
+        
+//        print("Import: notify")
+        for ckProject in ckProjectList {
+//            print("Import: Project")
+            let fetchProjectRequest: NSFetchRequest<Project> = Project.fetchRequest()
+            fetchProjectRequest.predicate = NSPredicate(format: "ckRecordIdName = %@", ckProject.recordID.recordName)
+            fetchProjectRequest.sortDescriptors = []
+            
+            let fetchedProjectResults = try! mainContext.fetch(fetchProjectRequest)
+//            print(fetchedProjectResults)
+            
+            switch fetchedProjectResults.count {
+            case 1:
+                let project = fetchedProjectResults.first!
+                project.encodedCKRecord = ckProject.encodedCKRecordSystemFields
+            case 0:
+                Project(insertInto: mainContext, with: ckProject)
+            default:
+                fatalError("Unknown state fetching local projects")
+            }
+        }
+        
+        for ckActivity in ckActivityList {
+//            print("Import: Activity")
+            
+            let fetchActivityRequest: NSFetchRequest<Activity> = Activity.fetchRequest()
+            fetchActivityRequest.predicate = NSPredicate(format: "ckRecordIdName = %@", ckActivity.recordID.recordName)
+            fetchActivityRequest.sortDescriptors = []
+            
+            let fetchedActivityResults = try! mainContext.fetch(fetchActivityRequest)
+//            print(fetchedActivityResults)
+            
+            switch fetchedActivityResults.count {
+            case 1:
+                let activity = fetchedActivityResults.first!
+                activity.encodedCKRecord = ckActivity.encodedCKRecordSystemFields
+            case 0:
+                let activity = Activity(insertInto: mainContext, with: ckActivity)
+                if let projectRef = ckActivity[Activity.Keys.Project] as? CKRecord.Reference {
+                    
+                    let ckProject = ckProjectList.filter({ (ckRecord) -> Bool in
+                        return ckRecord.recordID == projectRef.recordID
+                    }).first!
+                    
+                    let fetchProjectRequest: NSFetchRequest<Project> = Project.fetchRequest() as NSFetchRequest
+                    fetchProjectRequest.predicate = NSPredicate(format: "encodedCKRecord = %@", ckProject.encodedCKRecordSystemFields as NSData)
+                    
+                    let fetchedProjectResults = try! mainContext.fetch(fetchProjectRequest)
+                    activity.project = fetchedProjectResults.first
+                }
+//                print(activity)
+            default:
+                fatalError("Unknown state fetching local activities.")
+            }
+        }
+        
+//        self.coreDataStack.saveMainContext()
+        
     }
 }
 

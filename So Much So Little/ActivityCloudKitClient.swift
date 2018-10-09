@@ -1,5 +1,5 @@
 //
-//  CloudKitClient+Convenience.swift
+//  ActivityCloudKitClient.swift
 //  So Much So Little
 //
 //  Created by Adland Lee on 10/17/16.
@@ -7,19 +7,37 @@
 //
 
 import CloudKit
+import UIKit
 
-extension CloudKitClient {
+class ActivityCloudKitClient {
+    
+    // MARK: - Properties
+    
+    var cloudKitClient: CloudKitClient!
+    var publicCloudDatabase: CKDatabase {
+        return cloudKitClient.publicCloudDatabase
+    }
+    var privateCloudDatabase: CKDatabase {
+        return cloudKitClient.privateCloudDatabase
+    }
+    
+    // MARK: - Initializers
+    
+    init(cloudKitClient: CloudKitClient = (UIApplication.shared.delegate as! AppDelegate).cloudKitClient) {
+        self.cloudKitClient = cloudKitClient
+    }
+    
     
     // MARK: - Index method
     
     /// Performs a task using `database` that retrieves the Activity objects, and calls a handler upon completion.
-    func getActivityList(
-        using database: CKDatabase = CKContainer.default().privateCloudDatabase,
+    func getRecordList(
+        usePublicDatabase: Bool = false,
         completionHandler: @escaping (_ activityList: [CKRecord]?, _ error: Error?) -> Void
         ) {
-        
+        let database = usePublicDatabase ? publicCloudDatabase : privateCloudDatabase
         let predicate = NSPredicate(value: true)
-        let query = CKQuery(recordType: RecordType.Activity.rawValue, predicate: predicate)
+        let query = CKQuery(recordType: Activity.typeName, predicate: predicate)
         
         database.perform(query, inZoneWith: nil) { (results, error) in
             
@@ -34,15 +52,16 @@ extension CloudKitClient {
     
     // MARK: - Show method
     
-    func getActivity(
+    func getRecord(
         _ recordIdString: String,
-        using database: CKDatabase = CKContainer.default().privateCloudDatabase,
+        usePublicDatabase: Bool = false,
         completionHandler: @escaping (_ activity: CKRecord?, _ error: Error?) -> Void
         ) {
-    
-        let recordId = CKRecordID(recordName: recordIdString)
+        let database = usePublicDatabase ? publicCloudDatabase : privateCloudDatabase
+
+        let recordId = CKRecord.ID(recordName: recordIdString)
         
-        privateDatabase.fetch(withRecordID: recordId) { (record, error) in
+        database.fetch(withRecordID: recordId) { (record, error) in
             
             guard error == nil else {
                 completionHandler(nil, error)
@@ -56,12 +75,13 @@ extension CloudKitClient {
     
     // MARK: - Store and update method
     
-    func storeActivity(
+    func store(
         _ activity: CKRecord,
-        using database: CKDatabase = CKContainer.default().privateCloudDatabase,
+        usePublicDatabase: Bool = false,
         completionHandler: @escaping(_ activity: CKRecord?, _ error: Error?) -> Void
         ) {
-        
+        let database = usePublicDatabase ? publicCloudDatabase : privateCloudDatabase
+
         let modifyRecordsOperation = CKModifyRecordsOperation()
         modifyRecordsOperation.database = database
         modifyRecordsOperation.recordsToSave = [activity]
@@ -82,12 +102,13 @@ extension CloudKitClient {
     
     // MARK: - Destroy method
     
-    func destroyActivity(
+    func destroy(
         _ activity: CKRecord,
-        using database: CKDatabase = CKContainer.default().privateCloudDatabase,
-        completionHandler: @escaping(_ activity: CKRecordID?, _ error: Error?) -> Void
+        usePublicDatabase: Bool = false,
+        completionHandler: @escaping(_ activity: CKRecord.ID?, _ error: Error?) -> Void
         ) {
-        
+        let database = usePublicDatabase ? publicCloudDatabase : privateCloudDatabase
+
         let modifyRecordsOperation = CKModifyRecordsOperation()
         modifyRecordsOperation.database = database
         modifyRecordsOperation.recordIDsToDelete = [activity.recordID]

@@ -22,6 +22,7 @@ struct TimerViewControllerDependencies {
 
 class TimerViewController: UIViewController {
     
+    
     let dependencies: TimerViewControllerDependencies!
     
     let DefaultTaskLabel = "Generic"
@@ -101,14 +102,19 @@ class TimerViewController: UIViewController {
         if segue.identifier == "ShowActivityTab" {
             print("ShowActivityTab")
             let tabBar = segue.destination as! UITabBarController
-            let activityTabIndex = tabBar.childViewControllers.index(where: {$0.title == "Activity List"})!
+            let activityTabIndex = tabBar.children.index(where: {$0.title == "Activity List"})!
             tabBar.selectedIndex = activityTabIndex
         }
     }
     
 
     // MARK: - Actions
-    
+
+    @IBAction func showActivityView(_ sender: UIButton) {
+        let destinationVC = storyboard!.instantiateViewController(withIdentifier: AppDelegate.Views.Main.rawValue)
+        present(destinationVC, animated: true, completion: nil)
+    }
+
     @IBAction func startActivityTimer(_ sender: AnyObject) {
         print("startActivityTimer")
         resetTimer(to: Preset.long)

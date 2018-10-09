@@ -112,7 +112,7 @@ class ProjectDetailFormViewController: FormViewController {
                 self.project = Project(insertInto: self.temporaryContext)
             }
             
-            self.project = self.temporaryContext.object(with: self.project.objectID) as! Project
+            self.project = self.temporaryContext.object(with: self.project.objectID) as? Project
         }
         
         form.inlineRowHideOptions = InlineRowHideOptions.AnotherInlineRowIsShown.union(.FirstResponderChanges)

@@ -138,6 +138,10 @@ class CompletedActivityTableViewController: UITableViewController {
     
     // MARK: - Actions
     
+    @IBAction func showTimer(_ sender: Any) {
+        tabBarController?.dismiss(animated: true, completion: nil)
+    }
+
     
     // MARK: - Segue
     

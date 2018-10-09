@@ -18,8 +18,7 @@ extension Notification.Name {
 class CoreDataStack_v1: CoreDataStack {
     
     // MARK:  - Properties
-    weak var cloudKitClient: CloudKitClient!
-    
+
     fileprivate let model : NSManagedObjectModel
     fileprivate let coordinator : NSPersistentStoreCoordinator
     fileprivate let modelURL : URL
@@ -200,18 +199,12 @@ class CoreDataStack_v1: CoreDataStack {
     }
     
     func savePersistingContext() {
-
         self.persistingContext.perform {
-
-            self.cloudKitClient.storeRecords(context: self.persistingContext) { (success, error) in
-                self.persistingContext.perform {
-                    do {
-                        try self.persistingContext.save()
-                    }
-                    catch {
-                        fatalError("Error while saving persisting context: \(error)")
-                    }
-                }
+            do {
+                try self.persistingContext.save()
+            }
+            catch {
+                fatalError("Error while saving persisting context: \(error)")
             }
         }
     }

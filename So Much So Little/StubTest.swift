@@ -35,7 +35,9 @@ class StubTest: UIViewController {
     
     @IBAction func getActivityList(_ sender: AnyObject) {
         print("getActivityList")
-        cloudKitClient.getActivityList { (results, error) in
+        let predicate = NSPredicate(value: true)
+        let query = CKQuery(recordType: Activity.typeName, predicate: predicate)
+        cloudKitClient.getRecords(query: query) { (results, error) in
             
             guard error == nil else {
                 print("error")

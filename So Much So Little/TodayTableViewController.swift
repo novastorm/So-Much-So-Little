@@ -109,6 +109,13 @@ class TodayTableViewController: UITableViewController {
     }
     
     
+    // MARK: - Actions
+    
+    @IBAction func showTimer(_ sender: Any) {
+        tabBarController?.dismiss(animated: true, completion: nil)
+    }
+    
+    
     // MARK: - Segue
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

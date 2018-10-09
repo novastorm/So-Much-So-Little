@@ -9,6 +9,21 @@
 import CoreData
 import UIKit
 
-//class ActivityDataSource: UITableViewDataSource {
-//    
-//}
+@objc
+protocol ActivityDataSource {
+
+    @objc optional var fetchedResultsController: NSFetchedResultsController<Activity> { get }
+    
+    @objc optional func objects() -> [Activity]
+    
+    @objc optional func object(withId id: NSManagedObjectID) -> Activity
+    
+    // Store
+    func store(with options: ActivityOptions) -> Activity
+    
+    // Update
+    func update(_ activity: Activity)
+    
+    // Destroy
+    func destroy(_ activity: Activity)
+}

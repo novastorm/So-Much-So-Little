@@ -9,11 +9,12 @@
 import CoreData
 import UIKit
 
+@objc
 protocol CoreDataStack {
 
     typealias BatchTask=(_ workerContext: NSManagedObjectContext) -> ()
 
-    var cloudKitClient: CloudKitClient! { get set }
+//    var cloudKitClient: CloudKitClient! { get set }
     
     var mainContext: NSManagedObjectContext { get }
     
@@ -29,7 +30,8 @@ protocol CoreDataStack {
 
     func saveMainContext()
     
-    func savePersistingContext()
+    @objc
+    optional func savePersistingContext()
     
     func autoSave(_ interval : TimeInterval)
 }

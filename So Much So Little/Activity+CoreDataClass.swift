@@ -10,7 +10,8 @@ import CloudKit
 import CoreData
 import UIKit
 
-struct ActivityOptions {
+@objc
+class ActivityOptions: NSObject, Codable {
     var completed: Activity.CompletedType
     var completedDate: Activity.CompletedDateType?
     var deferredTo: Activity.DeferredToType?
@@ -26,6 +27,24 @@ struct ActivityOptions {
     var today: Activity.TodayType
     var todayDisplayOrder: Activity.TodayDisplayOrderType
     
+    enum CodingKeys: String, CodingKey {
+        case
+        completed,
+        completedDate,
+        deferredTo,
+        deferredToResponseDueDate,
+        displayOrder,
+        dueDate,
+        estimatedTimeboxes,
+        info,
+        kind,
+        name,
+        scheduledEnd,
+        scheduledStart,
+        today,
+        todayDisplayOrder
+    }
+
     init(
         completed: Activity.CompletedType = false,
         completedDate: Activity.CompletedDateType? = nil,
@@ -57,12 +76,60 @@ struct ActivityOptions {
         self.today = today
         self.todayDisplayOrder = todayDisplayOrder
     }
+    
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        
+        try container.encode(completed, forKey: .completed)
+        try container.encode(completedDate, forKey: .completedDate)
+        try container.encode(deferredTo, forKey: .deferredTo)
+        try container.encode(deferredToResponseDueDate, forKey: .deferredToResponseDueDate)
+        try container.encode(displayOrder, forKey: .displayOrder)
+        try container.encode(dueDate, forKey: .dueDate)
+        try container.encode(estimatedTimeboxes, forKey: .estimatedTimeboxes)
+        try container.encode(info, forKey: .info)
+        try container.encode(kind, forKey: .kind)
+        try container.encode(name, forKey: .name)
+        try container.encode(scheduledStart, forKey: .scheduledStart)
+        try container.encode(scheduledEnd, forKey: .scheduledEnd)
+        try container.encode(today, forKey: .today)
+        try container.encode(todayDisplayOrder, forKey: .todayDisplayOrder)
+    }
+    
+    required init(from decoder: Decoder) throws {
+        let container = try decoder.container(keyedBy: CodingKeys.self)
+        
+        name = try container.decode(Activity.NameType.self, forKey: .name)
+        info = try? container.decode(Activity.InfoType.self, forKey: .info)
+        estimatedTimeboxes = try container.decode(Activity.EstimatedTimeboxesType.self, forKey: .estimatedTimeboxes)
+        displayOrder = try container.decode(Activity.DisplayOrderType.self, forKey: .displayOrder)
+        
+        today = try container.decode(Activity.TodayType.self, forKey: .today)
+        todayDisplayOrder = try container.decode(Activity.TodayDisplayOrderType.self, forKey: .todayDisplayOrder)
+        
+        completed = try container.decode(Activity.CompletedType.self, forKey: .completed)
+        completedDate = try? container.decode(Activity.CompletedDateType.self, forKey: .completedDate)
+        
+        kind = try container.decode(Activity.Kind.self, forKey: .kind)
+        switch kind {
+        case .deferred:
+            deferredTo = try container.decode(Activity.DeferredToType.self, forKey: .deferredTo)
+            deferredToResponseDueDate = try container.decode(Activity.DeferredToResponseDueDateType.self, forKey: .deferredToResponseDueDate)
+        case .reference:
+            break
+        case .scheduled:
+            scheduledStart = try? container.decode(Activity.ScheduledStartType.self, forKey: .scheduledStart)
+            scheduledEnd = try? container.decode(Activity.ScheduledEndType.self, forKey: .scheduledEnd)
+        case .flexible:
+            dueDate = try? container.decode(Activity.DueDateType.self, forKey: .dueDate)
+        }
+    }
 }
 
 final public class Activity: NSManagedObject, CloudKitManagedObject {    
     
     @objc // <- required for Core Data type compatibility
-    public enum Kind: Int16, CustomStringConvertible {
+    public enum Kind: Int16, CustomStringConvertible, Codable {
 
         private enum Name: String {
             case flexible
@@ -152,11 +219,11 @@ final public class Activity: NSManagedObject, CloudKitManagedObject {
     var cloudKitClient: CloudKitClient {
         var delegate: AppDelegate!
         if Thread.isMainThread {
-            delegate = UIApplication.shared.delegate as! AppDelegate
+            delegate = UIApplication.shared.delegate as? AppDelegate
         }
         else {
             DispatchQueue.main.sync {
-                delegate = UIApplication.shared.delegate as! AppDelegate
+                delegate = UIApplication.shared.delegate as? AppDelegate
             }
         }
         return delegate.cloudKitClient
@@ -195,7 +262,7 @@ final public class Activity: NSManagedObject, CloudKitManagedObject {
             
             if let project = project {
                 let ckRecordRef = CKRecord.decodeCKRecordSystemFields(from: project.encodedCKRecord! as Data)
-                ckRecord[Keys.Project] = CKReference(record: ckRecordRef, action: .none)
+                ckRecord[Keys.Project] = CKRecord.Reference(record: ckRecordRef, action: .none)
             }
             
             return ckRecord
@@ -231,6 +298,7 @@ final public class Activity: NSManagedObject, CloudKitManagedObject {
          The ActivityOptions record
      */
     
+    @discardableResult
     convenience init(
         insertInto context: NSManagedObjectContext,
         with options: ActivityOptions = ActivityOptions()
@@ -278,6 +346,7 @@ final public class Activity: NSManagedObject, CloudKitManagedObject {
      A Cloud Kit Record.
      */
     
+    @discardableResult
     convenience init(
         insertInto context: NSManagedObjectContext,
         with ckRecord: CKRecord
@@ -304,7 +373,7 @@ final public class Activity: NSManagedObject, CloudKitManagedObject {
             
             showNetworkActivityIndicator()
             
-            cloudKitClient.destroyActivity(self.cloudKitRecord) { (ckRecordID, error) in
+            cloudKitClient.destroyRecord(self.cloudKitRecord) { (ckRecordID, error) in
                 hideNetworkActivityIndicator()
                 guard error == nil else {
                     print("Error deleting \(type(of:self))", error!)
@@ -324,7 +393,7 @@ final public class Activity: NSManagedObject, CloudKitManagedObject {
         }
         
         showNetworkActivityIndicator()
-        cloudKitClient.getActivity(ckRecordIdName!) { (remoteCKRecord, error) in
+        cloudKitClient.getRecord(byId: CKRecord.ID(recordName: ckRecordIdName!)) { (remoteCKRecord, error) in
             hideNetworkActivityIndicator()
             guard error == nil else {
 //                print("Error retrieving \(type(of:self))", error!)
@@ -337,7 +406,7 @@ final public class Activity: NSManagedObject, CloudKitManagedObject {
                 }
                 
                 showNetworkActivityIndicator()
-                self.cloudKitClient.storeActivity(localCKRecord) { (ckRecord, error) in
+                self.cloudKitClient.storeRecord(localCKRecord) { (ckRecord, error) in
                     performUIUpdatesOnMain {
                         hideNetworkActivityIndicator()
                     }
@@ -364,7 +433,7 @@ final public class Activity: NSManagedObject, CloudKitManagedObject {
 //            print("\(type(of:self)) remoteCKRecord ", remoteCKRecord)
             
             showNetworkActivityIndicator()
-            self.cloudKitClient.storeActivity(remoteCKRecord) { (ckRecord, error) in
+            self.cloudKitClient.storeRecord(remoteCKRecord) { (ckRecord, error) in
                 hideNetworkActivityIndicator()
                 guard error == nil else {
                     print("\(type(of:self)) storeRecord", error!)
