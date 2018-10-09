@@ -22,11 +22,11 @@ class CloudKitClient: NSObject {
         return FileManager.default.ubiquityIdentityToken
     }
 
-    var publicDatabase: CKDatabase {
+    var publicCloudDatabase: CKDatabase {
         return CKContainer.default().publicCloudDatabase
     }
     
-    var privateDatabase: CKDatabase {
+    var privateCloudDatabase: CKDatabase {
         return CKContainer.default().privateCloudDatabase
     }
     

@@ -12,7 +12,37 @@ import UIKit
 @testable import So_Much_So_Little
 
 @objc
-class ActivityDataSourceMock: NSObject, ActivityDataSource {
+class ActivityDataSource_mock: ActivityDataSource_v1 {
+
+    // MARK: - Mock Properties
+    
+    var storeWasCalled = false
+    var updateWasCalled = false
+    var destroyWasCalled = false
+    
+    
+    // MARK: - Initializers
+    
+    init() {
+        super.init(
+            coreDataStack: CoreDataStack_mock()!,
+            cloudKitClient: CloudKitClient_mock())
+    }
+
+    override func store(with options: ActivityOptions) -> Activity {
+        storeWasCalled = true
+        return super.store(with: options)
+    }
+
+    override func update(_ activity: Activity) {
+        updateWasCalled = true
+        return super.update(activity)
+    }
+
+    override func destroy(_ activity: Activity) {
+        destroyWasCalled = true
+        return super.destroy(activity)
+    }
     
     private class SectionInfo: NSFetchedResultsSectionInfo {
         var name: String
@@ -75,33 +105,5 @@ class ActivityDataSourceMock: NSObject, ActivityDataSource {
         ]
     }()
 
-    var performFetchWasCalled = false
-    
-    init(managedObjectContext context: NSManagedObjectContext) {
-        self.context = context
-    }
-
-    func performFetch() throws {
-        performFetchWasCalled = true
-    }
-
-    var fetchedResultsControllerDelegate: NSFetchedResultsControllerDelegate?
-
-    var sections: [NSFetchedResultsSectionInfo]? {
-        return activityData.map({
-            SectionInfo(
-                name: "",
-                indexTitle: nil,
-                numberOfObjects: $0.count,
-                objects: $0)
-        })
-    }
-
-    var fetchedObjects: [Activity]? {
-        return activityData.flatMap { $0 }
-    }
-    
-    func object(at indexPath: IndexPath) -> Activity {
-        return activityData[indexPath.section][indexPath.item]
-    }
+    lazy var fetchedResultsController = NSFetchedResultsController<Activity>()
 }

@@ -35,12 +35,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
 //        connectionMonitor = ConnectionMonitor.init(hostname: "8.8.8.8")
 
-        coreDataStack.cloudKitClient = cloudKitClient
+//        coreDataStack.cloudKitClient = cloudKitClient
 //        cloudKitClient.coreDataStack = coreDataStack
         
         checkIfFirstLaunch()
         coreDataStack.autoSave(60)
-        cloudKitClient.importRecords(completionHandler: processImportedCKRecords(_:_:))
+        
+        let projectActivityDataSource = ProjectActivityCloudKitClient()
+        projectActivityDataSource.importRecords(completionHandler: processImportedCKRecords(_:_:))
         return true
     }
 
@@ -79,10 +81,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     
-    func processImportedCKRecords(_ results: [String:Any], _ error: Error?) {
+    func processImportedCKRecords(_ results: [String:[CKRecord]]?, _ error: Error?) {
         
-        let ckProjectList = results["ckProjectList"] as! [CKRecord]
-        let ckActivityList = results["ckActivityList"] as! [CKRecord]
+        guard error == nil else {
+            print("Error retrieving from Cloud Kit")
+            return
+        }
+        
+        guard
+            let ckProjectList = results?["ckProjectList"],
+            let ckActivityList = results?["ckActivityList"]
+        else {
+            print("Error parsing cloud kit import results")
+            return
+        }
         
         let mainContext = coreDataStack.mainContext
         

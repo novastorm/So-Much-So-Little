@@ -9,26 +9,21 @@
 import CoreData
 import UIKit
 
+@objc
 protocol ActivityDataSource {
 
-    func performFetch() throws
-
-    var fetchedResultsControllerDelegate: NSFetchedResultsControllerDelegate? { get set }
-
-    var sections: [NSFetchedResultsSectionInfo]? { get }
+    @objc optional var fetchedResultsController: NSFetchedResultsController<Activity> { get }
     
-    // Index
-    var fetchedObjects: [Activity]? { get }
+    @objc optional func objects() -> [Activity]
     
-    // Show
-    func object(at indexPath: IndexPath) -> Activity
+    @objc optional func object(withId id: NSManagedObjectID) -> Activity
     
-    // Create
-    func create(with options: ActivityOptions) -> Activity
+    // Store
+    func store(with options: ActivityOptions) -> Activity
     
     // Update
-    func update(activity: Activity)
+    func update(_ activity: Activity)
     
-    // Delete
-    func delete(activity: Activity)
+    // Destroy
+    func destroy(_ activity: Activity)
 }

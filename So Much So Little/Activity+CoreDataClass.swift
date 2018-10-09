@@ -10,7 +10,8 @@ import CloudKit
 import CoreData
 import UIKit
 
-struct ActivityOptions: Codable {
+@objc
+class ActivityOptions: NSObject, Codable {
     var completed: Activity.CompletedType
     var completedDate: Activity.CompletedDateType?
     var deferredTo: Activity.DeferredToType?
@@ -95,7 +96,7 @@ struct ActivityOptions: Codable {
         try container.encode(todayDisplayOrder, forKey: .todayDisplayOrder)
     }
     
-    init(from decoder: Decoder) throws {
+    required init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
         name = try container.decode(Activity.NameType.self, forKey: .name)
@@ -372,7 +373,7 @@ final public class Activity: NSManagedObject, CloudKitManagedObject {
             
             showNetworkActivityIndicator()
             
-            cloudKitClient.destroyActivity(self.cloudKitRecord) { (ckRecordID, error) in
+            cloudKitClient.destroyRecord(self.cloudKitRecord) { (ckRecordID, error) in
                 hideNetworkActivityIndicator()
                 guard error == nil else {
                     print("Error deleting \(type(of:self))", error!)
@@ -392,7 +393,7 @@ final public class Activity: NSManagedObject, CloudKitManagedObject {
         }
         
         showNetworkActivityIndicator()
-        cloudKitClient.getActivity(ckRecordIdName!) { (remoteCKRecord, error) in
+        cloudKitClient.getRecord(byId: CKRecord.ID(recordName: ckRecordIdName!)) { (remoteCKRecord, error) in
             hideNetworkActivityIndicator()
             guard error == nil else {
 //                print("Error retrieving \(type(of:self))", error!)
@@ -405,7 +406,7 @@ final public class Activity: NSManagedObject, CloudKitManagedObject {
                 }
                 
                 showNetworkActivityIndicator()
-                self.cloudKitClient.storeActivity(localCKRecord) { (ckRecord, error) in
+                self.cloudKitClient.storeRecord(localCKRecord) { (ckRecord, error) in
                     performUIUpdatesOnMain {
                         hideNetworkActivityIndicator()
                     }
@@ -432,7 +433,7 @@ final public class Activity: NSManagedObject, CloudKitManagedObject {
 //            print("\(type(of:self)) remoteCKRecord ", remoteCKRecord)
             
             showNetworkActivityIndicator()
-            self.cloudKitClient.storeActivity(remoteCKRecord) { (ckRecord, error) in
+            self.cloudKitClient.storeRecord(remoteCKRecord) { (ckRecord, error) in
                 hideNetworkActivityIndicator()
                 guard error == nil else {
                     print("\(type(of:self)) storeRecord", error!)

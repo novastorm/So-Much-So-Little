@@ -14,11 +14,7 @@ import CoreData
 class ActivityTableViewControllerTest: XCTestCase {
     
     var viewController: ActivityTableViewController!
-    var persistentContainer: NSPersistentContainer!
-    var managedObjectContext: NSManagedObjectContext {
-        return persistentContainer.viewContext
-    }
-    var activityDataSource: ActivityDataSourceMock!
+    var activityDataSource: ActivityDataSource_mock!
     
     override func setUp() {
         super.setUp()
@@ -26,9 +22,8 @@ class ActivityTableViewControllerTest: XCTestCase {
         let coder = NSKeyedUnarchiver(forReadingWith: Data())
         viewController = ActivityTableViewController(coder: coder)
         coder.finishDecoding()
-        persistentContainer = PersistentContainerMock.createInMemoryPersistentContainer()
         
-        activityDataSource = ActivityDataSourceMock(managedObjectContext: managedObjectContext)
+        activityDataSource = ActivityDataSource_mock()
         viewController.activityDataSource = activityDataSource
     }
     

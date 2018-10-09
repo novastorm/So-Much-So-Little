@@ -13,9 +13,9 @@ import CoreData
 
 class ActivityDataSourceTests: XCTestCase {
     
-    var persistentContainer: NSPersistentContainer!
+    var coreDataStack: CoreDataStack!
     var managedObjectContext: NSManagedObjectContext {
-        return persistentContainer.viewContext
+        return coreDataStack.mainContext
     }
     var activityDataSource: ActivityDataSource!
 
@@ -61,12 +61,12 @@ class ActivityDataSourceTests: XCTestCase {
     override func setUp() {
         super.setUp()
         
-        persistentContainer = PersistentContainerMock.createInMemoryPersistentContainer()
-        activityDataSource = ActivityDataSource_v1(managedObjectContext: managedObjectContext)
+        coreDataStack = CoreDataStack_mock()
+        activityDataSource = ActivityDataSource_v1(coreDataStack: coreDataStack)
     }
     
     override func tearDown() {
-        persistentContainer = nil
+        try? coreDataStack.clearDatabase()
         super.tearDown()
     }
     

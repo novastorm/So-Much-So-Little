@@ -44,44 +44,24 @@ class ActivityDataSource_v1: NSObject, ActivityDataSource {
 
     
     // MARK: - Methods
-
-    func performFetch() throws {
-        try fetchedResultsController.performFetch()
+    
+    func objects() -> [Activity] {
+        try! fetchedResultsController.performFetch()
+        return fetchedResultsController.fetchedObjects ?? []
     }
     
-    var fetchedResultsControllerDelegate: NSFetchedResultsControllerDelegate? {
-        get {
-            return fetchedResultsController.delegate
-        }
-        set {
-            fetchedResultsController.delegate = newValue
-        }
-    }
-
-    var sections: [NSFetchedResultsSectionInfo]? {
-        return fetchedResultsController.sections
-    }
-
-    var fetchedObjects: [Activity]? {
-        return fetchedResultsController.fetchedObjects
-    }
-    
-    func object(at indexPath: IndexPath) -> Activity {
-        return fetchedResultsController.object(at: indexPath)
-    }
-    
-    func create(with options: ActivityOptions) -> Activity {
+    func store(with options: ActivityOptions) -> Activity {
         let activity = Activity(insertInto: context, with: options)
         // save
         return activity
     }
     
-    func update(activity: Activity) {
+    func update(_ activity: Activity) {
         // update
         // save
     }
     
-    func delete(activity: Activity) {
+    func destroy(_ activity: Activity) {
         // delete
         // save
     }

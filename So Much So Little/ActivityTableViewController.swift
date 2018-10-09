@@ -18,6 +18,10 @@ class ActivityTableViewController: UITableViewController {
     // because tableview.dataSource is a weak reference
     var activityDataSource: ActivityDataSource!
     
+    var fetchedResultsController: NSFetchedResultsController<Activity> {
+        return activityDataSource.fetchedResultsController!
+    }
+    
     var insertedIndexPaths: [IndexPath]!
     var deletedIndexPaths: [IndexPath]!
     var updatedIndexPaths: [IndexPath]!
@@ -41,7 +45,7 @@ class ActivityTableViewController: UITableViewController {
         tabBarItem.setFAIcon(icon: .FASignLanguage, textColor: .lightGray)
         coreDataStack = (UIApplication.shared.delegate as! AppDelegate).coreDataStack
         activityDataSource = ActivityDataSource_v1()
-        activityDataSource.fetchedResultsControllerDelegate = self
+        fetchedResultsController.delegate = self
 
     }
     
@@ -52,7 +56,7 @@ class ActivityTableViewController: UITableViewController {
 
         navigationItem.hidesBackButton = true
         
-        try! activityDataSource.performFetch()
+        try? fetchedResultsController.performFetch()
         
         let longPress = UILongPressGestureRecognizer(target: self, action: #selector(longPressGestureRecognized(_:)))
         
@@ -65,7 +69,7 @@ class ActivityTableViewController: UITableViewController {
 
         tabBarController?.title = "Activity"
         tabBarController?.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(createActivity))
-        try! activityDataSource.performFetch()
+        try! fetchedResultsController.performFetch()
         
         tableView.reloadData()
     }
@@ -87,7 +91,7 @@ class ActivityTableViewController: UITableViewController {
             }
             let destinationVC = segue.destination as! ActivityDetailFormViewController
             
-            destinationVC.activity = activityDataSource.object(at: indexPath)
+            destinationVC.activity = fetchedResultsController.object(at: indexPath)
         }
     }
     
@@ -142,7 +146,7 @@ class ActivityTableViewController: UITableViewController {
             
             guard let indexPath = indexPath, indexPath != moveIndexPathSource else { break }
 
-            var activityList = activityDataSource.fetchedObjects!
+            var activityList = fetchedResultsController.fetchedObjects!
 
             tableView.moveRow(at: moveIndexPathSource, to: indexPath)
             
@@ -199,7 +203,7 @@ class ActivityTableViewController: UITableViewController {
     }
     
     @objc private func refreshActivityIndexFromRemote(_ sender: Any) {
-        try! activityDataSource.performFetch()
+        try! fetchedResultsController.performFetch()
         performUIUpdatesOnMain {
 //            print("\(#function)")
             self.tableView.reloadData()
@@ -217,7 +221,7 @@ extension ActivityTableViewController {
     }
     
     override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-        let activity = activityDataSource.object(at: indexPath)
+        let activity = fetchedResultsController.object(at: indexPath)
 
         if activity.kind == .reference {
             let referenceOption = UITableViewRowAction(style: .normal, title: "Project") { (action, activityIndexPath) in
@@ -307,7 +311,7 @@ extension ActivityTableViewController: NSFetchedResultsControllerDelegate {
         
         tableView.endUpdates()
         
-        let activityList = activityDataSource.fetchedObjects!
+        let activityList = fetchedResultsController.fetchedObjects!
         
         for (i, record) in activityList.enumerated() {
             let i = Activity.DisplayOrderType(i)
@@ -325,8 +329,8 @@ extension ActivityTableViewController: NSFetchedResultsControllerDelegate {
 extension ActivityTableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let sectionInfo = activityDataSource.sections![section]
-        return sectionInfo.numberOfObjects
+        let sectionInfo = fetchedResultsController.sections?[section]
+        return sectionInfo?.numberOfObjects ?? 0
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -341,7 +345,7 @@ extension ActivityTableViewController {
     // MARK: - Helpers
     
     func configureActivityCell(_ cell: UITableViewCell, atIndexPath indexPath: IndexPath) {
-        let activity = activityDataSource.object(at: indexPath)
+        let activity = fetchedResultsController.object(at: indexPath)
         let displayOrder = activity.displayOrder
         let name = activity.name
         let actualTimeboxes = activity.actualTimeboxes

@@ -20,14 +20,16 @@
 		3E32A1631ECD0CBC00A9F572 /* Project+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E32A1611ECD0CBC00A9F572 /* Project+CoreDataProperties.swift */; };
 		3E32A1651ECD0DEA00A9F572 /* Project+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E32A1641ECD0DEA00A9F572 /* Project+CoreDataClass.swift */; };
 		3E3E41B41DBA9C4400FCE6DE /* StubTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3E41B31DBA9C4400FCE6DE /* StubTest.swift */; };
-		3E3E41B61DBE568E00FCE6DE /* CloudKitClient+CoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3E41B51DBE568E00FCE6DE /* CloudKitClient+CoreData.swift */; };
 		3E41D0F51D8DC3B2002EAD8A /* So_Much_So_Little.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3E41D0F31D8DC3B2002EAD8A /* So_Much_So_Little.xcdatamodeld */; };
 		3E41D0F91D8DCA62002EAD8A /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E41D0F81D8DCA62002EAD8A /* CloudKit.framework */; };
-		3E5685E31ED553A500B3D056 /* CloudKitClient+Project.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5685E21ED553A500B3D056 /* CloudKitClient+Project.swift */; };
 		3E5685F11EDCEA0C00B3D056 /* ManagedObject+CloudKitProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5685F01EDCEA0C00B3D056 /* ManagedObject+CloudKitProtocol.swift */; };
 		3E5AFDD22159DA9D009E4384 /* ActivityOptionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5AFDD12159DA9D009E4384 /* ActivityOptionTests.swift */; };
 		3E5AFDD42159F458009E4384 /* ActivityDataSourceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5AFDD32159F458009E4384 /* ActivityDataSourceTests.swift */; };
-		3E5AFDD62159FDBF009E4384 /* PersistentContainerMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5AFDD52159FDBF009E4384 /* PersistentContainerMock.swift */; };
+		3E6AEF1A216C4C1D00B55DE8 /* CoreDataStack_mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6AEF19216C4C1D00B55DE8 /* CoreDataStack_mock.swift */; };
+		3E6AEF1C216C5B1400B55DE8 /* CloudKitClient_mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6AEF1B216C5B1400B55DE8 /* CloudKitClient_mock.swift */; };
+		3E6AEF1E216C5E7C00B55DE8 /* ActivityCloudKitClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6AEF1D216C5E7C00B55DE8 /* ActivityCloudKitClient.swift */; };
+		3E6AEF20216C60CC00B55DE8 /* ProjectCloudKitClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6AEF1F216C60CC00B55DE8 /* ProjectCloudKitClient.swift */; };
+		3E6AEF22216C9FD900B55DE8 /* ProjectActivityCloudKitClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6AEF21216C9FD900B55DE8 /* ProjectActivityCloudKitClient.swift */; };
 		3E6C708A1FB17791008EE124 /* ConnectionMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6C70891FB17791008EE124 /* ConnectionMonitor.swift */; };
 		3E7AB57F1D31839B002F6C2D /* ActivityDetailFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7AB57E1D31839B002F6C2D /* ActivityDetailFormViewController.swift */; };
 		3E7AB5831D318A45002F6C2D /* Eureka.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3ED6DF591D2B03070064E440 /* Eureka.framework */; };
@@ -51,12 +53,11 @@
 		3EE741241D1090DC00064BF6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3EE741231D1090DC00064BF6 /* Assets.xcassets */; };
 		3EE741271D1090DC00064BF6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3EE741251D1090DC00064BF6 /* LaunchScreen.storyboard */; };
 		3EEBB64A2101A174007C0218 /* CoreDataStack_v1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EEBB6492101A174007C0218 /* CoreDataStack_v1.swift */; };
-		3EEBB64B2101BA2B007C0218 /* CloudKitClient+Activity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5685E01ED5527500B3D056 /* CloudKitClient+Activity.swift */; };
 		3EEE4838201B32C800BD2F34 /* FontAwesomeSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3EEE4837201B32C800BD2F34 /* FontAwesomeSwift.framework */; };
 		3EEE483B201B34C100BD2F34 /* FontAwesomeSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3EEE4839201B34C100BD2F34 /* FontAwesomeSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3EF6F5972105834500BC15BC /* ActivityDataSource_v1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF6F5962105834500BC15BC /* ActivityDataSource_v1.swift */; };
 		3EF6F5982105837B00BC15BC /* ActivityDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EEBB64721019F3B007C0218 /* ActivityDataSource.swift */; };
-		3EF6F59A2105A8CE00BC15BC /* ActivityDataSourceMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF6F5992105A8CE00BC15BC /* ActivityDataSourceMock.swift */; };
+		3EF6F59A2105A8CE00BC15BC /* ActivityDataSource_mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF6F5992105A8CE00BC15BC /* ActivityDataSource_mock.swift */; };
 		3EF6F59C2105BA4A00BC15BC /* ActivityTableViewControllerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF6F59B2105BA4A00BC15BC /* ActivityTableViewControllerTest.swift */; };
 /* End PBXBuildFile section */
 
@@ -99,16 +100,17 @@
 		3E32A1611ECD0CBC00A9F572 /* Project+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Project+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		3E32A1641ECD0DEA00A9F572 /* Project+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Project+CoreDataClass.swift"; sourceTree = "<group>"; };
 		3E3E41B31DBA9C4400FCE6DE /* StubTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StubTest.swift; sourceTree = "<group>"; };
-		3E3E41B51DBE568E00FCE6DE /* CloudKitClient+CoreData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CloudKitClient+CoreData.swift"; sourceTree = "<group>"; };
 		3E41D0F41D8DC3B2002EAD8A /* So_Much_So_Little.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = So_Much_So_Little.xcdatamodel; sourceTree = "<group>"; };
 		3E41D0F61D8DCA4B002EAD8A /* So Much So Little.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "So Much So Little.entitlements"; sourceTree = "<group>"; };
 		3E41D0F81D8DCA62002EAD8A /* CloudKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CloudKit.framework; path = System/Library/Frameworks/CloudKit.framework; sourceTree = SDKROOT; };
-		3E5685E01ED5527500B3D056 /* CloudKitClient+Activity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CloudKitClient+Activity.swift"; sourceTree = "<group>"; };
-		3E5685E21ED553A500B3D056 /* CloudKitClient+Project.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CloudKitClient+Project.swift"; sourceTree = "<group>"; };
 		3E5685F01EDCEA0C00B3D056 /* ManagedObject+CloudKitProtocol.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ManagedObject+CloudKitProtocol.swift"; sourceTree = "<group>"; };
 		3E5AFDD12159DA9D009E4384 /* ActivityOptionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityOptionTests.swift; sourceTree = "<group>"; };
 		3E5AFDD32159F458009E4384 /* ActivityDataSourceTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityDataSourceTests.swift; sourceTree = "<group>"; };
-		3E5AFDD52159FDBF009E4384 /* PersistentContainerMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PersistentContainerMock.swift; sourceTree = "<group>"; };
+		3E6AEF19216C4C1D00B55DE8 /* CoreDataStack_mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack_mock.swift; sourceTree = "<group>"; };
+		3E6AEF1B216C5B1400B55DE8 /* CloudKitClient_mock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudKitClient_mock.swift; sourceTree = "<group>"; };
+		3E6AEF1D216C5E7C00B55DE8 /* ActivityCloudKitClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityCloudKitClient.swift; sourceTree = "<group>"; };
+		3E6AEF1F216C60CC00B55DE8 /* ProjectCloudKitClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectCloudKitClient.swift; sourceTree = "<group>"; };
+		3E6AEF21216C9FD900B55DE8 /* ProjectActivityCloudKitClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectActivityCloudKitClient.swift; sourceTree = "<group>"; };
 		3E6C70891FB17791008EE124 /* ConnectionMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionMonitor.swift; sourceTree = "<group>"; };
 		3E7AB57E1D31839B002F6C2D /* ActivityDetailFormViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityDetailFormViewController.swift; sourceTree = "<group>"; };
 		3E7AB5871D333343002F6C2D /* TimeboxControlRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeboxControlRow.swift; sourceTree = "<group>"; };
@@ -144,7 +146,7 @@
 		3EEE4837201B32C800BD2F34 /* FontAwesomeSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FontAwesomeSwift.framework; path = Carthage/Build/iOS/FontAwesomeSwift.framework; sourceTree = "<group>"; };
 		3EEE4839201B34C100BD2F34 /* FontAwesomeSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FontAwesomeSwift.framework; path = ../Carthage/Build/iOS/FontAwesomeSwift.framework; sourceTree = "<group>"; };
 		3EF6F5962105834500BC15BC /* ActivityDataSource_v1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityDataSource_v1.swift; sourceTree = "<group>"; };
-		3EF6F5992105A8CE00BC15BC /* ActivityDataSourceMock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityDataSourceMock.swift; sourceTree = "<group>"; };
+		3EF6F5992105A8CE00BC15BC /* ActivityDataSource_mock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityDataSource_mock.swift; sourceTree = "<group>"; };
 		3EF6F59B2105BA4A00BC15BC /* ActivityTableViewControllerTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityTableViewControllerTest.swift; sourceTree = "<group>"; };
 		3EF741151DA72B31008C30CF /* ProjectTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -220,9 +222,9 @@
 				3E95C1C51DD540C000465222 /* CKRecord+Extension.swift */,
 				3E7BDB861DB58071006E526A /* CloudKitClient.swift */,
 				3E7BDB881DB5C417006E526A /* CloudKitClient+Convenience.swift */,
-				3E5685E01ED5527500B3D056 /* CloudKitClient+Activity.swift */,
-				3E5685E21ED553A500B3D056 /* CloudKitClient+Project.swift */,
-				3E3E41B51DBE568E00FCE6DE /* CloudKitClient+CoreData.swift */,
+				3E6AEF1D216C5E7C00B55DE8 /* ActivityCloudKitClient.swift */,
+				3E6AEF1F216C60CC00B55DE8 /* ProjectCloudKitClient.swift */,
+				3E6AEF21216C9FD900B55DE8 /* ProjectActivityCloudKitClient.swift */,
 			);
 			name = CloudKit;
 			sourceTree = "<group>";
@@ -239,8 +241,9 @@
 		3E5AFDD7215A047C009E4384 /* Mocks */ = {
 			isa = PBXGroup;
 			children = (
-				3EF6F5992105A8CE00BC15BC /* ActivityDataSourceMock.swift */,
-				3E5AFDD52159FDBF009E4384 /* PersistentContainerMock.swift */,
+				3EF6F5992105A8CE00BC15BC /* ActivityDataSource_mock.swift */,
+				3E6AEF19216C4C1D00B55DE8 /* CoreDataStack_mock.swift */,
+				3E6AEF1B216C5B1400B55DE8 /* CloudKitClient_mock.swift */,
 			);
 			path = Mocks;
 			sourceTree = "<group>";
@@ -460,12 +463,13 @@
 			inputPaths = (
 				"$(SRCROOT)/Carthage/Build/iOS/Eureka.framework",
 				"$(SRCROOT)/Carthage/Build/iOS/Reachability.framework",
+				"$(SRCROOT)/Carthage/Build/iOS/FontAwesomeSwift.framework",
 			);
 			outputPaths = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "/usr/local/bin/carthage copy-frameworks";
+			shellScript = "/usr/local/bin/carthage copy-frameworks\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -479,9 +483,10 @@
 				3ED6DF601D2B0D050064E440 /* ViewGroup.swift in Sources */,
 				3E7BDB871DB58071006E526A /* CloudKitClient.swift in Sources */,
 				3E95C1C41DD5409400465222 /* TypeNameExtensions.swift in Sources */,
+				3E6AEF22216C9FD900B55DE8 /* ProjectActivityCloudKitClient.swift in Sources */,
 				3E7BDB811DB0B9F9006E526A /* Activity+CoreDataClass.swift in Sources */,
-				3E3E41B61DBE568E00FCE6DE /* CloudKitClient+CoreData.swift in Sources */,
 				3EE7411C1D1090DC00064BF6 /* TodayTableViewController.swift in Sources */,
+				3E6AEF1E216C5E7C00B55DE8 /* ActivityCloudKitClient.swift in Sources */,
 				3E0977831D12064100A7F2C4 /* GCDUtilities.swift in Sources */,
 				3E0977921D18CE3A00A7F2C4 /* SettingsTableViewController.swift in Sources */,
 				3E6C708A1FB17791008EE124 /* ConnectionMonitor.swift in Sources */,
@@ -495,6 +500,7 @@
 				3E32A1651ECD0DEA00A9F572 /* Project+CoreDataClass.swift in Sources */,
 				3E7AB5881D333343002F6C2D /* TimeboxControlRow.swift in Sources */,
 				3E3E41B41DBA9C4400FCE6DE /* StubTest.swift in Sources */,
+				3E6AEF20216C60CC00B55DE8 /* ProjectCloudKitClient.swift in Sources */,
 				3E31123A1D5D970100E691AC /* ProjectDetailFormViewController.swift in Sources */,
 				3E0977941D18CEA000A7F2C4 /* ActivityTableViewController.swift in Sources */,
 				3E41D0F51D8DC3B2002EAD8A /* So_Much_So_Little.xcdatamodeld in Sources */,
@@ -504,10 +510,8 @@
 				3E95C1C61DD540C000465222 /* CKRecord+Extension.swift in Sources */,
 				3E0977811D12015800A7F2C4 /* Utilities.swift in Sources */,
 				3E32A1631ECD0CBC00A9F572 /* Project+CoreDataProperties.swift in Sources */,
-				3E5685E31ED553A500B3D056 /* CloudKitClient+Project.swift in Sources */,
 				3E0977901D18CDD300A7F2C4 /* CompletedActivityTableViewController.swift in Sources */,
 				3E825F101D9C493100ABACCE /* TimerViewController.swift in Sources */,
-				3EEBB64B2101BA2B007C0218 /* CloudKitClient+Activity.swift in Sources */,
 				3E09777F1D11FC9200A7F2C4 /* CoreDataStack.swift in Sources */,
 				3E0977A51D18FA7B00A7F2C4 /* Activity+CoreDataProperties.swift in Sources */,
 				3ED6DF541D2AEF350064E440 /* ButtonGroup.swift in Sources */,
@@ -518,11 +522,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3E6AEF1A216C4C1D00B55DE8 /* CoreDataStack_mock.swift in Sources */,
+				3E6AEF1C216C5B1400B55DE8 /* CloudKitClient_mock.swift in Sources */,
 				3E5AFDD22159DA9D009E4384 /* ActivityOptionTests.swift in Sources */,
 				3EF6F59C2105BA4A00BC15BC /* ActivityTableViewControllerTest.swift in Sources */,
-				3EF6F59A2105A8CE00BC15BC /* ActivityDataSourceMock.swift in Sources */,
+				3EF6F59A2105A8CE00BC15BC /* ActivityDataSource_mock.swift in Sources */,
 				3E5AFDD42159F458009E4384 /* ActivityDataSourceTests.swift in Sources */,
-				3E5AFDD62159FDBF009E4384 /* PersistentContainerMock.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -183,7 +183,7 @@ final public class Project: NSManagedObject, CloudKitManagedObject {
 
         if isDeleted {
             showNetworkActivityIndicator()
-            cloudKitClient.destroyProject(self.cloudKitRecord) { (ckRecordID, error) in
+            cloudKitClient.destroyRecord(self.cloudKitRecord) { (ckRecordID, error) in
                 hideNetworkActivityIndicator()
                 guard error == nil else {
                     print("Error deleting \(type(of:self))", error!)
@@ -202,7 +202,7 @@ final public class Project: NSManagedObject, CloudKitManagedObject {
         }
         
         showNetworkActivityIndicator()
-        cloudKitClient.getProject(ckRecordIdName!) { (remoteCKRecord, error) in
+        cloudKitClient.getRecord(byId: CKRecord.ID(recordName: ckRecordIdName!)) { (remoteCKRecord, error) in
             hideNetworkActivityIndicator()
             guard error == nil else {
                 guard ConnectionMonitor.shared.isConnectedToNetwork() else {
@@ -213,7 +213,7 @@ final public class Project: NSManagedObject, CloudKitManagedObject {
                 }
                 
                 showNetworkActivityIndicator()
-                self.cloudKitClient.storeProject(localCKRecord) { (ckRecord, error) in
+                self.cloudKitClient.storeRecord(localCKRecord) { (ckRecord, error) in
                     hideNetworkActivityIndicator()
                     guard error == nil else {
                         print("\(type(of:self)) storeReord", error!)
@@ -236,7 +236,7 @@ final public class Project: NSManagedObject, CloudKitManagedObject {
             }
             
             showNetworkActivityIndicator()
-            self.cloudKitClient.storeProject(remoteCKRecord) { (ckRecord, error) in
+            self.cloudKitClient.storeRecord(remoteCKRecord) { (ckRecord, error) in
                 hideNetworkActivityIndicator()
                 guard error == nil else {
                     print("\(type(of:self)) storeReord", error!)
