@@ -6,7 +6,7 @@ Time management
 
 ### Building
 
-Before building the project please retrieve dependencies with carthage:
+Before building the project retrieve dependencies with carthage:
 
 ~~~
 carthage bootstrap --platform iOS
