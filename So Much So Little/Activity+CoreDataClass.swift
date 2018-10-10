@@ -237,25 +237,6 @@ final public class Activity: NSManagedObject, CloudKitManagedObject {
         get {
             let ckRecord = CKRecord.decodeCKRecordSystemFields(from: encodedCKRecord! as Data)
             
-//            ckRecord[Keys.Completed] = completed as NSNumber
-//            ckRecord[Keys.CompletedDate] = completedDate as NSDate?
-//            ckRecord[Keys.DeferredTo] = deferredTo as NSString?
-//            ckRecord[Keys.DeferredToResponseDueDate] = deferredToResponseDueDate as NSDate?
-//            ckRecord[Keys.DisplayOrder] = displayOrder as NSNumber
-//            ckRecord[Keys.DueDate] = dueDate as NSDate?
-//            ckRecord[Keys.EstimatedTimeboxes] = estimatedTimeboxes as NSNumber
-//            ckRecord[Keys.Info] = info as NSString?
-//            ckRecord[Keys.Kind] = kind.rawValue as NSNumber
-//            ckRecord[Keys.Name] = name as NSString
-//            ckRecord[Keys.ScheduledEnd] = scheduledEnd as NSDate?
-//            ckRecord[Keys.ScheduledStart] = scheduledStart as NSDate?
-//            ckRecord[Keys.Today] = today as NSNumber
-//            ckRecord[Keys.TodayDisplayOrder] = todayDisplayOrder as NSNumber
-            
-//            for key in ckRecord.allKeys() {
-//                ckRecord.setValue(value(forKey: key), forKey: key)
-//            }
-            
             for (key, _) in self.entity.attributesByName {
                 ckRecord.setValue(value(forKey: key), forKey: key)
             }
