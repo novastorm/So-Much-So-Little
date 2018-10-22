@@ -19,6 +19,7 @@ protocol ActivityDataSource {
     @objc optional func object(withId id: NSManagedObjectID) -> Activity
     
     // Store
+    @discardableResult
     func store(with options: ActivityOptions) -> Activity
     
     // Update

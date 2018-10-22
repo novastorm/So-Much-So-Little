@@ -68,7 +68,7 @@ class ProjectTableViewController: UITableViewController {
         else {
             super.init()
         }
-        tabBarItem.setFAIcon(icon: .FAPieChart, textColor: .lightGray)
+        tabBarItem.setIcon(icon: .fontAwesomeSolid(.chartPie), textColor: .lightGray)
     }
     
     required convenience init?(coder aDecoder: NSCoder) {
@@ -81,7 +81,7 @@ class ProjectTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        tabBarItem.setFAIcon(icon: .FAPieChart, textColor: .lightGray, selectedTextColor: self.view.tintColor )
+        tabBarItem.setIcon(icon: .fontAwesomeSolid(.chartPie), textColor: .lightGray, selectedTextColor: self.view.tintColor )
 
         navigationItem.hidesBackButton = true
         

@@ -104,7 +104,7 @@ class CompletedActivityTableViewController: UITableViewController {
             super.init()
         }
         
-        tabBarItem.setFAIcon(icon: .FACheckSquareO, textColor: .lightGray)
+        tabBarItem.setIcon(icon: .fontAwesomeSolid(.clipboardCheck), textColor: .lightGray)
     }
 
     required convenience init?(coder aDecoder: NSCoder?) {
@@ -117,7 +117,7 @@ class CompletedActivityTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        tabBarItem.setFAIcon(icon: .FACheckSquareO, textColor: .lightGray, selectedTextColor: self.view.tintColor )
+        tabBarItem.setIcon(icon: .fontAwesomeSolid(.clipboardCheck), textColor: .lightGray, selectedTextColor: self.view.tintColor )
 
         navigationItem.hidesBackButton = true
         

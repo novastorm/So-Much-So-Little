@@ -50,6 +50,7 @@ class ActivityDataSource_v1: NSObject, ActivityDataSource {
         return fetchedResultsController.fetchedObjects ?? []
     }
     
+    @discardableResult
     func store(with options: ActivityOptions) -> Activity {
         let activity = Activity(insertInto: context, with: options)
         // save

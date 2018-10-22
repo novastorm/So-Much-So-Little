@@ -29,6 +29,7 @@ class ActivityDataSource_mock: ActivityDataSource_v1 {
             cloudKitClient: CloudKitClient_mock())
     }
 
+    @discardableResult
     override func store(with options: ActivityOptions) -> Activity {
         storeWasCalled = true
         return super.store(with: options)
@@ -57,53 +58,4 @@ class ActivityDataSource_mock: ActivityDataSource_v1 {
             self.objects = objects
         }
     }
-
-    var context: NSManagedObjectContext!
-
-    lazy var activityData: [[Activity]]! = {
-        return [
-            [
-                Activity(
-                    insertInto: context,
-                    with: ActivityOptions(
-                        completed: false,
-                        completedDate: nil,
-                        deferredTo: nil,
-                        deferredToResponseDueDate: nil,
-                        displayOrder: 0,
-                        dueDate: nil,
-                        estimatedTimeboxes: 0,
-                        info: nil,
-                        kind: .flexible,
-                        name: "A 1",
-                        scheduledEnd: nil,
-                        scheduledStart: nil,
-                        today: false,
-                        todayDisplayOrder: 0
-                    )
-                ),
-                Activity(
-                    insertInto: context,
-                    with: ActivityOptions(
-                        completed: false,
-                        completedDate: nil,
-                        deferredTo: nil,
-                        deferredToResponseDueDate: nil,
-                        displayOrder: 1,
-                        dueDate: nil,
-                        estimatedTimeboxes: 0,
-                        info: nil,
-                        kind: .flexible,
-                        name: "A 2",
-                        scheduledEnd: nil,
-                        scheduledStart: nil,
-                        today: false,
-                        todayDisplayOrder: 0
-                    )
-                )
-            ]
-        ]
-    }()
-
-    lazy var fetchedResultsController = NSFetchedResultsController<Activity>()
 }

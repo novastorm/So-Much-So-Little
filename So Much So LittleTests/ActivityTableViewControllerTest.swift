@@ -16,6 +16,44 @@ class ActivityTableViewControllerTest: XCTestCase {
     var viewController: ActivityTableViewController!
     var activityDataSource: ActivityDataSource_mock!
     
+    var activityData: [[ActivityOptions]] =
+        [
+            [
+                ActivityOptions(
+                    completed: false,
+                    completedDate: nil,
+                    deferredTo: nil,
+                    deferredToResponseDueDate: nil,
+                    displayOrder: 0,
+                    dueDate: nil,
+                    estimatedTimeboxes: 0,
+                    info: nil,
+                    kind: .flexible,
+                    name: "A 1",
+                    scheduledEnd: nil,
+                    scheduledStart: nil,
+                    today: false,
+                    todayDisplayOrder: 0
+                ),
+                ActivityOptions(
+                    completed: false,
+                    completedDate: nil,
+                    deferredTo: nil,
+                    deferredToResponseDueDate: nil,
+                    displayOrder: 1,
+                    dueDate: nil,
+                    estimatedTimeboxes: 0,
+                    info: nil,
+                    kind: .flexible,
+                    name: "A 2",
+                    scheduledEnd: nil,
+                    scheduledStart: nil,
+                    today: false,
+                    todayDisplayOrder: 0
+                )
+            ]
+    ]
+
     override func setUp() {
         super.setUp()
 
@@ -33,12 +71,17 @@ class ActivityTableViewControllerTest: XCTestCase {
     }
     
     func testSection0() {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        let tableView = viewController.tableView!
         let section = 0
+        
+        for record in activityData[section] {
+            activityDataSource.store(with: record)
+        }
+        
+        activityDataSource.coreDataStack.saveMainContext()
+
+        let tableView = viewController.tableView!
         let result = viewController.tableView(tableView, numberOfRowsInSection: section)
-        let targetCount = activityDataSource.activityData[section].count
+        let targetCount = activityData[section].count
         XCTAssertEqual(result, targetCount, "Number of rows in section \(section) was not \(targetCount)")
     }
     

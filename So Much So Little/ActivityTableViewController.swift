@@ -8,7 +8,6 @@
 
 import CoreData
 import UIKit
-import FontAwesomeSwift
 
 class ActivityTableViewController: UITableViewController {
     
@@ -42,7 +41,7 @@ class ActivityTableViewController: UITableViewController {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         
-        tabBarItem.setFAIcon(icon: .FASignLanguage, textColor: .lightGray)
+        tabBarItem.setIcon(icon: .fontAwesomeSolid(.signLanguage), textColor: .lightGray)
         coreDataStack = (UIApplication.shared.delegate as! AppDelegate).coreDataStack
         activityDataSource = ActivityDataSource_v1()
         fetchedResultsController.delegate = self
@@ -52,7 +51,7 @@ class ActivityTableViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        tabBarItem.setFAIcon(icon: .FASignLanguage, textColor: .lightGray, selectedTextColor: self.view.tintColor )
+        tabBarItem.setIcon(icon: .fontAwesomeSolid(.signLanguage), textColor: .lightGray, selectedTextColor: self.view.tintColor )
 
         navigationItem.hidesBackButton = true
         
