@@ -13,6 +13,15 @@ class ActivityDataSource_v1: NSObject, ActivityDataSource {
 
     // MARK: - Properties
     
+    var delegate: NSFetchedResultsControllerDelegate? {
+        get {
+            return fetchedResultsController.delegate
+        }
+        set {
+            fetchedResultsController.delegate = newValue
+        }
+    }
+    
     var coreDataStack: CoreDataStack!
     var cloudKitClient: CloudKitClient!
     
@@ -45,11 +54,14 @@ class ActivityDataSource_v1: NSObject, ActivityDataSource {
     
     // MARK: - Methods
     
-    func objects() -> [Activity] {
-        try! fetchedResultsController.performFetch()
-        return fetchedResultsController.fetchedObjects ?? []
+    var objects: [Activity]? {
+        return fetchedObjects
     }
-    
+
+    var fetchedObjects: [Activity]? {
+        return fetchedResultsController.fetchedObjects
+    }
+
     @discardableResult
     func store(with options: ActivityOptions) -> Activity {
         let activity = Activity(insertInto: context, with: options)
@@ -65,5 +77,17 @@ class ActivityDataSource_v1: NSObject, ActivityDataSource {
     func destroy(_ activity: Activity) {
         // delete
         // save
+    }
+    
+    func performFetch() throws {
+        try fetchedResultsController.performFetch()
+    }
+    
+    func object(at indexPath: IndexPath) -> Activity {
+        return fetchedResultsController.object(at: indexPath)
+    }
+    
+    var sections: [NSFetchedResultsSectionInfo]? {
+        return fetchedResultsController.sections
     }
 }

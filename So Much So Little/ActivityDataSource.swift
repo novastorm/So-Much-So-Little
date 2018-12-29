@@ -14,8 +14,13 @@ protocol ActivityDataSource {
 
     @objc optional var fetchedResultsController: NSFetchedResultsController<Activity> { get }
     
-    @objc optional func objects() -> [Activity]
+    var delegate: NSFetchedResultsControllerDelegate? { get set }
     
+    var sections: [NSFetchedResultsSectionInfo]? { get }
+    
+    @objc var objects: [Activity]? { get }
+    @objc var fetchedObjects: [Activity]? { get }
+
     @objc optional func object(withId id: NSManagedObjectID) -> Activity
     
     // Store
@@ -27,4 +32,9 @@ protocol ActivityDataSource {
     
     // Destroy
     func destroy(_ activity: Activity)
+    
+    func performFetch() throws
+    
+    func object(at indexPath: IndexPath) -> Activity
+    
 }
