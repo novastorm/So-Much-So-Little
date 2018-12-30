@@ -11,15 +11,7 @@ import UIKit
 
 class ActivityTableViewController: UITableViewController {
     
-    var coreDataStack: CoreDataStack!
-
-    // Data item activityDataSource is required to contain dataSource
-    // because tableview.dataSource is a weak reference
     var activityDataSource: ActivityDataSource!
-    
-//    var fetchedResultsController: NSFetchedResultsController<Activity> {
-//        return activityDataSource.fetchedResultsController!
-//    }
     
     var insertedIndexPaths: [IndexPath]!
     var deletedIndexPaths: [IndexPath]!
@@ -29,20 +21,12 @@ class ActivityTableViewController: UITableViewController {
     var moveIndexPathSource: IndexPath!
     
     
-    // Mark: - Core Data Utilities
-    
-    func saveMainContext() {
-        coreDataStack.saveMainContext()
-    }
-    
-    
     // MARK: - View Lifecycle
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         
         tabBarItem.setIcon(icon: .fontAwesomeSolid(.signLanguage), textColor: .lightGray)
-        coreDataStack = (UIApplication.shared.delegate as! AppDelegate).coreDataStack
         activityDataSource = ActivityDataSource_v1()
         activityDataSource.delegate = self
 
@@ -174,7 +158,7 @@ class ActivityTableViewController: UITableViewController {
                     self.snapshot.removeFromSuperview()
                     self.snapshot = nil
                 })
-            saveMainContext()
+            activityDataSource.save()
         default:
             break
         }
@@ -238,7 +222,7 @@ extension ActivityTableViewController {
                 activity.today = false
                 activity.todayDisplayOrder = 0
                 activity.displayOrder = 0
-                self.saveMainContext()
+                self.activityDataSource.save()
             }
         }
         else {
@@ -246,7 +230,7 @@ extension ActivityTableViewController {
 //                print("\((activityIndexPath as NSIndexPath).row): Today tapped")
                 activity.today = true
                 activity.todayDisplayOrder = 0
-                self.saveMainContext()
+                self.activityDataSource.save()
             }
         }
         
@@ -255,7 +239,7 @@ extension ActivityTableViewController {
 //                print("\((completedIndexPath as NSIndexPath).row): Reactivate tapped")
                 activity.completed = false
                 activity.displayOrder = 0
-                self.saveMainContext()
+                self.activityDataSource.save()
             }
         }
         else {
@@ -265,7 +249,7 @@ extension ActivityTableViewController {
                 activity.displayOrder = 0
                 activity.today = false
                 activity.todayDisplayOrder = 0
-                self.saveMainContext()
+                self.activityDataSource.save()
             }
         }
         

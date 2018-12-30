@@ -52,6 +52,8 @@
 		3EE7411F1D1090DC00064BF6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3EE7411D1D1090DC00064BF6 /* Main.storyboard */; };
 		3EE741241D1090DC00064BF6 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3EE741231D1090DC00064BF6 /* Assets.xcassets */; };
 		3EE741271D1090DC00064BF6 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3EE741251D1090DC00064BF6 /* LaunchScreen.storyboard */; };
+		3EE8719121D85259001DCB35 /* CoreDataDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EE8719021D85259001DCB35 /* CoreDataDataSource.swift */; };
+		3EE8719321D86789001DCB35 /* ActivityCoreDataDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EE8719221D86789001DCB35 /* ActivityCoreDataDataSource.swift */; };
 		3EEBB64A2101A174007C0218 /* CoreDataStack_v1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EEBB6492101A174007C0218 /* CoreDataStack_v1.swift */; };
 		3EF6F5972105834500BC15BC /* ActivityDataSource_v1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF6F5962105834500BC15BC /* ActivityDataSource_v1.swift */; };
 		3EF6F5982105837B00BC15BC /* ActivityDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EEBB64721019F3B007C0218 /* ActivityDataSource.swift */; };
@@ -126,6 +128,8 @@
 		3EE7412D1D1090DC00064BF6 /* So Much So LittleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "So Much So LittleTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3EE741311D1090DC00064BF6 /* CoreDataActivityTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataActivityTests.swift; sourceTree = "<group>"; };
 		3EE741331D1090DC00064BF6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		3EE8719021D85259001DCB35 /* CoreDataDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataDataSource.swift; sourceTree = "<group>"; };
+		3EE8719221D86789001DCB35 /* ActivityCoreDataDataSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ActivityCoreDataDataSource.swift; sourceTree = "<group>"; };
 		3EEBB64721019F3B007C0218 /* ActivityDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityDataSource.swift; sourceTree = "<group>"; };
 		3EEBB6492101A174007C0218 /* CoreDataStack_v1.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStack_v1.swift; sourceTree = "<group>"; };
 		3EEE4839201B34C100BD2F34 /* FontAwesomeSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FontAwesomeSwift.framework; path = ../Carthage/Build/iOS/FontAwesomeSwift.framework; sourceTree = "<group>"; };
@@ -184,6 +188,7 @@
 		3E09777D1D11FC8200A7F2C4 /* CoreDataClient */ = {
 			isa = PBXGroup;
 			children = (
+				3EE8719021D85259001DCB35 /* CoreDataDataSource.swift */,
 				3E5685F01EDCEA0C00B3D056 /* ManagedObject+CloudKitProtocol.swift */,
 				3E09777E1D11FC9200A7F2C4 /* CoreDataStack.swift */,
 				3EEBB6492101A174007C0218 /* CoreDataStack_v1.swift */,
@@ -228,6 +233,7 @@
 			isa = PBXGroup;
 			children = (
 				3EEBB64721019F3B007C0218 /* ActivityDataSource.swift */,
+				3EE8719221D86789001DCB35 /* ActivityCoreDataDataSource.swift */,
 				3EF6F5962105834500BC15BC /* ActivityDataSource_v1.swift */,
 				3E5048D71EE8A5EA0006DD1A /* CloudKitClient */,
 				3E09777D1D11FC8200A7F2C4 /* CoreDataClient */,
@@ -374,6 +380,7 @@
 						CreatedOnToolsVersion = 7.3.1;
 						DevelopmentTeam = KY9W9NLJDU;
 						LastSwiftMigration = 1000;
+						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.Push = {
 								enabled = 1;
@@ -462,6 +469,7 @@
 				3ED6DF521D2731F10064E440 /* DateTextFieldDelegate.swift in Sources */,
 				3E7D99C31D21C1BD008FA84B /* TimeboxControl.swift in Sources */,
 				3ED6DF601D2B0D050064E440 /* ViewGroup.swift in Sources */,
+				3EE8719121D85259001DCB35 /* CoreDataDataSource.swift in Sources */,
 				3E7BDB871DB58071006E526A /* CloudKitClient.swift in Sources */,
 				3E95C1C41DD5409400465222 /* TypeNameExtensions.swift in Sources */,
 				3E6AEF22216C9FD900B55DE8 /* ProjectActivityCloudKitClient.swift in Sources */,
@@ -496,6 +504,7 @@
 				3E09777F1D11FC9200A7F2C4 /* CoreDataStack.swift in Sources */,
 				3E0977A51D18FA7B00A7F2C4 /* Activity+CoreDataProperties.swift in Sources */,
 				3ED6DF541D2AEF350064E440 /* ButtonGroup.swift in Sources */,
+				3EE8719321D86789001DCB35 /* ActivityCoreDataDataSource.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -659,6 +668,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "So Much So Little/So Much So Little.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = KY9W9NLJDU;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -669,6 +679,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.4mfd.So-Much-So-Little";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -680,6 +691,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "So Much So Little/So Much So Little.entitlements";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = KY9W9NLJDU;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -690,6 +702,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.4mfd.So-Much-So-Little";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
