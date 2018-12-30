@@ -97,8 +97,8 @@ class ProjectTableViewController: UITableViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        tabBarController?.navigationItem.title = "Project"
-        tabBarController?.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(createProject))
+        navigationItem.title = "Project"
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(createProject))
         try! fetchedResultsController.performFetch()
         tableView.reloadData()
     }

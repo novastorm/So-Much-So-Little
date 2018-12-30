@@ -9,26 +9,19 @@
 import CoreData
 import UIKit
 
-class ActivityDataSource_v1: NSObject, ActivityDataSource {
-
-    // MARK: - Properties
+class ActivityDataSource_v1: NSObject, ActivityDataSource, CoreDataDataSource {
     
-    var delegate: NSFetchedResultsControllerDelegate? {
-        get {
-            return fetchedResultsController.delegate
-        }
-        set {
-            fetchedResultsController.delegate = newValue
-        }
+    static func createActivity(
+        with options: ActivityOptions = ActivityOptions()) -> Activity {
+        let context = (UIApplication.shared.delegate as! AppDelegate).coreDataStack.mainContext
+        return Activity(insertInto: context, with: options)
     }
+    
+    // MARK: - Properties
     
     var coreDataStack: CoreDataStack!
     var cloudKitClient: CloudKitClient!
     
-    var context: NSManagedObjectContext {
-        return coreDataStack.mainContext
-    }
-
     lazy var fetchedResultsController: NSFetchedResultsController<Activity> = {
         let fetchRequest = Activity.fetchRequest() as NSFetchRequest<Activity>
         // get Activity that are not complete or (reference with no project).
@@ -58,36 +51,4 @@ class ActivityDataSource_v1: NSObject, ActivityDataSource {
         return fetchedObjects
     }
 
-    var fetchedObjects: [Activity]? {
-        return fetchedResultsController.fetchedObjects
-    }
-
-    @discardableResult
-    func store(with options: ActivityOptions) -> Activity {
-        let activity = Activity(insertInto: context, with: options)
-        // save
-        return activity
-    }
-    
-    func update(_ activity: Activity) {
-        // update
-        // save
-    }
-    
-    func destroy(_ activity: Activity) {
-        // delete
-        // save
-    }
-    
-    func performFetch() throws {
-        try fetchedResultsController.performFetch()
-    }
-    
-    func object(at indexPath: IndexPath) -> Activity {
-        return fetchedResultsController.object(at: indexPath)
-    }
-    
-    var sections: [NSFetchedResultsSectionInfo]? {
-        return fetchedResultsController.sections
-    }
 }
