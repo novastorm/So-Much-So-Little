@@ -50,8 +50,8 @@ class ActivityTableViewController: UITableViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
 
-        tabBarController?.title = "Activity"
-        tabBarController?.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(createActivity))
+        navigationItem.title = "Activity"
+        navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .add, target: self, action: #selector(createActivity))
         try! activityDataSource.performFetch()
         
         tableView.reloadData()
