@@ -28,7 +28,7 @@ class ActivityTableViewController: UITableViewController {
         
         tabBarItem.setIcon(icon: .fontAwesomeSolid(.signLanguage), textColor: .lightGray)
         activityDataSource = ActivityDataSource_v1()
-        activityDataSource.delegate = self
+//        activityDataSource.delegate = self
 
     }
     
@@ -312,8 +312,7 @@ extension ActivityTableViewController: NSFetchedResultsControllerDelegate {
 extension ActivityTableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let sectionInfo = activityDataSource.sections?[section]
-        return sectionInfo?.numberOfObjects ?? 0
+        return activityDataSource.numberOfRowsInSection(section)
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

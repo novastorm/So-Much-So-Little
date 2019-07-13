@@ -8,10 +8,18 @@
 
 import UIKit
 
-protocol ActivityDataSource: ActivityCoreDataDataSource {
+protocol ActivityDataSource {
+    var fetchedObjects: [Activity]? { get }
 
-    static func createActivity(with options: ActivityOptions) -> Activity
+    @discardableResult
+    func createActivity(with options: ActivityOptions) -> Activity
 
-    var objects: [Activity]? { get }
+    func performFetch() throws
+    
+    func numberOfRowsInSection(_ section: Int) -> Int
+    func object(at: IndexPath) -> Activity
+    
+    func save()
+    
     
 }

@@ -33,21 +33,13 @@ class ActivityCloudKitClient {
     /// Performs a task using `database` that retrieves the Activity objects, and calls a handler upon completion.
     func getRecordList(
         usePublicDatabase: Bool = false,
-        completionHandler: @escaping (_ activityList: [CKRecord]?, _ error: Error?) -> Void
+        completionHandler: @escaping (_ results: [CKRecord]?, _ error: Error?) -> Void
         ) {
-        let database = usePublicDatabase ? publicCloudDatabase : privateCloudDatabase
+
         let predicate = NSPredicate(value: true)
         let query = CKQuery(recordType: Activity.typeName, predicate: predicate)
-        
-        database.perform(query, inZoneWith: nil) { (results, error) in
-            
-            guard error == nil else {
-                completionHandler(nil, error)
-                return
-            }
 
-            completionHandler(results, nil)
-        }
+        cloudKitClient.getRecordList(query: query, inZoneWith: nil, usePublicDatabase: usePublicDatabase, completionHandler: completionHandler)
     }
     
     // MARK: - Show method
@@ -55,21 +47,15 @@ class ActivityCloudKitClient {
     func getRecord(
         _ recordIdString: String,
         usePublicDatabase: Bool = false,
-        completionHandler: @escaping (_ activity: CKRecord?, _ error: Error?) -> Void
+        completionHandler: @escaping (_ record: CKRecord?, _ error: Error?) -> Void
         ) {
-        let database = usePublicDatabase ? publicCloudDatabase : privateCloudDatabase
 
         let recordId = CKRecord.ID(recordName: recordIdString)
         
-        database.fetch(withRecordID: recordId) { (record, error) in
-            
-            guard error == nil else {
-                completionHandler(nil, error)
-                return
-            }
-            
-            completionHandler(record, nil)
-        }
+        cloudKitClient.getRecord(
+            byId: recordId,
+            usePublicDatabase: usePublicDatabase,
+            completionHandler: completionHandler)
     }
     
     
@@ -78,7 +64,7 @@ class ActivityCloudKitClient {
     func store(
         _ activity: CKRecord,
         usePublicDatabase: Bool = false,
-        completionHandler: @escaping(_ activity: CKRecord?, _ error: Error?) -> Void
+        completionHandler: @escaping(_ record: CKRecord?, _ error: Error?) -> Void
         ) {
         let database = usePublicDatabase ? publicCloudDatabase : privateCloudDatabase
 

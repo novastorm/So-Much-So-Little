@@ -23,7 +23,7 @@ extension CloudKitClient {
         - results: An array containing zero or more CKRecord objects. The returned records correspond to the records in the specified zone that match the parameters of the query.
         - error: An error object, or nil if the query was completed successfully. Use the information in the error object to determine whether a problem has a workaround.
      */
-    func getRecords(
+    func getRecordList(
         query: CKQuery,
         inZoneWith zoneID: CKRecordZone.ID? = nil,
         usePublicDatabase: Bool = false,
@@ -37,6 +37,22 @@ extension CloudKitClient {
     /**
      Fetches one record asynchronously, with a low priority, from the specified database, and calls a handler upon completion.
      */
+    func getRecords(
+        byIds recordIds: [CKRecord.ID],
+        usePublicDatabase: Bool = false,
+        completionHandler: @escaping (_ records: [CKRecord.ID: CKRecord]?, _ error: Error?) -> Void
+        ) {
+        let database = usePublicDatabase ? publicCloudDatabase : privateCloudDatabase
+        
+        let fetchRecordsOperation = CKFetchRecordsOperation()
+        fetchRecordsOperation.database = database
+        fetchRecordsOperation.recordIDs = recordIds
+        
+        fetchRecordsOperation.fetchRecordsCompletionBlock = completionHandler
+        
+        fetchRecordsOperation.start()
+    }
+    
     func getRecord(
         byId recordId: CKRecord.ID,
         usePublicDatabase: Bool = false,
@@ -44,15 +60,7 @@ extension CloudKitClient {
         ) {
         let database = usePublicDatabase ? publicCloudDatabase : privateCloudDatabase
         
-        let fetchRecordsOperation = CKFetchRecordsOperation()
-        fetchRecordsOperation.database = database
-        fetchRecordsOperation.recordIDs = [recordId]
-        
-        fetchRecordsOperation.fetchRecordsCompletionBlock = { (_ records: [CKRecord.ID: CKRecord]?, _ error: Error?) in
-            completionHandler(records?[recordId], error)
-        }
-        
-        fetchRecordsOperation.start()
+        database.fetch(withRecordID: recordId, completionHandler: completionHandler)
     }
 
     /**

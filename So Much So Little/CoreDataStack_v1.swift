@@ -171,8 +171,8 @@ class CoreDataStack_v1: CoreDataStack {
     }
     
     // MARK:  - Save
-//    @objc
-    @objc func saveMainContext() {
+    @objc
+    func saveMainContext() {
         // We call this synchronously, but it's a very fast
         // operation (it doesn't hit the disk). We need to know
         // when it ends so we can call the next save (on the persisting
