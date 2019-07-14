@@ -8,6 +8,7 @@
 
 import CoreData
 import UIKit
+import SwiftIcons
 
 class TodayTableViewCell: UITableViewCell {
     
@@ -26,6 +27,7 @@ struct TodayTableViewControllerDependencies {
     }
 }
 
+@objcMembers
 class TodayTableViewController: UITableViewController {
     
     let dependencies: TodayTableViewControllerDependencies!
@@ -346,6 +348,8 @@ extension TodayTableViewController: NSFetchedResultsControllerDelegate {
             updatedIndexPaths.append(indexPath!)
         case .update:
             updatedIndexPaths.append(indexPath!)
+        @unknown default:
+            fatalError()
         }
     }
     

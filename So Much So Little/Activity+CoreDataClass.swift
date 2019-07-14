@@ -10,7 +10,7 @@ import CloudKit
 import CoreData
 import UIKit
 
-@objc
+@objcMembers
 class ActivityOptions: NSObject, Codable {
     var completed: Activity.CompletedType
     var completedDate: Activity.CompletedDateType?

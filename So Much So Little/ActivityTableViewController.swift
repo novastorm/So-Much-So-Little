@@ -9,6 +9,7 @@
 import CoreData
 import UIKit
 
+@objcMembers
 class ActivityTableViewController: UITableViewController {
     
     var activityDataSource: ActivityDataSource!
@@ -23,14 +24,15 @@ class ActivityTableViewController: UITableViewController {
     
     // MARK: - View Lifecycle
     
-//    required init?(coder aDecoder: NSCoder) {
-//        super.init(coder: aDecoder)
-//        
-//        tabBarItem.setIcon(icon: .fontAwesomeSolid(.signLanguage), textColor: .lightGray)
-//        activityDataSource = ActivityDataSource_v1()
-////        activityDataSource.delegate = self
-//
-//    }
+    required init?(coder aDecoder: NSCoder) {
+        activityDataSource = ActivityDataSource_v1()
+
+        super.init(coder: aDecoder)
+        
+        tabBarItem.setIcon(icon: .fontAwesomeSolid(.signLanguage), textColor: .lightGray)
+//        activityDataSource.delegate = self
+
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -60,7 +62,8 @@ class ActivityTableViewController: UITableViewController {
     
     // MARK: - Actions
     
-    @IBAction func showTimer(_ sender: Any) {
+    @IBAction
+    func showTimer(_ sender: Any) {
         tabBarController?.dismiss(animated: true, completion: nil)
     }
 
@@ -81,7 +84,7 @@ class ActivityTableViewController: UITableViewController {
     
     // MARK: - Helpers
     
-    @objc func longPressGestureRecognized(_ sender: AnyObject) {
+    func longPressGestureRecognized(_ sender: AnyObject) {
         
         // retrieve longPress details and target indexPath
         let longPress = sender as! UILongPressGestureRecognizer
@@ -181,11 +184,12 @@ class ActivityTableViewController: UITableViewController {
         return snapshot
     }
 
-    @objc func createActivity() {
+    func createActivity() {
         performSegue(withIdentifier: "CreateActivityDetail", sender: self)
     }
     
-    @objc private func refreshActivityIndexFromRemote(_ sender: Any) {
+    @objc
+    private func refreshActivityIndexFromRemote(_ sender: Any) {
         try! activityDataSource.performFetch()
         performUIUpdatesOnMain {
 //            print("\(#function)")
@@ -283,6 +287,8 @@ extension ActivityTableViewController: NSFetchedResultsControllerDelegate {
             updatedIndexPaths.append(indexPath!)
         case .update:
             updatedIndexPaths.append(indexPath!)
+        @unknown default:
+            fatalError()
         }
     }
     

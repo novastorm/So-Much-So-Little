@@ -8,6 +8,7 @@
 
 import CoreData
 import UIKit
+import SwiftIcons
 
 struct ProjectTableViewControllerDependencies {
     
@@ -20,6 +21,7 @@ struct ProjectTableViewControllerDependencies {
     }
 }
 
+@objcMembers
 class ProjectTableViewController: UITableViewController {
     
     let dependencies: ProjectTableViewControllerDependencies!
@@ -291,6 +293,8 @@ extension ProjectTableViewController: NSFetchedResultsControllerDelegate {
             updatedIndexPaths.append(indexPath!)
         case .update:
             updatedIndexPaths.append(indexPath!)
+        @unknown default:
+            fatalError()
         }
     }
     

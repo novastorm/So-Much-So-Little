@@ -9,7 +9,7 @@
 import CloudKit
 import UIKit
 
-class CloudKitClient: NSObject {
+class CloudKitClient {
     
 //    var coreDataStack: CoreDataStack!
     

@@ -8,6 +8,7 @@
 
 import CoreData
 import UIKit
+import SwiftIcons
 
 struct CompletedActivityTableViewControllerDependencies {
     
@@ -20,6 +21,7 @@ struct CompletedActivityTableViewControllerDependencies {
     }
 }
 
+@objcMembers
 class CompletedActivityTableViewController: UITableViewController {
     
     let dependencies: CompletedActivityTableViewControllerDependencies!
@@ -355,6 +357,8 @@ extension CompletedActivityTableViewController: NSFetchedResultsControllerDelega
             updatedIndexPaths.append(adjustedIndexPath!)
         case .update:
             updatedIndexPaths.append(adjustedIndexPath!)
+        @unknown default:
+            fatalError()
         }
     }
     

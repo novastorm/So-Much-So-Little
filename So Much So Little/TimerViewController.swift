@@ -20,6 +20,7 @@ struct TimerViewControllerDependencies {
     }
 }
 
+@objcMembers
 class TimerViewController: UIViewController {
     
     

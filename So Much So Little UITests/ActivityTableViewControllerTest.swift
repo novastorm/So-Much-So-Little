@@ -57,12 +57,12 @@ class ActivityTableViewControllerTest: XCTestCase {
     override func setUp() {
         super.setUp()
 
-        let coder = NSKeyedUnarchiver(forReadingWith: Data())
-        viewController = ActivityTableViewController(coder: coder)
-        coder.finishDecoding()
-        
-        activityDataSource = ActivityDataSource_mock()
-        viewController.activityDataSource = activityDataSource
+//        let coder = NSKeyedUnarchiver(forReadingWith: Data())
+//        viewController = ActivityTableViewController(coder: coder)
+//        coder.finishDecoding()
+//        
+//        activityDataSource = ActivityDataSource_mock()
+//        viewController.activityDataSource = activityDataSource
     }
     
     override func tearDown() {

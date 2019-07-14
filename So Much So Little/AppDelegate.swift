@@ -9,7 +9,6 @@
 import UIKit
 import CloudKit
 import CoreData
-import SwiftIcons
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {

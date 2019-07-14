@@ -56,10 +56,13 @@
 		3EE8719121D85259001DCB35 /* CoreDataDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EE8719021D85259001DCB35 /* CoreDataDataSource.swift */; };
 		3EE8719321D86789001DCB35 /* ActivityCoreDataDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EE8719221D86789001DCB35 /* ActivityCoreDataDataSource.swift */; };
 		3EEBB64A2101A174007C0218 /* CoreDataStack_v1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EEBB6492101A174007C0218 /* CoreDataStack_v1.swift */; };
+		3EF049C022DAC1AB007B1E8B /* ActivityTableViewControllerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF6F59B2105BA4A00BC15BC /* ActivityTableViewControllerTest.swift */; };
+		3EF049C122DAC235007B1E8B /* ActivityDataSource_mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF6F5992105A8CE00BC15BC /* ActivityDataSource_mock.swift */; };
+		3EF049C222DAC238007B1E8B /* CoreDataStack_mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6AEF19216C4C1D00B55DE8 /* CoreDataStack_mock.swift */; };
+		3EF049C322DAC23B007B1E8B /* CloudKitClient_mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6AEF1B216C5B1400B55DE8 /* CloudKitClient_mock.swift */; };
 		3EF6F5972105834500BC15BC /* ActivityDataSource_v1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF6F5962105834500BC15BC /* ActivityDataSource_v1.swift */; };
 		3EF6F5982105837B00BC15BC /* ActivityDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EEBB64721019F3B007C0218 /* ActivityDataSource.swift */; };
 		3EF6F59A2105A8CE00BC15BC /* ActivityDataSource_mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF6F5992105A8CE00BC15BC /* ActivityDataSource_mock.swift */; };
-		3EF6F59C2105BA4A00BC15BC /* ActivityTableViewControllerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF6F59B2105BA4A00BC15BC /* ActivityTableViewControllerTest.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -218,6 +221,7 @@
 			isa = PBXGroup;
 			children = (
 				3E156A9022DAAAF90076AF37 /* So_Much_So_Little_UITests.swift */,
+				3EF6F59B2105BA4A00BC15BC /* ActivityTableViewControllerTest.swift */,
 				3E156A9222DAAAF90076AF37 /* Info.plist */,
 			);
 			path = "So Much So Little UITests";
@@ -293,6 +297,7 @@
 				3ED6DF551D2B00620064E440 /* Cartfile */,
 				3ED6DF5E1D2B04450064E440 /* Cartfile.resolved */,
 				3EE741181D1090DC00064BF6 /* So Much So Little */,
+				3E5AFDD7215A047C009E4384 /* Mocks */,
 				3EE741301D1090DC00064BF6 /* So Much So LittleTests */,
 				3E156A8F22DAAAF90076AF37 /* So Much So Little UITests */,
 				3EE741171D1090DC00064BF6 /* Products */,
@@ -346,12 +351,10 @@
 			isa = PBXGroup;
 			children = (
 				3EE741331D1090DC00064BF6 /* Info.plist */,
-				3E5AFDD7215A047C009E4384 /* Mocks */,
 				3E5AFDD12159DA9D009E4384 /* ActivityOptionTests.swift */,
 				3EE741311D1090DC00064BF6 /* CoreDataActivityTests.swift */,
 				3E5AFDD32159F458009E4384 /* ActivityDataSourceTests.swift */,
 				3EF741151DA72B31008C30CF /* ProjectTests.swift */,
-				3EF6F59B2105BA4A00BC15BC /* ActivityTableViewControllerTest.swift */,
 			);
 			path = "So Much So LittleTests";
 			sourceTree = "<group>";
@@ -528,6 +531,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3EF049C322DAC23B007B1E8B /* CloudKitClient_mock.swift in Sources */,
+				3EF049C022DAC1AB007B1E8B /* ActivityTableViewControllerTest.swift in Sources */,
+				3EF049C222DAC238007B1E8B /* CoreDataStack_mock.swift in Sources */,
+				3EF049C122DAC235007B1E8B /* ActivityDataSource_mock.swift in Sources */,
 				3E156A9122DAAAF90076AF37 /* So_Much_So_Little_UITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -585,7 +592,6 @@
 				3E6AEF1A216C4C1D00B55DE8 /* CoreDataStack_mock.swift in Sources */,
 				3E6AEF1C216C5B1400B55DE8 /* CloudKitClient_mock.swift in Sources */,
 				3E5AFDD22159DA9D009E4384 /* ActivityOptionTests.swift in Sources */,
-				3EF6F59C2105BA4A00BC15BC /* ActivityTableViewControllerTest.swift in Sources */,
 				3EF6F59A2105A8CE00BC15BC /* ActivityDataSource_mock.swift in Sources */,
 				3E5AFDD42159F458009E4384 /* ActivityDataSourceTests.swift in Sources */,
 			);
