@@ -14,6 +14,7 @@ extension CKRecord {
     
     class func decodeCKRecordSystemFields(from data: Data) -> CKRecord? {
 //        let coder = NSKeyedUnarchiver(forReadingWith: data)
+//        let copy = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(NSKeyedArchiver.archivedData(withRootObject:view, requiringSecureCoding:false))
         
         var coder: NSKeyedUnarchiver
         do {

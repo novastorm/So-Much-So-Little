@@ -38,14 +38,19 @@
                BlueprintName = "So Much So LittleTests"
                ReferencedContainer = "container:So Much So Little.xcodeproj">
             </BuildableReference>
+            <SkippedTests>
+               <Test
+                  Identifier = "ActivityTableViewControllerTest">
+               </Test>
+            </SkippedTests>
          </TestableReference>
          <TestableReference
-            skipped = "NO">
+            skipped = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "3EE741371D1090DC00064BF6"
-               BuildableName = "So Much So LittleUITests.xctest"
-               BlueprintName = "So Much So LittleUITests"
+               BlueprintIdentifier = "3E156A8D22DAAAF90076AF37"
+               BuildableName = "So Much So Little UITests.xctest"
+               BlueprintName = "So Much So Little UITests"
                ReferencedContainer = "container:So Much So Little.xcodeproj">
             </BuildableReference>
          </TestableReference>
