@@ -132,7 +132,7 @@ class ActivityTableViewController: UITableViewController {
             
             guard let indexPath = indexPath, indexPath != moveIndexPathSource else { break }
 
-            var activityList = activityDataSource.fetchedObjects!
+            let activityList = activityDataSource.fetchedObjects!
 
             tableView.moveRow(at: moveIndexPathSource, to: indexPath)
             

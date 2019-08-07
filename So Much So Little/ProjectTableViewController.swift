@@ -175,7 +175,7 @@ class ProjectTableViewController: UITableViewController {
             
             guard let indexPath = indexPath, indexPath != moveIndexPathSource else { break }
 
-            var projectList = fetchedResultsController.fetchedObjects!
+            let projectList = fetchedResultsController.fetchedObjects!
 
             tableView.moveRow(at: moveIndexPathSource, to: indexPath)
             

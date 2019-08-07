@@ -181,7 +181,7 @@ class TodayTableViewController: UITableViewController {
             
             guard let indexPath = indexPath, indexPath != moveIndexPathSource else { break }
             
-            var activityList = fetchedResultsController.fetchedObjects!
+            let activityList = fetchedResultsController.fetchedObjects!
             
             tableView.moveRow(at: moveIndexPathSource, to: indexPath)
             
