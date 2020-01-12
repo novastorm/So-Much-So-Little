@@ -9,7 +9,7 @@
 import CoreData
 import UIKit
 
-struct TimerViewControllerDependencies {
+class TimerViewControllerDependencies: NSObject {
     
     var coreDataStack: CoreDataStack!
     
@@ -69,19 +69,20 @@ class TimerViewController: UIViewController {
     
     // MARK: - View Life Cycle
     
-    init?(
-        coder aDecoder: NSCoder?,
+    @objc init?(
+        coder aDecoder: NSCoder,
         dependencies: TimerViewControllerDependencies
         ) {
         
         self.dependencies = dependencies
         
-        if let aDecoder = aDecoder {
-            super.init(coder: aDecoder)
-        }
-        else {
-            super.init()
-        }
+//        if let aDecoder = aDecoder {
+//            super.init(coder: aDecoder)
+//        }
+//        else {
+//            super.init()
+//        }
+        super.init(coder: aDecoder)
     }
     
     required convenience init?(coder aDecoder: NSCoder) {

@@ -1,3 +1,3 @@
-github "ashleymills/Reachability.swift" "v4.3.1"
-github "novastorm/SwiftIcons" "c2620bf4d531e511cdc2f975e58fc32d8a5515ac"
-github "xmartlabs/Eureka" "5.0.0"
+github "ashleymills/Reachability.swift" "v5.0.0"
+github "ranesr/SwiftIcons" "2.3.2"
+github "xmartlabs/Eureka" "5.1.0"
