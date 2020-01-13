@@ -16,7 +16,7 @@ class TodayTableViewCell: UITableViewCell {
     @IBOutlet weak var taskLabel: UILabel!
 }
 
-struct TodayTableViewControllerDependencies {
+class TodayTableViewControllerDependencies: NSObject {
     
     var coreDataStack: CoreDataStack!
     
@@ -68,7 +68,10 @@ class TodayTableViewController: UITableViewController {
     
     // MARK: - View Lifecycle
     
-    init?(coder aDecoder: NSCoder?, dependencies: TodayTableViewControllerDependencies) {
+    @objc init?(
+        coder aDecoder: NSCoder?,
+        dependencies: TodayTableViewControllerDependencies
+    ) {
         self.dependencies = dependencies
         if let aDecoder = aDecoder {
             super.init(coder: aDecoder)

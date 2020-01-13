@@ -24,14 +24,26 @@ class ActivityTableViewController: UITableViewController {
     
     // MARK: - View Lifecycle
     
-    required init?(coder aDecoder: NSCoder) {
-        activityDataSource = ActivityDataSource_v1()
-
-        super.init(coder: aDecoder)
+    @objc init? (
+        coder: NSCoder?,
+        activityDataSource: ActivityDataSource_v1
+    ) {
+        self.activityDataSource = activityDataSource
         
-        tabBarItem.setIcon(icon: .fontAwesomeSolid(.signLanguage), textColor: .lightGray)
-//        activityDataSource.delegate = self
+        if let coder = coder {
+            super.init(coder: coder)
+        }
+        else {
+            super.init()
+        }
 
+        tabBarItem.setIcon(icon: .fontAwesomeSolid(.signLanguage), textColor: .lightGray)
+    }
+    
+    convenience required init?(coder aDecoder: NSCoder) {
+        self.init(
+            coder: aDecoder,
+            activityDataSource: ActivityDataSource_v1())
     }
     
     override func viewDidLoad() {

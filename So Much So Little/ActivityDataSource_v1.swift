@@ -9,7 +9,7 @@
 import CoreData
 import UIKit
 
-class ActivityDataSource_v1: ActivityDataSource {
+class ActivityDataSource_v1: NSObject, ActivityDataSource {
     func numberOfRowsInSection(_ section: Int) -> Int {
         let sectionInfo = fetchedResultsController.sections?[section]
         return sectionInfo?.numberOfObjects ?? 0

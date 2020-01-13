@@ -10,7 +10,7 @@ import CoreData
 import UIKit
 import SwiftIcons
 
-struct ProjectTableViewControllerDependencies {
+class ProjectTableViewControllerDependencies: NSObject {
     
     var coreDataStack: CoreDataStack!
     
@@ -62,7 +62,10 @@ class ProjectTableViewController: UITableViewController {
     
     // MARK: - View Life Cycle
     
-    required init?(coder aDecoder: NSCoder?, dependencies: ProjectTableViewControllerDependencies) {
+    @objc init?(
+        coder aDecoder: NSCoder?,
+        dependencies: ProjectTableViewControllerDependencies
+    ) {
         self.dependencies = dependencies
         if let aDecoder = aDecoder {
             super.init(coder: aDecoder)

@@ -10,7 +10,7 @@ import CoreData
 import UIKit
 import SwiftIcons
 
-struct CompletedActivityTableViewControllerDependencies {
+class CompletedActivityTableViewControllerDependencies: NSObject {
     
     var coreDataStack: CoreDataStack!
     
@@ -92,7 +92,7 @@ class CompletedActivityTableViewController: UITableViewController {
     
     // MARK: - View Lifecycle
     
-    required init?(
+    @objc init?(
         coder aDecoder: NSCoder?,
         dependencies: CompletedActivityTableViewControllerDependencies
         ) {
