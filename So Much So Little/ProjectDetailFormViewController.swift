@@ -10,7 +10,7 @@ import CoreData
 import Eureka
 import UIKit
 
-struct ProjectDetailFormViewControllerDependencies {
+class ProjectDetailFormViewControllerDependencies: NSObject {
     
     var coreDataStack: CoreDataStack!
     
@@ -83,7 +83,7 @@ class ProjectDetailFormViewController: FormViewController {
     
     // MARK: - View Life Cycle
     
-    init?(
+    @objc init?(
         coder aDecoder: NSCoder?,
         dependencies: ProjectDetailFormViewControllerDependencies
         ) {

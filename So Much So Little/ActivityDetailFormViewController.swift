@@ -10,7 +10,7 @@ import CoreData
 import Eureka
 import UIKit
 
-struct ActivityDetailFormViewControllerDependencies {
+class ActivityDetailFormViewControllerDependencies: NSObject {
     
     var coreDataStack: CoreDataStack!
     
@@ -87,7 +87,9 @@ class ActivityDetailFormViewController: FormViewController {
     
     // MARK: - View Life Cycle
     
-    init?(coder aDecoder: NSCoder?, dependencies: ActivityDetailFormViewControllerDependencies) {
+    @objc init?(
+        coder aDecoder: NSCoder?,
+        dependencies: ActivityDetailFormViewControllerDependencies) {
         self.dependencies = dependencies
         if let aDecoder = aDecoder {
             super.init(coder: aDecoder)
