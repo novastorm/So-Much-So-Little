@@ -70,19 +70,18 @@ class TimerViewController: UIViewController {
     // MARK: - View Life Cycle
     
     @objc init?(
-        coder aDecoder: NSCoder,
+        coder aDecoder: NSCoder?,
         dependencies: TimerViewControllerDependencies
         ) {
         
         self.dependencies = dependencies
         
-//        if let aDecoder = aDecoder {
-//            super.init(coder: aDecoder)
-//        }
-//        else {
-//            super.init()
-//        }
-        super.init(coder: aDecoder)
+        if let aDecoder = aDecoder {
+            super.init(coder: aDecoder)
+        }
+        else {
+            super.init()
+        }
     }
     
     required convenience init?(coder aDecoder: NSCoder) {
