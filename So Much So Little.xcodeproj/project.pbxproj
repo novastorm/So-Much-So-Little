@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 51;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -39,11 +39,15 @@
 		3E7BDB871DB58071006E526A /* CloudKitClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7BDB861DB58071006E526A /* CloudKitClient.swift */; };
 		3E7BDB891DB5C417006E526A /* CloudKitClient+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7BDB881DB5C417006E526A /* CloudKitClient+Convenience.swift */; };
 		3E7D99C31D21C1BD008FA84B /* TimeboxControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7D99C21D21C1BD008FA84B /* TimeboxControl.swift */; };
+		3E800B3D27CB7E0400FA74AF /* SwiftIcons.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E800B3A27CB7E0400FA74AF /* SwiftIcons.xcframework */; };
+		3E800B3E27CB7E0400FA74AF /* SwiftIcons.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3E800B3A27CB7E0400FA74AF /* SwiftIcons.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		3E800B3F27CB7E0400FA74AF /* Eureka.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E800B3B27CB7E0400FA74AF /* Eureka.xcframework */; };
+		3E800B4027CB7E0400FA74AF /* Eureka.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3E800B3B27CB7E0400FA74AF /* Eureka.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		3E800B4127CB7E0400FA74AF /* Reachability.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E800B3C27CB7E0400FA74AF /* Reachability.xcframework */; };
+		3E800B4227CB7E0400FA74AF /* Reachability.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3E800B3C27CB7E0400FA74AF /* Reachability.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3E825F101D9C493100ABACCE /* TimerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E825F0F1D9C493100ABACCE /* TimerViewController.swift */; };
 		3E95C1C41DD5409400465222 /* TypeNameExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E95C1C31DD5409400465222 /* TypeNameExtensions.swift */; };
 		3E95C1C61DD540C000465222 /* CKRecord+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E95C1C51DD540C000465222 /* CKRecord+Extension.swift */; };
-		3EC2BDEF23CBD37D009468AF /* SwiftIcons.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E38B69B217DA740006B6EE8 /* SwiftIcons.framework */; };
-		3EC2BDF223CBD37E009468AF /* Reachability.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E38B69C217DA740006B6EE8 /* Reachability.framework */; };
 		3EC2BDF423CBD381009468AF /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E41D0F81D8DCA62002EAD8A /* CloudKit.framework */; };
 		3ED6DF521D2731F10064E440 /* DateTextFieldDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED6DF511D2731F10064E440 /* DateTextFieldDelegate.swift */; };
 		3ED6DF541D2AEF350064E440 /* ButtonGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED6DF531D2AEF350064E440 /* ButtonGroup.swift */; };
@@ -81,6 +85,22 @@
 			remoteInfo = "So Much So Little";
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		3E800B4327CB7E0400FA74AF /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				3E800B4227CB7E0400FA74AF /* Reachability.xcframework in Embed Frameworks */,
+				3E800B4027CB7E0400FA74AF /* Eureka.xcframework in Embed Frameworks */,
+				3E800B3E27CB7E0400FA74AF /* SwiftIcons.xcframework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		3E03637C22FB381F007000EF /* input.xcfilelist */ = {isa = PBXFileReference; lastKnownFileType = text.xcfilelist; path = input.xcfilelist; sourceTree = "<group>"; };
@@ -124,6 +144,9 @@
 		3E7BDB881DB5C417006E526A /* CloudKitClient+Convenience.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CloudKitClient+Convenience.swift"; sourceTree = "<group>"; };
 		3E7D99C21D21C1BD008FA84B /* TimeboxControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeboxControl.swift; sourceTree = "<group>"; };
 		3E7D99C41D21DE70008FA84B /* Build.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Build.md; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.markdown; };
+		3E800B3A27CB7E0400FA74AF /* SwiftIcons.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = SwiftIcons.xcframework; path = Carthage/Build/SwiftIcons.xcframework; sourceTree = "<group>"; };
+		3E800B3B27CB7E0400FA74AF /* Eureka.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = Eureka.xcframework; path = Carthage/Build/Eureka.xcframework; sourceTree = "<group>"; };
+		3E800B3C27CB7E0400FA74AF /* Reachability.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = Reachability.xcframework; path = Carthage/Build/Reachability.xcframework; sourceTree = "<group>"; };
 		3E825F0F1D9C493100ABACCE /* TimerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerViewController.swift; sourceTree = "<group>"; };
 		3E95C1C31DD5409400465222 /* TypeNameExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TypeNameExtensions.swift; sourceTree = "<group>"; };
 		3E95C1C51DD540C000465222 /* CKRecord+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CKRecord+Extension.swift"; sourceTree = "<group>"; };
@@ -166,9 +189,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3E800B4127CB7E0400FA74AF /* Reachability.xcframework in Frameworks */,
+				3E800B3F27CB7E0400FA74AF /* Eureka.xcframework in Frameworks */,
+				3E800B3D27CB7E0400FA74AF /* SwiftIcons.xcframework in Frameworks */,
 				3EC2BDF423CBD381009468AF /* CloudKit.framework in Frameworks */,
-				3EC2BDF223CBD37E009468AF /* Reachability.framework in Frameworks */,
-				3EC2BDEF23CBD37D009468AF /* SwiftIcons.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -231,6 +255,9 @@
 		3E41D0F71D8DCA62002EAD8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3E800B3B27CB7E0400FA74AF /* Eureka.xcframework */,
+				3E800B3C27CB7E0400FA74AF /* Reachability.xcframework */,
+				3E800B3A27CB7E0400FA74AF /* SwiftIcons.xcframework */,
 				3E38B69C217DA740006B6EE8 /* Reachability.framework */,
 				3E38B69B217DA740006B6EE8 /* SwiftIcons.framework */,
 				3E41D0F81D8DCA62002EAD8A /* CloudKit.framework */,
@@ -389,7 +416,7 @@
 				3EE741121D1090DC00064BF6 /* Sources */,
 				3EE741131D1090DC00064BF6 /* Frameworks */,
 				3EE741141D1090DC00064BF6 /* Resources */,
-				3ED6DF5D1D2B03850064E440 /* ShellScript */,
+				3E800B4327CB7E0400FA74AF /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
@@ -436,9 +463,7 @@
 					};
 					3EE741151D1090DC00064BF6 = {
 						CreatedOnToolsVersion = 7.3.1;
-						DevelopmentTeam = KY9W9NLJDU;
 						LastSwiftMigration = 1020;
-						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.Push = {
 								enabled = 1;
@@ -503,28 +528,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
-
-/* Begin PBXShellScriptBuildPhase section */
-		3ED6DF5D1D2B03850064E440 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-				"$(SRCROOT)/input.xcfilelist",
-			);
-			inputPaths = (
-			);
-			outputFileListPaths = (
-				"$(SRCROOT)/output.xcfilelist",
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "/usr/local/bin/carthage copy-frameworks\n";
-		};
-/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		3E156A8A22DAAAF90076AF37 /* Sources */ = {
@@ -694,6 +697,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -754,6 +758,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -809,7 +814,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "So Much So Little/So Much So Little.entitlements";
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = KY9W9NLJDU;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -817,7 +822,7 @@
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = "So Much So Little/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -835,7 +840,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "So Much So Little/So Much So Little.entitlements";
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = KY9W9NLJDU;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -843,7 +848,7 @@
 					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = "So Much So Little/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

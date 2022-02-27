@@ -21,5 +21,4 @@ protocol ActivityDataSource {
     
     func save()
     
-    
 }
