@@ -21,6 +21,7 @@
 		3E32A1631ECD0CBC00A9F572 /* Project+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E32A1611ECD0CBC00A9F572 /* Project+CoreDataProperties.swift */; };
 		3E32A1651ECD0DEA00A9F572 /* Project+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E32A1641ECD0DEA00A9F572 /* Project+CoreDataClass.swift */; };
 		3E3E41B41DBA9C4400FCE6DE /* StubTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3E41B31DBA9C4400FCE6DE /* StubTest.swift */; };
+		3E3E86D327CD70EF006BB00D /* Eureka in Frameworks */ = {isa = PBXBuildFile; productRef = 3E3E86D227CD70EF006BB00D /* Eureka */; };
 		3E41D0F51D8DC3B2002EAD8A /* So_Much_So_Little.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3E41D0F31D8DC3B2002EAD8A /* So_Much_So_Little.xcdatamodeld */; };
 		3E5685F11EDCEA0C00B3D056 /* ManagedObject+CloudKitProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5685F01EDCEA0C00B3D056 /* ManagedObject+CloudKitProtocol.swift */; };
 		3E5AFDD22159DA9D009E4384 /* ActivityOptionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5AFDD12159DA9D009E4384 /* ActivityOptionTests.swift */; };
@@ -41,8 +42,6 @@
 		3E7D99C31D21C1BD008FA84B /* TimeboxControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7D99C21D21C1BD008FA84B /* TimeboxControl.swift */; };
 		3E800B3D27CB7E0400FA74AF /* SwiftIcons.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E800B3A27CB7E0400FA74AF /* SwiftIcons.xcframework */; };
 		3E800B3E27CB7E0400FA74AF /* SwiftIcons.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3E800B3A27CB7E0400FA74AF /* SwiftIcons.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		3E800B3F27CB7E0400FA74AF /* Eureka.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E800B3B27CB7E0400FA74AF /* Eureka.xcframework */; };
-		3E800B4027CB7E0400FA74AF /* Eureka.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3E800B3B27CB7E0400FA74AF /* Eureka.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3E800B4127CB7E0400FA74AF /* Reachability.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E800B3C27CB7E0400FA74AF /* Reachability.xcframework */; };
 		3E800B4227CB7E0400FA74AF /* Reachability.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3E800B3C27CB7E0400FA74AF /* Reachability.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3E825F101D9C493100ABACCE /* TimerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E825F0F1D9C493100ABACCE /* TimerViewController.swift */; };
@@ -94,7 +93,6 @@
 			dstSubfolderSpec = 10;
 			files = (
 				3E800B4227CB7E0400FA74AF /* Reachability.xcframework in Embed Frameworks */,
-				3E800B4027CB7E0400FA74AF /* Eureka.xcframework in Embed Frameworks */,
 				3E800B3E27CB7E0400FA74AF /* SwiftIcons.xcframework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -120,8 +118,6 @@
 		3E3112391D5D970100E691AC /* ProjectDetailFormViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectDetailFormViewController.swift; sourceTree = "<group>"; };
 		3E32A1611ECD0CBC00A9F572 /* Project+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Project+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		3E32A1641ECD0DEA00A9F572 /* Project+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Project+CoreDataClass.swift"; sourceTree = "<group>"; };
-		3E38B69B217DA740006B6EE8 /* SwiftIcons.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftIcons.framework; path = Carthage/Build/iOS/SwiftIcons.framework; sourceTree = "<group>"; };
-		3E38B69C217DA740006B6EE8 /* Reachability.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Reachability.framework; path = Carthage/Build/iOS/Reachability.framework; sourceTree = "<group>"; };
 		3E3E41B31DBA9C4400FCE6DE /* StubTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StubTest.swift; sourceTree = "<group>"; };
 		3E41D0F41D8DC3B2002EAD8A /* So_Much_So_Little.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = So_Much_So_Little.xcdatamodel; sourceTree = "<group>"; };
 		3E41D0F61D8DCA4B002EAD8A /* So Much So Little.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "So Much So Little.entitlements"; sourceTree = "<group>"; };
@@ -145,7 +141,6 @@
 		3E7D99C21D21C1BD008FA84B /* TimeboxControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeboxControl.swift; sourceTree = "<group>"; };
 		3E7D99C41D21DE70008FA84B /* Build.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Build.md; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.markdown; };
 		3E800B3A27CB7E0400FA74AF /* SwiftIcons.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = SwiftIcons.xcframework; path = Carthage/Build/SwiftIcons.xcframework; sourceTree = "<group>"; };
-		3E800B3B27CB7E0400FA74AF /* Eureka.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = Eureka.xcframework; path = Carthage/Build/Eureka.xcframework; sourceTree = "<group>"; };
 		3E800B3C27CB7E0400FA74AF /* Reachability.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = Reachability.xcframework; path = Carthage/Build/Reachability.xcframework; sourceTree = "<group>"; };
 		3E825F0F1D9C493100ABACCE /* TimerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerViewController.swift; sourceTree = "<group>"; };
 		3E95C1C31DD5409400465222 /* TypeNameExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TypeNameExtensions.swift; sourceTree = "<group>"; };
@@ -190,9 +185,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				3E800B4127CB7E0400FA74AF /* Reachability.xcframework in Frameworks */,
-				3E800B3F27CB7E0400FA74AF /* Eureka.xcframework in Frameworks */,
 				3E800B3D27CB7E0400FA74AF /* SwiftIcons.xcframework in Frameworks */,
 				3EC2BDF423CBD381009468AF /* CloudKit.framework in Frameworks */,
+				3E3E86D327CD70EF006BB00D /* Eureka in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -255,11 +250,8 @@
 		3E41D0F71D8DCA62002EAD8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				3E800B3B27CB7E0400FA74AF /* Eureka.xcframework */,
 				3E800B3C27CB7E0400FA74AF /* Reachability.xcframework */,
 				3E800B3A27CB7E0400FA74AF /* SwiftIcons.xcframework */,
-				3E38B69C217DA740006B6EE8 /* Reachability.framework */,
-				3E38B69B217DA740006B6EE8 /* SwiftIcons.framework */,
 				3E41D0F81D8DCA62002EAD8A /* CloudKit.framework */,
 			);
 			name = Frameworks;
@@ -423,6 +415,9 @@
 			dependencies = (
 			);
 			name = "So Much So Little";
+			packageProductDependencies = (
+				3E3E86D227CD70EF006BB00D /* Eureka */,
+			);
 			productName = "So Much So Little";
 			productReference = 3EE741161D1090DC00064BF6 /* So Much So Little.app */;
 			productType = "com.apple.product-type.application";
@@ -490,6 +485,9 @@
 				Base,
 			);
 			mainGroup = 3EE7410D1D1090DC00064BF6;
+			packageReferences = (
+				3E3E86D127CD70EF006BB00D /* XCRemoteSwiftPackageReference "Eureka" */,
+			);
 			productRefGroup = 3EE741171D1090DC00064BF6 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -697,7 +695,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
+				BUILD_LIBRARY_FOR_DISTRIBUTION = NO;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -758,7 +756,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
+				BUILD_LIBRARY_FOR_DISTRIBUTION = NO;
 				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -937,6 +935,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		3E3E86D127CD70EF006BB00D /* XCRemoteSwiftPackageReference "Eureka" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/xmartlabs/Eureka.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		3E3E86D227CD70EF006BB00D /* Eureka */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3E3E86D127CD70EF006BB00D /* XCRemoteSwiftPackageReference "Eureka" */;
+			productName = Eureka;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		3E41D0F31D8DC3B2002EAD8A /* So_Much_So_Little.xcdatamodeld */ = {
