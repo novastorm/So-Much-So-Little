@@ -219,21 +219,21 @@ extension ActivityTableViewController {
         return true
     }
     
-    override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+    override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let activity = activityDataSource.object(at: indexPath)
 
         if activity.kind == .reference {
-            let referenceOption = UITableViewRowAction(style: .normal, title: "Project") { (action, activityIndexPath) in
+            let referenceOption = UIContextualAction(style: .normal, title: "Project") { (action, view, successHandler) in
 //                print("Project tapped")
             }
-            return [referenceOption]
+            return UISwipeActionsConfiguration(actions: [referenceOption])
         }
         
-        var todayOption: UITableViewRowAction!
-        var completedOption: UITableViewRowAction!
+        var todayOption: UIContextualAction!
+        var completedOption: UIContextualAction!
         
         if activity.today {
-            todayOption = UITableViewRowAction(style: .normal, title: "Postpone") { (action, activityIndexPath) in
+            todayOption = UIContextualAction(style: .normal, title: "Postpone") { (action, view, successHandler) in
 //                print("\((activityIndexPath as NSIndexPath).row): Postpone tapped")
                 activity.today = false
                 activity.todayDisplayOrder = 0
@@ -242,7 +242,7 @@ extension ActivityTableViewController {
             }
         }
         else {
-            todayOption = UITableViewRowAction(style: .normal, title: "Today") { (action, activityIndexPath) in
+            todayOption = UIContextualAction(style: .normal, title: "Today") { (action, view, successHandler) in
 //                print("\((activityIndexPath as NSIndexPath).row): Today tapped")
                 activity.today = true
                 activity.todayDisplayOrder = 0
@@ -251,7 +251,7 @@ extension ActivityTableViewController {
         }
         
         if activity.completed {
-            completedOption = UITableViewRowAction(style: .normal, title: "Reactivate") { (action, completedIndexPath) in
+            completedOption = UIContextualAction(style: .normal, title: "Reactivate") { (action, view, successHandler) in
 //                print("\((completedIndexPath as NSIndexPath).row): Reactivate tapped")
                 activity.completed = false
                 activity.displayOrder = 0
@@ -259,8 +259,8 @@ extension ActivityTableViewController {
             }
         }
         else {
-            completedOption = UITableViewRowAction(style: .normal, title: "Complete") { (action, completedIndexPath) in
-                print("\((completedIndexPath as NSIndexPath).row): Complete tapped")
+            completedOption = UIContextualAction(style: .normal, title: "Complete") { (action, view, successHandler) in
+                print("\(indexPath.row): Complete tapped")
                 activity.completed = true
                 activity.displayOrder = 0
                 activity.today = false
@@ -269,7 +269,7 @@ extension ActivityTableViewController {
             }
         }
         
-        return [todayOption, completedOption]
+        return UISwipeActionsConfiguration(actions: [todayOption, completedOption])
     }
 }
 

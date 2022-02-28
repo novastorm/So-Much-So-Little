@@ -1,25 +1,25 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="13533" systemVersion="17B1003" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19574" systemVersion="21D62" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="Activity" representedClassName=".Activity" syncable="YES">
-        <attribute name="ckRecordIdName" attributeType="String" syncable="YES"/>
-        <attribute name="completed" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" customClassName=".CompletedType" syncable="YES"/>
-        <attribute name="completedDate" optional="YES" attributeType="Transformable" customClassName=".Date" syncable="YES"/>
-        <attribute name="deferredTo" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="deferredToResponseDueDate" optional="YES" attributeType="Transformable" customClassName=".Date" syncable="YES"/>
-        <attribute name="displayOrder" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="dueDate" optional="YES" attributeType="Transformable" customClassName=".Date" syncable="YES"/>
-        <attribute name="encodedCKRecord" optional="YES" attributeType="Transformable" customClassName=".Data" syncable="YES"/>
-        <attribute name="estimatedTimeboxes" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="info" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="isSynced" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="kind" attributeType="Integer 16" valueTransformerName="Activity.KindValueTransformer" defaultValueString="0" usesScalarValueType="YES" customClassName=".Kind" syncable="YES"/>
-        <attribute name="name" attributeType="String" syncable="YES"/>
-        <attribute name="scheduledEnd" optional="YES" attributeType="Transformable" customClassName=".Date" syncable="YES"/>
-        <attribute name="scheduledStart" optional="YES" attributeType="Transformable" customClassName=".Date" syncable="YES"/>
-        <attribute name="today" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="todayDisplayOrder" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
-        <relationship name="project" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Project" inverseName="activities" inverseEntity="Project" syncable="YES"/>
-        <relationship name="timeboxes" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Timebox" inverseName="activity" inverseEntity="Timebox" syncable="YES"/>
+        <attribute name="ckRecordIdName" attributeType="String"/>
+        <attribute name="completed" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" customClassName=".CompletedType"/>
+        <attribute name="completedDate" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData" customClassName=".Date"/>
+        <attribute name="deferredTo" optional="YES" attributeType="String"/>
+        <attribute name="deferredToResponseDueDate" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData" customClassName=".Date"/>
+        <attribute name="displayOrder" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="dueDate" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData" customClassName=".Date"/>
+        <attribute name="encodedCKRecord" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData" customClassName=".Data"/>
+        <attribute name="estimatedTimeboxes" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="info" optional="YES" attributeType="String"/>
+        <attribute name="isSynced" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="kind" attributeType="Integer 16" valueTransformerName="Activity.KindValueTransformer" defaultValueString="0" usesScalarValueType="YES" customClassName=".Kind"/>
+        <attribute name="name" attributeType="String"/>
+        <attribute name="scheduledEnd" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData" customClassName=".Date"/>
+        <attribute name="scheduledStart" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData" customClassName=".Date"/>
+        <attribute name="today" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="todayDisplayOrder" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <relationship name="project" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Project" inverseName="activities" inverseEntity="Project"/>
+        <relationship name="timeboxes" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Timebox" inverseName="activity" inverseEntity="Timebox"/>
         <fetchIndex name="byCkRecordIdNameIndex">
             <fetchIndexElement property="ckRecordIdName" type="Binary" order="ascending"/>
         </fetchIndex>
@@ -36,17 +36,17 @@
         </uniquenessConstraints>
     </entity>
     <entity name="Project" representedClassName=".Project" syncable="YES">
-        <attribute name="active" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="ckRecordIdName" attributeType="String" syncable="YES"/>
-        <attribute name="completed" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="completedDate" optional="YES" attributeType="Transformable" customClassName=".Date" syncable="YES"/>
-        <attribute name="displayOrder" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="dueDate" optional="YES" attributeType="Transformable" customClassName=".Date" syncable="YES"/>
-        <attribute name="encodedCKRecord" optional="YES" attributeType="Binary" syncable="YES"/>
-        <attribute name="info" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="isSynced" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="name" attributeType="String" syncable="YES"/>
-        <relationship name="activities" toMany="YES" deletionRule="Cascade" destinationEntity="Activity" inverseName="project" inverseEntity="Activity" syncable="YES"/>
+        <attribute name="active" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="ckRecordIdName" attributeType="String"/>
+        <attribute name="completed" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="completedDate" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData" customClassName=".Date"/>
+        <attribute name="displayOrder" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="dueDate" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData" customClassName=".Date"/>
+        <attribute name="encodedCKRecord" optional="YES" attributeType="Binary"/>
+        <attribute name="info" optional="YES" attributeType="String"/>
+        <attribute name="isSynced" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="name" attributeType="String"/>
+        <relationship name="activities" toMany="YES" deletionRule="Cascade" destinationEntity="Activity" inverseName="project" inverseEntity="Activity"/>
         <fetchIndex name="byCkRecordIdNameIndex">
             <fetchIndexElement property="ckRecordIdName" type="Binary" order="ascending"/>
         </fetchIndex>
@@ -60,15 +60,15 @@
         </uniquenessConstraints>
     </entity>
     <entity name="Timebox" representedClassName=".Timebox" syncable="YES">
-        <attribute name="ckRecordIdName" attributeType="String" syncable="YES"/>
-        <attribute name="completed" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="encodedCKRecord" optional="YES" attributeType="Transformable" customClassName=".Data" syncable="YES"/>
-        <attribute name="externalInterruptions" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="internalInterruptions" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="isSynced" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES" syncable="YES"/>
-        <attribute name="start" attributeType="Transformable" customClassName=".Date" syncable="YES"/>
-        <attribute name="stop" optional="YES" attributeType="Transformable" customClassName=".Date" syncable="YES"/>
-        <relationship name="activity" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Activity" inverseName="timeboxes" inverseEntity="Activity" syncable="YES"/>
+        <attribute name="ckRecordIdName" attributeType="String"/>
+        <attribute name="completed" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="encodedCKRecord" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData" customClassName=".Data"/>
+        <attribute name="externalInterruptions" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="internalInterruptions" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
+        <attribute name="isSynced" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="YES"/>
+        <attribute name="start" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData" customClassName=".Date"/>
+        <attribute name="stop" optional="YES" attributeType="Transformable" valueTransformerName="NSSecureUnarchiveFromData" customClassName=".Date"/>
+        <relationship name="activity" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Activity" inverseName="timeboxes" inverseEntity="Activity"/>
         <fetchIndex name="byCkRecordIdNameIndex">
             <fetchIndexElement property="ckRecordIdName" type="Binary" order="ascending"/>
         </fetchIndex>
@@ -79,8 +79,8 @@
         </uniquenessConstraints>
     </entity>
     <elements>
-        <element name="Activity" positionX="-567" positionY="-72" width="128" height="330"/>
-        <element name="Project" positionX="-270" positionY="-189" width="128" height="210"/>
-        <element name="Timebox" positionX="-18" positionY="135" width="128" height="180"/>
+        <element name="Activity" positionX="-567" positionY="-72" width="128" height="314"/>
+        <element name="Project" positionX="-270" positionY="-189" width="128" height="194"/>
+        <element name="Timebox" positionX="-18" positionY="135" width="128" height="164"/>
     </elements>
 </model>
