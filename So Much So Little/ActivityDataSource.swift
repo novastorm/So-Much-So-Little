@@ -7,8 +7,10 @@
 //
 
 import UIKit
+import CoreData
 
 protocol ActivityDataSource {
+    var fetchedResultsControllerDelegate: NSFetchedResultsControllerDelegate? { get set }
     var fetchedObjects: [Activity]? { get }
 
     @discardableResult

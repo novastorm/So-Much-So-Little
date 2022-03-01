@@ -53,6 +53,7 @@ class ActivityTableViewController: UITableViewController {
 
         navigationItem.hidesBackButton = true
         
+        activityDataSource.fetchedResultsControllerDelegate = self
         try! activityDataSource.performFetch()
         
         let longPress = UILongPressGestureRecognizer(target: self, action: #selector(longPressGestureRecognized(_:)))

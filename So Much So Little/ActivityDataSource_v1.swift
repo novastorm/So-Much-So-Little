@@ -29,6 +29,15 @@ class ActivityDataSource_v1: NSObject, ActivityDataSource {
         return fetchedResultsController.fetchedObjects
     }
     
+    var fetchedResultsControllerDelegate: NSFetchedResultsControllerDelegate? {
+        get {
+            fetchedResultsController.delegate
+        }
+        set {
+            fetchedResultsController.delegate = newValue
+        }
+    }
+    
     // MARK: - Initializers
     
     init(
