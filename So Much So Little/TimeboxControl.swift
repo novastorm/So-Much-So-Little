@@ -87,7 +87,7 @@ class TimeboxControl: UIView {
     // MARK: Button Action
     
     @objc func timeboxButtonTapped(_ button: UIButton) {
-        estimatedTimeboxes = timeboxButtons.index(of: button)! + 1
+        estimatedTimeboxes = timeboxButtons.firstIndex(of: button)! + 1
         
         updateButtonSelectionStates()
     }

@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -16,14 +16,13 @@
 		3E0977961D18CEE200A7F2C4 /* ProjectTableViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E0977951D18CEE200A7F2C4 /* ProjectTableViewController.swift */; };
 		3E0977A51D18FA7B00A7F2C4 /* Activity+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E09779D1D18FA7B00A7F2C4 /* Activity+CoreDataProperties.swift */; };
 		3E0977A61D18FA7B00A7F2C4 /* Timebox+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E09779E1D18FA7B00A7F2C4 /* Timebox+CoreDataProperties.swift */; };
+		3E156A9122DAAAF90076AF37 /* So_Much_So_Little_UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E156A9022DAAAF90076AF37 /* So_Much_So_Little_UITests.swift */; };
 		3E31123A1D5D970100E691AC /* ProjectDetailFormViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3112391D5D970100E691AC /* ProjectDetailFormViewController.swift */; };
 		3E32A1631ECD0CBC00A9F572 /* Project+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E32A1611ECD0CBC00A9F572 /* Project+CoreDataProperties.swift */; };
 		3E32A1651ECD0DEA00A9F572 /* Project+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E32A1641ECD0DEA00A9F572 /* Project+CoreDataClass.swift */; };
-		3E38B69D217DA741006B6EE8 /* SwiftIcons.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E38B69B217DA740006B6EE8 /* SwiftIcons.framework */; };
-		3E38B69E217DA741006B6EE8 /* Reachability.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E38B69C217DA740006B6EE8 /* Reachability.framework */; };
 		3E3E41B41DBA9C4400FCE6DE /* StubTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E3E41B31DBA9C4400FCE6DE /* StubTest.swift */; };
+		3E3E86D327CD70EF006BB00D /* Eureka in Frameworks */ = {isa = PBXBuildFile; productRef = 3E3E86D227CD70EF006BB00D /* Eureka */; };
 		3E41D0F51D8DC3B2002EAD8A /* So_Much_So_Little.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 3E41D0F31D8DC3B2002EAD8A /* So_Much_So_Little.xcdatamodeld */; };
-		3E41D0F91D8DCA62002EAD8A /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E41D0F81D8DCA62002EAD8A /* CloudKit.framework */; };
 		3E5685F11EDCEA0C00B3D056 /* ManagedObject+CloudKitProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5685F01EDCEA0C00B3D056 /* ManagedObject+CloudKitProtocol.swift */; };
 		3E5AFDD22159DA9D009E4384 /* ActivityOptionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5AFDD12159DA9D009E4384 /* ActivityOptionTests.swift */; };
 		3E5AFDD42159F458009E4384 /* ActivityDataSourceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E5AFDD32159F458009E4384 /* ActivityDataSourceTests.swift */; };
@@ -41,9 +40,14 @@
 		3E7BDB871DB58071006E526A /* CloudKitClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7BDB861DB58071006E526A /* CloudKitClient.swift */; };
 		3E7BDB891DB5C417006E526A /* CloudKitClient+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7BDB881DB5C417006E526A /* CloudKitClient+Convenience.swift */; };
 		3E7D99C31D21C1BD008FA84B /* TimeboxControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7D99C21D21C1BD008FA84B /* TimeboxControl.swift */; };
+		3E800B3D27CB7E0400FA74AF /* SwiftIcons.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E800B3A27CB7E0400FA74AF /* SwiftIcons.xcframework */; };
+		3E800B3E27CB7E0400FA74AF /* SwiftIcons.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3E800B3A27CB7E0400FA74AF /* SwiftIcons.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		3E800B4127CB7E0400FA74AF /* Reachability.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E800B3C27CB7E0400FA74AF /* Reachability.xcframework */; };
+		3E800B4227CB7E0400FA74AF /* Reachability.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3E800B3C27CB7E0400FA74AF /* Reachability.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3E825F101D9C493100ABACCE /* TimerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E825F0F1D9C493100ABACCE /* TimerViewController.swift */; };
 		3E95C1C41DD5409400465222 /* TypeNameExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E95C1C31DD5409400465222 /* TypeNameExtensions.swift */; };
 		3E95C1C61DD540C000465222 /* CKRecord+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E95C1C51DD540C000465222 /* CKRecord+Extension.swift */; };
+		3EC2BDF423CBD381009468AF /* CloudKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E41D0F81D8DCA62002EAD8A /* CloudKit.framework */; };
 		3ED6DF521D2731F10064E440 /* DateTextFieldDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED6DF511D2731F10064E440 /* DateTextFieldDelegate.swift */; };
 		3ED6DF541D2AEF350064E440 /* ButtonGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED6DF531D2AEF350064E440 /* ButtonGroup.swift */; };
 		3ED6DF601D2B0D050064E440 /* ViewGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3ED6DF5F1D2B0D050064E440 /* ViewGroup.swift */; };
@@ -55,13 +59,23 @@
 		3EE8719121D85259001DCB35 /* CoreDataDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EE8719021D85259001DCB35 /* CoreDataDataSource.swift */; };
 		3EE8719321D86789001DCB35 /* ActivityCoreDataDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EE8719221D86789001DCB35 /* ActivityCoreDataDataSource.swift */; };
 		3EEBB64A2101A174007C0218 /* CoreDataStack_v1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EEBB6492101A174007C0218 /* CoreDataStack_v1.swift */; };
+		3EF049C022DAC1AB007B1E8B /* ActivityTableViewControllerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF6F59B2105BA4A00BC15BC /* ActivityTableViewControllerTest.swift */; };
+		3EF049C122DAC235007B1E8B /* ActivityDataSource_mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF6F5992105A8CE00BC15BC /* ActivityDataSource_mock.swift */; };
+		3EF049C222DAC238007B1E8B /* CoreDataStack_mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6AEF19216C4C1D00B55DE8 /* CoreDataStack_mock.swift */; };
+		3EF049C322DAC23B007B1E8B /* CloudKitClient_mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E6AEF1B216C5B1400B55DE8 /* CloudKitClient_mock.swift */; };
 		3EF6F5972105834500BC15BC /* ActivityDataSource_v1.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF6F5962105834500BC15BC /* ActivityDataSource_v1.swift */; };
 		3EF6F5982105837B00BC15BC /* ActivityDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EEBB64721019F3B007C0218 /* ActivityDataSource.swift */; };
 		3EF6F59A2105A8CE00BC15BC /* ActivityDataSource_mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF6F5992105A8CE00BC15BC /* ActivityDataSource_mock.swift */; };
-		3EF6F59C2105BA4A00BC15BC /* ActivityTableViewControllerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF6F59B2105BA4A00BC15BC /* ActivityTableViewControllerTest.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		3E156A9322DAAAF90076AF37 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3EE7410E1D1090DC00064BF6 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 3EE741151D1090DC00064BF6;
+			remoteInfo = "So Much So Little";
+		};
 		3EE7412E1D1090DC00064BF6 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 3EE7410E1D1090DC00064BF6 /* Project object */;
@@ -71,7 +85,24 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		3E800B4327CB7E0400FA74AF /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				3E800B4227CB7E0400FA74AF /* Reachability.xcframework in Embed Frameworks */,
+				3E800B3E27CB7E0400FA74AF /* SwiftIcons.xcframework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		3E03637C22FB381F007000EF /* input.xcfilelist */ = {isa = PBXFileReference; lastKnownFileType = text.xcfilelist; path = input.xcfilelist; sourceTree = "<group>"; };
+		3E03637E22FB383C007000EF /* output.xcfilelist */ = {isa = PBXFileReference; lastKnownFileType = text.xcfilelist; path = output.xcfilelist; sourceTree = "<group>"; };
 		3E09777E1D11FC9200A7F2C4 /* CoreDataStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		3E0977801D12015800A7F2C4 /* Utilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Utilities.swift; sourceTree = "<group>"; };
 		3E0977821D12064100A7F2C4 /* GCDUtilities.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GCDUtilities.swift; sourceTree = "<group>"; };
@@ -81,11 +112,12 @@
 		3E0977951D18CEE200A7F2C4 /* ProjectTableViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectTableViewController.swift; sourceTree = "<group>"; };
 		3E09779D1D18FA7B00A7F2C4 /* Activity+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Activity+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		3E09779E1D18FA7B00A7F2C4 /* Timebox+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Timebox+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		3E156A8E22DAAAF90076AF37 /* So Much So Little UITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "So Much So Little UITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		3E156A9022DAAAF90076AF37 /* So_Much_So_Little_UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = So_Much_So_Little_UITests.swift; sourceTree = "<group>"; };
+		3E156A9222DAAAF90076AF37 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		3E3112391D5D970100E691AC /* ProjectDetailFormViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProjectDetailFormViewController.swift; sourceTree = "<group>"; };
 		3E32A1611ECD0CBC00A9F572 /* Project+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Project+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		3E32A1641ECD0DEA00A9F572 /* Project+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Project+CoreDataClass.swift"; sourceTree = "<group>"; };
-		3E38B69B217DA740006B6EE8 /* SwiftIcons.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftIcons.framework; path = Carthage/Build/iOS/SwiftIcons.framework; sourceTree = "<group>"; };
-		3E38B69C217DA740006B6EE8 /* Reachability.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Reachability.framework; path = Carthage/Build/iOS/Reachability.framework; sourceTree = "<group>"; };
 		3E3E41B31DBA9C4400FCE6DE /* StubTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StubTest.swift; sourceTree = "<group>"; };
 		3E41D0F41D8DC3B2002EAD8A /* So_Much_So_Little.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = So_Much_So_Little.xcdatamodel; sourceTree = "<group>"; };
 		3E41D0F61D8DCA4B002EAD8A /* So Much So Little.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = "So Much So Little.entitlements"; sourceTree = "<group>"; };
@@ -108,6 +140,8 @@
 		3E7BDB881DB5C417006E526A /* CloudKitClient+Convenience.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CloudKitClient+Convenience.swift"; sourceTree = "<group>"; };
 		3E7D99C21D21C1BD008FA84B /* TimeboxControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimeboxControl.swift; sourceTree = "<group>"; };
 		3E7D99C41D21DE70008FA84B /* Build.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = Build.md; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.markdown; };
+		3E800B3A27CB7E0400FA74AF /* SwiftIcons.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = SwiftIcons.xcframework; path = Carthage/Build/SwiftIcons.xcframework; sourceTree = "<group>"; };
+		3E800B3C27CB7E0400FA74AF /* Reachability.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = Reachability.xcframework; path = Carthage/Build/Reachability.xcframework; sourceTree = "<group>"; };
 		3E825F0F1D9C493100ABACCE /* TimerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TimerViewController.swift; sourceTree = "<group>"; };
 		3E95C1C31DD5409400465222 /* TypeNameExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TypeNameExtensions.swift; sourceTree = "<group>"; };
 		3E95C1C51DD540C000465222 /* CKRecord+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CKRecord+Extension.swift"; sourceTree = "<group>"; };
@@ -116,7 +150,6 @@
 		3ED6DF531D2AEF350064E440 /* ButtonGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ButtonGroup.swift; sourceTree = "<group>"; };
 		3ED6DF551D2B00620064E440 /* Cartfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Cartfile; sourceTree = "<group>"; };
 		3ED6DF591D2B03070064E440 /* Eureka.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Eureka.framework; path = ../Carthage/Build/iOS/Eureka.framework; sourceTree = "<group>"; };
-		3ED6DF5E1D2B04450064E440 /* Cartfile.resolved */ = {isa = PBXFileReference; lastKnownFileType = text; path = Cartfile.resolved; sourceTree = "<group>"; };
 		3ED6DF5F1D2B0D050064E440 /* ViewGroup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewGroup.swift; sourceTree = "<group>"; };
 		3EE741161D1090DC00064BF6 /* So Much So Little.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "So Much So Little.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3EE741191D1090DC00064BF6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -140,13 +173,21 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		3E156A8B22DAAAF90076AF37 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		3EE741131D1090DC00064BF6 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3E41D0F91D8DCA62002EAD8A /* CloudKit.framework in Frameworks */,
-				3E38B69D217DA741006B6EE8 /* SwiftIcons.framework in Frameworks */,
-				3E38B69E217DA741006B6EE8 /* Reachability.framework in Frameworks */,
+				3E800B4127CB7E0400FA74AF /* Reachability.xcframework in Frameworks */,
+				3E800B3D27CB7E0400FA74AF /* SwiftIcons.xcframework in Frameworks */,
+				3EC2BDF423CBD381009468AF /* CloudKit.framework in Frameworks */,
+				3E3E86D327CD70EF006BB00D /* Eureka in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -196,11 +237,21 @@
 			name = CoreDataClient;
 			sourceTree = "<group>";
 		};
+		3E156A8F22DAAAF90076AF37 /* So Much So Little UITests */ = {
+			isa = PBXGroup;
+			children = (
+				3E156A9022DAAAF90076AF37 /* So_Much_So_Little_UITests.swift */,
+				3EF6F59B2105BA4A00BC15BC /* ActivityTableViewControllerTest.swift */,
+				3E156A9222DAAAF90076AF37 /* Info.plist */,
+			);
+			path = "So Much So Little UITests";
+			sourceTree = "<group>";
+		};
 		3E41D0F71D8DCA62002EAD8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				3E38B69C217DA740006B6EE8 /* Reachability.framework */,
-				3E38B69B217DA740006B6EE8 /* SwiftIcons.framework */,
+				3E800B3C27CB7E0400FA74AF /* Reachability.xcframework */,
+				3E800B3A27CB7E0400FA74AF /* SwiftIcons.xcframework */,
 				3E41D0F81D8DCA62002EAD8A /* CloudKit.framework */,
 			);
 			name = Frameworks;
@@ -261,12 +312,15 @@
 		3EE7410D1D1090DC00064BF6 = {
 			isa = PBXGroup;
 			children = (
+				3E03637E22FB383C007000EF /* output.xcfilelist */,
+				3E03637C22FB381F007000EF /* input.xcfilelist */,
 				3E95E4112018086600632770 /* README.md */,
 				3E7D99C41D21DE70008FA84B /* Build.md */,
 				3ED6DF551D2B00620064E440 /* Cartfile */,
-				3ED6DF5E1D2B04450064E440 /* Cartfile.resolved */,
 				3EE741181D1090DC00064BF6 /* So Much So Little */,
+				3E5AFDD7215A047C009E4384 /* Mocks */,
 				3EE741301D1090DC00064BF6 /* So Much So LittleTests */,
+				3E156A8F22DAAAF90076AF37 /* So Much So Little UITests */,
 				3EE741171D1090DC00064BF6 /* Products */,
 				3E41D0F71D8DCA62002EAD8A /* Frameworks */,
 			);
@@ -277,6 +331,7 @@
 			children = (
 				3EE741161D1090DC00064BF6 /* So Much So Little.app */,
 				3EE7412D1D1090DC00064BF6 /* So Much So LittleTests.xctest */,
+				3E156A8E22DAAAF90076AF37 /* So Much So Little UITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -317,12 +372,10 @@
 			isa = PBXGroup;
 			children = (
 				3EE741331D1090DC00064BF6 /* Info.plist */,
-				3E5AFDD7215A047C009E4384 /* Mocks */,
 				3E5AFDD12159DA9D009E4384 /* ActivityOptionTests.swift */,
 				3EE741311D1090DC00064BF6 /* CoreDataActivityTests.swift */,
 				3E5AFDD32159F458009E4384 /* ActivityDataSourceTests.swift */,
 				3EF741151DA72B31008C30CF /* ProjectTests.swift */,
-				3EF6F59B2105BA4A00BC15BC /* ActivityTableViewControllerTest.swift */,
 			);
 			path = "So Much So LittleTests";
 			sourceTree = "<group>";
@@ -330,6 +383,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		3E156A8D22DAAAF90076AF37 /* So Much So Little UITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 3E156A9522DAAAF90076AF37 /* Build configuration list for PBXNativeTarget "So Much So Little UITests" */;
+			buildPhases = (
+				3E156A8A22DAAAF90076AF37 /* Sources */,
+				3E156A8B22DAAAF90076AF37 /* Frameworks */,
+				3E156A8C22DAAAF90076AF37 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				3E156A9422DAAAF90076AF37 /* PBXTargetDependency */,
+			);
+			name = "So Much So Little UITests";
+			productName = "So Much So Little UITests";
+			productReference = 3E156A8E22DAAAF90076AF37 /* So Much So Little UITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 		3EE741151D1090DC00064BF6 /* So Much So Little */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 3EE741411D1090DC00064BF6 /* Build configuration list for PBXNativeTarget "So Much So Little" */;
@@ -337,13 +408,16 @@
 				3EE741121D1090DC00064BF6 /* Sources */,
 				3EE741131D1090DC00064BF6 /* Frameworks */,
 				3EE741141D1090DC00064BF6 /* Resources */,
-				3ED6DF5D1D2B03850064E440 /* ShellScript */,
+				3E800B4327CB7E0400FA74AF /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = "So Much So Little";
+			packageProductDependencies = (
+				3E3E86D227CD70EF006BB00D /* Eureka */,
+			);
 			productName = "So Much So Little";
 			productReference = 3EE741161D1090DC00064BF6 /* So Much So Little.app */;
 			productType = "com.apple.product-type.application";
@@ -372,15 +446,19 @@
 		3EE7410E1D1090DC00064BF6 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0730;
-				LastUpgradeCheck = 0940;
+				LastSwiftUpdateCheck = 1020;
+				LastUpgradeCheck = 1320;
 				ORGANIZATIONNAME = "Adland Lee";
 				TargetAttributes = {
+					3E156A8D22DAAAF90076AF37 = {
+						CreatedOnToolsVersion = 10.2.1;
+						DevelopmentTeam = KY9W9NLJDU;
+						ProvisioningStyle = Automatic;
+						TestTargetID = 3EE741151D1090DC00064BF6;
+					};
 					3EE741151D1090DC00064BF6 = {
 						CreatedOnToolsVersion = 7.3.1;
-						DevelopmentTeam = KY9W9NLJDU;
-						LastSwiftMigration = 1000;
-						ProvisioningStyle = Automatic;
+						LastSwiftMigration = 1020;
 						SystemCapabilities = {
 							com.apple.Push = {
 								enabled = 1;
@@ -392,31 +470,43 @@
 					};
 					3EE7412C1D1090DC00064BF6 = {
 						CreatedOnToolsVersion = 7.3.1;
-						LastSwiftMigration = 1000;
+						DevelopmentTeam = KY9W9NLJDU;
+						LastSwiftMigration = 1020;
 						TestTargetID = 3EE741151D1090DC00064BF6;
 					};
 				};
 			};
 			buildConfigurationList = 3EE741111D1090DC00064BF6 /* Build configuration list for PBXProject "So Much So Little" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
 				Base,
 			);
 			mainGroup = 3EE7410D1D1090DC00064BF6;
+			packageReferences = (
+				3E3E86D127CD70EF006BB00D /* XCRemoteSwiftPackageReference "Eureka" */,
+			);
 			productRefGroup = 3EE741171D1090DC00064BF6 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
 				3EE741151D1090DC00064BF6 /* So Much So Little */,
 				3EE7412C1D1090DC00064BF6 /* So Much So LittleTests */,
+				3E156A8D22DAAAF90076AF37 /* So Much So Little UITests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		3E156A8C22DAAAF90076AF37 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		3EE741141D1090DC00064BF6 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -437,31 +527,19 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
-/* Begin PBXShellScriptBuildPhase section */
-		3ED6DF5D1D2B03850064E440 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
+/* Begin PBXSourcesBuildPhase section */
+		3E156A8A22DAAAF90076AF37 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-			);
-			inputPaths = (
-				"$(SRCROOT)/Carthage/Build/iOS/Eureka.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/Reachability.framework",
-				"$(SRCROOT)/Carthage/Build/iOS/SwiftIcons.framework",
-			);
-			outputFileListPaths = (
-			);
-			outputPaths = (
-				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Eureka.framework",
-				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/Reachability.framework",
-				"$(BUILT_PRODUCTS_DIR)/$(FRAMEWORKS_FOLDER_PATH)/SwiftIcons.framework",
+				3EF049C322DAC23B007B1E8B /* CloudKitClient_mock.swift in Sources */,
+				3EF049C022DAC1AB007B1E8B /* ActivityTableViewControllerTest.swift in Sources */,
+				3EF049C222DAC238007B1E8B /* CoreDataStack_mock.swift in Sources */,
+				3EF049C122DAC235007B1E8B /* ActivityDataSource_mock.swift in Sources */,
+				3E156A9122DAAAF90076AF37 /* So_Much_So_Little_UITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "/usr/local/bin/carthage copy-frameworks\n";
 		};
-/* End PBXShellScriptBuildPhase section */
-
-/* Begin PBXSourcesBuildPhase section */
 		3EE741121D1090DC00064BF6 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -515,7 +593,6 @@
 				3E6AEF1A216C4C1D00B55DE8 /* CoreDataStack_mock.swift in Sources */,
 				3E6AEF1C216C5B1400B55DE8 /* CloudKitClient_mock.swift in Sources */,
 				3E5AFDD22159DA9D009E4384 /* ActivityOptionTests.swift in Sources */,
-				3EF6F59C2105BA4A00BC15BC /* ActivityTableViewControllerTest.swift in Sources */,
 				3EF6F59A2105A8CE00BC15BC /* ActivityDataSource_mock.swift in Sources */,
 				3E5AFDD42159F458009E4384 /* ActivityDataSourceTests.swift in Sources */,
 			);
@@ -524,6 +601,11 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		3E156A9422DAAAF90076AF37 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 3EE741151D1090DC00064BF6 /* So Much So Little */;
+			targetProxy = 3E156A9322DAAAF90076AF37 /* PBXContainerItemProxy */;
+		};
 		3EE7412F1D1090DC00064BF6 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 3EE741151D1090DC00064BF6 /* So Much So Little */;
@@ -551,10 +633,70 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		3E156A9622DAAAF90076AF37 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = KY9W9NLJDU;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = "So Much So Little UITests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.4mfd.dev.So-Much-So-Little-UITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "So Much So Little";
+			};
+			name = Debug;
+		};
+		3E156A9722DAAAF90076AF37 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = KY9W9NLJDU;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = "So Much So Little UITests/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.4mfd.dev.So-Much-So-Little-UITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "So Much So Little";
+			};
+			name = Release;
+		};
 		3EE7413F1D1090DC00064BF6 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				BUILD_LIBRARY_FOR_DISTRIBUTION = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -574,6 +716,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -601,7 +744,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -614,6 +757,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				BUILD_LIBRARY_FOR_DISTRIBUTION = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -633,6 +778,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -653,10 +799,11 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
-				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -667,20 +814,20 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "So Much So Little/So Much So Little.entitlements";
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = KY9W9NLJDU;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "So Much So Little/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.4mfd.So-Much-So-Little";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -690,20 +837,20 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = "So Much So Little/So Much So Little.entitlements";
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = KY9W9NLJDU;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-				);
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "So Much So Little/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.4mfd.So-Much-So-Little";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
@@ -712,11 +859,16 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = KY9W9NLJDU;
 				INFOPLIST_FILE = "So Much So LittleTests/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.4mfd.So-Much-So-LittleTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/So Much So Little.app/So Much So Little";
 			};
 			name = Debug;
@@ -725,11 +877,16 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = KY9W9NLJDU;
 				INFOPLIST_FILE = "So Much So LittleTests/Info.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.4mfd.So-Much-So-LittleTests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/So Much So Little.app/So Much So Little";
 			};
 			name = Release;
@@ -737,6 +894,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		3E156A9522DAAAF90076AF37 /* Build configuration list for PBXNativeTarget "So Much So Little UITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3E156A9622DAAAF90076AF37 /* Debug */,
+				3E156A9722DAAAF90076AF37 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		3EE741111D1090DC00064BF6 /* Build configuration list for PBXProject "So Much So Little" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -765,6 +931,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		3E3E86D127CD70EF006BB00D /* XCRemoteSwiftPackageReference "Eureka" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/xmartlabs/Eureka.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.0.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		3E3E86D227CD70EF006BB00D /* Eureka */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 3E3E86D127CD70EF006BB00D /* XCRemoteSwiftPackageReference "Eureka" */;
+			productName = Eureka;
+		};
+/* End XCSwiftPackageProductDependency section */
 
 /* Begin XCVersionGroup section */
 		3E41D0F31D8DC3B2002EAD8A /* So_Much_So_Little.xcdatamodeld */ = {

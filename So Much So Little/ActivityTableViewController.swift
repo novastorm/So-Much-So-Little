@@ -9,6 +9,7 @@
 import CoreData
 import UIKit
 
+@objcMembers
 class ActivityTableViewController: UITableViewController {
     
     var activityDataSource: ActivityDataSource!
@@ -23,13 +24,26 @@ class ActivityTableViewController: UITableViewController {
     
     // MARK: - View Lifecycle
     
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
+    @objc init? (
+        coder: NSCoder?,
+        activityDataSource: ActivityDataSource_v1
+    ) {
+        self.activityDataSource = activityDataSource
         
-        tabBarItem.setIcon(icon: .fontAwesomeSolid(.signLanguage), textColor: .lightGray)
-        activityDataSource = ActivityDataSource_v1()
-        activityDataSource.delegate = self
+        if let coder = coder {
+            super.init(coder: coder)
+        }
+        else {
+            super.init()
+        }
 
+        tabBarItem.setIcon(icon: .fontAwesomeSolid(.signLanguage), textColor: .lightGray)
+    }
+    
+    convenience required init?(coder aDecoder: NSCoder) {
+        self.init(
+            coder: aDecoder,
+            activityDataSource: ActivityDataSource_v1())
     }
     
     override func viewDidLoad() {
@@ -39,6 +53,7 @@ class ActivityTableViewController: UITableViewController {
 
         navigationItem.hidesBackButton = true
         
+        activityDataSource.fetchedResultsControllerDelegate = self
         try! activityDataSource.performFetch()
         
         let longPress = UILongPressGestureRecognizer(target: self, action: #selector(longPressGestureRecognized(_:)))
@@ -60,7 +75,8 @@ class ActivityTableViewController: UITableViewController {
     
     // MARK: - Actions
     
-    @IBAction func showTimer(_ sender: Any) {
+    @IBAction
+    func showTimer(_ sender: Any) {
         tabBarController?.dismiss(animated: true, completion: nil)
     }
 
@@ -81,7 +97,7 @@ class ActivityTableViewController: UITableViewController {
     
     // MARK: - Helpers
     
-    @objc func longPressGestureRecognized(_ sender: AnyObject) {
+    func longPressGestureRecognized(_ sender: AnyObject) {
         
         // retrieve longPress details and target indexPath
         let longPress = sender as! UILongPressGestureRecognizer
@@ -129,7 +145,7 @@ class ActivityTableViewController: UITableViewController {
             
             guard let indexPath = indexPath, indexPath != moveIndexPathSource else { break }
 
-            var activityList = activityDataSource.fetchedObjects!
+            let activityList = activityDataSource.fetchedObjects!
 
             tableView.moveRow(at: moveIndexPathSource, to: indexPath)
             
@@ -181,11 +197,12 @@ class ActivityTableViewController: UITableViewController {
         return snapshot
     }
 
-    @objc func createActivity() {
+    func createActivity() {
         performSegue(withIdentifier: "CreateActivityDetail", sender: self)
     }
     
-    @objc private func refreshActivityIndexFromRemote(_ sender: Any) {
+    @objc
+    private func refreshActivityIndexFromRemote(_ sender: Any) {
         try! activityDataSource.performFetch()
         performUIUpdatesOnMain {
 //            print("\(#function)")
@@ -203,21 +220,21 @@ extension ActivityTableViewController {
         return true
     }
     
-    override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+    override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let activity = activityDataSource.object(at: indexPath)
 
         if activity.kind == .reference {
-            let referenceOption = UITableViewRowAction(style: .normal, title: "Project") { (action, activityIndexPath) in
+            let referenceOption = UIContextualAction(style: .normal, title: "Project") { (action, view, successHandler) in
 //                print("Project tapped")
             }
-            return [referenceOption]
+            return UISwipeActionsConfiguration(actions: [referenceOption])
         }
         
-        var todayOption: UITableViewRowAction!
-        var completedOption: UITableViewRowAction!
+        var todayOption: UIContextualAction!
+        var completedOption: UIContextualAction!
         
         if activity.today {
-            todayOption = UITableViewRowAction(style: .normal, title: "Postpone") { (action, activityIndexPath) in
+            todayOption = UIContextualAction(style: .normal, title: "Postpone") { (action, view, successHandler) in
 //                print("\((activityIndexPath as NSIndexPath).row): Postpone tapped")
                 activity.today = false
                 activity.todayDisplayOrder = 0
@@ -226,7 +243,7 @@ extension ActivityTableViewController {
             }
         }
         else {
-            todayOption = UITableViewRowAction(style: .normal, title: "Today") { (action, activityIndexPath) in
+            todayOption = UIContextualAction(style: .normal, title: "Today") { (action, view, successHandler) in
 //                print("\((activityIndexPath as NSIndexPath).row): Today tapped")
                 activity.today = true
                 activity.todayDisplayOrder = 0
@@ -235,7 +252,7 @@ extension ActivityTableViewController {
         }
         
         if activity.completed {
-            completedOption = UITableViewRowAction(style: .normal, title: "Reactivate") { (action, completedIndexPath) in
+            completedOption = UIContextualAction(style: .normal, title: "Reactivate") { (action, view, successHandler) in
 //                print("\((completedIndexPath as NSIndexPath).row): Reactivate tapped")
                 activity.completed = false
                 activity.displayOrder = 0
@@ -243,8 +260,8 @@ extension ActivityTableViewController {
             }
         }
         else {
-            completedOption = UITableViewRowAction(style: .normal, title: "Complete") { (action, completedIndexPath) in
-                print("\((completedIndexPath as NSIndexPath).row): Complete tapped")
+            completedOption = UIContextualAction(style: .normal, title: "Complete") { (action, view, successHandler) in
+                print("\(indexPath.row): Complete tapped")
                 activity.completed = true
                 activity.displayOrder = 0
                 activity.today = false
@@ -253,7 +270,7 @@ extension ActivityTableViewController {
             }
         }
         
-        return [todayOption, completedOption]
+        return UISwipeActionsConfiguration(actions: [todayOption, completedOption])
     }
 }
 
@@ -283,6 +300,8 @@ extension ActivityTableViewController: NSFetchedResultsControllerDelegate {
             updatedIndexPaths.append(indexPath!)
         case .update:
             updatedIndexPaths.append(indexPath!)
+        @unknown default:
+            fatalError()
         }
     }
     
@@ -312,8 +331,7 @@ extension ActivityTableViewController: NSFetchedResultsControllerDelegate {
 extension ActivityTableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        let sectionInfo = activityDataSource.sections?[section]
-        return sectionInfo?.numberOfObjects ?? 0
+        return activityDataSource.numberOfRowsInSection(section)
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

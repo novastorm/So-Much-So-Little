@@ -11,7 +11,7 @@ import UIKit
 
 @testable import So_Much_So_Little
 
-@objc
+//@objc
 class ActivityDataSource_mock: ActivityDataSource_v1 {
 
     // MARK: - Mock Properties
@@ -29,21 +29,21 @@ class ActivityDataSource_mock: ActivityDataSource_v1 {
             cloudKitClient: CloudKitClient_mock())
     }
 
-    @discardableResult
-    override func store(with options: ActivityOptions) -> Activity {
-        storeWasCalled = true
-        return super.store(with: options)
-    }
-
-    override func update(_ activity: Activity) {
-        updateWasCalled = true
-        return super.update(activity)
-    }
-
-    override func destroy(_ activity: Activity) {
-        destroyWasCalled = true
-        return super.destroy(activity)
-    }
+//    @discardableResult
+//    override func store(with options: ActivityOptions) -> Activity {
+//        storeWasCalled = true
+//        return super.store(with: options)
+//    }
+//
+//    override func update(_ activity: Activity) {
+//        updateWasCalled = true
+//        return super.update(activity)
+//    }
+//
+//    override func destroy(_ activity: Activity) {
+//        destroyWasCalled = true
+//        return super.destroy(activity)
+//    }
     
     private class SectionInfo: NSFetchedResultsSectionInfo {
         var name: String

@@ -88,7 +88,7 @@ final public class Project: NSManagedObject, CloudKitManagedObject {
 
     var cloudKitRecord: CKRecord {
         get {
-            let ckRecord = CKRecord.decodeCKRecordSystemFields(from: encodedCKRecord! as Data)
+            let ckRecord = CKRecord.decodeCKRecordSystemFields(from: encodedCKRecord! as Data)!
 
             ckRecord[Keys.Active] = active as NSNumber
             ckRecord[Keys.Completed] = completed as NSNumber
@@ -103,7 +103,7 @@ final public class Project: NSManagedObject, CloudKitManagedObject {
 //            }
             
             let activityRefList: [CKRecord.Reference] = activities.map({ (activity) -> CKRecord.Reference in
-                let ckRecordRef = CKRecord.decodeCKRecordSystemFields(from: activity.encodedCKRecord! as Data)
+                let ckRecordRef = CKRecord.decodeCKRecordSystemFields(from: activity.encodedCKRecord! as Data)!
                 return CKRecord.Reference(record: ckRecordRef, action: .none)
             })
             

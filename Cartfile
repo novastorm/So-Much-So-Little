@@ -1,3 +1,2 @@
-github "xmartlabs/Eureka" ~> 4.0
-github "ashleymills/Reachability.swift" ~> 4.1
-github "ranesr/SwiftIcons" ~> 2.2
+github "ashleymills/Reachability.swift" ~> 5.0
+github "ranesr/SwiftIcons" ~> 2.3.2

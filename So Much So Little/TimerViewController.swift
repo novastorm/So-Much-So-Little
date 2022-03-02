@@ -9,7 +9,7 @@
 import CoreData
 import UIKit
 
-struct TimerViewControllerDependencies {
+class TimerViewControllerDependencies: NSObject {
     
     var coreDataStack: CoreDataStack!
     
@@ -20,6 +20,7 @@ struct TimerViewControllerDependencies {
     }
 }
 
+@objcMembers
 class TimerViewController: UIViewController {
     
     
@@ -68,7 +69,7 @@ class TimerViewController: UIViewController {
     
     // MARK: - View Life Cycle
     
-    init?(
+    @objc init?(
         coder aDecoder: NSCoder?,
         dependencies: TimerViewControllerDependencies
         ) {
@@ -102,7 +103,7 @@ class TimerViewController: UIViewController {
         if segue.identifier == "ShowActivityTab" {
             print("ShowActivityTab")
             let tabBar = segue.destination as! UITabBarController
-            let activityTabIndex = tabBar.children.index(where: {$0.title == "Activity List"})!
+            let activityTabIndex = tabBar.children.firstIndex(where: {$0.title == "Activity List"})!
             tabBar.selectedIndex = activityTabIndex
         }
     }

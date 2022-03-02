@@ -22,7 +22,7 @@ class ConnectionMonitor
     let reachability: Reachability!
     
     init(hostname: String? = nil) {
-        reachability = (hostname == nil) ? Reachability() : Reachability(hostname: hostname!)
+        reachability = (hostname == nil) ? try! Reachability() : try! Reachability(hostname: hostname!)
         
         do{
             try reachability!.startNotifier()
@@ -50,6 +50,9 @@ class ConnectionMonitor
         case .none:
             print("Network not reachable")
             notification = Notification(name: .ConnectionMonitorNetworkNotReachableNotification, object: nil)
+        case .unavailable:
+            print("Network unavailable")
+            notification = Notification(name: .ConnectionMonitorNetworkNotReachableNotification, object: nil)
         }
         
         notificationCenter.post(notification)
@@ -60,7 +63,8 @@ class ConnectionMonitor
         case .wifi: fallthrough
         case .cellular:
             return true
-        case .none:
+        case .none: fallthrough
+        case .unavailable:
             return false
         }
     }

@@ -8,8 +8,9 @@
 
 import CoreData
 import UIKit
+import SwiftIcons
 
-struct ProjectTableViewControllerDependencies {
+class ProjectTableViewControllerDependencies: NSObject {
     
     var coreDataStack: CoreDataStack!
     
@@ -20,6 +21,7 @@ struct ProjectTableViewControllerDependencies {
     }
 }
 
+@objcMembers
 class ProjectTableViewController: UITableViewController {
     
     let dependencies: ProjectTableViewControllerDependencies!
@@ -60,7 +62,10 @@ class ProjectTableViewController: UITableViewController {
     
     // MARK: - View Life Cycle
     
-    required init?(coder aDecoder: NSCoder?, dependencies: ProjectTableViewControllerDependencies) {
+    @objc init?(
+        coder aDecoder: NSCoder?,
+        dependencies: ProjectTableViewControllerDependencies
+    ) {
         self.dependencies = dependencies
         if let aDecoder = aDecoder {
             super.init(coder: aDecoder)
@@ -173,7 +178,7 @@ class ProjectTableViewController: UITableViewController {
             
             guard let indexPath = indexPath, indexPath != moveIndexPathSource else { break }
 
-            var projectList = fetchedResultsController.fetchedObjects!
+            let projectList = fetchedResultsController.fetchedObjects!
 
             tableView.moveRow(at: moveIndexPathSource, to: indexPath)
             
@@ -291,6 +296,8 @@ extension ProjectTableViewController: NSFetchedResultsControllerDelegate {
             updatedIndexPaths.append(indexPath!)
         case .update:
             updatedIndexPaths.append(indexPath!)
+        @unknown default:
+            fatalError()
         }
     }
     

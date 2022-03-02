@@ -8,8 +8,9 @@
 
 import CoreData
 import UIKit
+import SwiftIcons
 
-struct CompletedActivityTableViewControllerDependencies {
+class CompletedActivityTableViewControllerDependencies: NSObject {
     
     var coreDataStack: CoreDataStack!
     
@@ -20,6 +21,7 @@ struct CompletedActivityTableViewControllerDependencies {
     }
 }
 
+@objcMembers
 class CompletedActivityTableViewController: UITableViewController {
     
     let dependencies: CompletedActivityTableViewControllerDependencies!
@@ -90,7 +92,7 @@ class CompletedActivityTableViewController: UITableViewController {
     
     // MARK: - View Lifecycle
     
-    required init?(
+    @objc init?(
         coder aDecoder: NSCoder?,
         dependencies: CompletedActivityTableViewControllerDependencies
         ) {
@@ -246,19 +248,20 @@ extension CompletedActivityTableViewController {
 //        print(indexPath)
 //    }
 //    
-    override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
+//    override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UIContextualAction]? {
+    override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
         let section = (indexPath as NSIndexPath).section
 
         switch ProjectSections(rawValue: section)! {
         case .activity:
             let activity = frcActivity.object(at: indexPath)
             
-            var todayOption: UITableViewRowAction!
-            var completedOption: UITableViewRowAction!
+            var todayOption: UIContextualAction!
+            var completedOption: UIContextualAction!
             
             if activity.today {
-                todayOption = UITableViewRowAction(style: .normal, title: "Postpone") { (action, activityIndexPath) in
-                    print("\((activityIndexPath as NSIndexPath).row): Postpone tapped")
+                todayOption = UIContextualAction(style: .normal, title: "Postpone") { (action, view, successHandler)  in
+                    print("\(indexPath.row): Postpone tapped")
                     activity.today = false
                     activity.todayDisplayOrder = 0
                     activity.displayOrder = 0
@@ -266,8 +269,8 @@ extension CompletedActivityTableViewController {
                 }
             }
             else {
-                todayOption = UITableViewRowAction(style: .normal, title: "Today") { (action, activityIndexPath) in
-                    print("\((activityIndexPath as NSIndexPath).row): Today tapped")
+                todayOption = UIContextualAction(style: .normal, title: "Today") { (action, view, successHandler) in
+                    print("\(indexPath.row): Today tapped")
                     activity.today = true
                     activity.todayDisplayOrder = 0
                     self.saveSharedContext()
@@ -275,16 +278,16 @@ extension CompletedActivityTableViewController {
             }
             
             if activity.completed {
-                completedOption = UITableViewRowAction(style: .normal, title: "Reactivate") { (action, completedIndexPath) in
-                    print("\((completedIndexPath as NSIndexPath).row): Reactivate tapped")
+                completedOption = UIContextualAction(style: .normal, title: "Reactivate") { (action, view, successHandler) in
+                    print("\(indexPath.row): Reactivate tapped")
                     activity.completed = false
                     activity.displayOrder = 0
                     self.saveSharedContext()
                 }
             }
             else {
-                completedOption = UITableViewRowAction(style: .normal, title: "Complete") { (action, completedIndexPath) in
-                    print("\((completedIndexPath as NSIndexPath).row): Complete tapped")
+                completedOption = UIContextualAction(style: .normal, title: "Complete") { (action, view, successHandler) in
+                    print("\(indexPath.row): Complete tapped")
                     activity.completed = true
                     activity.displayOrder = 0
                     activity.today = false
@@ -293,30 +296,30 @@ extension CompletedActivityTableViewController {
                 }
             }
             
-            return [todayOption, completedOption]
+            return UISwipeActionsConfiguration(actions: [todayOption, completedOption])
             
         case .project:
             let project = frcProject.object(at: IndexPath.init(row: indexPath.row, section: 0))
             
-            var completedOption: UITableViewRowAction!
+            var completedOption: UIContextualAction!
             
             if project.completed {
-                completedOption = UITableViewRowAction(style: .normal, title: "Reactivate") { (action, completedIndexPath) in
-                    print("\((completedIndexPath as NSIndexPath).row): Reactivate tapped")
+                completedOption = UIContextualAction(style: .normal, title: "Reactivate") { (action, view, successHandler) in
+                    print("\(indexPath.row): Reactivate tapped")
                     project.completed = false
                     project.displayOrder = 0
                     self.saveSharedContext()
                 }
             }
             else {
-                completedOption = UITableViewRowAction(style: .normal, title: "Complete") { (action, completedIndexPath) in
-                    print("\((completedIndexPath as NSIndexPath).row): Complete tapped")
+                completedOption = UIContextualAction(style: .normal, title: "Complete") { (action, view, successHandler) in
+                    print("\(indexPath.row): Complete tapped")
                     project.completed = true
                     project.displayOrder = 0
                     self.saveSharedContext()
                 }
             }
-            return [completedOption]
+            return UISwipeActionsConfiguration(actions: [completedOption])
         }
     }
 }
@@ -355,6 +358,8 @@ extension CompletedActivityTableViewController: NSFetchedResultsControllerDelega
             updatedIndexPaths.append(adjustedIndexPath!)
         case .update:
             updatedIndexPaths.append(adjustedIndexPath!)
+        @unknown default:
+            fatalError()
         }
     }
     

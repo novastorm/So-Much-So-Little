@@ -6,30 +6,39 @@
 //  Copyright © 2016 Adland Lee. All rights reserved.
 //
 
+import os
 import Foundation
 import CloudKit
 
 extension CKRecord {
     
-    class func decodeCKRecordSystemFields(from data: Data) -> CKRecord {
-        let coder = NSKeyedUnarchiver(forReadingWith: data)
+    class func decodeCKRecordSystemFields(from data: Data) -> CKRecord? {
+//        let coder = NSKeyedUnarchiver(forReadingWith: data)
+//        let copy = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(NSKeyedArchiver.archivedData(withRootObject:view, requiringSecureCoding:false))
+        
+        var coder: NSKeyedUnarchiver
+        do {
+            coder = try NSKeyedUnarchiver(forReadingFrom: data)
+        }
+        catch {
+            os_log("Could not read file.")
+            return nil
+        }
+
         let record = CKRecord(coder: coder)
         
         coder.finishDecoding()
         
-        return record!
+        return record
     }
     
     var encodedCKRecordSystemFields: Data {
         
-        let data = NSMutableData()
-        let coder = NSKeyedArchiver(forWritingWith: data)
+        let coder = NSKeyedArchiver(requiringSecureCoding: false)
         
         encodeSystemFields(with: coder)
         
-        coder.finishEncoding()
-        
-        return data as Data
+        return coder.encodedData
     }
     
 }

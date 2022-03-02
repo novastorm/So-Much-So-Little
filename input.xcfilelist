@@ -1,0 +1,3 @@
+$(SRCROOT)/Carthage/Build/iOS/Eureka.framework
+$(SRCROOT)/Carthage/Build/iOS/Reachability.framework
+$(SRCROOT)/Carthage/Build/iOS/SwiftIcons.framework

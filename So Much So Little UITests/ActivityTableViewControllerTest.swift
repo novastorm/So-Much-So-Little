@@ -57,12 +57,12 @@ class ActivityTableViewControllerTest: XCTestCase {
     override func setUp() {
         super.setUp()
 
-        let coder = NSKeyedUnarchiver(forReadingWith: Data())
-        viewController = ActivityTableViewController(coder: coder)
-        coder.finishDecoding()
-        
-        activityDataSource = ActivityDataSource_mock()
-        viewController.activityDataSource = activityDataSource
+//        let coder = NSKeyedUnarchiver(forReadingWith: Data())
+//        viewController = ActivityTableViewController(coder: coder)
+//        coder.finishDecoding()
+//        
+//        activityDataSource = ActivityDataSource_mock()
+//        viewController.activityDataSource = activityDataSource
     }
     
     override func tearDown() {
@@ -74,15 +74,17 @@ class ActivityTableViewControllerTest: XCTestCase {
         let section = 0
         
         for record in activityData[section] {
-            activityDataSource.store(with: record)
+//            activityDataSource.store(with: record)
+            activityDataSource.createActivity(with: record)
         }
         
-        activityDataSource.coreDataStack.saveMainContext()
+//        activityDataSource.coreDataStack.saveMainContext()
+        activityDataSource.save()
 
         let tableView = viewController.tableView!
         let result = viewController.tableView(tableView, numberOfRowsInSection: section)
         let targetCount = activityData[section].count
-        XCTAssertEqual(result, targetCount, "Number of rows in section \(section) was not \(targetCount)")
+        XCTAssertEqual(result, targetCount, "Number of rows in section \(section) was not \(targetCount), [\(result)]")
     }
     
     func testPerformanceExample() {

@@ -10,7 +10,7 @@ import CloudKit
 import CoreData
 import UIKit
 
-@objc
+@objcMembers
 class ActivityOptions: NSObject, Codable {
     var completed: Activity.CompletedType
     var completedDate: Activity.CompletedDateType?
@@ -235,14 +235,14 @@ final public class Activity: NSManagedObject, CloudKitManagedObject {
 
     var cloudKitRecord: CKRecord {
         get {
-            let ckRecord = CKRecord.decodeCKRecordSystemFields(from: encodedCKRecord! as Data)
+            let ckRecord = CKRecord.decodeCKRecordSystemFields(from: encodedCKRecord! as Data)!
             
             for (key, _) in self.entity.attributesByName {
                 ckRecord.setValue(value(forKey: key), forKey: key)
             }
             
             if let project = project {
-                let ckRecordRef = CKRecord.decodeCKRecordSystemFields(from: project.encodedCKRecord! as Data)
+                let ckRecordRef = CKRecord.decodeCKRecordSystemFields(from: project.encodedCKRecord! as Data)!
                 ckRecord[Keys.Project] = CKRecord.Reference(record: ckRecordRef, action: .none)
             }
             
