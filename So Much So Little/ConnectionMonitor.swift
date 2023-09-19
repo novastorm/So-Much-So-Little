@@ -7,6 +7,7 @@
 //
 
 import Reachability
+import Foundation
 
 // MARK:  - Notifications
 extension Notification.Name {

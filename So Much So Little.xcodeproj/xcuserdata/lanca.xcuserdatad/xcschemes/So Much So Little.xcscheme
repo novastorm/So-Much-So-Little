@@ -63,6 +63,16 @@
                ReferencedContainer = "container:So Much So Little.xcodeproj">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "3EFAE8AD27D00CE00054F4E9"
+               BuildableName = "So Much So LittleUITests.xctest"
+               BlueprintName = "So Much So LittleUITests"
+               ReferencedContainer = "container:So Much So Little.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction
