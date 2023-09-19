@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 53;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -63,6 +63,7 @@
 		3EF6F59A2105A8CE00BC15BC /* ActivityDataSource_mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EF6F5992105A8CE00BC15BC /* ActivityDataSource_mock.swift */; };
 		3EFAE8B127D00CE00054F4E9 /* So_Much_So_LittleUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFAE8B027D00CE00054F4E9 /* So_Much_So_LittleUITests.swift */; };
 		3EFAE8B327D00CE00054F4E9 /* So_Much_So_LittleUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFAE8B227D00CE00054F4E9 /* So_Much_So_LittleUITestsLaunchTests.swift */; };
+		7C28D36F2AB928C3007BB742 /* SoMuchSoLittleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C28D36E2AB928C3007BB742 /* SoMuchSoLittleApp.swift */; };
 		7CFDE70E2AB91F1300AF4E4A /* Reachability in Frameworks */ = {isa = PBXBuildFile; productRef = 7CFDE70D2AB91F1300AF4E4A /* Reachability */; };
 /* End PBXBuildFile section */
 
@@ -167,6 +168,7 @@
 		3EFAE8AE27D00CE00054F4E9 /* So Much So LittleUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "So Much So LittleUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		3EFAE8B027D00CE00054F4E9 /* So_Much_So_LittleUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = So_Much_So_LittleUITests.swift; sourceTree = "<group>"; };
 		3EFAE8B227D00CE00054F4E9 /* So_Much_So_LittleUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = So_Much_So_LittleUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		7C28D36E2AB928C3007BB742 /* SoMuchSoLittleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoMuchSoLittleApp.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -333,6 +335,7 @@
 				3E09777C1D11E15C00A7F2C4 /* Views */,
 				3E09777B1D11E15400A7F2C4 /* Models */,
 				3EE741191D1090DC00064BF6 /* AppDelegate.swift */,
+				7C28D36E2AB928C3007BB742 /* SoMuchSoLittleApp.swift */,
 				3EE7411D1D1090DC00064BF6 /* Main.storyboard */,
 				3E3E41B31DBA9C4400FCE6DE /* StubTest.swift */,
 				3E825F0F1D9C493100ABACCE /* TimerViewController.swift */,
@@ -444,8 +447,9 @@
 		3EE7410E1D1090DC00064BF6 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				BuildIndependentTargetsInParallel = YES;
 				LastSwiftUpdateCheck = 1320;
-				LastUpgradeCheck = 1320;
+				LastUpgradeCheck = 1430;
 				ORGANIZATIONNAME = "Adland Lee";
 				TargetAttributes = {
 					3EE741151D1090DC00064BF6 = {
@@ -539,6 +543,7 @@
 				3E7BDB811DB0B9F9006E526A /* Activity+CoreDataClass.swift in Sources */,
 				3EE7411C1D1090DC00064BF6 /* TodayTableViewController.swift in Sources */,
 				3E6AEF1E216C5E7C00B55DE8 /* ActivityCloudKitClient.swift in Sources */,
+				7C28D36F2AB928C3007BB742 /* SoMuchSoLittleApp.swift in Sources */,
 				3E0977831D12064100A7F2C4 /* GCDUtilities.swift in Sources */,
 				3E0977921D18CE3A00A7F2C4 /* SettingsTableViewController.swift in Sources */,
 				3E6C708A1FB17791008EE124 /* ConnectionMonitor.swift in Sources */,
@@ -755,7 +760,7 @@
 				DEVELOPMENT_TEAM = KY9W9NLJDU;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "So Much So Little/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -778,7 +783,7 @@
 				DEVELOPMENT_TEAM = KY9W9NLJDU;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "So Much So Little/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
