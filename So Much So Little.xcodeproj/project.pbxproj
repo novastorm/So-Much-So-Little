@@ -41,8 +41,6 @@
 		3E7D99C31D21C1BD008FA84B /* TimeboxControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E7D99C21D21C1BD008FA84B /* TimeboxControl.swift */; };
 		3E800B3D27CB7E0400FA74AF /* SwiftIcons.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E800B3A27CB7E0400FA74AF /* SwiftIcons.xcframework */; };
 		3E800B3E27CB7E0400FA74AF /* SwiftIcons.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3E800B3A27CB7E0400FA74AF /* SwiftIcons.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		3E800B4127CB7E0400FA74AF /* Reachability.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3E800B3C27CB7E0400FA74AF /* Reachability.xcframework */; };
-		3E800B4227CB7E0400FA74AF /* Reachability.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 3E800B3C27CB7E0400FA74AF /* Reachability.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		3E825F101D9C493100ABACCE /* TimerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E825F0F1D9C493100ABACCE /* TimerViewController.swift */; };
 		3E95C1C41DD5409400465222 /* TypeNameExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E95C1C31DD5409400465222 /* TypeNameExtensions.swift */; };
 		3E95C1C61DD540C000465222 /* CKRecord+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E95C1C51DD540C000465222 /* CKRecord+Extension.swift */; };
@@ -64,6 +62,8 @@
 		3EFAE8B127D00CE00054F4E9 /* So_Much_So_LittleUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFAE8B027D00CE00054F4E9 /* So_Much_So_LittleUITests.swift */; };
 		3EFAE8B327D00CE00054F4E9 /* So_Much_So_LittleUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EFAE8B227D00CE00054F4E9 /* So_Much_So_LittleUITestsLaunchTests.swift */; };
 		7C28D36F2AB928C3007BB742 /* SoMuchSoLittleApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C28D36E2AB928C3007BB742 /* SoMuchSoLittleApp.swift */; };
+		7C28D3712AB92996007BB742 /* ActivityTimerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C28D3702AB92996007BB742 /* ActivityTimerView.swift */; };
+		7C28D3732AB9541D007BB742 /* ActivityTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7C28D3722AB9541D007BB742 /* ActivityTimer.swift */; };
 		7CFDE70E2AB91F1300AF4E4A /* Reachability in Frameworks */ = {isa = PBXBuildFile; productRef = 7CFDE70D2AB91F1300AF4E4A /* Reachability */; };
 /* End PBXBuildFile section */
 
@@ -91,7 +91,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				3E800B4227CB7E0400FA74AF /* Reachability.xcframework in Embed Frameworks */,
 				3E800B3E27CB7E0400FA74AF /* SwiftIcons.xcframework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -169,6 +168,8 @@
 		3EFAE8B027D00CE00054F4E9 /* So_Much_So_LittleUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = So_Much_So_LittleUITests.swift; sourceTree = "<group>"; };
 		3EFAE8B227D00CE00054F4E9 /* So_Much_So_LittleUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = So_Much_So_LittleUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		7C28D36E2AB928C3007BB742 /* SoMuchSoLittleApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoMuchSoLittleApp.swift; sourceTree = "<group>"; };
+		7C28D3702AB92996007BB742 /* ActivityTimerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityTimerView.swift; sourceTree = "<group>"; };
+		7C28D3722AB9541D007BB742 /* ActivityTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityTimer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -176,7 +177,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				3E800B4127CB7E0400FA74AF /* Reachability.xcframework in Frameworks */,
 				3E800B3D27CB7E0400FA74AF /* SwiftIcons.xcframework in Frameworks */,
 				7CFDE70E2AB91F1300AF4E4A /* Reachability in Frameworks */,
 				3EC2BDF423CBD381009468AF /* CloudKit.framework in Frameworks */,
@@ -210,6 +210,7 @@
 				3E32A1611ECD0CBC00A9F572 /* Project+CoreDataProperties.swift */,
 				3E7BDB7C1DB0B9F9006E526A /* Timebox+CoreDataClass.swift */,
 				3E09779E1D18FA7B00A7F2C4 /* Timebox+CoreDataProperties.swift */,
+				7C28D3722AB9541D007BB742 /* ActivityTimer.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -222,6 +223,7 @@
 				3E7D99C21D21C1BD008FA84B /* TimeboxControl.swift */,
 				3E7AB58B1D333B25002F6C2D /* TimeboxControlCell.xib */,
 				3E7AB5871D333343002F6C2D /* TimeboxControlRow.swift */,
+				7C28D3702AB92996007BB742 /* ActivityTimerView.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -549,6 +551,7 @@
 				3E6C708A1FB17791008EE124 /* ConnectionMonitor.swift in Sources */,
 				3E0977A61D18FA7B00A7F2C4 /* Timebox+CoreDataProperties.swift in Sources */,
 				3E7AB57F1D31839B002F6C2D /* ActivityDetailFormViewController.swift in Sources */,
+				7C28D3732AB9541D007BB742 /* ActivityTimer.swift in Sources */,
 				3E5685F11EDCEA0C00B3D056 /* ManagedObject+CloudKitProtocol.swift in Sources */,
 				3E7BDB7F1DB0B9F9006E526A /* Timebox+CoreDataClass.swift in Sources */,
 				3EE7411A1D1090DC00064BF6 /* AppDelegate.swift in Sources */,
@@ -572,6 +575,7 @@
 				3E09777F1D11FC9200A7F2C4 /* CoreDataStack.swift in Sources */,
 				3E0977A51D18FA7B00A7F2C4 /* Activity+CoreDataProperties.swift in Sources */,
 				3ED6DF541D2AEF350064E440 /* ButtonGroup.swift in Sources */,
+				7C28D3712AB92996007BB742 /* ActivityTimerView.swift in Sources */,
 				3EE8719321D86789001DCB35 /* ActivityCoreDataDataSource.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -760,7 +764,7 @@
 				DEVELOPMENT_TEAM = KY9W9NLJDU;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "So Much So Little/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -783,7 +787,7 @@
 				DEVELOPMENT_TEAM = KY9W9NLJDU;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = "So Much So Little/Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

@@ -10,7 +10,7 @@ import UIKit
 import CloudKit
 import CoreData
 
-@UIApplicationMain
+//@UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
     
     enum Views: String {
