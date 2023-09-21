@@ -28,9 +28,10 @@ final class ActivityTimer: ObservableObject {
     }
     
     func startActivity() {
-        timer = Timer.scheduledTimer(withTimeInterval: frequency, repeats: false) { [weak self] timer in
+        timer = Timer.scheduledTimer(withTimeInterval: frequency, repeats: true) { [weak self] timer in
             self?.update()
         }
+        timerStopped = false
         timer?.tolerance = 0.1
         startDate = Date()
     }
@@ -38,7 +39,6 @@ final class ActivityTimer: ObservableObject {
     func stopActivity() {
         timer?.invalidate()
         timerStopped = true
-        timer = nil
     }
     
     nonisolated private func update() {

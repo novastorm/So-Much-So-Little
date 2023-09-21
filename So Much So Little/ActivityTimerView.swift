@@ -11,7 +11,7 @@ import SwiftUI
 
 struct ActivityTimerView: View {
     @Binding var activity: Activity?
-    @StateObject var activityTimer = ActivityTimer()
+    @StateObject var activityTimer = ActivityTimer(lengthInMinutes: 25)
     
     @State var isInProgress = false
     @State private var isPresentingInterruptView = false
@@ -68,12 +68,18 @@ struct ActivityTimerView: View {
             isPresentingInterruptView = true
         } else {
             isInProgress = true
+            activityTimer.resetActivity(
+                lengthInMinutes: 25
+            )
+            activityTimer.startActivity()
         }
     }
     
     private func stopActivity() {
-        isPresentingInterruptView = false
+        activityTimer.stopActivity()
+        activityTimer.resetActivity(lengthInMinutes: 25)
         isInProgress = false
+        isPresentingInterruptView = false
     }
     
     private func resumeActivity(withNote note: String? = nil) {
